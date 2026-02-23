@@ -1,0 +1,21 @@
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+.env
+.env.local
+
+# Frontend
+frontend/dist/
+frontend/node_modules/
+
+# Grav CMS
+cms/backup/
+cms/cache/
+cms/logs/
+cms/tmp/
+cms/user/data/
+
+# OS Files
+.DS_Store
+Thumbs.db

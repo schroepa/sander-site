@@ -1,0 +1,105 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import StatsCounter from "../components/StatsCounter.astro";
+import Solutions from "../components/Solutions.astro";
+import SmartCatering from "../components/SmartCatering.astro";
+import { getHomepage } from "../lib/grav";
+
+const page = getHomepage();
+---
+
+<Layout
+  title={page?.title ?? "Sander Catering"}
+  description={page?.hero?.subline}
+>
+  {
+    page ? (
+      <main>
+        <Hero
+          hero={page.hero!}
+          spotlightText={page.hero?.spotlight_text}
+          spotlightLineHeight={
+            page.hero?.spotlight_line_height
+              ? parseFloat(page.hero.spotlight_line_height)
+              : undefined
+          }
+          spotlightBlur={
+            page.hero?.spotlight_blur
+              ? parseFloat(page.hero.spotlight_blur)
+              : undefined
+          }
+        />
+
+        <StatsCounter data={page.stats} />
+
+        {page.solutions &&
+          page.solutions.items &&
+          page.solutions.items.length > 0 && (
+            <Solutions data={page.solutions} />
+          )}
+
+        {page.smart_catering &&
+          page.smart_catering.columns &&
+          page.smart_catering.columns.length > 0 && (
+            <SmartCatering data={page.smart_catering} />
+          )}
+
+        {/* ── Content Sections ── */}
+        {page.sections && page.sections.length > 0 && (
+          <div>
+            {page.sections.map((section, i) => (
+              <section
+                style={`
+									padding: var(--space-1000) var(--space-300);
+									background-color: ${i % 2 === 0 ? "var(--color-bg-secondary)" : "var(--color-bg-app)"};
+								`}
+              >
+                <div
+                  class="max-w-3xl mx-auto"
+                  style="display: flex; flex-direction: column; gap: var(--space-200);"
+                >
+                  <h2 style="font-family: var(--font-heading); font-size: var(--text-h2); line-height: var(--leading-h2); font-weight: var(--weight-bold); color: var(--color-text-primary);">
+                    {section.title}
+                  </h2>
+                  <p style="font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--color-text-secondary);">
+                    {section.body}
+                  </p>
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
+
+        {/* ── Markdown Body (if any) ── */}
+        {page.body && (
+          <section style="padding: var(--space-800) var(--space-300); background-color: var(--color-bg-app); color: var(--color-text-secondary);">
+            <div class="max-w-3xl mx-auto prose prose-invert">
+              <Fragment set:html={page.body} />
+            </div>
+          </section>
+        )}
+      </main>
+    ) : (
+      <main
+        class="min-h-screen flex items-center justify-center"
+        style="background-color: var(--color-bg-app); color: var(--color-text-primary);"
+      >
+        <div
+          class="text-center"
+          style="display: flex; flex-direction: column; gap: var(--space-200);"
+        >
+          <h1 style="font-family: var(--font-heading); font-size: var(--text-h1); font-weight: var(--weight-bold);">
+            Content not found
+          </h1>
+          <p style="color: var(--color-text-tertiary);">
+            Create a page at{" "}
+            <code style="background-color: var(--color-bg-secondary); padding: var(--space-050) var(--space-100); border-radius: var(--radius-100);">
+              cms/user/pages/01.home/homepage.md
+            </code>
+          </p>
+        </div>
+      </main>
+    )
+  }
+</Layout>

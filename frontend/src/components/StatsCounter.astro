@@ -1,0 +1,181 @@
+---
+/**
+ * StatsCounter – USP row with animated count-up numbers.
+ * Numbers animate from 0 → target when the section scrolls into the viewport.
+ */
+import type { StatsData } from "../lib/grav";
+
+interface StatItem {
+  value: number;
+  suffix: string;
+  separator?: boolean; // German thousands-separator (.)
+  label: string;
+}
+
+interface Props {
+  data?: StatsData;
+}
+
+const { data } = Astro.props;
+
+const defaultStats: StatItem[] = [
+  { value: 50, suffix: "+", label: "Jahre Erfahrung" },
+  { value: 250, suffix: "+", label: "Gastronomen" },
+  { value: 2500, suffix: "", separator: true, label: "Frische-Produkte" },
+  { value: 5000, suffix: "+", label: "Zufriedene Kunden" },
+];
+
+const stats: StatItem[] = data?.items?.length
+  ? data.items.map((item) => ({
+      value: Number(item.value),
+      suffix: item.suffix ?? "",
+      separator: !!item.separator,
+      label: item.label,
+    }))
+  : defaultStats;
+---
+
+<section class="stats-counter" data-stats={JSON.stringify(stats)}>
+  <div class="stats-counter__grid">
+    {
+      stats.map((stat) => (
+        <div class="stats-counter__item">
+          <span
+            class="stats-counter__number"
+            data-target={stat.value}
+            data-suffix={stat.suffix}
+            data-separator={stat.separator ? "true" : "false"}
+          >
+            0{stat.suffix}
+          </span>
+          <span class="stats-counter__label">{stat.label}</span>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  .stats-counter {
+    background-color: var(--color-bg-secondary);
+    border-top: 1px solid var(--color-stroke-brand-medium);
+    border-bottom: 1px solid var(--color-stroke-brand-medium);
+    padding: var(--space-500) var(--space-1000);
+  }
+
+  .stats-counter__grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-500);
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  .stats-counter__item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-100);
+    width: 228px;
+    text-align: center;
+  }
+
+  .stats-counter__number {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-black);
+    font-size: var(--text-h1);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    letter-spacing: 0;
+    display: block;
+  }
+
+  .stats-counter__label {
+    font-family: var(--font-body);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.5px;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .stats-counter {
+      padding: var(--space-500) var(--space-300);
+    }
+
+    .stats-counter__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--space-500);
+    }
+
+    .stats-counter__item {
+      width: 100%;
+    }
+
+    .stats-counter__number {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+  }
+</style>
+
+<script>
+  function formatNumber(n: number, useSeparator: boolean): string {
+    if (!useSeparator) return n.toString();
+    // German format: 2.500
+    return n.toLocaleString("de-DE");
+  }
+
+  function animateCounters(section: Element) {
+    const numbers = section.querySelectorAll<HTMLElement>(
+      ".stats-counter__number",
+    );
+    const duration = 2000; // ms
+
+    numbers.forEach((el) => {
+      const target = parseInt(el.dataset.target ?? "0", 10);
+      const suffix = el.dataset.suffix ?? "";
+      const useSeparator = el.dataset.separator === "true";
+
+      let start: number | null = null;
+
+      function step(timestamp: number) {
+        if (!start) start = timestamp;
+        const progress = Math.min((timestamp - start) / duration, 1);
+
+        // Ease-out cubic for a satisfying deceleration
+        const eased = 1 - Math.pow(1 - progress, 3);
+        const current = Math.round(eased * target);
+
+        el.textContent = formatNumber(current, useSeparator) + suffix;
+
+        if (progress < 1) {
+          requestAnimationFrame(step);
+        }
+      }
+
+      requestAnimationFrame(step);
+    });
+  }
+
+  // IntersectionObserver – trigger once when ≥20% visible
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCounters(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.2 },
+  );
+
+  document.querySelectorAll(".stats-counter").forEach((section) => {
+    observer.observe(section);
+  });
+</script>
