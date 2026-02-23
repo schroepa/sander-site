@@ -1,0 +1,74 @@
+---
+import HeroCanvas from "./HeroCanvas";
+import type { HeroData } from "../lib/grav";
+
+interface Props {
+  hero: HeroData;
+  spotlightText?: string;
+  spotlightLineHeight?: number;
+  spotlightBlur?: number;
+}
+
+const {
+  hero,
+  spotlightText = "SMART\nCATERING",
+  spotlightLineHeight = 0.9,
+  spotlightBlur = 5,
+} = Astro.props;
+---
+
+<section
+  class="relative min-h-screen flex items-center justify-center"
+  style="background-color: var(--color-bg-app); color: var(--color-text-primary);"
+>
+  {/* WebGL background canvas */}
+  <HeroCanvas
+    client:load
+    text={spotlightText}
+    spotlightSize={350}
+    lineHeight={spotlightLineHeight}
+    textBlur={spotlightBlur}
+    spotlightSoftness={50}
+  />
+
+  {/* Foreground content */}
+  <div
+    class="relative z-10 text-center max-w-3xl px-6 pointer-events-none"
+    style="display: flex; flex-direction: column; gap: var(--space-300);"
+  >
+    <h1
+      class="font-black tracking-tight leading-tight"
+      style="font-family: var(--font-heading); font-size: var(--text-h1); line-height: var(--leading-h1); font-weight: var(--weight-black);"
+    >
+      {hero.headline}
+    </h1>
+    {
+      hero.subline && (
+        <p style="font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--color-text-secondary);">
+          {hero.subline}
+        </p>
+      )
+    }
+    {
+      hero.cta_text && (
+        <a
+          href={hero.cta_link ?? "#"}
+          class="pointer-events-auto inline-block transition-opacity duration-200 hover:opacity-90"
+          style={`
+                        margin-top: var(--space-200);
+                        padding: var(--space-150) var(--space-500);
+                        background-color: var(--color-btn-primary-bg);
+                        color: var(--color-btn-primary-text);
+                        font-family: var(--font-action);
+                        font-size: var(--text-action-lg);
+                        font-weight: var(--weight-medium);
+                        border-radius: var(--radius-rounded);
+                        box-shadow: var(--shadow-m);
+                    `}
+        >
+          {hero.cta_text}
+        </a>
+      )
+    }
+  </div>
+</section>

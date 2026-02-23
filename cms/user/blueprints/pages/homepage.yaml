@@ -1,0 +1,248 @@
+title: Homepage
+"@extends":
+  type: default
+  context: "blueprints://pages"
+
+form:
+  fields:
+    tabs:
+      type: tabs
+      active: 1
+
+      fields:
+        content:
+          type: tab
+          title: Content
+
+          fields:
+            # ── Hero ──
+            hero_section:
+              type: section
+              title: "🎬 Hero"
+              underline: true
+
+            header.hero.headline:
+              type: text
+              label: Hero Headline
+              placeholder: "z.B. Premium Catering für jeden Anlass"
+              validate:
+                required: true
+
+            header.hero.spotlight_text:
+              type: textarea
+              label: Spotlight Background Text
+              placeholder: "SMART\nCATERING"
+              help: "Großer Text im Hintergrund. Neue Zeile = Zeilenumbruch."
+              rows: 2
+
+            header.hero.spotlight_line_height:
+              type: text
+              label: Spotlight Line Height
+              placeholder: "0.9"
+              help: "Zeilenhöhe des Spotlight-Texts (z.B. 0.8 = enger, 1.0 = normal)"
+              default: "0.9"
+
+            header.hero.spotlight_blur:
+              type: text
+              label: Spotlight Text Blur
+              placeholder: "5"
+              help: "Unschärfe des Hintergrundtexts in Pixel (z.B. 3 = wenig, 8 = stark)"
+              default: "5"
+
+            header.hero.spotlight_softness:
+              type: text
+              label: Spotlight Light Softness
+              placeholder: "50"
+              help: "Weichheit des Lichtkegels 0–100 (0 = scharf, 100 = sehr weich)"
+              default: "50"
+
+            header.hero.subline:
+              type: text
+              label: Hero Subline
+              placeholder: "z.B. Qualität, die man schmeckt"
+
+            header.hero.cta_text:
+              type: text
+              label: Call-to-Action Button Text
+              placeholder: "z.B. Jetzt anfragen"
+
+            header.hero.cta_link:
+              type: text
+              label: Call-to-Action Link
+              placeholder: "#kontakt"
+
+            # ── Stats / Kennzahlen ──
+            stats_section:
+              type: section
+              title: "📊 Kennzahlen"
+              underline: true
+
+            header.stats.items:
+              type: list
+              label: Kennzahlen
+              style: vertical
+              fields:
+                .value:
+                  type: number
+                  label: Zahlenwert
+                  placeholder: "50"
+                  validate:
+                    required: true
+
+                .suffix:
+                  type: text
+                  label: Suffix
+                  placeholder: "+"
+                  help: "Zeichen nach der Zahl, z.B. '+' oder '%'"
+
+                .separator:
+                  type: toggle
+                  label: Tausender-Trennzeichen
+                  highlight: 1
+                  default: 0
+                  options:
+                    1: Ja
+                    0: Nein
+                  help: "Aktivieren für Zahlen wie 2.500"
+
+                .label:
+                  type: text
+                  label: Bezeichnung
+                  placeholder: "Jahre Erfahrung"
+                  validate:
+                    required: true
+
+            # ── Solutions ──
+            solutions_section:
+              type: section
+              title: "✅ Herausforderungen & Lösungen"
+              underline: true
+
+            header.solutions.headline:
+              type: text
+              label: Section Headline
+              placeholder: "Deine Herausforderung - Unsere Lösungen"
+
+            header.solutions.subline:
+              type: text
+              label: Section Subline
+              placeholder: "Hier werden Sie geholfen"
+
+            header.solutions.items:
+              type: list
+              label: Challenge / Solution Pairs
+              style: vertical
+              fields:
+                .challenge_title:
+                  type: text
+                  label: Challenge Title
+                  placeholder: "z.B. Küche kaputt oder nicht vorhanden?"
+
+                .challenge_text:
+                  type: textarea
+                  label: Challenge Description
+                  rows: 2
+                  placeholder: "Beschreiben Sie die Herausforderung"
+
+                .solution_title:
+                  type: text
+                  label: Solution Title
+                  placeholder: "z.B. Smart Catering fängt genau das ab."
+
+                .solution_text:
+                  type: textarea
+                  label: Solution Description
+                  rows: 2
+                  placeholder: "Beschreiben Sie die Lösung"
+
+            # ── Content Sections ──
+            content_sections:
+              type: section
+              title: "📝 Content Sections"
+              underline: true
+
+            header.sections:
+              type: list
+              label: Content Sections
+              style: vertical
+              fields:
+                .title:
+                  type: text
+                  label: Section Title
+
+                .body:
+                  type: textarea
+                  label: Section Content
+                  rows: 5
+
+                .image:
+                  type: filepicker
+                  label: Section Image (optional)
+                  folder: "user://pages/01.home"
+                  accept:
+                    - image/*
+
+            # ── Smart Catering ──
+            smart_catering_section:
+              type: section
+              title: "🧑‍🍳 Smart Catering"
+              underline: true
+
+            header.smart_catering.headline:
+              type: text
+              label: Section Headline
+              placeholder: "Verantwortung & Entscheidungsdruck"
+
+            header.smart_catering.title:
+              type: text
+              label: Section Title
+              placeholder: "SMART CATERING"
+
+            header.smart_catering.subline:
+              type: text
+              label: Section Subline
+              placeholder: "Intelligent gelöst. Köstlich geliefert."
+
+            header.smart_catering.columns:
+              type: list
+              label: Columns
+              style: vertical
+              fields:
+                .title:
+                  type: text
+                  label: Column Title
+                  placeholder: "z.B. Smart Catering"
+
+                .subline:
+                  type: text
+                  label: Column Subtitle
+                  placeholder: "z.B. Hauptverpflegung"
+
+                .accordions:
+                  type: list
+                  label: Accordions
+                  style: vertical
+                  fields:
+                    .title:
+                      type: text
+                      label: Accordion Title
+                      placeholder: "z.B. Menükompositionen"
+
+                    .content:
+                      type: textarea
+                      label: Description Content (Optional)
+                      rows: 3
+
+                    .cards:
+                      type: list
+                      label: Nested Cards (Optional)
+                      style: vertical
+                      fields:
+                        .title:
+                          type: text
+                          label: Card Title
+
+                        .text:
+                          type: textarea
+                          label: Card Text
+                          rows: 3
