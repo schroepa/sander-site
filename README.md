@@ -1,6 +1,6 @@
 # Sander-Catering Onepager
 
-![alt text](assets/sander-smart-catering-hero-bg.pngsander-smart-catering-hero-bg.png)
+![alt text](assets/sander-smart-catering-hero-bg.png)
 
 This repository contains the source code for the **Sander-Catering Onepager** website.
 
