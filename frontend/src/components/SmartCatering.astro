@@ -1,4 +1,5 @@
 ---
+import { marked } from "marked";
 import type { SmartCateringData } from "../lib/grav";
 
 interface Props {
@@ -8,7 +9,7 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<section class="smart-catering">
+<section class="smart-catering" id="smart-catering">
   <div class="smart-catering__inner">
     <div class="smart-catering__header">
       {data.headline && <p class="smart-catering__headline">{data.headline}</p>}
@@ -28,8 +29,11 @@ const { data } = Astro.props;
             </div>
 
             <div class="smart-catering__accordions">
-              {column.accordions?.map((accordion) => (
-                <div class="smart-catering__accordion group">
+              {column.accordions?.map((accordion, accIndex) => (
+                <div
+                  class="smart-catering__accordion group"
+                  id={`smart-${accIndex + 1}`}
+                >
                   <button
                     class="smart-catering__accordion-summary"
                     aria-expanded="false"
@@ -59,9 +63,10 @@ const { data } = Astro.props;
                     <div class="smart-catering__accordion-content">
                       <div class="smart-catering__accordion-inner">
                         {accordion.content && (
-                          <p class="smart-catering__accordion-text">
-                            {accordion.content}
-                          </p>
+                          <div
+                            class="smart-catering__accordion-text markdown-content"
+                            set:html={marked.parse(accordion.content)}
+                          />
                         )}
                         {accordion.cards && accordion.cards.length > 0 && (
                           <div class="smart-catering__cards">
@@ -129,7 +134,6 @@ const { data } = Astro.props;
   }
 
   .smart-catering__inner {
-    max-width: 1200px;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
@@ -180,6 +184,8 @@ const { data } = Astro.props;
     display: flex;
     gap: var(--space-500);
     align-items: flex-start;
+    margin: 0 auto;
+    width: 100%;
   }
 
   .smart-catering__column {
@@ -300,7 +306,83 @@ const { data } = Astro.props;
     color: var(--color-text-secondary);
     letter-spacing: 0.25px;
     margin: 0;
-    white-space: pre-wrap;
+  }
+
+  /* ─── Markdown Content Styles ─── */
+  .markdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+  }
+
+  .markdown-content :global(p) {
+    margin: 0;
+  }
+
+  .markdown-content :global(strong),
+  .markdown-content :global(b) {
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+  }
+
+  .markdown-content :global(em),
+  .markdown-content :global(i) {
+    font-style: italic;
+  }
+
+  .markdown-content :global(ul) {
+    list-style-position: outside;
+    list-style-type: disc !important;
+    padding-left: 1.25rem !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  .markdown-content :global(ol) {
+    list-style-position: outside;
+    list-style-type: decimal !important;
+    padding-left: 1.25rem !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  .markdown-content :global(li) {
+    margin: 0;
+    display: list-item;
+  }
+
+  .markdown-content :global(h1),
+  .markdown-content :global(h2),
+  .markdown-content :global(h3),
+  .markdown-content :global(h4),
+  .markdown-content :global(h5),
+  .markdown-content :global(h6) {
+    font-family: var(--font-heading);
+    color: var(--color-text-primary);
+    margin: var(--space-200) 0 var(--space-100) 0;
+  }
+
+  .markdown-content :global(h3) {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-h5);
+    line-height: var(--leading-h5);
+  }
+
+  .markdown-content :global(h4) {
+    font-weight: var(--weight-bold);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+  }
+
+  .markdown-content :global(img) {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-200);
+    margin: var(--space-200) 0;
   }
 
   /* ─── Nested Cards ─── */
@@ -319,7 +401,7 @@ const { data } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: var(--space-100);
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .smart-catering__card-title {
