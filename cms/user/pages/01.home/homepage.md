@@ -67,40 +67,72 @@ smart_catering:
     columns:
         -
             title: 'Smart Catering'
-            subline: Hauptverpflegung
+            subline: 'Hauptverpflegung mit Struktur, Steuerbarkeit und Verantwortung'
             accordions:
                 -
-                    title: 'Digitalisierung & Innovation'
-                    content: 'Mit digitalen Lösungen für die Zukunft des Mitarbeiter Restaurants'
+                    title: 'Vielfalt, die planbar bleibt'
+                    content: "<p><span style=\"font-weight: 400;\">Eine Entscheidung f&uuml;r Betriebsgastronomie darf nicht im Tagesgesch&auml;ft unkontrollierbar werden. </span><span style=\"font-weight: 400;\">Deshalb ist die Hauptverpflegung bei Sander klar strukturiert. </span><span style=\"font-weight: 400;\">Smart Catering organisiert die kulinarische Vielfalt &uuml;ber definierte Men&uuml;linien:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Regionale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Internationale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Mediterrane K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Vegetarisch &amp; Vegan</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Pizza &amp; Pasta</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Suppen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Beilagen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Salat-Bar</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Desserts</span><span style=\"font-weight: 400;\"><br /></span></li>\n</ul>\n<p><strong>Jede Linie folgt zentral entwickelten Rezepturen, gepr&uuml;ften Rohwarenstandards und klaren Qualit&auml;tsvorgaben.<br />So bleibt Vielfalt steuerbar, reproduzierbar und wirtschaftlich kalkulierbar &ndash; auch &uuml;ber Standorte hinweg.</strong></p>"
+                -
+                    title: 'Sicher starten & ohne operative Reibung'
+                    content: "<p><span style=\"font-weight: 400;\">Die Einf&uuml;hrung einer neuen Betriebsgastronomie ist eine organisatorische und rechtliche Verantwortung. </span><span style=\"font-weight: 400;\">Smart Catering wird deshalb in klar definierten Phasen implementiert:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Planung &amp; Koordination ca. 3 Monate vor Er&ouml;ffnung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Operative und technische Vorbereitung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Strukturierter Teamaufbau</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Implementierung aller Qualit&auml;ts- und Reporting-Standards</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coldrun vor Inbetriebnahme</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Personal, Lieferanten, Technik und Prozesse sind vor dem ersten Betriebstag vollst&auml;ndig vorbereitet.</span></p>\n<p><span style=\"font-weight: 400;\">Der &Uuml;bergang in den Regelbetrieb erfolgt strukturiert und rechtssicher &ndash; auch bei Betreiberwechseln nach &sect; 613a BGB.</span></p>"
+                -
+                    title: 'Kontrolle ohne Bürokratie'
+                    content: '<p><span style="font-weight: 400;">Verantwortung braucht Transparenz &ndash; aber ohne zus&auml;tzlichen Verwaltungsaufwand. </span><span style="font-weight: 400;">Digitale Systeme sind integraler Bestandteil von Smart Catering</span></p>'
                     cards:
                         -
-                            title: 'Smart Catering APP'
-                            text: 'Digitales Gästemanagement bündelt digitale Speisepläne, Reservierung, Feedback, App- bzw. Web-Portal-Lösungen & mehr.'
+                            title: 'Smart Catering App'
+                            text: 'Digitale Speisepläne, Reservierung, Feedback und Web-Portal-Lösungen'
                         -
                             title: 'Smarte Kassen'
-                            text: 'Cloudbasiertes Kassensystem mit integriertem bargeldlosem Bezahlen, Mitarbeiterzuschüssen, Self-Service und Echtzeit-Reporting.'
+                            text: 'Bargeldloses Bezahlen, Mitarbeiterzuschüsse, Self-Service und Echtzeit-Reporting'
+                        -
+                            title: 'Smarte Warenwirtschaft'
+                            text: 'Einkaufs- und Produktionsplanung inkl. Allergen-Kennzeichnung und Controlling'
+                        -
+                            title: CO₂-Bilanzierung
+                            text: 'Messung des ökologischen Fußabdrucks von Lebensmitteln'
+                        -
+                            title: 'Digitales HACCP'
+                            text: 'Automatisierte Hygiene-Kontrollen und Dokumentation'
                 -
-                    title: 'Verlässliche Teams. Systemisch abgesichert.'
-                    content: null
-                -
-                    title: 'Weniger Verwaltungsaufwand. Mehr Kontrolle.'
-                    content: null
-                -
-                    title: 'Planbare Vielfalt statt kulinarischer Beliebigkeit'
-                    content: null
-                -
-                    title: 'Weniger Verwaltungsaufwand. Mehr Kontrolle – Digitalisierung & Innovation'
-                    content: null
+                    title: 'Gastgeber-Mentalität mit System'
+                    content: "<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Verl&auml;ssliche Teams. Systemisch abgesichert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Stabile Teams statt Personalrisiko</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Gastgeber-Mentalit&auml;t mit System</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Professionelle Teams. Stabil organisiert.</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Betriebssicherheit h&auml;ngt von qualifizierten und strukturiert gef&uuml;hrten Teams ab.</span></p>\n<p><strong>Sander &uuml;bernimmt:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Rekrutierung und Teamaufbau</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Fachliche Schulung und kontinuierliche Weiterbildung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coaching durch Gebietsleiter</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Rechtssichere &Uuml;bernahme bestehender Arbeitsverh&auml;ltnisse</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Die Mitarbeitenden verf&uuml;gen &uuml;ber fachliche Qualifikation, Serviceorientierung und gelebte Gastgebermentalit&auml;t. </span><span style=\"font-weight: 400;\">Einheitliche, moderne und nachhaltige Mitarbeiter-Outfits sorgen f&uuml;r Professionalit&auml;t und klare Wiedererkennbarkeit im Betrieb.</span></p>\n<p><strong>Auch in Zeiten des Fachkr&auml;ftemangels bleibt der Betrieb stabil, da Planung, Rezepturentwicklung und Produktionssteuerung zentral in der Frische-Manufaktur erfolgen.</strong></p>"
         -
             title: 'Smart Catering Plus'
             subline: Zusatzmodule
             accordions:
                 -
-                    title: Café
-                    content: "What is Lorem Ipsum?\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                    title: 'Café-Konzepte nach Bedarf'
+                    content: '<p><span style="font-weight: 400;">F&uuml;r Betriebe, die Aufenthaltsqualit&auml;t, kurze Wege und hochwertige Kaffeeangebote als Teil ihrer Arbeitgeberattraktivit&auml;t verstehen.</span></p>'
+                    cards:
+                        -
+                            title: Kaffeemaschine
+                            text: 'Großvollautomat für schnelle, zuverlässige Selbstversorgung im Arbeitsalltag: platzsparend, wartungsarm und ohne Personalbindung.'
+                        -
+                            title: 'Kaffee- & Teeküche'
+                            text: 'Kompakte Basisausstattung mit Kaffee, Tee und Wasserangebot für kurze Pausen und eine verlässliche Grundversorgung im Betrieb.'
+                        -
+                            title: Barista-Bar
+                            text: 'Siebträgermaschine und Service schaffen Café-Atmosphäre, stärken Begegnung und erhöhen die Aufenthaltsqualität im Unternehmen.'
+                        -
+                            title: Cafeteria
+                            text: 'Großzügige Lösung mit Sitzbereichen, Snacks und Service – zentraler Treffpunkt für Mitarbeitende und Gäste.'
                 -
-                    title: Konferenz-Service
-                    content: "What is Lorem Ipsum?\nLorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum."
+                    title: 'Professionelle Meeting- & Konferenz-Verpflegung'
+                    content: "<p><span style=\"font-weight: 400;\">Digitale Bestellung und strukturierte Umsetzung sichern eine professionelle Meeting- und Konferenz-Verpflegung ohne internen Abstimmungsaufwand.</span></p>\n<p><strong>Bestellprozess:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Digital ausw&auml;hlen:</strong><span style=\"font-weight: 400;\"> Speisen und Getr&auml;nke aus dem zentralen Konferenz-Katalog zusammenstellen.</span><span style=\"font-weight: 400;\"><br /></span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Smart bestellen:</strong><span style=\"font-weight: 400;\"> Bequem &uuml;ber die Sander-App: transparent dokumentiert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Servieren lassen:</strong> Bereitstellung und Service erfolgen zuverl&auml;ssig durch das zust&auml;ndige Team vor Ort.</li>\n</ul>"
+                -
+                    title: 'Zwischenverpflegung im Arbeitsalltag – Snacking-Konzepte'
+                    content: "<p>&nbsp;</p>\n<p><strong>Flexible Versorgung, die sich dem Arbeitsrhythmus anpasst &ndash; vom ersten Kaffee bis zum sp&auml;ten Energie-Boost.</strong></p>"
+                    cards:
+                        -
+                            title: 'Morgens – Kraftvoll in den Tag starten'
+                            text: 'Frühstücksoptionen, Bowls, belegte Backwaren und Getränke für einen schnellen, motivierenden Start.'
+                        -
+                            title: 'Mittags – Schnell, flexibel, eigenständig'
+                            text: 'Leichte, kombinierbare Gerichte für kurze Pausen oder als Alternative zur Kantine.'
+                        -
+                            title: 'Nachmittags – Energie & Begegnung'
+                            text: 'Süße und herzhafte Snacks für Energie, Begegnung und produktive Auszeiten.'
 stats:
     items:
         -
@@ -123,6 +155,11 @@ stats:
             suffix: +
             separator: '1'
             label: 'Zufriedene Kunden'
+cta:
+    headline: 'Welche Module benötigtst du?'
+    copy: 'Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden.'
+    button_text: 'Jetzt Kontakt aufnehmen'
+    button_link: '#'
 ---
 
-Willkommen bei Sander Catering. Wir machen Ihr Event zu einem kulinarischen Erlebnis.
+<p>Willkommen bei Sander Catering. Wir machen Ihr Event zu einem kulinarischen Erlebnis.</p>

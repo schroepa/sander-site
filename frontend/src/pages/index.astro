@@ -4,6 +4,7 @@ import Hero from "../components/Hero.astro";
 import StatsCounter from "../components/StatsCounter.astro";
 import Solutions from "../components/Solutions.astro";
 import SmartCatering from "../components/SmartCatering.astro";
+import CtaSection from "../components/CtaSection.astro";
 import { getHomepage } from "../lib/grav";
 
 const page = getHomepage();
@@ -44,6 +45,8 @@ const page = getHomepage();
           page.smart_catering.columns.length > 0 && (
             <SmartCatering data={page.smart_catering} />
           )}
+
+        {page.cta && <CtaSection data={page.cta} />}
 
         {/* ── Content Sections ── */}
         {page.sections && page.sections.length > 0 && (

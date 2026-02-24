@@ -8,7 +8,7 @@ interface Props {
 const { data } = Astro.props;
 ---
 
-<section class="solutions" id="solutions">
+<section class="solutions" id="loesungen">
   <div class="solutions__headings">
     <h2 class="solutions__headline">{data.headline}</h2>
     {data.subline && <p class="solutions__subline">{data.subline}</p>}
@@ -16,8 +16,15 @@ const { data } = Astro.props;
 
   <div class="solutions__container">
     {
-      data.items.map((item) => (
-        <div class="solutions__row">
+      data.items.map((item, index) => (
+        <div
+          class="solutions__row"
+          id={
+            item.solution_title.toLowerCase().includes("frische")
+              ? "frische-manufaktur"
+              : `loesung-${index + 1}`
+          }
+        >
           {/* Challenge Card */}
           <div class="solutions__card solutions__card--challenge">
             <p class="solutions__card-title">{item.challenge_title}</p>
@@ -124,7 +131,6 @@ const { data } = Astro.props;
     display: flex;
     flex-direction: column;
     gap: 16px;
-    max-width: 1200px;
     margin: 0 auto;
     overflow: visible;
   }
@@ -140,7 +146,6 @@ const { data } = Astro.props;
   /* ─── Cards ─── */
   .solutions__card {
     flex: 1 1 0;
-    max-width: 640px;
     display: flex;
     flex-direction: column;
     gap: 8px;
@@ -284,7 +289,6 @@ const { data } = Astro.props;
     }
 
     .solutions__card {
-      max-width: 100%;
       border-radius: 16px;
     }
 

@@ -90,6 +90,14 @@ export interface SmartCateringData {
     columns: SmartCateringColumn[];
 }
 
+/** Call to Action section data */
+export interface CtaData {
+    headline?: string;
+    copy?: string;
+    button_text?: string;
+    button_link?: string;
+}
+
 /** Full page data returned from a Grav content file */
 export interface GravPage {
     title: string;
@@ -98,6 +106,7 @@ export interface GravPage {
     solutions?: SolutionsData;
     stats?: StatsData;
     smart_catering?: SmartCateringData;
+    cta?: CtaData;
     /** Raw markdown body content (below the frontmatter) */
     body: string;
     /** All frontmatter data as-is */
@@ -129,6 +138,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         solutions: data.solutions ?? undefined,
         stats: data.stats ?? undefined,
         smart_catering: data.smart_catering ?? undefined,
+        cta: data.cta ?? undefined,
         body: content.trim(),
         raw: data,
     };

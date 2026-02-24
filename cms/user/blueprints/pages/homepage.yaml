@@ -260,9 +260,8 @@ form:
                       placeholder: "z.B. Menükompositionen"
 
                     .content:
-                      type: textarea
+                      type: tinymce
                       label: Description Content (Optional)
-                      rows: 3
 
                     .cards:
                       type: list
@@ -277,3 +276,30 @@ form:
                           type: textarea
                           label: Card Text
                           rows: 3
+
+            # ── Call to Action ──
+            cta_section:
+              type: section
+              title: "📣 Call to Action"
+              underline: true
+
+            header.cta.headline:
+              type: text
+              label: Section Headline
+              placeholder: "Welche Module benötigst du?"
+
+            header.cta.copy:
+              type: textarea
+              label: Section Copy Text
+              rows: 3
+              placeholder: "Reibungslose Implementierung mit Personalmanagement..."
+
+            header.cta.button_text:
+              type: text
+              label: Button Text
+              placeholder: "Jetzt Kontakt aufnehmen"
+
+            header.cta.button_link:
+              type: text
+              label: Button Link
+              placeholder: "#kontakt"
