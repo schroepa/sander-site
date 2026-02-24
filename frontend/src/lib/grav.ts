@@ -28,6 +28,10 @@ export interface HeroData {
     spotlight_softness?: string;
     cta_text?: string;
     cta_link?: string;
+    show_cta?: boolean | string | number;
+    headline_scale?: string;
+    subline_scale?: string;
+    headline_subline_spacing?: string;
 }
 
 /** A single challenge/solution pair */

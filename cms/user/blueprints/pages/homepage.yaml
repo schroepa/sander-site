@@ -61,6 +61,16 @@ form:
               label: Hero Subline
               placeholder: "z.B. Qualität, die man schmeckt"
 
+            header.hero.show_cta:
+              type: toggle
+              label: Show Call-to-Action Toggle
+              highlight: 1
+              default: 0
+              options:
+                1: Ja
+                0: Nein
+              help: "Schaltet den Call-to-Action Button unten im Hero an oder aus"
+
             header.hero.cta_text:
               type: text
               label: Call-to-Action Button Text
@@ -70,6 +80,27 @@ form:
               type: text
               label: Call-to-Action Link
               placeholder: "#kontakt"
+
+            header.hero.headline_scale:
+              type: text
+              label: Headline Scale
+              placeholder: "1.0"
+              help: "Vergrößert/verkleinert die Überschrift (z.B. 1.2 für 20% größer). Bleibt responsive."
+              default: "1.0"
+
+            header.hero.subline_scale:
+              type: text
+              label: Subline Scale
+              placeholder: "1.0"
+              help: "Vergrößert/verkleinert die Unterüberschrift (z.B. 0.8 für 20% kleiner). Bleibt responsive."
+              default: "1.0"
+
+            header.hero.headline_subline_spacing:
+              type: text
+              label: Spacing between Headline and Subline
+              placeholder: "1.5"
+              help: "Abstand zwischen der Überschrift und Unterüberschrift in rem. (z.B. 1.5 oder 2)"
+              default: "1.5"
 
             # ── Stats / Kennzahlen ──
             stats_section:
