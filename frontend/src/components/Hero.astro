@@ -15,13 +15,18 @@ const {
   spotlightLineHeight = 0.9,
   spotlightBlur = 5,
 } = Astro.props;
+
+const headlineScale = hero.headline_scale ?? 1;
+const sublineScale = hero.subline_scale ?? 1;
+const gapSpacing = hero.headline_subline_spacing ?? 1.5;
 ---
 
 <section
   class="relative min-h-screen flex items-center justify-center"
   style="background-color: var(--color-bg-app); color: var(--color-text-primary);"
 >
-  {/* WebGL background canvas */}
+  {
+    /* WebGL background canvas
   <HeroCanvas
     client:load
     text={spotlightText}
@@ -30,31 +35,78 @@ const {
     textBlur={spotlightBlur}
     spotlightSoftness={50}
   />
+  */
+  }
+
+  <div
+    class="absolute inset-0 z-0 overflow-hidden"
+    style="width: 100%; height: 100%; pointer-events: none;"
+  >
+    <div
+      data-us-project="YoRvK6JkwQemA7zPCjiJ"
+      style="width:100%; height: 100%"
+    >
+    </div>
+    <script type="text/javascript" is:inline>
+      !(function () {
+        var u = window.UnicornStudio;
+        if (u && u.init) {
+          if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", function () {
+              u.init();
+            });
+          } else {
+            u.init();
+          }
+        } else {
+          window.UnicornStudio = { isInitialized: !1 };
+          var i = document.createElement("script");
+          ((i.src =
+            "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js"),
+            (i.onload = function () {
+              if (document.readyState === "loading") {
+                document.addEventListener("DOMContentLoaded", function () {
+                  UnicornStudio.init();
+                });
+              } else {
+                UnicornStudio.init();
+              }
+            }),
+            (document.head || document.body).appendChild(i));
+        }
+      })();
+    </script>
+  </div>
 
   {/* Foreground content */}
   <div
     class="relative z-10 text-center max-w-3xl px-6 pointer-events-none"
-    style="display: flex; flex-direction: column; gap: var(--space-300);"
+    style={`display: flex; flex-direction: column; gap: ${gapSpacing}rem;`}
   >
     <h1
       class="font-black tracking-tight leading-tight"
-      style="font-family: var(--font-heading); font-size: var(--text-h1); line-height: var(--leading-h1); font-weight: var(--weight-black);"
+      style={`font-family: var(--font-heading); font-size: calc(var(--text-h1) * ${headlineScale}); line-height: var(--leading-h1); font-weight: var(--weight-black);`}
     >
       {hero.headline}
     </h1>
     {
       hero.subline && (
-        <p style="font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--color-text-secondary);">
+        <p
+          style={`font-family: var(--font-body); font-size: calc(var(--text-body-lg) * ${sublineScale}); line-height: var(--leading-body-lg); color: var(--color-text-secondary);`}
+        >
           {hero.subline}
         </p>
       )
     }
     {
-      hero.cta_text && (
-        <a
-          href={hero.cta_link ?? "#"}
-          class="pointer-events-auto inline-block transition-opacity duration-200 hover:opacity-90"
-          style={`
+      (hero.show_cta === true ||
+        hero.show_cta === 1 ||
+        hero.show_cta === "1") &&
+        hero.cta_text && (
+          <a
+            href={hero.cta_link ?? "#"}
+            class="pointer-events-auto inline-block transition-opacity duration-200 hover:opacity-90"
+            style={`
                         margin-top: var(--space-200);
                         padding: var(--space-150) var(--space-500);
                         background-color: var(--color-btn-primary-bg);
@@ -65,10 +117,10 @@ const {
                         border-radius: var(--radius-rounded);
                         box-shadow: var(--shadow-m);
                     `}
-        >
-          {hero.cta_text}
-        </a>
-      )
+          >
+            {hero.cta_text}
+          </a>
+        )
     }
   </div>
 </section>

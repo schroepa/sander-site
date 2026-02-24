@@ -9,6 +9,10 @@ hero:
     spotlight_line_height: '0.75'
     spotlight_blur: '15'
     spotlight_softness: '150'
+    show_cta: '0'
+    headline_scale: '1.2'
+    subline_scale: '1.0'
+    headline_subline_spacing: '1.0'
 sections:
     -
         title: 'Unsere Leistungen'
@@ -76,7 +80,16 @@ smart_catering:
                             title: 'Smarte Kassen'
                             text: 'Cloudbasiertes Kassensystem mit integriertem bargeldlosem Bezahlen, Mitarbeiterzuschüssen, Self-Service und Echtzeit-Reporting.'
                 -
-                    title: Personalmanagement
+                    title: 'Verlässliche Teams. Systemisch abgesichert.'
+                    content: null
+                -
+                    title: 'Weniger Verwaltungsaufwand. Mehr Kontrolle.'
+                    content: null
+                -
+                    title: 'Planbare Vielfalt statt kulinarischer Beliebigkeit'
+                    content: null
+                -
+                    title: 'Weniger Verwaltungsaufwand. Mehr Kontrolle – Digitalisierung & Innovation'
                     content: null
         -
             title: 'Smart Catering Plus'
