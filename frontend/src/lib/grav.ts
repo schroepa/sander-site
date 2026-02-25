@@ -1,7 +1,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
-
+import yaml from 'js-yaml';
 /**
  * Base path to Grav's content pages directory.
  * Works from both `frontend/` (dev) and build contexts.
@@ -11,11 +11,20 @@ const GRAV_PAGES_DIR = path.resolve(
     '../../../cms/user/pages'
 );
 
+/**
+ * Base path to Grav's user config directory.
+ */
+const GRAV_CONFIG_DIR = path.resolve(
+    import.meta.dirname ?? new URL('.', import.meta.url).pathname,
+    '../../../cms/user/config'
+);
+
 /** Represents a content section from Grav frontmatter */
 export interface ContentSection {
     title: string;
     body: string;
     image?: string;
+    tags?: string[];
 }
 
 /** Represents the hero block from Grav frontmatter */
@@ -72,6 +81,7 @@ export interface SmartCateringCard {
 export interface SmartCateringAccordion {
     title: string;
     content?: string;
+    tags?: string[];
     cards?: SmartCateringCard[];
 }
 
@@ -98,6 +108,22 @@ export interface CtaData {
     button_link?: string;
 }
 
+/** Sticky Scroll Item */
+export interface StickyScrollItem {
+    dropdown_label?: string;
+    title?: string;
+    subtitle?: string;
+    body_bold?: string;
+    body_text?: string;
+}
+
+/** Sticky Scroll Section Data */
+export interface StickyScrollData {
+    headline?: string;
+    subline?: string;
+    items?: StickyScrollItem[];
+}
+
 /** Full page data returned from a Grav content file */
 export interface GravPage {
     title: string;
@@ -106,6 +132,7 @@ export interface GravPage {
     solutions?: SolutionsData;
     stats?: StatsData;
     smart_catering?: SmartCateringData;
+    sticky_scroll?: StickyScrollData;
     cta?: CtaData;
     /** Raw markdown body content (below the frontmatter) */
     body: string;
@@ -138,6 +165,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         solutions: data.solutions ?? undefined,
         stats: data.stats ?? undefined,
         smart_catering: data.smart_catering ?? undefined,
+        sticky_scroll: data.sticky_scroll ?? undefined,
         cta: data.cta ?? undefined,
         body: content.trim(),
         raw: data,
@@ -161,4 +189,56 @@ export function listPages(): string[] {
         .readdirSync(GRAV_PAGES_DIR, { withFileTypes: true })
         .filter((d) => d.isDirectory() && !d.name.startsWith('.'))
         .map((d) => d.name);
+}
+
+/** Global Site Configuration interfaces */
+
+export interface FooterMenuItem {
+    label: string;
+    link: string;
+}
+
+export interface FooterSocialItem {
+    platform: string;
+    link: string;
+    icon?: string;
+}
+
+export interface FooterConfig {
+    menus?: FooterMenuItem[];
+    socials?: FooterSocialItem[];
+    copyright?: string;
+}
+
+export interface SiteConfig {
+    title?: string;
+    author?: {
+        name?: string;
+        email?: string;
+    };
+    metadata?: {
+        description?: string;
+    };
+    footer?: FooterConfig;
+}
+
+/**
+ * Read and parse the Grav site config
+ */
+export function getSiteConfig(): SiteConfig | null {
+    const filePath = path.join(GRAV_CONFIG_DIR, 'site.yaml');
+
+    if (!fs.existsSync(filePath)) {
+        console.warn(`[grav] Site config not found: ${filePath}`);
+        return null;
+    }
+
+    try {
+        const raw = fs.readFileSync(filePath, 'utf-8');
+        const data = yaml.load(raw) as SiteConfig;
+        return data || null;
+    } catch (e) {
+        console.error(`[grav] Error parsing site config`, e);
+        return null;
+    }
 }

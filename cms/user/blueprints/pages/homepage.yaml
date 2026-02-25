@@ -213,6 +213,14 @@ form:
                   accept:
                     - image/*
 
+                .tags:
+                  type: selectize
+                  label: Tags (Optional)
+                  help: "Kommagetrennte Tags eingeben (z.B. Food, Events)"
+                  classes: fancy
+                  validate:
+                    type: commalist
+
             # ── Smart Catering ──
             smart_catering_section:
               type: section
@@ -263,6 +271,14 @@ form:
                       type: tinymce
                       label: Description Content (Optional)
 
+                    .tags:
+                      type: selectize
+                      label: Tags (Optional)
+                      help: "Kommagetrennte Tags eingeben (z.B. Food, Events)"
+                      classes: fancy
+                      validate:
+                        type: commalist
+
                     .cards:
                       type: list
                       label: Nested Cards (Optional)
@@ -276,6 +292,55 @@ form:
                           type: textarea
                           label: Card Text
                           rows: 3
+
+            # ── Sticky Scroll ──
+            sticky_scroll_section:
+              type: section
+              title: "🖱️ Sticky Scroll"
+              underline: true
+
+            header.sticky_scroll.headline:
+              type: text
+              label: Section Headline
+              placeholder: "Was ist deine Herausforderung?"
+
+            header.sticky_scroll.subline:
+              type: textarea
+              label: Section Subline
+              rows: 3
+              placeholder: "Accumsan sapien ullamcorper massa dolor sed..."
+
+            header.sticky_scroll.items:
+              type: list
+              label: Scroll Items
+              style: vertical
+              fields:
+                .dropdown_label:
+                  type: text
+                  label: Dropdown Label
+                  placeholder: "Infrastrukturdefizit"
+
+                .title:
+                  type: text
+                  label: Card Title
+                  placeholder: "Küche Kaputt oder nicht vorhanden?"
+
+                .subtitle:
+                  type: text
+                  label: Card Subtitle
+                  placeholder: "Veraltete oder fehlende Infrastruktur macht Versorgung unsicher."
+
+                .body_bold:
+                  type: textarea
+                  label: Bold Body Text
+                  rows: 3
+                  placeholder: "Keine Küche vorhanden..."
+
+                .body_text:
+                  type: textarea
+                  label: Regular Body Text
+                  rows: 4
+                  placeholder: "Sie betrifft Organisation, Kosten..."
 
             # ── Call to Action ──
             cta_section:

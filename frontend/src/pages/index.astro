@@ -4,7 +4,9 @@ import Hero from "../components/Hero.astro";
 import StatsCounter from "../components/StatsCounter.astro";
 import Solutions from "../components/Solutions.astro";
 import SmartCatering from "../components/SmartCatering.astro";
+import StickyScroll from "../components/StickyScroll.astro";
 import CtaSection from "../components/CtaSection.astro";
+import Tag from "../components/Tag.astro";
 import { getHomepage } from "../lib/grav";
 
 const page = getHomepage();
@@ -46,6 +48,10 @@ const page = getHomepage();
             <SmartCatering data={page.smart_catering} />
           )}
 
+        {page.sticky_scroll && page.sticky_scroll.items && (
+          <StickyScroll data={page.sticky_scroll} />
+        )}
+
         {page.cta && <CtaSection data={page.cta} />}
 
         {/* ── Content Sections ── */}
@@ -68,6 +74,14 @@ const page = getHomepage();
                   <p style="font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--color-text-secondary);">
                     {section.body}
                   </p>
+
+                  {section.tags && section.tags.length > 0 && (
+                    <div style="display: flex; gap: var(--space-100); flex-wrap: wrap; margin-top: var(--space-100);">
+                      {section.tags.map((tag) => (
+                        <Tag text={tag} />
+                      ))}
+                    </div>
+                  )}
                 </div>
               </section>
             ))}

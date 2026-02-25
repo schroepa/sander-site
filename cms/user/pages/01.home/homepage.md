@@ -2,7 +2,7 @@
 title: 'Sander Catering'
 hero:
     headline: 'Betriebsgastronomie 4.0'
-    subline: 'Qualität, die man schmeckt'
+    subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
     spotlight_text: "SMART\nCATERING"
     cta_text: 'Jetzt anfragen'
     cta_link: '#kontakt'
@@ -13,19 +13,6 @@ hero:
     headline_scale: '1.2'
     subline_scale: '1.0'
     headline_subline_spacing: '1.0'
-sections:
-    -
-        title: 'Unsere Leistungen'
-        body: 'Von exklusiven Firmenfeiern über Hochzeiten bis hin zu privaten Events – wir bieten maßgeschneiderte Catering-Lösungen für jeden Anlass.'
-        image: null
-    -
-        title: 'Über uns'
-        body: 'Seit Jahren stehen wir für erstklassige Qualität und leidenschaftlichen Service. Unser Team aus erfahrenen Köchen kreiert unvergessliche kulinarische Erlebnisse.'
-        image: null
-    -
-        title: Kontakt
-        body: 'Haben Sie Fragen oder möchten ein unverbindliches Angebot? Kontaktieren Sie uns – wir freuen uns auf Ihre Anfrage.'
-        image: null
 solutions:
     headline: 'Deine Herausforderung - Unsere Lösungen'
     subline: 'Hier werden Sie geholfen'
@@ -72,12 +59,21 @@ smart_catering:
                 -
                     title: 'Vielfalt, die planbar bleibt'
                     content: "<p><span style=\"font-weight: 400;\">Eine Entscheidung f&uuml;r Betriebsgastronomie darf nicht im Tagesgesch&auml;ft unkontrollierbar werden. </span><span style=\"font-weight: 400;\">Deshalb ist die Hauptverpflegung bei Sander klar strukturiert. </span><span style=\"font-weight: 400;\">Smart Catering organisiert die kulinarische Vielfalt &uuml;ber definierte Men&uuml;linien:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Regionale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Internationale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Mediterrane K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Vegetarisch &amp; Vegan</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Pizza &amp; Pasta</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Suppen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Beilagen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Salat-Bar</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Desserts</span><span style=\"font-weight: 400;\"><br /></span></li>\n</ul>\n<p><strong>Jede Linie folgt zentral entwickelten Rezepturen, gepr&uuml;ften Rohwarenstandards und klaren Qualit&auml;tsvorgaben.<br />So bleibt Vielfalt steuerbar, reproduzierbar und wirtschaftlich kalkulierbar &ndash; auch &uuml;ber Standorte hinweg.</strong></p>"
+                    tags:
+                        - Flexibel
+                        - Übersichtlich
+                        - Standardisiert
                 -
                     title: 'Sicher starten & ohne operative Reibung'
                     content: "<p><span style=\"font-weight: 400;\">Die Einf&uuml;hrung einer neuen Betriebsgastronomie ist eine organisatorische und rechtliche Verantwortung. </span><span style=\"font-weight: 400;\">Smart Catering wird deshalb in klar definierten Phasen implementiert:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Planung &amp; Koordination ca. 3 Monate vor Er&ouml;ffnung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Operative und technische Vorbereitung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Strukturierter Teamaufbau</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Implementierung aller Qualit&auml;ts- und Reporting-Standards</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coldrun vor Inbetriebnahme</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Personal, Lieferanten, Technik und Prozesse sind vor dem ersten Betriebstag vollst&auml;ndig vorbereitet.</span></p>\n<p><span style=\"font-weight: 400;\">Der &Uuml;bergang in den Regelbetrieb erfolgt strukturiert und rechtssicher &ndash; auch bei Betreiberwechseln nach &sect; 613a BGB.</span></p>"
+                    tags:
+                        - Planung
+                        - Sicherheit
+                        - Umsetzung
                 -
                     title: 'Kontrolle ohne Bürokratie'
                     content: '<p><span style="font-weight: 400;">Verantwortung braucht Transparenz &ndash; aber ohne zus&auml;tzlichen Verwaltungsaufwand. </span><span style="font-weight: 400;">Digitale Systeme sind integraler Bestandteil von Smart Catering</span></p>'
+                    tags: null
                     cards:
                         -
                             title: 'Smart Catering App'
@@ -97,6 +93,7 @@ smart_catering:
                 -
                     title: 'Gastgeber-Mentalität mit System'
                     content: "<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Verl&auml;ssliche Teams. Systemisch abgesichert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Stabile Teams statt Personalrisiko</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Gastgeber-Mentalit&auml;t mit System</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Professionelle Teams. Stabil organisiert.</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Betriebssicherheit h&auml;ngt von qualifizierten und strukturiert gef&uuml;hrten Teams ab.</span></p>\n<p><strong>Sander &uuml;bernimmt:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Rekrutierung und Teamaufbau</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Fachliche Schulung und kontinuierliche Weiterbildung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coaching durch Gebietsleiter</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Rechtssichere &Uuml;bernahme bestehender Arbeitsverh&auml;ltnisse</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Die Mitarbeitenden verf&uuml;gen &uuml;ber fachliche Qualifikation, Serviceorientierung und gelebte Gastgebermentalit&auml;t. </span><span style=\"font-weight: 400;\">Einheitliche, moderne und nachhaltige Mitarbeiter-Outfits sorgen f&uuml;r Professionalit&auml;t und klare Wiedererkennbarkeit im Betrieb.</span></p>\n<p><strong>Auch in Zeiten des Fachkr&auml;ftemangels bleibt der Betrieb stabil, da Planung, Rezepturentwicklung und Produktionssteuerung zentral in der Frische-Manufaktur erfolgen.</strong></p>"
+                    tags: null
         -
             title: 'Smart Catering Plus'
             subline: Zusatzmodule
@@ -104,6 +101,7 @@ smart_catering:
                 -
                     title: 'Café-Konzepte nach Bedarf'
                     content: '<p><span style="font-weight: 400;">F&uuml;r Betriebe, die Aufenthaltsqualit&auml;t, kurze Wege und hochwertige Kaffeeangebote als Teil ihrer Arbeitgeberattraktivit&auml;t verstehen.</span></p>'
+                    tags: null
                     cards:
                         -
                             title: Kaffeemaschine
@@ -120,9 +118,11 @@ smart_catering:
                 -
                     title: 'Professionelle Meeting- & Konferenz-Verpflegung'
                     content: "<p><span style=\"font-weight: 400;\">Digitale Bestellung und strukturierte Umsetzung sichern eine professionelle Meeting- und Konferenz-Verpflegung ohne internen Abstimmungsaufwand.</span></p>\n<p><strong>Bestellprozess:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Digital ausw&auml;hlen:</strong><span style=\"font-weight: 400;\"> Speisen und Getr&auml;nke aus dem zentralen Konferenz-Katalog zusammenstellen.</span><span style=\"font-weight: 400;\"><br /></span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Smart bestellen:</strong><span style=\"font-weight: 400;\"> Bequem &uuml;ber die Sander-App: transparent dokumentiert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Servieren lassen:</strong> Bereitstellung und Service erfolgen zuverl&auml;ssig durch das zust&auml;ndige Team vor Ort.</li>\n</ul>"
+                    tags: null
                 -
                     title: 'Zwischenverpflegung im Arbeitsalltag – Snacking-Konzepte'
                     content: "<p>&nbsp;</p>\n<p><strong>Flexible Versorgung, die sich dem Arbeitsrhythmus anpasst &ndash; vom ersten Kaffee bis zum sp&auml;ten Energie-Boost.</strong></p>"
+                    tags: null
                     cards:
                         -
                             title: 'Morgens – Kraftvoll in den Tag starten'
@@ -160,6 +160,27 @@ cta:
     copy: 'Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden.'
     button_text: 'Jetzt Kontakt aufnehmen'
     button_link: '#'
+sticky_scroll:
+    headline: 'Sticky Scroll Übeschrift'
+    subline: 'Subheading kommt dan ja wohl hier rein würde ich mal sagen'
+    items:
+        -
+            dropdown_label: 'Hallo Welt!'
+            title: 'Das ist der Card Title'
+            subtitle: 'Und hier haben wir dann auch den Subtitle der Karte'
+            body_bold: 'Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.Aliquam nisl lobortis nisl ullamcorper vestibulum. Nec sapien sagittis erat nibh id sed eleifend aliquet. Etiam urna sem vitae eget a.'
+            body_text: 'Eget fermentum aenean risus commodo eget viverra urna nibh nibh. Ut proin est risus odio sed blandit placerat. Amet malesuada egestas venenatis morbi auctor commodo urna feugiat. Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.'
+        -
+            dropdown_label: 'Hier werden Sie geholfen '
+            title: 'Das ist der Card Title'
+            subtitle: 'Und hier haben wir dann auch den Subtitle der Karte'
+            body_bold: 'Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.Aliquam nisl lobortis nisl ullamcorper vestibulum. Nec sapien sagittis erat nibh id sed eleifend aliquet. Etiam urna sem vitae eget a.'
+            body_text: 'Eget fermentum aenean risus commodo eget viverra urna nibh nibh. Ut proin est risus odio sed blandit placerat. Amet malesuada egestas venenatis morbi auctor commodo urna feugiat. Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.'
+        -
+            dropdown_label: 'Here we go again'
+            title: 'Das ist der Card Title'
+            subtitle: 'Und hier haben wir dann auch den Subtitle der Karte'
+            body_bold: 'Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.Aliquam nisl lobortis nisl ullamcorper vestibulum. Nec sapien sagittis erat nibh id sed eleifend aliquet. Etiam urna sem vitae eget a.'
+            body_text: 'Eget fermentum aenean risus commodo eget viverra urna nibh nibh. Ut proin est risus odio sed blandit placerat. Amet malesuada egestas venenatis morbi auctor commodo urna feugiat. Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.'
 ---
 
-<p>Willkommen bei Sander Catering. Wir machen Ihr Event zu einem kulinarischen Erlebnis.</p>
