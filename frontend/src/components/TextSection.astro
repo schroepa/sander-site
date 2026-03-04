@@ -1,0 +1,142 @@
+---
+/**
+ * TextSection.astro
+ * Zentrierte Text-Section mit optionalem Hintergrundbild und Overlay.
+ * Inhalte werden vollständig über Grav CMS gepflegt.
+ */
+import type { TextSectionData } from "../lib/grav";
+
+interface Props {
+  data: TextSectionData;
+}
+
+const { data } = Astro.props;
+
+// Build absolute URL for background image (served by Grav)
+const bgImage = data.background_image
+  ? `/user/pages/01.home/${data.background_image}`
+  : null;
+---
+
+<section class="text-section" aria-labelledby="text-section-heading">
+  {/* Background image layer */}
+  {
+    bgImage && (
+      <div class="text-section__bg" aria-hidden="true">
+        <img class="text-section__bg-img" src={bgImage} alt="" loading="lazy" />
+        <div class="text-section__overlay" />
+      </div>
+    )
+  }
+
+  <div class="text-section__inner">
+    {
+      data.headline && (
+        <h2 id="text-section-heading" class="text-section__headline">
+          {data.headline}
+        </h2>
+      )
+    }
+
+    {
+      data.paragraphs && data.paragraphs.length > 0 && (
+        <div class="text-section__body">
+          {data.paragraphs.map((p) => (
+            <p class="text-section__paragraph">{p.text}</p>
+          ))}
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  .text-section {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-100);
+    padding: var(--space-1000) var(--space-800);
+    overflow: hidden;
+  }
+
+  /* ── Background ── */
+  .text-section__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .text-section__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .text-section__overlay {
+    position: absolute;
+    inset: 0;
+    /* Warm dark overlay matching the Figma design */
+    background-color: var(--color-background-overlay);
+  }
+
+  /* ── Content ── */
+  .text-section__inner {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-300);
+    max-width: 960px;
+    width: 100%;
+    text-align: center;
+  }
+
+  .text-section__headline {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-black);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .text-section__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+  }
+
+  .text-section__paragraph {
+    font-family: var(--font-body);
+    font-size: var(--text-body-lg);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-body-lg);
+    letter-spacing: 0.5px;
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 768px) {
+    .text-section {
+      padding: var(--space-1000) var(--space-300);
+    }
+
+    .text-section__headline {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+
+    .text-section__paragraph {
+      font-size: var(--text-body-md);
+      line-height: var(--leading-body-md);
+      /* Allow wrapping on mobile */
+      white-space: normal;
+    }
+  }
+</style>

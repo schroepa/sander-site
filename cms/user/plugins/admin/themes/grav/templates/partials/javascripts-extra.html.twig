@@ -1,0 +1,54 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/trumbowyg.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/langs/de.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/plugins/cleanpaste/trumbowyg.cleanpaste.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/plugins/colors/trumbowyg.colors.min.js"></script>
+<style>
+  /* Debugging hint: textareas should briefly get a red border if this file loads */
+  textarea.editor-trumbowyg { border-left: 5px solid red !important; }
+</style>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log("Trumbowyg Init Script Loaded");
+        // Polling for jQuery and Trumbowyg
+        var checkExist = setInterval(function() {
+           if (window.jQuery && window.jQuery.fn && window.jQuery.fn.trumbowyg) {
+              clearInterval(checkExist);
+              console.log("jQuery and Trumbowyg found, initializing...");
+              initTbw();
+           }
+        }, 100);
+
+        // Grav might add nodes dynamically, catch them
+        document.addEventListener('mutation._grav', function() {
+            setTimeout(initTbw, 100);
+        });
+
+        function initTbw() {
+            var $targets = window.jQuery('textarea.editor-trumbowyg, textarea[name*="[content]"]').not('.trumbowyg-textarea');
+            console.log("Trumbowyg targets found: ", $targets.length);
+            
+            if ($targets.length > 0) {
+                $targets.trumbowyg({
+                svgPath: 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/ui/icons.svg',
+                semantic: true,
+                removeformatPasted: true,
+                lang: 'de',
+                btns: [
+                    ['viewHTML'],
+                    ['undo', 'redo'],
+                    ['formatting'],
+                    ['strong', 'em', 'del'],
+                    ['superscript', 'subscript'],
+                    ['link'],
+                    ['foreColor', 'backColor'],
+                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
+                    ['unorderedList', 'orderedList'],
+                    ['horizontalRule'],
+                    ['removeformat'],
+                    ['fullscreen']
+                ]
+                });
+            }
+        }
+    });
+</script>

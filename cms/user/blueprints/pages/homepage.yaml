@@ -15,6 +15,41 @@ form:
           title: Content
 
           fields:
+            # ── Section Order ──
+            section_order_section:
+              type: section
+              title: "🔢 Reihenfolge der Sections"
+              underline: true
+
+            section_order_help:
+              type: display
+              label: ""
+              content: "Ziehe die Einträge per **Drag & Drop** (≡) in die gewünschte Reihenfolge. Die Seite wird genau in dieser Reihenfolge aufgebaut."
+              markdown: true
+
+            header.section_order:
+              type: list
+              label: Abschnitte
+              style: vertical
+              fields:
+                .section:
+                  type: select
+                  label: Abschnitt
+                  validate:
+                    required: true
+                  options:
+                    hero: "🎬 Hero"
+                    stats: "📊 Kennzahlen"
+                    menu_slider: "🎞️ Menu Slider"
+                    solutions: "✅ Herausforderungen & Lösungen"
+                    smart_catering: "🧑‍🍳 Smart Catering"
+                    sticky_scroll: "🖱️ Sticky Scroll"
+                    cta: "📣 Call to Action"
+                    about: "🏢 Über uns"
+                    team: "👥 Team"
+                    text_section: "📄 Text Section"
+                    faq: "❓ FAQ"
+
             # ── Hero ──
             hero_section:
               type: section
@@ -221,6 +256,43 @@ form:
                   validate:
                     type: commalist
 
+            # ── Menu Slider ──
+            menu_slider_section:
+              type: section
+              title: "🎞️ Menu Slider"
+              underline: true
+
+            header.menu_slider.headline:
+              type: text
+              label: Section Headline
+              placeholder: "z.B. Unsere Menülinien im Überblick"
+
+            menu_slider_media:
+              type: pagemedia
+              label: "Slider Bilder hochladen"
+
+            header.menu_slider.items:
+              type: list
+              label: Slides
+              style: vertical
+              fields:
+                .title:
+                  type: text
+                  label: Slide Titel
+                  placeholder: "z.B. Regionale Küche"
+                  validate:
+                    required: true
+
+                .subtitle:
+                  type: text
+                  label: Slide Untertitel
+                  placeholder: "z.B. Frisch aus der Region. Traditionell modern."
+
+                .image:
+                  type: mediapicker
+                  label: Bild auswählen
+                  help: "Wähle ein über 'Slider Bilder hochladen' hochgeladenes Bild aus"
+
             # ── Smart Catering ──
             smart_catering_section:
               type: section
@@ -268,7 +340,8 @@ form:
                       placeholder: "z.B. Menükompositionen"
 
                     .content:
-                      type: tinymce
+                      type: textarea
+                      classes: editor-trumbowyg
                       label: Description Content (Optional)
 
                     .tags:
@@ -368,3 +441,146 @@ form:
               type: text
               label: Button Link
               placeholder: "#kontakt"
+
+            # ── Über uns ──
+            about_section:
+              type: section
+              title: "🏢 Über uns"
+              underline: true
+
+            header.about.headline:
+              type: text
+              label: Headline
+              placeholder: "Wer wir sind"
+
+            header.about.body:
+              type: textarea
+              label: Body Text
+              rows: 5
+              placeholder: "Sander Betriebsgastronomie steht seit über 50 Jahren..."
+
+            header.about.background_image:
+              type: filepicker
+              label: Hintergrundbild (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - image/*
+              help: "Optionales Hintergrundbild hinter dem Text"
+
+            about_media:
+              type: pagemedia
+              label: "Bilder für 'Über uns' hochladen"
+
+            header.about.image:
+              type: mediapicker
+              label: Bild (rechte Spalte)
+              help: "Bild zuerst über 'Bilder hochladen' hochladen, dann hier auswählen. Wird neben dem Beschreibungstext angezeigt."
+
+            # ── Team ──
+            team_section:
+              type: section
+              title: "👥 Team"
+              underline: true
+
+            header.team.headline:
+              type: text
+              label: Headline
+              placeholder: "Die Menschen hinter Sander"
+
+            header.team.subline:
+              type: text
+              label: Subline
+              placeholder: "Erfahrung, Leidenschaft und echtes Gastgeber-Herz."
+
+            team_media:
+              type: pagemedia
+              label: "Team-Fotos hochladen"
+
+            header.team.items:
+              type: list
+              label: Teammitglieder
+              style: vertical
+              fields:
+                .name:
+                  type: text
+                  label: Name
+                  placeholder: "z.B. Michael Sander"
+                  validate:
+                    required: true
+
+                .role:
+                  type: text
+                  label: Funktion / Position
+                  placeholder: "z.B. Geschäftsführer"
+
+                .bio:
+                  type: textarea
+                  label: Kurzbeschreibung (optional)
+                  rows: 3
+                  placeholder: "Über 30 Jahre Erfahrung in der Gemeinschaftsverpflegung..."
+
+                .image:
+                  type: mediapicker
+                  label: Profilfoto (optional)
+                  help: "Bild zuerst über 'Team-Fotos hochladen' hochladen, dann hier auswählen"
+
+            # ── Text Section ──
+            text_section_section:
+              type: section
+              title: "📄 Text Section"
+              underline: true
+
+            header.text_section.headline:
+              type: text
+              label: Überschrift
+              placeholder: "z.B. Gemeinsam Qualität gestalten."
+
+            header.text_section.background_image:
+              type: filepicker
+              label: Hintergrundbild (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - image/*
+              help: "Optional: Hintergrundbild hinter dem Text (wird durch einen halbtransparenten Overlay abgedunkelt)"
+
+            header.text_section.paragraphs:
+              type: list
+              label: Textabsätze
+              style: vertical
+              help: "Jeder Eintrag wird als eigener Absatz dargestellt."
+              fields:
+                .text:
+                  type: textarea
+                  label: Absatz
+                  rows: 4
+                  placeholder: "Texto del párrafo…"
+
+            # ── FAQ Section ──
+            faq_section_section:
+              type: section
+              title: "❓ FAQ"
+              underline: true
+
+            header.faq.headline:
+              type: text
+              label: Überschrift
+              placeholder: "z.B. Häufig gestellte Fragen"
+
+            header.faq.items:
+              type: list
+              label: Fragen & Antworten
+              style: vertical
+              fields:
+                .question:
+                  type: text
+                  label: Frage
+                  placeholder: "z.B. Wie funktioniert die Lieferung?"
+                  validate:
+                    required: true
+
+                .answer:
+                  type: textarea
+                  label: Antwort
+                  classes: editor-trumbowyg
+                  rows: 4
+                  placeholder: "Antwort auf die Frage..."

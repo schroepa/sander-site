@@ -1,7 +1,32 @@
 ---
 title: 'Sander Catering'
+section_order:
+    -
+        section: hero
+    -
+        section: about
+    -
+        section: stats
+    -
+        section: solutions
+    -
+        section: smart_catering
+    -
+        section: cta
+    -
+        section: sticky_scroll
+    -
+        section: menu_slider
+    -
+        section: team
+    -
+        section: faq
+    -
+        section: text_section
+    -
+        section: hero
 hero:
-    headline: 'Betriebsgastronomie 4.0'
+    headline: 'Betriebs&shy;gastronomie 4.0'
     subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
     spotlight_text: "SMART\nCATERING"
     cta_text: 'Jetzt anfragen'
@@ -133,6 +158,37 @@ smart_catering:
                         -
                             title: 'Nachmittags – Energie & Begegnung'
                             text: 'Süße und herzhafte Snacks für Energie, Begegnung und produktive Auszeiten.'
+                -
+                    title: 24/7-Grundversorgung
+                    content: 'Versorgung bei Schichtbetrieb oder 24/7-Strukturen – Automaten & Smart Vending. Für Betriebe mit erweiterten Betriebszeiten oder geringer Personalbesetzung.'
+                    tags: null
+                    cards:
+                        -
+                            title: 'Standard-Automaten:'
+                            text: 'Verlässliche Grundversorgung mit Snacks, Getränken und optional Non-Food-Artikeln – wartungsarm und kosteneffizient.'
+                        -
+                            title: 'Smart Vending:'
+                            text: 'Vernetzte Automaten mit Telemetrie und Echtzeitdaten sichern bedarfsgerechte Befüllung, transparente Auswertung und kontaktlose Bezahlung.'
+                -
+                    title: Lunchbox
+                    content: "Vollwertige Verpflegung für Standorte ohne eigene Küche – digital organisiert und frisch geliefert.\n\nSo funktioniert das Konzept:"
+                    tags: null
+                    cards:
+                        -
+                            title: 'Bestellung in der App:'
+                            text: 'Auswahl bis zum Vortag digital über die Plattform.'
+                        -
+                            title: 'Zentrale Zubereitung:'
+                            text: 'Frisch produziert, etikettiert und gekühlt transportiert.'
+                        -
+                            title: 'Lieferung an den Standort:'
+                            text: 'Bereitstellung im Smart Fridge.'
+                        -
+                            title: 'Kontaktlose Entnahme:'
+                            text: 'Zugriff per QR-Code, App oder Mitarbeiterkarte – automatische Abrechnung.'
+                        -
+                            title: 'Mehrweg-Rückgabe:'
+                            text: 'Nachhaltige Pfandsysteme wie Rebowl oder Recup.'
 stats:
     items:
         -
@@ -155,32 +211,152 @@ stats:
             suffix: +
             separator: '1'
             label: 'Zufriedene Kunden'
+menu_slider:
+    headline: 'Unsere Menülinien im Überblick'
+    items:
+        -
+            title: 'Regionale Küche'
+            subtitle: 'Frisch aus der Region. Traditionell modern.'
+            image: Image_Entwickler_Dessert_Walnuss_Tarte.jpg
+        -
+            title: 'Mediterrane Genüsse'
+            subtitle: 'Leichte Küche mit dem Geschmack des Südens.'
+            image: slider2.png
+        -
+            title: 'Vegetarisch & Vegan'
+            subtitle: 'Pflanzenbasierte Power für den Arbeitsalltag.'
+            image: slider3.png
+        -
+            title: 'Lorem Ipsum'
+            subtitle: 'Pflanzenbasierte Power für den Arbeitsalltag.'
+            image: sander_Restaurant_Bienenstich_Kueche.jpg
 cta:
-    headline: 'Welche Module benötigtst du?'
+    headline: 'Welche Module benötigst du?'
     copy: 'Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden.'
     button_text: 'Jetzt Kontakt aufnehmen'
     button_link: '#'
 sticky_scroll:
-    headline: 'Sticky Scroll Übeschrift'
-    subline: 'Subheading kommt dan ja wohl hier rein würde ich mal sagen'
+    headline: 'Was ist deine Herausforderung?'
+    subline: '## Accumsan sapien ullamcorper massa dolor sed phasellus faucibus fermentum. Tellus quis sed elementum semper arcu curabitur proin leo.'
     items:
         -
-            dropdown_label: 'Hallo Welt!'
-            title: 'Das ist der Card Title'
-            subtitle: 'Und hier haben wir dann auch den Subtitle der Karte'
-            body_bold: 'Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.Aliquam nisl lobortis nisl ullamcorper vestibulum. Nec sapien sagittis erat nibh id sed eleifend aliquet. Etiam urna sem vitae eget a.'
-            body_text: 'Eget fermentum aenean risus commodo eget viverra urna nibh nibh. Ut proin est risus odio sed blandit placerat. Amet malesuada egestas venenatis morbi auctor commodo urna feugiat. Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.'
+            dropdown_label: 'Zentralisierung der Produktion'
+            title: 'Eine Manufaktur. Unendliche Möglichkeiten.'
+            subtitle: null
+            body_bold: null
+            body_text: 'Unsere zentrale Frischemanufaktur ersetzt Hunderte einzelner Betriebsküchen. Das bedeutet gebündelte Kompetenz, gleichbleibende Qualität und maximale Effizienz. Durch die zentrale Produktion entstehen Skaleneffekte, Ressourcenschonung und höchste Prozesssicherheit. So gewährleisten wir eine zuverlässige Versorgung auf Premium Niveau.'
         -
-            dropdown_label: 'Hier werden Sie geholfen '
-            title: 'Das ist der Card Title'
-            subtitle: 'Und hier haben wir dann auch den Subtitle der Karte'
-            body_bold: 'Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.Aliquam nisl lobortis nisl ullamcorper vestibulum. Nec sapien sagittis erat nibh id sed eleifend aliquet. Etiam urna sem vitae eget a.'
-            body_text: 'Eget fermentum aenean risus commodo eget viverra urna nibh nibh. Ut proin est risus odio sed blandit placerat. Amet malesuada egestas venenatis morbi auctor commodo urna feugiat. Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.'
+            dropdown_label: 'Produktentwicklung & Innovationskraft'
+            title: '800 neue Ideen pro Jahr'
+            subtitle: null
+            body_bold: null
+            body_text: 'Sechs Kreativköche entwickeln jährlich rund 800 neue Produkte. Trends, Ernährungskonzepte und Kundenanforderungen fließen direkt in unsere Rezepturen ein. So bleibt unser Sortiment dynamisch und immer am Puls der Zeit.'
         -
-            dropdown_label: 'Here we go again'
-            title: 'Das ist der Card Title'
-            subtitle: 'Und hier haben wir dann auch den Subtitle der Karte'
-            body_bold: 'Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.Aliquam nisl lobortis nisl ullamcorper vestibulum. Nec sapien sagittis erat nibh id sed eleifend aliquet. Etiam urna sem vitae eget a.'
-            body_text: 'Eget fermentum aenean risus commodo eget viverra urna nibh nibh. Ut proin est risus odio sed blandit placerat. Amet malesuada egestas venenatis morbi auctor commodo urna feugiat. Nunc lobortis vitae non consectetur urna. Venenatis ornare id in quis pretium.'
+            dropdown_label: 'Produktvielfalt & Manufakturbereiche'
+            title: '2.500 Produkte. 15 Manufakturbereiche.'
+            subtitle: null
+            body_bold: null
+            body_text: 'Von Vorspeisen über Hauptkomponenten bis zur Patisserie vereint unsere Frischemanufaktur 15 spezialisierte Bereiche unter einem Dach. Das Ergebnis ist eine außergewöhnliche Sortimentsbreite, modular einsetzbar und perfekt kombinierbar.'
+        -
+            dropdown_label: 'Qualitätsmanagement & Qualitätssicherung'
+            title: 'Qualität ist kein Versprechen. Sondern System.'
+            subtitle: null
+            body_bold: null
+            body_text: 'Unsere Abteilungen für Qualitätsmanagement, Qualitätssicherung und Lebensmittelrecht sichern höchste Standards entlang der gesamten Wertschöpfungskette. Zertifizierungen, interne Kontrollen und externe Audits sorgen für geprüfte Qualität, transparent und nachvollziehbar.'
+        -
+            dropdown_label: 'Einkaufskonzept & Lieferantenmanagement'
+            title: 'Verantwortung beginnt beim Einkauf.'
+            subtitle: null
+            body_bold: null
+            body_text: 'Unser kontrolliertes Lieferantenmanagement setzt auf Tierwohl, Nachhaltigkeit und gesetzeskonforme Beschaffung. Regelmäßige Audits, klare Qualitätsmaßstäbe und gebündelte Einkaufsprozesse reduzieren Umweltbelastung und sichern höchste Rohwarenqualität.'
+        -
+            dropdown_label: Regionalität
+            title: 'Starke Region. Kurze Wege.'
+            subtitle: null
+            body_bold: null
+            body_text: 'Durch die Zusammenarbeit mit regionalen Erzeugern stärken wir die lokale Wertschöpfung. Kurze Lieferwege sichern Frische, reduzieren CO2 Emissionen und ermöglichen schnelle Reaktionszeiten.'
+        -
+            dropdown_label: 'Nachhaltigkeit & Ressourceneffizienz'
+            title: 'Nachhaltigkeit durch Struktur.'
+            subtitle: null
+            body_bold: null
+            body_text: 'Zentralisierung spart Energie, reduziert Ressourcenverbrauch und minimiert Abfälle. Eigenes Energiemanagement, Verpackungsoptimierung und Prozessmonitoring machen Nachhaltigkeit bei Sander messbar.'
+about:
+    headline: 'Wer wir sind'
+    body: "Sander Betriebsgastronomie steht seit über 50 Jahren für zuverlässige, qualitativ hochwertige Gemeinschaftsverpflegung. Als inhabergeführtes Familienunternehmen vereinen wir handwerkliche Kompetenz mit modernsten Produktionsmethoden – für Betriebsrestaurants, Cafeterias und Konferenzservices, die wirklich funktionieren.\n\nUnser Herzstück ist die Sander Frische Manufaktur: eine zentrale Produktionsküche, die täglich tausende frische Komponenten liefert und so höchste Qualität mit wirtschaftlicher Effizienz verbindet."
+    image: sander_Restaurant_Bienenstich_Kueche.jpg
+team:
+    headline: 'Die Menschen hinter Sander'
+    subline: 'Erfahrung, Leidenschaft und echtes Gastgeber-Herz – das ist unser Team.'
+    items:
+        -
+            name: 'Jens Dülme'
+            role: 'Geschäftsbereichsleiter Betriebsgastronomie'
+            bio: null
+            image: /home/Jens_Duelme%201.png
+        -
+            name: 'Melanie Kneip'
+            role: Bid-Managerin
+            bio: null
+            image: /home/231123-Sander-Ansprechpartner-Melanie_Kneip%201.png
+        -
+            name: 'Christine Dörnbach'
+            role: Bid-Managerin
+            bio: null
+            image: /home/251215-Sander-AnsprechpartnerChristine_Doernbach%201.png
+        -
+            name: 'Claudia Kratschmer'
+            role: 'Gebietsleiterin Betriebsgastronomie'
+            bio: null
+            image: /home/231123-Sander-Ansprechpartner-Claudia_Kratschmer%201.png
+        -
+            name: 'Sascha Sachse'
+            role: 'Business Development Manager Operations & Sales'
+            bio: null
+            image: /home/251215-Sander-Ansprechpartner-Sascha_Sachse%201.png
+        -
+            name: 'Patrick Gerharts'
+            role: 'Sales Manager Region West'
+            bio: null
+            image: /home/Patrick_Gerharts_Profilbild_zugeschnitten%201.png
+faq:
+    headline: 'Häufig gestellte Fragen'
+    items:
+        -
+            question: 'Wie funktioniert die Lieferung?'
+            answer: 'Die Lieferung erfolgt täglich frisch und verzehrfertig direkt an Ihren Standort.'
+        -
+            question: 'Gibt es auch vegetarische und vegane Optionen?'
+            answer: 'Ja, wir bieten täglich eine vielfältige Auswahl an pflanzenbasierten Gerichten an.'
+        -
+            question: 'Wie werden Unverträglichkeiten und Allergien gehandhabt?'
+            answer: 'Alle unsere Speisen sind transparent deklariert, sodass Allergene und Zusatzstoffe sofort ersichtlich sind.'
+        -
+            question: 'Wie läuft die Bezahlung ab?'
+            answer: 'Die Bezahlung erfolgt digital über unsere App, Mitarbeiterkarten oder per monatlicher Sammelrechnung.'
+        -
+            question: 'Kann das Angebot individuell angepasst werden?'
+            answer: 'Absolut! Wir passen unsere Menülinien und flexiblen Module genau an die Bedürfnisse Ihres Unternehmens an.'
+text_section:
+    headline: 'Gemeinsam Qualität gestalten.'
+    paragraphs:
+        -
+            text: 'Sander Betriebsgastronomie steht für mehr als gutes Essen. Wir verstehen Verpflegung als strategischen Beitrag zum Unternehmenserfolg – als Faktor, der Mitarbeitende bindet, Produktivität fördert und Unternehmenskultur sichtbar macht.'
+        -
+            text: 'Mit über 50 Jahren Erfahrung, einer eigenen Frischemanufaktur und einem digitalen Versorgungsmodell bieten wir die Infrastruktur, die moderne Betriebsgastronomie braucht – skalierbar, zuverlässig und immer auf höchstem Niveau.'
+split_section:
+    overline: 'Unsere Manufaktur'
+    headline: 'Frische, die man schmeckt.'
+    subheadline: 'Täglich produziert. Direkt geliefert.'
+    body:
+        -
+            text: 'In der Sander Frischemanufaktur entstehen täglich tausende Komponenten – handwerklich entwickelt, industriell präzise umgesetzt. Zentrale Produktion bedeutet gleichbleibende Qualität, wirtschaftliche Effizienz und maximale Lebensmittelsicherheit.'
+        -
+            text: 'Von der Planung bis zur Lieferung. Alles aus einer Hand.'
+    cta_text: 'Mehr erfahren'
+    cta_link: '#kontakt'
+    image: sander_Restaurant_Bienenstich_Kueche.jpg
+    image_alt: 'Frische Produkte aus der Sander Manufaktur'
+media_order: 'about-bg.jpg,Image_Entwickler_Dessert_Walnuss_Tarte.jpg,sander_Restaurant_Bienenstich_Kueche.jpg,sander_Restaurant_TG_Bienenstich.jpg,sander_Restaurant_TG_Moelleux_au_Chocolat.jpg,slider1.png,slider2.png,slider3.png,231123-Sander-Ansprechpartner-Claudia_Kratschmer.jpg,231123-Sander-Ansprechpartner-Melanie_Kneip.jpg,251215-Sander-Ansprechpartner-Sascha_Sachse.jpg,251215-Sander-AnsprechpartnerChristine_Doernbach.jpg,Patrick_Gerharts_Profilbild_zugeschnitten.jpg,231123-Sander-Ansprechpartner-Claudia_Kratschmer 1.png,231123-Sander-Ansprechpartner-Melanie_Kneip 1.png,251215-Sander-Ansprechpartner-Sascha_Sachse 1.png,251215-Sander-AnsprechpartnerChristine_Doernbach 1.png,Jens_Duelme 1.png,Patrick_Gerharts_Profilbild_zugeschnitten 1.png'
 ---
 

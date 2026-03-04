@@ -1,0 +1,260 @@
+---
+import { marked } from "marked";
+import type { FaqData } from "../lib/grav";
+
+interface Props {
+  data: FaqData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="faq" id="faq">
+  <div class="faq__inner">
+    <div class="faq__header">
+      {data.headline && <h2 class="faq__title">{data.headline}</h2>}
+    </div>
+
+    <div class="faq__content">
+      <div class="faq__accordions">
+        {
+          data.items?.map((item, index) => (
+            <div class="faq__accordion group" id={`faq-${index + 1}`}>
+              <button class="faq__accordion-summary" aria-expanded="false">
+                <span class="faq__accordion-title">{item.question}</span>
+                <span class="faq__accordion-icon">
+                  <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6 9L12 15L18 9"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    />
+                  </svg>
+                </span>
+              </button>
+              <div class="faq__accordion-content-wrapper">
+                <div class="faq__accordion-content">
+                  <div class="faq__accordion-inner">
+                    {item.answer && (
+                      <div
+                        class="faq__accordion-text markdown-content"
+                        set:html={marked.parse(item.answer)}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  function initFaqAccordions() {
+    const accordions = document.querySelectorAll(".faq__accordion");
+
+    accordions.forEach((accordion) => {
+      const summary = accordion.querySelector(".faq__accordion-summary");
+
+      summary?.addEventListener("click", () => {
+        const isOpen = accordion.classList.contains("is-open");
+
+        // Close all accordions to ensure max 1 is opened
+        accordions.forEach((acc) => {
+          acc.classList.remove("is-open");
+          acc
+            .querySelector(".faq__accordion-summary")
+            ?.setAttribute("aria-expanded", "false");
+        });
+
+        // Open the clicked one if it was previously closed
+        if (!isOpen) {
+          accordion.classList.add("is-open");
+          summary.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+  }
+
+  initFaqAccordions();
+  document.addEventListener("astro:page-load", initFaqAccordions);
+</script>
+
+<style>
+  .faq {
+    padding: var(--space-800) var(--space-300);
+    background-color: var(--color-bg-app);
+  }
+
+  @media (min-width: 768px) {
+    .faq {
+      padding: var(--space-1000) var(--space-800);
+    }
+  }
+
+  .faq__inner {
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-800);
+  }
+
+  .faq__header {
+    text-align: center;
+  }
+
+  .faq__title {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-h2);
+    line-height: var(--leading-h2);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  /* ─── Accordions Wrapper ─── */
+  .faq__accordions {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-300);
+    overflow: hidden;
+  }
+
+  /* ─── Accordion Toggle ─── */
+  .faq__accordion {
+    border-bottom: 1px solid var(--color-stroke-primary);
+  }
+
+  .faq__accordion:last-child {
+    border-bottom: none;
+  }
+
+  .faq__accordion-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-300) var(--space-500);
+    cursor: pointer;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    user-select: none;
+  }
+
+  .faq__accordion-title {
+    font-family: var(--font-body);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-primary);
+    letter-spacing: 0.5px;
+  }
+
+  .faq__accordion-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--color-text-primary);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Rotate icon when open */
+  .faq__accordion.is-open .faq__accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Animation Wrapper using CSS Grid */
+  .faq__accordion-content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-in-out;
+  }
+
+  .faq__accordion.is-open .faq__accordion-content-wrapper {
+    grid-template-rows: 1fr;
+  }
+
+  .faq__accordion-content {
+    overflow: hidden;
+  }
+
+  .faq__accordion-inner {
+    padding: 0 var(--space-500) var(--space-300) var(--space-500);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-300);
+  }
+
+  .faq__accordion-text {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-body-sm); /* Using 14px as in Figma */
+    line-height: var(--leading-body-sm);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.25px;
+    margin: 0;
+  }
+
+  /* ─── Markdown Content Styles ─── */
+  .markdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+  }
+
+  .markdown-content :global(p) {
+    margin: 0;
+  }
+
+  .markdown-content :global(strong),
+  .markdown-content :global(b) {
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+  }
+
+  .markdown-content :global(em),
+  .markdown-content :global(i) {
+    font-style: italic;
+  }
+
+  .markdown-content :global(ul) {
+    list-style-position: outside;
+    list-style-type: disc !important;
+    padding-left: 1.25rem !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  .markdown-content :global(ol) {
+    list-style-position: outside;
+    list-style-type: decimal !important;
+    padding-left: 1.25rem !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  .markdown-content :global(li) {
+    margin: 0;
+    display: list-item;
+  }
+</style>

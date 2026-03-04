@@ -20,7 +20,7 @@ const { data } = Astro.props;
 
     <div class="smart-catering__columns">
       {
-        data.columns?.map((column) => (
+        data.columns?.map((column, colIndex) => (
           <div class="smart-catering__column">
             <div class="smart-catering__column-header">
               <h3 class="smart-catering__column-title">{column.title}</h3>
@@ -33,7 +33,7 @@ const { data } = Astro.props;
               {column.accordions?.map((accordion, accIndex) => (
                 <div
                   class="smart-catering__accordion group"
-                  id={`smart-${accIndex + 1}`}
+                  id={`smart-${colIndex + 1}-${accIndex + 1}`}
                 >
                   <button
                     class="smart-catering__accordion-summary"

@@ -1,0 +1,41 @@
+title: PLUGIN_ADMIN.SITE
+form:
+  fields:
+    footer:
+      type: section
+      title: Footer
+      underline: true
+
+      fields:
+        footer.menus:
+          type: list
+          label: Menu Items
+          style: vertical
+          fields:
+            .label:
+              type: text
+              label: Label
+            .link:
+              type: text
+              label: Link URL
+
+        footer.socials:
+          type: list
+          label: Social Links
+          style: vertical
+          fields:
+            .platform:
+              type: text
+              label: Platform Name
+            .link:
+              type: text
+              label: Link URL
+            .icon:
+              type: filepicker
+              label: Icon (SVG/Image)
+              folder: "theme://assets"
+
+        footer.copyright:
+          type: text
+          label: Copyright Text
+          default: "© 2025 Sander Catering"
