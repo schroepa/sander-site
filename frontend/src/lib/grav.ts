@@ -100,6 +100,61 @@ export interface SmartCateringData {
     columns: SmartCateringColumn[];
 }
 
+/** About section data */
+export interface AboutData {
+    headline?: string;
+    body?: string;
+    background_image?: string;
+    /** Optional image shown in the right column of the About section */
+    image?: string;
+}
+
+/** A single team member */
+export interface TeamMember {
+    name: string;
+    role?: string;
+    bio?: string;
+    image?: string;
+}
+
+/** Team section data */
+export interface TeamData {
+    headline?: string;
+    subline?: string;
+    items: TeamMember[];
+}
+
+/** A single FAQ item */
+export interface FaqItem {
+    question: string;
+    answer: string;
+}
+
+/** FAQ section data */
+export interface FaqData {
+    headline?: string;
+    items: FaqItem[];
+}
+
+/** Text section – centered headline + body paragraphs, optional background image */
+export interface TextSectionData {
+    headline?: string;
+    paragraphs?: { text: string }[];
+    background_image?: string;
+}
+
+/** Split section – left text column, right bleed image */
+export interface SplitSectionData {
+    overline?: string;
+    headline?: string;
+    subheadline?: string;
+    body?: { text: string }[];
+    cta_text?: string;
+    cta_link?: string;
+    image?: string;
+    image_alt?: string;
+}
+
 /** Call to Action section data */
 export interface CtaData {
     headline?: string;
@@ -124,16 +179,41 @@ export interface StickyScrollData {
     items?: StickyScrollItem[];
 }
 
+/** Menu Slider Item */
+export interface MenuSliderItem {
+    title: string;
+    subtitle?: string;
+    image?: string;
+}
+
+/** Menu Slider Section Data */
+export interface MenuSliderData {
+    headline?: string;
+    items?: MenuSliderItem[];
+}
+
+/** Section order entry – one item per orderable section */
+export interface SectionOrderItem {
+    section: string;
+}
+
 /** Full page data returned from a Grav content file */
 export interface GravPage {
     title: string;
+    section_order?: SectionOrderItem[];
     hero?: HeroData;
     sections?: ContentSection[];
     solutions?: SolutionsData;
     stats?: StatsData;
+    menu_slider?: MenuSliderData;
     smart_catering?: SmartCateringData;
     sticky_scroll?: StickyScrollData;
     cta?: CtaData;
+    about?: AboutData;
+    team?: TeamData;
+    faq?: FaqData;
+    text_section?: TextSectionData;
+    split_section?: SplitSectionData;
     /** Raw markdown body content (below the frontmatter) */
     body: string;
     /** All frontmatter data as-is */
@@ -160,13 +240,20 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
 
     return {
         title: data.title ?? 'Untitled',
+        section_order: data.section_order ?? undefined,
         hero: data.hero ?? undefined,
         sections: data.sections ?? undefined,
         solutions: data.solutions ?? undefined,
         stats: data.stats ?? undefined,
+        menu_slider: data.menu_slider ?? undefined,
         smart_catering: data.smart_catering ?? undefined,
         sticky_scroll: data.sticky_scroll ?? undefined,
         cta: data.cta ?? undefined,
+        about: data.about ?? undefined,
+        team: data.team ?? undefined,
+        faq: data.faq ?? undefined,
+        text_section: data.text_section ?? undefined,
+        split_section: data.split_section ?? undefined,
         body: content.trim(),
         raw: data,
     };
@@ -177,6 +264,48 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
  */
 export function getHomepage(): GravPage | null {
     return getPage('01.home', 'homepage');
+}
+
+/** Minimal data shape for legal pages (Impressum, Datenschutz) */
+export interface LegalPage {
+    title: string;
+    meta_description?: string;
+    body: string;
+}
+
+/**
+ * Read a single legal page (Impressum / Datenschutz) from its Grav content file.
+ */
+function getLegalPage(folder: string, template: string): LegalPage | null {
+    const filePath = path.join(GRAV_PAGES_DIR, folder, `${template}.md`);
+
+    if (!fs.existsSync(filePath)) {
+        console.warn(`[grav] Legal page not found: ${filePath}`);
+        return null;
+    }
+
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const { data, content } = matter(raw);
+
+    return {
+        title: (data.title as string) ?? 'Untitled',
+        meta_description: data.meta_description as string | undefined,
+        body: content.trim(),
+    };
+}
+
+/**
+ * Convenience: get Impressum content.
+ */
+export function getImpressum(): LegalPage | null {
+    return getLegalPage('02.impressum', 'impressum');
+}
+
+/**
+ * Convenience: get Datenschutzerklärung content.
+ */
+export function getDatenschutz(): LegalPage | null {
+    return getLegalPage('03.datenschutz', 'datenschutz');
 }
 
 /**

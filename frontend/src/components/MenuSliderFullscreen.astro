@@ -1,0 +1,390 @@
+---
+import type { MenuSliderData } from "../lib/grav";
+
+interface Props {
+  data: MenuSliderData;
+}
+
+const { data } = Astro.props;
+const { headline, items = [] } = data;
+
+function resolveImage(raw: string | object | undefined): string {
+  if (!raw) return "";
+  if (typeof raw === "object")
+    return `/user/pages/01.home/${Object.keys(raw)[0]}`;
+  const filename = (raw as string).replace(/^\/?home\//, "");
+  return `/user/pages/01.home/${filename}`;
+}
+---
+
+<section class="fsslider" id="fsslider-section" aria-label={headline}>
+  <div class="fsslider__viewport" id="fsSliderRoot">
+    <div class="fsslider__container">
+      {
+        items.map((item, index) => {
+          const imageUrl = resolveImage(item.image);
+          return (
+            <div class={`fsslider__slide${index === 0 ? " is-active" : ""}`}>
+              {imageUrl && (
+                <img
+                  src={imageUrl}
+                  alt={item.title}
+                  class="fsslider__bg"
+                  loading={index === 0 ? "eager" : "lazy"}
+                  decoding={index === 0 ? "sync" : "async"}
+                />
+              )}
+              <div class="fsslider__scrim" />
+              <div class="fsslider__content">
+                {headline && index === 0 && (
+                  <p class="fsslider__eyebrow">{headline}</p>
+                )}
+                <h2 class="fsslider__title">{item.title}</h2>
+                {item.subtitle && (
+                  <p class="fsslider__subtitle">{item.subtitle}</p>
+                )}
+              </div>
+            </div>
+          );
+        })
+      }
+    </div>
+  </div>
+
+  <div class="fsslider__controls">
+    <button
+      class="fsslider__btn fsslider__btn--prev"
+      aria-label="Vorheriges Bild"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"><path d="M15 18l-6-6 6-6"></path></svg
+      >
+    </button>
+    <div class="fsslider__dots" aria-label="Slide-Navigation">
+      {
+        items.map((_, i) => (
+          <button
+            class={`fsslider__dot${i === 0 ? " is-active" : ""}`}
+            aria-label={`Slide ${i + 1}`}
+            data-index={i}
+          />
+        ))
+      }
+    </div>
+    <button
+      class="fsslider__btn fsslider__btn--next"
+      aria-label="Nächstes Bild"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="22"
+        height="22"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        stroke-width="1.8"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        aria-hidden="true"><path d="M9 18l6-6-6-6"></path></svg
+      >
+    </button>
+  </div>
+
+  <div class="fsslider__progress-track" aria-hidden="true">
+    <div class="fsslider__progress-fill" id="fsProgressFill"></div>
+  </div>
+</section>
+
+<style>
+  .fsslider {
+    position: relative;
+    width: 100%;
+    height: 100svh;
+    min-height: 480px;
+    overflow: hidden;
+    background: var(--color-bg-app);
+  }
+
+  .fsslider__viewport {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .fsslider__container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+
+  .fsslider__slide {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    transition: opacity 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+    pointer-events: none;
+  }
+
+  .fsslider__slide.is-active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .fsslider__bg {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transform: scale(1.08);
+    transition: transform 8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  .fsslider__slide.is-active .fsslider__bg {
+    transform: scale(1);
+  }
+
+  .fsslider__scrim {
+    position: absolute;
+    inset: 0;
+    /* Use elevation tokens as base for the gradient overlay */
+    background:
+      linear-gradient(
+        to top,
+        var(--color-background-overlay) 0%,
+        var(--color-bg-overlay) 45%,
+        var(--color-fade-invisible) 70%
+      ),
+      linear-gradient(
+        to bottom,
+        var(--color-bg-overlay) 0%,
+        var(--color-fade-invisible) 25%
+      );
+  }
+
+  .fsslider__content {
+    position: absolute;
+    bottom: clamp(var(--space-1000), 14vh, 160px);
+    left: clamp(var(--space-300), 6vw, 100px);
+    right: clamp(var(--space-300), 6vw, 100px);
+    max-width: 820px;
+    color: var(--color-text-primary);
+    transform: translateY(var(--space-300));
+    opacity: 0;
+    transition:
+      transform 0.85s cubic-bezier(0.2, 1, 0.3, 1) 0.2s,
+      opacity 0.85s cubic-bezier(0.2, 1, 0.3, 1) 0.2s;
+  }
+
+  .fsslider__slide.is-active .fsslider__content {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .fsslider__eyebrow {
+    font-family: var(--font-body);
+    font-size: var(--text-action-sm);
+    font-weight: var(--weight-bold);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0 0 var(--space-200);
+    line-height: var(--leading-action-sm);
+  }
+
+  .fsslider__title {
+    font-family: var(--font-display);
+    font-size: clamp(var(--text-h2), 6.5vw, var(--text-display-sm));
+    line-height: 1;
+    font-weight: var(--weight-bold);
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-300);
+  }
+
+  .fsslider__subtitle {
+    font-family: var(--font-body);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
+    color: var(--color-text-secondary);
+    margin: 0;
+    max-width: 540px;
+  }
+
+  .fsslider__controls {
+    position: absolute;
+    bottom: clamp(var(--space-200), 3.5vh, var(--space-500));
+    left: clamp(var(--space-300), 6vw, 100px);
+    right: clamp(var(--space-300), 6vw, 100px);
+    display: flex;
+    align-items: center;
+    gap: var(--space-300);
+    z-index: 10;
+  }
+
+  .fsslider__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: var(--space-500);
+    height: var(--space-500);
+    border-radius: var(--radius-rounded);
+    border: var(--border-m) solid var(--color-stroke-brand-subtle);
+    background: var(--color-background-elevation-glass2);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--color-icon-primary);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition:
+      background 0.2s ease,
+      border-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .fsslider__btn:hover {
+    background: var(--color-background-elevation-glass1);
+    border-color: var(--color-stroke-brand-medium);
+    transform: scale(1.09);
+  }
+
+  .fsslider__dots {
+    display: flex;
+    align-items: center;
+    gap: var(--space-100);
+    flex: 1;
+  }
+
+  .fsslider__dot {
+    height: var(--border-l);
+    width: var(--space-300);
+    border-radius: var(--radius-rounded);
+    border: none;
+    padding: 0;
+    background: var(--color-stroke-tertiary);
+    cursor: pointer;
+    transition:
+      width 0.35s ease,
+      background 0.35s ease;
+    flex-shrink: 0;
+  }
+
+  .fsslider__dot.is-active {
+    width: var(--space-500);
+    background: var(--color-text-primary);
+  }
+
+  .fsslider__progress-track {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: var(--border-m);
+    background: var(--color-stroke-tertiary);
+    z-index: 10;
+  }
+
+  .fsslider__progress-fill {
+    height: 100%;
+    background: var(--color-stroke-brand-medium);
+    width: 0%;
+  }
+</style>
+
+<script>
+  const DURATION = 5500;
+
+  const init = () => {
+    const section = document.querySelector("#fsslider-section");
+    if (!section) return;
+
+    const slides = Array.from(
+      section.querySelectorAll<HTMLElement>(".fsslider__slide"),
+    );
+    const dots = Array.from(
+      section.querySelectorAll<HTMLElement>(".fsslider__dot"),
+    );
+    const fill = section.querySelector<HTMLElement>("#fsProgressFill");
+    const btnPrev = section.querySelector(".fsslider__btn--prev");
+    const btnNext = section.querySelector(".fsslider__btn--next");
+
+    let current = 0;
+    let timer: ReturnType<typeof setTimeout> | null = null;
+    let paused = false;
+
+    const activate = (next: number) => {
+      slides[current].classList.remove("is-active");
+      dots[current]?.classList.remove("is-active");
+      current = ((next % slides.length) + slides.length) % slides.length;
+      slides[current].classList.add("is-active");
+      dots[current]?.classList.add("is-active");
+      startProgress();
+      schedule();
+    };
+
+    const schedule = () => {
+      if (timer) clearTimeout(timer);
+      if (!paused) timer = setTimeout(() => activate(current + 1), DURATION);
+    };
+
+    const startProgress = () => {
+      if (!fill) return;
+      fill.style.transition = "none";
+      fill.style.width = "0%";
+      void fill.offsetWidth;
+      if (!paused) {
+        fill.style.transition = `width ${DURATION}ms linear`;
+        fill.style.width = "100%";
+      }
+    };
+
+    section.addEventListener("mouseenter", () => {
+      paused = true;
+      if (timer) clearTimeout(timer);
+      if (fill) fill.style.transition = "none";
+    });
+    section.addEventListener("mouseleave", () => {
+      paused = false;
+      schedule();
+      startProgress();
+    });
+
+    dots.forEach((dot, i) => dot.addEventListener("click", () => activate(i)));
+    btnPrev?.addEventListener("click", () => activate(current - 1));
+    btnNext?.addEventListener("click", () => activate(current + 1));
+
+    let tx = 0;
+    const vp = section.querySelector(".fsslider__viewport");
+    vp?.addEventListener(
+      "touchstart",
+      (e) => {
+        tx = (e as TouchEvent).touches[0].clientX;
+      },
+      { passive: true },
+    );
+    vp?.addEventListener(
+      "touchend",
+      (e) => {
+        const dx = tx - (e as TouchEvent).changedTouches[0].clientX;
+        if (Math.abs(dx) > 48) activate(current + (dx > 0 ? 1 : -1));
+      },
+      { passive: true },
+    );
+
+    startProgress();
+    schedule();
+  };
+
+  init();
+  document.addEventListener("astro:page-load", init);
+</script>

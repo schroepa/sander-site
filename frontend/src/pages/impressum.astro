@@ -1,0 +1,146 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getImpressum } from "../lib/grav";
+import { marked } from "marked";
+
+const page = getImpressum();
+const htmlBody = page?.body ? marked.parse(page.body) : "";
+---
+
+<Layout
+  title={page?.title ?? "Impressum – Sander Catering"}
+  description={page?.meta_description ??
+    "Impressum der Sander Betriebsgastronomie"}
+>
+  <main class="legal-page">
+    <div class="legal-container">
+      <a href="/" class="back-link">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M10 12L6 8l4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+        Zurück zur Startseite
+      </a>
+      <h1 class="legal-title">{page?.title ?? "Impressum"}</h1>
+      {
+        htmlBody ? (
+          <div class="legal-body prose prose-invert" set:html={htmlBody} />
+        ) : (
+          <p class="legal-empty">Inhalt wird geladen…</p>
+        )
+      }
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal-page {
+    min-height: 100vh;
+    background-color: var(--color-background-primary);
+    padding: var(--space-1000) var(--space-300);
+  }
+  .legal-container {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-500);
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-100);
+    font-family: var(--font-body);
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    width: fit-content;
+  }
+  .back-link:hover {
+    color: var(--color-text-secondary);
+  }
+  .legal-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .legal-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-300);
+    font-family: var(--font-body);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
+    color: var(--color-text-secondary);
+  }
+  .legal-body :global(h2) {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-h3);
+    color: var(--color-text-primary);
+    margin-top: var(--space-500);
+    margin-bottom: var(--space-100);
+  }
+  .legal-body :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .legal-body :global(p) {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+  .legal-body :global(strong) {
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+  }
+  .legal-body :global(a) {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+  .legal-body :global(a:hover) {
+    color: var(--color-text-primary);
+  }
+  .legal-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-stroke-secondary);
+    margin: var(--space-300) 0;
+  }
+  .legal-body :global(ul) {
+    padding-left: var(--space-300);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+    margin: 0;
+  }
+  .legal-empty {
+    color: var(--color-text-tertiary);
+    font-family: var(--font-body);
+    font-size: var(--text-body-md);
+  }
+  @media (max-width: 640px) {
+    .legal-page {
+      padding: var(--space-800) var(--space-200);
+    }
+    .legal-title {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+  }
+</style>

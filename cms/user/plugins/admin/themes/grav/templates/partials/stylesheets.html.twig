@@ -12,6 +12,10 @@
     {% do assets.addCss(theme_url~'/css/nucleus-ie9.css') %}
     {% do assets.addCss(theme_url~'/css/pure-0.5.0/grids-min.css') %}
 {% endif %}
+
+{% do assets.addCss('https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/ui/trumbowyg.min.css', {priority: 15}) %}
+{% do assets.addCss('https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/plugins/colors/ui/trumbowyg.colors.min.css', {priority: 15}) %}
+
 {% if language_codes.rtl(grav.user.language) %}
     {% do assets.addCss(theme_url~'/css/rtl.css') %}
 {% endif %}

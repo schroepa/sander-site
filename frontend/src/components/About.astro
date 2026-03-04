@@ -1,0 +1,199 @@
+---
+import type { AboutData } from "../lib/grav";
+
+interface Props {
+  data: AboutData;
+}
+
+const { data } = Astro.props;
+
+// Resolve background image path (served from Grav pages media)
+const bgImage = data.background_image
+  ? `/user/pages/01.home/${data.background_image}`
+  : null;
+
+// Resolve the right-column image
+const sideImage = data.image ? `/user/pages/01.home/${data.image}` : null;
+---
+
+<section class="about" id="ueber-uns">
+  {/* Background layer */}
+  {
+    bgImage && (
+      <div class="about__bg" aria-hidden="true">
+        <img class="about__bg-img" src={bgImage} alt="" />
+        <div class="about__bg-overlay" />
+      </div>
+    )
+  }
+
+  <div class="about__inner">
+    {/* Left column: text */}
+    <div class="about__text">
+      {data.headline && <p class="about__overline">Über uns</p>}
+      {data.headline && <h2 class="about__headline">{data.headline}</h2>}
+      {
+        data.body && (
+          <div
+            class="about__body"
+            set:html={data.body.replace(/\n/g, "<br />")}
+          />
+        )
+      }
+    </div>
+
+    {/* Right column: image */}
+    {
+      sideImage && (
+        <div class="about__image-wrap">
+          <img
+            class="about__image"
+            src={sideImage}
+            alt={data.headline ?? "Über uns"}
+            loading="lazy"
+          />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  /* ─── Section ─── */
+  .about {
+    position: relative;
+    background-color: var(--color-background-elevation2);
+    border-top: 1px solid var(--color-stroke-tertiary);
+    overflow: hidden;
+    padding: var(--space-1000) var(--space-800);
+  }
+
+  /* ─── Background ─── */
+  .about__bg {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+
+  .about__bg-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: none;
+  }
+
+  .about__bg-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-background-overlay);
+  }
+
+  /* ─── Inner layout: two columns ─── */
+  .about__inner {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-800);
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ─── Text column ─── */
+  .about__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-300);
+  }
+
+  .about__overline {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-overline-lg);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .about__headline {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-black);
+    font-size: var(--text-h1);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .about__body {
+    font-family: var(--font-body);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.3px;
+  }
+
+  .about__body :global(p) {
+    margin-top: 0;
+    margin-bottom: var(--space-200);
+  }
+
+  .about__body :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  /* ─── Image column ─── */
+  .about__image-wrap {
+    position: relative;
+    border-radius: var(--radius-300);
+    overflow: hidden;
+    /* subtle glass border */
+    border: 1px solid var(--color-stroke-tertiary);
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.35);
+    aspect-ratio: 4 / 3;
+  }
+
+  .about__image {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+  }
+
+  .about__image-wrap:hover .about__image {
+    transform: scale(1.03);
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 900px) {
+    .about__inner {
+      grid-template-columns: 1fr;
+      gap: var(--space-500);
+    }
+
+    .about__image-wrap {
+      aspect-ratio: 16 / 9;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .about {
+      padding: var(--space-1000) var(--space-300);
+    }
+
+    .about__headline {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+
+    .about__body {
+      font-size: var(--text-body-md);
+      line-height: var(--leading-body-md);
+    }
+  }
+</style>

@@ -8,14 +8,10 @@ footer:
   menus:
     - label: Home
       link: "/"
-    - label: Products
-      link: "/products"
-    - label: About
-      link: "/about"
-    - label: Blog
-      link: "/blog"
-    - label: Contact
-      link: "/contact"
+    - label: Impressum
+      link: "/impressum"
+    - label: Datenschutz
+      link: "/datenschutz"
   socials:
     - platform: LinkedIn
       link: "https://linkedin.com"

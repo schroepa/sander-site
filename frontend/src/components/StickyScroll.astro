@@ -1,22 +1,21 @@
 ---
 import type { StickyScrollData } from "../lib/grav";
-import MarkdownIt from "markdown-it";
+import { marked } from "marked";
 
 interface Props {
   data: StickyScrollData;
 }
 
 const { data } = Astro.props;
-const md = new MarkdownIt({ html: true, breaks: true });
 
 function renderMarkdown(text: string | undefined) {
-  return text ? md.render(text) : "";
+  return text ? (marked.parse(text) as string) : "";
 }
 ---
 
 <section
   class="sticky-scroll-section"
-  style="background-color: var(--color-bg-app); padding: var(--space-1000) var(--space-800); position: relative;"
+  style="padding: var(--space-1000) var(--space-800); position: relative;"
 >
   <div class="sticky-scroll-container">
     {/* Left Column: Fixed Content */}
@@ -124,6 +123,29 @@ function renderMarkdown(text: string | undefined) {
   .sticky-scroll-section {
     width: 100%;
     margin-top: 100px;
+    background-image: url("/assets/sander-manufaktur-image.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+  }
+
+  .sticky-scroll-section::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-bg-overlay);
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .sticky-scroll-container {
+    position: relative;
+    z-index: 1;
+  }
+
+  .fade-top,
+  .fade-bottom {
+    z-index: 11;
   }
 
   /* Fade overlays to blend the scrolling container */

@@ -1,0 +1,307 @@
+---
+import type { TeamData } from "../lib/grav";
+
+interface Props {
+  data: TeamData;
+}
+
+const { data } = Astro.props;
+const members = data.items ?? [];
+---
+
+<section class="team" id="team">
+  <div class="team__inner">
+    {/* Header */}
+    <div class="team__header">
+      <p class="team__overline">Unser Team</p>
+      {data.headline && <h2 class="team__headline">{data.headline}</h2>}
+      {data.subline && <p class="team__subline">{data.subline}</p>}
+    </div>
+
+    {/* Grid */}
+    {
+      members.length > 0 && (
+        <ul class="team__grid" role="list">
+          {members.map((member) => {
+            // Grav stores image paths as either:
+            //   "filename.jpg"          (bare filename)
+            //   "/home/filename.jpg"    (with /home/ prefix, from admin upload)
+            // Strip the /home/ prefix and URL-decode before building the URL.
+            const imgSrc = member.image
+              ? `/user/pages/01.home/${decodeURIComponent(member.image.replace(/^\/home\//, ""))}`
+              : null;
+
+            return (
+              <li class="team__card">
+                {/* Avatar */}
+                <div class="team__avatar">
+                  {imgSrc ? (
+                    <img
+                      class="team__avatar-img"
+                      src={imgSrc}
+                      alt={`Foto von ${member.name}`}
+                      loading="lazy"
+                      decoding="async"
+                    />
+                  ) : (
+                    <div class="team__avatar-placeholder" aria-hidden="true">
+                      <svg
+                        viewBox="0 0 48 48"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                        aria-hidden="true"
+                      >
+                        <circle
+                          cx="24"
+                          cy="18"
+                          r="9"
+                          fill="currentColor"
+                          opacity="0.4"
+                        />
+                        <path
+                          d="M6 42c0-9.941 8.059-18 18-18s18 8.059 18 18"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          opacity="0.4"
+                        />
+                      </svg>
+                    </div>
+                  )}
+                </div>
+
+                {/* Info */}
+                <div class="team__info">
+                  <p class="team__name">{member.name}</p>
+                  {member.role && <p class="team__role">{member.role}</p>}
+                  {member.bio && <p class="team__bio">{member.bio}</p>}
+                </div>
+              </li>
+            );
+          })}
+        </ul>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  /* ─── Section ─── */
+  .team {
+    position: relative;
+    background-color: var(--color-background-elevation2);
+    border-top: 1px solid var(--color-stroke-tertiary);
+    padding: var(--space-1000) var(--space-800);
+    overflow: hidden;
+  }
+
+  /* ─── Inner ─── */
+  .team__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-800);
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* ─── Header ─── */
+  .team__header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-150);
+    max-width: 640px;
+    margin: 0 auto;
+  }
+
+  .team__overline {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-overline-lg);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .team__headline {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-black);
+    font-size: var(--text-h1);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .team__subline {
+    font-family: var(--font-body);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* ─── Grid ─── */
+  .team__grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-300);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  /* ─── Card ─── */
+  .team__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-300);
+    padding: var(--space-300);
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-200);
+    transition: transform 0.2s ease;
+  }
+
+  .team__card:hover {
+    transform: translateY(-4px);
+  }
+
+  /* ─── Avatar ─── */
+  .team__avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+    background-color: var(--color-background-tertiary);
+    border: 3px solid var(--color-stroke-tertiary);
+  }
+
+  .team__avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+    display: block;
+  }
+
+  .team__avatar-placeholder {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--color-text-tertiary);
+  }
+
+  .team__avatar-placeholder svg {
+    width: 56px;
+    height: 56px;
+  }
+
+  /* ─── Info ─── */
+  .team__info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: var(--space-050);
+  }
+
+  .team__name {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-h4);
+    line-height: var(--leading-h4);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .team__role {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-body-sm);
+    line-height: var(--leading-body-sm);
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.3px;
+    margin: 0;
+  }
+
+  .team__bio {
+    font-family: var(--font-body);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-body-sm);
+    line-height: var(--leading-body-sm);
+    color: var(--color-text-secondary);
+    margin: var(--space-100) 0 0;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .team__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .team {
+      padding: var(--space-1000) var(--space-300);
+    }
+
+    .team__headline {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+
+    .team__grid {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .team__avatar {
+      width: 96px;
+      height: 96px;
+    }
+  }
+</style>
+
+<script>
+  /**
+   * Team – entrance animation.
+   * Cards fade + slide up when section scrolls into view.
+   */
+  function animateTeamCards(section: Element) {
+    const cards = section.querySelectorAll<HTMLElement>(".team__card");
+    cards.forEach((card, i) => {
+      card.style.opacity = "0";
+      card.style.transform = "translateY(20px)";
+      setTimeout(() => {
+        card.style.transition = `opacity 0.5s ease ${i * 0.1}s, transform 0.5s ease ${i * 0.1}s, border-color 0.2s ease`;
+        card.style.opacity = "1";
+        card.style.transform = "translateY(0)";
+      }, 50);
+    });
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateTeamCards(entry.target);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 },
+  );
+
+  document.querySelectorAll(".team").forEach((section) => {
+    observer.observe(section);
+  });
+</script>
