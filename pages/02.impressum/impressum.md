@@ -1,5 +1,5 @@
 ---
-title: Impressum
+title: 'Impressum Lorem ipsum'
 meta_description: 'Impressum der Sander Betriebsgastronomie – Angaben gemäß § 5 TMG.'
 company_name: 'Sander GmbH Lorem ipsum dolor sit amet'
 company_address: "Industriepark 12\n56291 Wiebelsheim"
