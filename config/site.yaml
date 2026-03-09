@@ -1,0 +1,26 @@
+title: Grav
+author:
+  name: Joe Bloggs
+  email: "joe@example.com"
+metadata:
+  description: "Grav is an easy to use, yet powerful, open source flat-file CMS"
+footer:
+  menus:
+    - label: Home
+      link: "/"
+    - label: Impressum
+      link: "/impressum"
+    - label: Datenschutz
+      link: "/datenschutz"
+  socials:
+    - platform: LinkedIn
+      link: "https://linkedin.com"
+    - platform: Twitter
+      link: "https://twitter.com"
+    - platform: Facebook
+      link: "https://facebook.com"
+    - platform: Instagram
+      link: "https://instagram.com"
+    - platform: YouTube
+      link: "https://youtube.com"
+  copyright: "© 2025 Sander Catering"
