@@ -1,7 +1,7 @@
 ---
-title: 'Sander Smart Catering Impressum '
+title: Sander
 meta_description: 'Impressum der Sander Betriebsgastronomie – Angaben gemäß § 5 TMG.'
-company_name: 'Sander GmbH TEST!'
+company_name: 'Sander GmbH Lorem ipsum dolor'
 company_address: "Industriepark 12\n56291 Wiebelsheim"
 company_representatives: 'Jens Sander, Peter Sander'
 contact_phone: '+49 6766 9303-0'
