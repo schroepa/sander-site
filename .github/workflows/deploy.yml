@@ -5,8 +5,8 @@ on:
     branches:
       - main
     paths:
-      - 'cms/user/pages/**'
-      - 'cms/user/config/**'
+      - 'pages/**'
+      - 'config/**'
       - 'frontend/src/**'
       - 'frontend/public/**'
       - 'frontend/astro.config.mjs'
@@ -26,6 +26,17 @@ jobs:
           node-version: '22'
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
+
+      - name: Sync Git Sync pages to cms/user/pages
+        run: |
+          if [ -d "pages" ]; then
+            mkdir -p cms/user/pages
+            cp -r pages/. cms/user/pages/
+          fi
+          if [ -d "config" ]; then
+            mkdir -p cms/user/config
+            cp -r config/. cms/user/config/
+          fi
 
       - name: Install dependencies
         working-directory: frontend
