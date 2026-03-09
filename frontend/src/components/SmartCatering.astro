@@ -1,0 +1,426 @@
+---
+import { marked } from "marked";
+import type { SmartCateringData } from "../lib/grav";
+import Tag from "./Tag.astro";
+
+interface Props {
+  data: SmartCateringData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="smart-catering" id="smart-catering">
+  <div class="smart-catering__inner">
+    <div class="smart-catering__header">
+      {data.headline && <p class="smart-catering__headline">{data.headline}</p>}
+      {data.title && <h2 class="smart-catering__title">{data.title}</h2>}
+      {data.subline && <p class="smart-catering__subline">{data.subline}</p>}
+    </div>
+
+    <div class="smart-catering__columns">
+      {
+        data.columns?.map((column, colIndex) => (
+          <div class="smart-catering__column">
+            <div class="smart-catering__column-header">
+              <h3 class="smart-catering__column-title">{column.title}</h3>
+              {column.subline && (
+                <p class="smart-catering__column-subline">{column.subline}</p>
+              )}
+            </div>
+
+            <div class="smart-catering__accordions">
+              {column.accordions?.map((accordion, accIndex) => (
+                <div
+                  class="smart-catering__accordion group"
+                  id={`smart-${colIndex + 1}-${accIndex + 1}`}
+                >
+                  <button
+                    class="smart-catering__accordion-summary"
+                    aria-expanded="false"
+                  >
+                    <span class="smart-catering__accordion-title">
+                      {accordion.title}
+                    </span>
+                    <span class="smart-catering__accordion-icon">
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M6 9L12 15L18 9"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        />
+                      </svg>
+                    </span>
+                  </button>
+                  <div class="smart-catering__accordion-content-wrapper">
+                    <div class="smart-catering__accordion-content">
+                      <div class="smart-catering__accordion-inner">
+                        {accordion.content && (
+                          <div
+                            class="smart-catering__accordion-text markdown-content"
+                            set:html={accordion.content}
+                          />
+                        )}
+                        {accordion.tags && accordion.tags.length > 0 && (
+                          <div
+                            class="smart-catering__tags"
+                            style="display: flex; gap: var(--space-100); flex-wrap: wrap; background-color: var(--color-bg-secondary); border-radius: var(--radius-200); border: 1px solid var(--color-border);"
+                          >
+                            {accordion.tags.map((tag) => (
+                              <div>
+                                <Tag text={tag} />
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        {accordion.cards && accordion.cards.length > 0 && (
+                          <div class="smart-catering__cards">
+                            {accordion.cards.map((card) => (
+                              <div class="smart-catering__card">
+                                <h4 class="smart-catering__card-title">
+                                  {card.title}
+                                </h4>
+                                <p class="smart-catering__card-text">
+                                  {card.text}
+                                </p>
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<script>
+  function initAccordions() {
+    const accordions = document.querySelectorAll(".smart-catering__accordion");
+
+    accordions.forEach((accordion) => {
+      const summary = accordion.querySelector(
+        ".smart-catering__accordion-summary",
+      );
+
+      summary?.addEventListener("click", () => {
+        const isOpen = accordion.classList.contains("is-open");
+
+        // Close all accordions to ensure max 1 is opened
+        accordions.forEach((acc) => {
+          acc.classList.remove("is-open");
+          acc
+            .querySelector(".smart-catering__accordion-summary")
+            ?.setAttribute("aria-expanded", "false");
+        });
+
+        // Open the clicked one if it was previously closed
+        if (!isOpen) {
+          accordion.classList.add("is-open");
+          summary.setAttribute("aria-expanded", "true");
+        }
+      });
+    });
+  }
+
+  initAccordions();
+  document.addEventListener("astro:page-load", initAccordions);
+</script>
+
+<style>
+  .smart-catering {
+    padding: var(--space-1000) var(--space-800);
+  }
+
+  .smart-catering__inner {
+    margin: 0 auto;
+    max-width: var(--max-site-width);
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1000);
+  }
+
+  /* ─── Header ─── */
+  .smart-catering__header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+    align-items: center;
+    text-align: center;
+  }
+
+  .smart-catering__headline {
+    font-family: var(--font-body);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .smart-catering__title {
+    font-family: var(--font-display);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-display-sm);
+    line-height: var(--leading-display-sm);
+    color: var(--color-text-primary);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0;
+  }
+
+  .smart-catering__subline {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* ─── Columns ─── */
+  .smart-catering__columns {
+    display: flex;
+    gap: var(--space-500);
+    align-items: flex-start;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  .smart-catering__column {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-300);
+  }
+
+  .smart-catering__column-header {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  .smart-catering__column-title {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-extra-bold);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .smart-catering__column-subline {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  /* ─── Accordions Wrapper ─── */
+  .smart-catering__accordions {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-300);
+    overflow: hidden;
+  }
+
+  /* ─── Accordion Toggle ─── */
+  .smart-catering__accordion {
+    border-bottom: 1px solid var(--color-stroke-primary);
+  }
+
+  .smart-catering__accordion:last-child {
+    border-bottom: none;
+  }
+
+  .smart-catering__accordion-summary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--space-300) var(--space-500);
+    cursor: pointer;
+    width: 100%;
+    background: none;
+    border: none;
+    text-align: left;
+    user-select: none;
+  }
+
+  .smart-catering__accordion-title {
+    font-family: var(--font-body);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-primary);
+    letter-spacing: 0.5px;
+  }
+
+  .smart-catering__accordion-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 24px;
+    height: 24px;
+    color: var(--color-text-primary);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  /* Rotate icon when open */
+  .smart-catering__accordion.is-open .smart-catering__accordion-icon {
+    transform: rotate(180deg);
+  }
+
+  /* Animation Wrapper using CSS Grid */
+  .smart-catering__accordion-content-wrapper {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease-in-out;
+  }
+
+  .smart-catering__accordion.is-open
+    .smart-catering__accordion-content-wrapper {
+    grid-template-rows: 1fr;
+  }
+
+  .smart-catering__accordion-content {
+    overflow: hidden;
+  }
+
+  .smart-catering__accordion-inner {
+    padding: 0 var(--space-500) var(--space-300) var(--space-500);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-300);
+  }
+
+  .smart-catering__accordion-text {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-body-sm); /* Using 14px as in Figma */
+    line-height: var(--leading-body-sm);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.25px;
+    margin: 0;
+  }
+
+  /* ─── Markdown Content Styles ─── */
+  .markdown-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+  }
+
+  .markdown-content :global(p) {
+    margin: 0;
+  }
+
+  .markdown-content :global(strong),
+  .markdown-content :global(b) {
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+  }
+
+  .markdown-content :global(ul) {
+    list-style-position: outside;
+    list-style-type: disc !important;
+    padding-left: 1.25rem !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  .markdown-content :global(ol) {
+    list-style-position: outside;
+    list-style-type: decimal !important;
+    padding-left: 1.25rem !important;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+
+  .markdown-content :global(li) {
+    margin: 0;
+    display: list-item;
+  }
+
+  /* ─── Nested Cards ─── */
+  .smart-catering__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-100);
+  }
+
+  .smart-catering__card {
+    background-color: var(
+      --color-bg-primary
+    ); /* Darker module bg, in Figma it's #f4f4f4 in light but we use primary/app bg */
+    border-radius: var(--radius-200);
+    padding: var(--space-200) var(--space-300);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+    justify-content: flex-start;
+  }
+
+  .smart-catering__card-title {
+    font-family: var(--font-body); /* Or secondary font if available */
+    font-weight: var(--weight-bold);
+    font-size: var(--text-h5);
+    line-height: var(--leading-h5);
+    color: var(--color-text-primary);
+    letter-spacing: 0.15px;
+    margin: 0;
+  }
+
+  .smart-catering__card-text {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-h5); /* Using 16px as in Figma card */
+    line-height: var(--leading-h5);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 1024px) {
+    .smart-catering__columns {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .smart-catering {
+      padding: var(--space-800) var(--space-300);
+    }
+    .smart-catering__cards {
+      grid-template-columns: 1fr;
+    }
+    .smart-catering__title {
+      font-size: var(--text-h1);
+      line-height: var(--leading-h1);
+    }
+  }
+</style>

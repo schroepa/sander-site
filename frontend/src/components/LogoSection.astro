@@ -1,0 +1,185 @@
+---
+import type { LogoSectionData } from "../lib/grav";
+
+interface Props {
+    data: LogoSectionData;
+}
+
+const { data } = Astro.props;
+const logos = data.items ?? [];
+const logoColor = data.logo_color || "#f1eef0";
+
+// JS on the client will duplicate as needed — render one copy here
+const allLogos = logos;
+---
+
+<section class="logos" id="logos">
+    {data.headline && <h2 class="logos__headline">{data.headline}</h2>}
+
+    <div class="logos__track-wrapper">
+        <div class="logos__track" id="logos-track">
+            {
+                allLogos.map((logo) => {
+                    const src = logo.image
+                        ? `/user/pages/01.home/${logo.image}`
+                        : null;
+                    return src ? (
+                        <div class="logos__item" title={logo.name}>
+                            <div
+                                class="logos__icon"
+                                style={`
+                -webkit-mask-image: url('${src}');
+                mask-image: url('${src}');
+                background-color: ${logoColor};
+              `}
+                                role="img"
+                                aria-label={logo.name}
+                            />
+                        </div>
+                    ) : null;
+                })
+            }
+        </div>
+    </div>
+</section>
+
+<script>
+    const track = document.getElementById("logos-track");
+    if (track && track.children.length > 0) {
+        const originalItems = Array.from(track.children);
+
+        // Step 1: clone original set until track is at least 2× viewport wide
+        while (track.scrollWidth < window.innerWidth * 2) {
+            originalItems.forEach((item) =>
+                track.appendChild(item.cloneNode(true)),
+            );
+        }
+
+        // Step 2: duplicate the full track → two identical halves, -50% loops perfectly
+        Array.from(track.children).forEach((item) =>
+            track.appendChild(item.cloneNode(true)),
+        );
+
+        // Step 3: set duration based on pixel speed (80px/s) so it's always consistent
+        const halfWidth = track.scrollWidth / 2;
+        const pxPerSecond = 50;
+        const duration = halfWidth / pxPerSecond;
+        track.style.setProperty("--marquee-duration", `${duration}s`);
+    }
+</script>
+
+<style>
+    /* ─── Section ─── */
+    .logos {
+        background-color: var(--color-background-elevation2);
+        padding: var(--space-800) var(--space-400);
+        overflow: hidden;
+    }
+
+    .logos__headline {
+        font-family: var(--font-heading);
+        font-weight: var(--weight-bold);
+        font-size: var(--text-h3);
+        line-height: var(--leading-h3);
+        color: var(--color-text-primary);
+        text-align: center;
+        margin: 0 0 var(--space-600);
+    }
+
+    /* ─── Marquee wrapper ─── */
+    .logos__track-wrapper {
+        padding: var(--space-1000) var(--space-500);
+        position: relative;
+        width: 100%;
+        overflow: hidden;
+        /* Fade edges */
+        -webkit-mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%
+        );
+        mask-image: linear-gradient(
+            to right,
+            transparent 0%,
+            black 10%,
+            black 90%,
+            transparent 100%
+        );
+    }
+
+    /* ─── Scrolling track ─── */
+    .logos__track {
+        display: flex;
+        align-items: center;
+        width: max-content;
+        animation: marquee var(--marquee-duration, 60s) linear infinite;
+    }
+
+    .logos__track:hover {
+        animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-50%);
+        }
+    }
+
+    /* ─── Single logo item ─── */
+    .logos__item {
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
+        padding-right: var(--space-800);
+    }
+
+    /* ─── Icon via CSS mask (allows color override) ─── */
+    .logos__icon {
+        width: 120px;
+        height: 48px;
+        -webkit-mask-size: contain;
+        mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-position: center;
+        transition: opacity 0.3s ease;
+    }
+
+    .logos__item:hover .logos__icon {
+        opacity: 0.7;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+        .logos {
+            padding: var(--space-600) var(--space-300);
+        }
+
+        .logos__headline {
+            font-size: var(--text-h4);
+            line-height: var(--leading-h4);
+            margin-bottom: var(--space-400);
+        }
+
+        .logos__icon {
+            width: 80px;
+            height: 36px;
+        }
+
+        .logos__item {
+            height: 36px;
+        }
+
+        .logos__item {
+            padding-right: var(--space-600);
+        }
+    }
+</style>

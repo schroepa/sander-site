@@ -1,0 +1,116 @@
+title: Impressum
+"@extends":
+  type: default
+  context: "blueprints://pages"
+
+form:
+  fields:
+    tabs:
+      fields:
+        content:
+          fields:
+
+            # ── Angaben §5 TMG ──
+            company_section:
+              type: section
+              title: "🏢 Angaben gemäß § 5 TMG"
+              underline: true
+
+            header.company_name:
+              type: text
+              label: Firmenname
+              placeholder: "z.B. Sander GmbH"
+              validate:
+                required: true
+
+            header.company_address:
+              type: textarea
+              label: Adresse
+              rows: 3
+              placeholder: "Industriepark 12\n56291 Wiebelsheim"
+              help: "Jede Zeile = eine Zeile der Adresse."
+
+            header.company_representatives:
+              type: text
+              label: Geschäftsführer (Vertreten durch)
+              placeholder: "z.B. Jens Sander, Peter Sander"
+
+            # ── Kontakt ──
+            contact_section:
+              type: section
+              title: "📞 Kontakt"
+              underline: true
+
+            contact_columns:
+              type: columns
+              fields:
+                col_phone:
+                  type: column
+                  fields:
+                    header.contact_phone:
+                      type: text
+                      label: Telefon
+                      placeholder: "+49 6766 9303-0"
+                col_email:
+                  type: column
+                  fields:
+                    header.contact_email:
+                      type: text
+                      label: E-Mail
+                      placeholder: "info@sander-gruppe.com"
+
+            # ── Registereintrag ──
+            register_section:
+              type: section
+              title: "📋 Registereintrag"
+              underline: true
+
+            register_columns:
+              type: columns
+              fields:
+                col_court:
+                  type: column
+                  fields:
+                    header.register_court:
+                      type: text
+                      label: Registergericht
+                      placeholder: "Amtsgericht Koblenz"
+                col_number:
+                  type: column
+                  fields:
+                    header.register_number:
+                      type: text
+                      label: Registernummer
+                      placeholder: "HRB 30537"
+
+            # ── EU-Streitschlichtung ──
+            eu_section:
+              type: section
+              title: "🇪🇺 EU-Streitschlichtung"
+              underline: true
+
+            header.eu_os_link:
+              type: text
+              label: Link zur OS-Plattform der EU-Kommission
+              placeholder: "https://ec.europa.eu/consumers/odr/"
+
+            # ── Weitere Abschnitte ──
+            sections_header:
+              type: section
+              title: "📄 Weitere Abschnitte"
+              underline: true
+
+            header.sections:
+              type: list
+              label: Abschnitte
+              style: vertical
+              fields:
+                .title:
+                  type: text
+                  label: Überschrift
+                  validate:
+                    required: true
+
+                .body:
+                  type: editor
+                  label: Text

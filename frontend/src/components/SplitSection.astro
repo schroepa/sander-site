@@ -1,0 +1,233 @@
+---
+/**
+ * SplitSection.astro
+ * Split-Section: linke Textspalte, rechts randabfallendes Foto.
+ * Das Bild bricht rechts aus dem Layout heraus (bleed).
+ * Alle Inhalte sind über Grav CMS editierbar.
+ */
+import type { SplitSectionData } from "../lib/grav";
+
+interface Props {
+  data: SplitSectionData;
+}
+
+const { data } = Astro.props;
+
+const image = data.image ? `/user/pages/01.home/${data.image}` : null;
+---
+
+<section class="split" aria-labelledby="split-heading">
+  <div class="split__inner">
+    {/* ── Left: Text column ── */}
+    <div class="split__content">
+      {data.overline && <p class="split__overline">{data.overline}</p>}
+
+      {
+        data.headline && (
+          <h2 id="split-heading" class="split__headline">
+            {data.headline}
+          </h2>
+        )
+      }
+
+      {data.subheadline && <p class="split__subheadline">{data.subheadline}</p>}
+
+      {
+        data.body && data.body.length > 0 && (
+          <div class="split__body">
+            {data.body.map((p) => (
+              <p class="split__paragraph">{p.text}</p>
+            ))}
+          </div>
+        )
+      }
+
+      {
+        data.cta_text && data.cta_link && (
+          <a href={data.cta_link} class="split__cta">
+            {data.cta_text}
+          </a>
+        )
+      }
+    </div>
+
+    {/* ── Right: Bleed image ── */}
+    {
+      image && (
+        <div class="split__image-wrap" aria-hidden="true">
+          <img
+            class="split__image"
+            src={image}
+            alt={data.image_alt ?? data.headline ?? ""}
+            loading="lazy"
+          />
+        </div>
+      )
+    }
+  </div>
+</section>
+
+<style>
+  /* ── Section ── */
+  .split {
+    padding: var(--space-1000) 0;
+    border-top: 1px solid var(--color-stroke-tertiary);
+    overflow: hidden;
+  }
+
+  /* ── Inner: two-column grid
+     Text column gets full padding; image column bleeds to the right edge ── */
+  .split__inner {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: stretch;
+    min-height: 560px;
+    max-width: var(--max-site-width);
+    margin-inline: auto;
+  }
+
+  /* ── Left: content ── */
+  .split__content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-300);
+    padding: var(--space-1000) var(--space-500) var(--space-1000)
+      var(--space-800);
+  }
+
+  .split__overline {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-overline-lg);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .split__headline {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-black);
+    font-size: var(--text-h1);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .split__subheadline {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  .split__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+    max-width: 560px;
+  }
+
+  .split__paragraph {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
+    letter-spacing: 0.5px;
+    color: var(--color-text-secondary);
+    margin: 0;
+  }
+
+  /* ── CTA Button ── */
+  .split__cta {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    align-self: flex-start;
+    padding: var(--space-200) var(--space-300);
+    border-radius: var(--radius-150);
+    background-color: var(--color-btn-primary-bg);
+    color: var(--color-btn-primary-text);
+    font-family: var(--font-action);
+    font-size: var(--text-action-lg);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-action-lg);
+    letter-spacing: 0.5px;
+    text-decoration: none;
+    box-shadow: var(--shadow-m);
+    transition:
+      background-color 0.2s ease,
+      transform 0.2s ease;
+  }
+
+  .split__cta:hover {
+    background-color: var(--color-btn-secondary-bg);
+    transform: translateY(-1px);
+  }
+
+  .split__cta:active {
+    transform: translateY(0);
+  }
+
+  /* ── Right: bleed image ──
+     Fills the grid cell completely in height.
+     Left edge is rounded, right edge bleeds to the viewport boundary. ── */
+  .split__image-wrap {
+    position: relative;
+    overflow: hidden;
+    border-radius: var(--radius-300) 0 0 var(--radius-300);
+  }
+
+  .split__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease;
+  }
+
+  .split__image-wrap:hover .split__image {
+    transform: scale(1.03);
+  }
+
+  /* ── Responsive ── */
+  @media (max-width: 900px) {
+    .split__inner {
+      grid-template-columns: 1fr;
+      min-height: unset;
+    }
+
+    .split__content {
+      padding: var(--space-1000) var(--space-300) var(--space-500);
+    }
+
+    /* On mobile, image goes beneath text as a contained block */
+    .split__image-wrap {
+      position: relative;
+      aspect-ratio: 16 / 9;
+      border-radius: var(--radius-200);
+      margin: 0 var(--space-300) var(--space-800);
+    }
+
+    .split__image {
+      position: absolute;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .split__headline {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+
+    .split__subheadline {
+      font-size: var(--text-h4);
+      line-height: var(--leading-h4);
+    }
+  }
+</style>
