@@ -1,9 +1,9 @@
 ---
 title: Sander
 meta_description: 'Impressum der Sander Betriebsgastronomie – Angaben gemäß § 5 TMG.'
-company_name: 'Sander GmbH Lorem ipsum dolor'
+company_name: 'Sander GmbH'
 company_address: "Industriepark 12\n56291 Wiebelsheim"
-company_representatives: 'Jens Sander, Peter Sander'
+company_representatives: 'Jens Sander, Peter Sander, Lorem ipsum'
 contact_phone: '+49 6766 9303-0'
 contact_email: info@sander-gruppe.com
 register_court: 'Amtsgericht Koblenz'
