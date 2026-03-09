@@ -291,12 +291,15 @@ awards:
         -
             label: 'Best of Market 2026'
             image: award-best-of-market.png
+            description: 'Auszeichnung für das innovativste Catering-Konzept des Jahres.'
         -
             label: 'Höchste Kundenzufriedenheit 2025'
             image: award-kundenzufriedenheit.png
+            description: 'Gewählt von über 5000 zufriedenen Kunden in ganz Deutschland.'
         -
             label: 'Deutschlands Begehrtester Caterer'
             image: award-begehrtester-caterer.png
+            description: 'Prämiert für herausragende Servicequalität und kulinarische Vielfalt.'
 team:
     headline: 'Die Menschen hinter Sander'
     subline: 'Erfahrung, Leidenschaft und echtes Gastgeber-Herz – das ist unser Team.'

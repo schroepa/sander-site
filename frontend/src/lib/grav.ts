@@ -182,6 +182,7 @@ export interface SplitSectionData {
 export interface AwardsItem {
     image?: string;
     label?: string;
+    description?: string;
 }
 
 /** Awards section data */
@@ -279,13 +280,13 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
     // Convert Markdown rich-text fields to HTML
     const solutions: SolutionsData | undefined = data.solutions
         ? {
-              ...data.solutions,
-              items: (data.solutions.items ?? []).map((item: SolutionItem) => ({
-                  ...item,
-                  challenge_text: md(item.challenge_text),
-                  solution_text: md(item.solution_text),
-              })),
-          }
+            ...data.solutions,
+            items: (data.solutions.items ?? []).map((item: SolutionItem) => ({
+                ...item,
+                challenge_text: md(item.challenge_text),
+                solution_text: md(item.solution_text),
+            })),
+        }
         : undefined;
 
     const sections: ContentSection[] | undefined = (data.sections as ContentSection[] | undefined)?.map(
@@ -294,26 +295,26 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
 
     const smart_catering: SmartCateringData | undefined = data.smart_catering
         ? {
-              ...data.smart_catering,
-              columns: (data.smart_catering.columns ?? []).map((col: SmartCateringColumn) => ({
-                  ...col,
-                  accordions: (col.accordions ?? []).map((acc: SmartCateringAccordion) => ({
-                      ...acc,
-                      content: md(acc.content),
-                  })),
-              })),
-          }
+            ...data.smart_catering,
+            columns: (data.smart_catering.columns ?? []).map((col: SmartCateringColumn) => ({
+                ...col,
+                accordions: (col.accordions ?? []).map((acc: SmartCateringAccordion) => ({
+                    ...acc,
+                    content: md(acc.content),
+                })),
+            })),
+        }
         : undefined;
 
     const sticky_scroll: StickyScrollData | undefined = data.sticky_scroll
         ? {
-              ...data.sticky_scroll,
-              items: (data.sticky_scroll.items ?? []).map((item: StickyScrollItem) => ({
-                  ...item,
-                  body_bold: md(item.body_bold),
-                  body_text: md(item.body_text),
-              })),
-          }
+            ...data.sticky_scroll,
+            items: (data.sticky_scroll.items ?? []).map((item: StickyScrollItem) => ({
+                ...item,
+                body_bold: md(item.body_bold),
+                body_text: md(item.body_text),
+            })),
+        }
         : undefined;
 
     const cta: CtaData | undefined = data.cta
@@ -326,31 +327,31 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
 
     const team: TeamData | undefined = data.team
         ? {
-              ...data.team,
-              items: (data.team.items ?? []).map((m: TeamMember) => ({
-                  ...m,
-                  bio: md(m.bio),
-              })),
-          }
+            ...data.team,
+            items: (data.team.items ?? []).map((m: TeamMember) => ({
+                ...m,
+                bio: md(m.bio),
+            })),
+        }
         : undefined;
 
     const faq: FaqData | undefined = data.faq
         ? {
-              ...data.faq,
-              items: (data.faq.items ?? []).map((item: FaqItem) => ({
-                  ...item,
-                  answer: md(item.answer),
-              })),
-          }
+            ...data.faq,
+            items: (data.faq.items ?? []).map((item: FaqItem) => ({
+                ...item,
+                answer: md(item.answer),
+            })),
+        }
         : undefined;
 
     const text_section: TextSectionData | undefined = data.text_section
         ? {
-              ...data.text_section,
-              paragraphs: (data.text_section.paragraphs ?? []).map((p: { text: string }) => ({
-                  text: md(p.text),
-              })),
-          }
+            ...data.text_section,
+            paragraphs: (data.text_section.paragraphs ?? []).map((p: { text: string }) => ({
+                text: md(p.text),
+            })),
+        }
         : undefined;
 
     return {

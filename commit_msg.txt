@@ -1,0 +1,19 @@
+Umfassende Aktualisierungen und neue Komponenten für die Homepage
+
+Diese Version beinhaltet zahlreiche Erweiterungen der Homepage-Sektionen sowie Verbesserungen der Grav CMS Integration, um das Sander Betriebsgastronomie Portfolio optimal als Produkt darzustellen.
+
+Neue und überarbeitete Sektionen:
+- **Hero-Bereich**: Logo hinzugefügt, Textumbrüche (weiche Trennstriche für "Betriebsgastronomie") optimiert, versehentliche Doppelung der Sektion am Seitenende behoben.
+- **Split-Sektion**: Neue Komponente für abwechselnden Text (links) und Bild (rechts, bis zum Rand reichend) erstellt.
+- **Text-Sektion**: Neue Astro-Komponente für strukturierte Textinhalte eingeführt.
+- **Über Uns (About)**: Layout mit zweispaltigem Grid (Text und Statistiken) implementiert, inklusive Glasmorphismus, Hover-Effekten und Eintritts-Animationen für die Zahlen. Bildverwaltung ins Backend verlagert.
+- **Team-Sektion**: Komponente mit Bildkacheln hinzugefügt, Textausrichtung zentriert, fehlerhafte Bildpfade im Markdown korrigiert.
+- **FAQ-Sektion**: Akkordeon-Komponente mit fünf editierbaren Standardfragen implementiert.
+
+Funktionale Verbesserungen & Bugfixes:
+- **Markdown-Rendering**: `marked`-Bibliothek in Astro integriert, um Markdown auf den Impressum- und Datenschutz-Seiten sowie im CMS sauber als HTML rendern zu können.
+- **Menu-Slider**: Workflow für direkten Bilder-Upload verbessert, Behebung von Abstandsfehlern zwischen den Slides und zusätzliche Vollbild-Variante für den Slider entwickelt.
+- **Grav CMS Admin**: Trumbowyg-Editor für Textareas debuggt und erfolgreich geladen.
+- **Datenmodelle**: `grav.ts` Interfaces für alle neuen Sektionen detailliert und sauber definiert.
+
+Alle Änderungen wurden nahtlos in das bestehende Tailwind v4-Styling und die Grav `homepage.yaml` Blueprints eingebunden.
