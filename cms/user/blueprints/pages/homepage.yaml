@@ -473,6 +473,12 @@ form:
                   label: Badge-Bild
                   help: "Bild zuerst hochladen, dann hier auswählen"
 
+                .description:
+                  type: textarea
+                  label: Beschreibung
+                  rows: 3
+                  placeholder: "Kurze Erklärung zur Auszeichnung..."
+
             # ── Team ──
             team_section:
               type: section
