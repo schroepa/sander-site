@@ -2,6 +2,13 @@ import fs from 'node:fs';
 import path from 'node:path';
 import matter from 'gray-matter';
 import yaml from 'js-yaml';
+import { marked } from 'marked';
+
+/** Convert a Markdown string to HTML. Returns empty string for falsy input. */
+function md(value: string | undefined | null): string {
+    if (!value) return '';
+    return marked(value, { async: false }) as string;
+}
 /**
  * Base path to Grav's content pages directory.
  * Works from both `frontend/` (dev) and build contexts.
@@ -107,6 +114,8 @@ export interface AboutData {
     background_image?: string;
     /** Optional image shown in the right column of the About section */
     image?: string;
+    quote?: string;
+    quote_author?: string;
 }
 
 /** A single team member */
@@ -136,6 +145,19 @@ export interface FaqData {
     items: FaqItem[];
 }
 
+/** A single logo item */
+export interface LogoItem {
+    name: string;
+    image?: string;
+}
+
+/** Logo section data */
+export interface LogoSectionData {
+    headline?: string;
+    logo_color?: string;
+    items?: LogoItem[];
+}
+
 /** Text section – centered headline + body paragraphs, optional background image */
 export interface TextSectionData {
     headline?: string;
@@ -153,6 +175,18 @@ export interface SplitSectionData {
     cta_link?: string;
     image?: string;
     image_alt?: string;
+}
+
+/** A single award / badge item */
+export interface AwardsItem {
+    image?: string;
+    label?: string;
+}
+
+/** Awards section data */
+export interface AwardsData {
+    headline?: string;
+    items?: AwardsItem[];
 }
 
 /** Call to Action section data */
@@ -174,6 +208,7 @@ export interface StickyScrollItem {
 
 /** Sticky Scroll Section Data */
 export interface StickyScrollData {
+    overline?: string;
     headline?: string;
     subline?: string;
     items?: StickyScrollItem[];
@@ -212,8 +247,10 @@ export interface GravPage {
     about?: AboutData;
     team?: TeamData;
     faq?: FaqData;
+    logo_section?: LogoSectionData;
     text_section?: TextSectionData;
     split_section?: SplitSectionData;
+    awards?: AwardsData;
     /** Raw markdown body content (below the frontmatter) */
     body: string;
     /** All frontmatter data as-is */
@@ -238,22 +275,101 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
     const raw = fs.readFileSync(filePath, 'utf-8');
     const { data, content } = matter(raw);
 
+    // Convert Markdown rich-text fields to HTML
+    const solutions: SolutionsData | undefined = data.solutions
+        ? {
+              ...data.solutions,
+              items: (data.solutions.items ?? []).map((item: SolutionItem) => ({
+                  ...item,
+                  challenge_text: md(item.challenge_text),
+                  solution_text: md(item.solution_text),
+              })),
+          }
+        : undefined;
+
+    const sections: ContentSection[] | undefined = (data.sections as ContentSection[] | undefined)?.map(
+        (s) => ({ ...s, body: md(s.body) })
+    );
+
+    const smart_catering: SmartCateringData | undefined = data.smart_catering
+        ? {
+              ...data.smart_catering,
+              columns: (data.smart_catering.columns ?? []).map((col: SmartCateringColumn) => ({
+                  ...col,
+                  accordions: (col.accordions ?? []).map((acc: SmartCateringAccordion) => ({
+                      ...acc,
+                      content: md(acc.content),
+                  })),
+              })),
+          }
+        : undefined;
+
+    const sticky_scroll: StickyScrollData | undefined = data.sticky_scroll
+        ? {
+              ...data.sticky_scroll,
+              items: (data.sticky_scroll.items ?? []).map((item: StickyScrollItem) => ({
+                  ...item,
+                  body_bold: md(item.body_bold),
+                  body_text: md(item.body_text),
+              })),
+          }
+        : undefined;
+
+    const cta: CtaData | undefined = data.cta
+        ? { ...data.cta, copy: md(data.cta.copy) }
+        : undefined;
+
+    const about: AboutData | undefined = data.about
+        ? { ...data.about, body: md(data.about.body) }
+        : undefined;
+
+    const team: TeamData | undefined = data.team
+        ? {
+              ...data.team,
+              items: (data.team.items ?? []).map((m: TeamMember) => ({
+                  ...m,
+                  bio: md(m.bio),
+              })),
+          }
+        : undefined;
+
+    const faq: FaqData | undefined = data.faq
+        ? {
+              ...data.faq,
+              items: (data.faq.items ?? []).map((item: FaqItem) => ({
+                  ...item,
+                  answer: md(item.answer),
+              })),
+          }
+        : undefined;
+
+    const text_section: TextSectionData | undefined = data.text_section
+        ? {
+              ...data.text_section,
+              paragraphs: (data.text_section.paragraphs ?? []).map((p: { text: string }) => ({
+                  text: md(p.text),
+              })),
+          }
+        : undefined;
+
     return {
         title: data.title ?? 'Untitled',
         section_order: data.section_order ?? undefined,
         hero: data.hero ?? undefined,
-        sections: data.sections ?? undefined,
-        solutions: data.solutions ?? undefined,
+        sections,
+        solutions,
         stats: data.stats ?? undefined,
         menu_slider: data.menu_slider ?? undefined,
-        smart_catering: data.smart_catering ?? undefined,
-        sticky_scroll: data.sticky_scroll ?? undefined,
-        cta: data.cta ?? undefined,
-        about: data.about ?? undefined,
-        team: data.team ?? undefined,
-        faq: data.faq ?? undefined,
-        text_section: data.text_section ?? undefined,
+        smart_catering,
+        sticky_scroll,
+        cta,
+        about,
+        team,
+        faq,
+        logo_section: data.logo_section ?? undefined,
+        text_section,
         split_section: data.split_section ?? undefined,
+        awards: data.awards ?? undefined,
         body: content.trim(),
         raw: data,
     };
@@ -266,46 +382,118 @@ export function getHomepage(): GravPage | null {
     return getPage('01.home', 'homepage');
 }
 
-/** Minimal data shape for legal pages (Impressum, Datenschutz) */
-export interface LegalPage {
+/** A section with optional bullet list for legal pages */
+export interface LegalSection {
     title: string;
-    meta_description?: string;
-    body: string;
+    body?: string;
+    list_items?: { item: string }[];
+    body_after?: string;
 }
 
-/**
- * Read a single legal page (Impressum / Datenschutz) from its Grav content file.
- */
-function getLegalPage(folder: string, template: string): LegalPage | null {
-    const filePath = path.join(GRAV_PAGES_DIR, folder, `${template}.md`);
+/** A single right entry for the Datenschutz rights list */
+export interface DatenschutzRight {
+    label: string;
+}
 
-    if (!fs.existsSync(filePath)) {
-        console.warn(`[grav] Legal page not found: ${filePath}`);
-        return null;
-    }
+/** Structured Impressum page data */
+export interface ImpressumPage {
+    title: string;
+    meta_description?: string;
+    company_name?: string;
+    company_address?: string;
+    company_representatives?: string;
+    contact_phone?: string;
+    contact_email?: string;
+    register_court?: string;
+    register_number?: string;
+    eu_os_link?: string;
+    sections?: LegalSection[];
+}
 
-    const raw = fs.readFileSync(filePath, 'utf-8');
-    const { data, content } = matter(raw);
-
-    return {
-        title: (data.title as string) ?? 'Untitled',
-        meta_description: data.meta_description as string | undefined,
-        body: content.trim(),
-    };
+/** Structured Datenschutz page data */
+export interface DatenschutzPage {
+    title: string;
+    meta_description?: string;
+    intro?: string;
+    responsible_company?: string;
+    responsible_address?: string;
+    responsible_phone?: string;
+    responsible_email?: string;
+    responsible_authority?: string;
+    responsible_dpo?: string;
+    rights_intro?: string;
+    rights?: DatenschutzRight[];
+    rights_closing?: string;
+    sections?: LegalSection[];
+    last_updated?: string;
 }
 
 /**
  * Convenience: get Impressum content.
  */
-export function getImpressum(): LegalPage | null {
-    return getLegalPage('02.impressum', 'impressum');
+export function getImpressum(): ImpressumPage | null {
+    const filePath = path.join(GRAV_PAGES_DIR, '02.impressum', 'impressum.md');
+
+    if (!fs.existsSync(filePath)) {
+        console.warn(`[grav] Impressum not found: ${filePath}`);
+        return null;
+    }
+
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const { data } = matter(raw);
+
+    return {
+        title: (data.title as string) ?? 'Impressum',
+        meta_description: data.meta_description as string | undefined,
+        company_name: data.company_name as string | undefined,
+        company_address: data.company_address as string | undefined,
+        company_representatives: data.company_representatives as string | undefined,
+        contact_phone: data.contact_phone as string | undefined,
+        contact_email: data.contact_email as string | undefined,
+        register_court: data.register_court as string | undefined,
+        register_number: data.register_number as string | undefined,
+        eu_os_link: data.eu_os_link as string | undefined,
+        sections: (data.sections as LegalSection[] | undefined)?.map((s) => ({
+            ...s,
+            body: md(s.body),
+        })),
+    };
 }
 
 /**
  * Convenience: get Datenschutzerklärung content.
  */
-export function getDatenschutz(): LegalPage | null {
-    return getLegalPage('03.datenschutz', 'datenschutz');
+export function getDatenschutz(): DatenschutzPage | null {
+    const filePath = path.join(GRAV_PAGES_DIR, '03.datenschutz', 'datenschutz.md');
+
+    if (!fs.existsSync(filePath)) {
+        console.warn(`[grav] Datenschutz not found: ${filePath}`);
+        return null;
+    }
+
+    const raw = fs.readFileSync(filePath, 'utf-8');
+    const { data } = matter(raw);
+
+    return {
+        title: (data.title as string) ?? 'Datenschutzerklärung',
+        meta_description: data.meta_description as string | undefined,
+        intro: md(data.intro as string | undefined),
+        responsible_company: data.responsible_company as string | undefined,
+        responsible_address: data.responsible_address as string | undefined,
+        responsible_phone: data.responsible_phone as string | undefined,
+        responsible_email: data.responsible_email as string | undefined,
+        responsible_authority: data.responsible_authority as string | undefined,
+        responsible_dpo: data.responsible_dpo as string | undefined,
+        rights_intro: data.rights_intro as string | undefined,
+        rights: data.rights as DatenschutzRight[] | undefined,
+        rights_closing: md(data.rights_closing as string | undefined),
+        sections: (data.sections as LegalSection[] | undefined)?.map((s) => ({
+            ...s,
+            body: md(s.body),
+            body_after: md(s.body_after),
+        })),
+        last_updated: data.last_updated as string | undefined,
+    };
 }
 
 /**

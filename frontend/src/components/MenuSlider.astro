@@ -49,7 +49,7 @@ const { headline, items = [] } = data;
                           src={imageUrl}
                           alt={item.title}
                           class="menu-slide__image"
-                          loading={index === 0 ? "eager" : "lazy"}
+                          loading="lazy"
                           decoding={index === 0 ? "sync" : "async"}
                         />
                       )}
@@ -126,7 +126,7 @@ const { headline, items = [] } = data;
   .menu-slider__header {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--space-200);
     align-items: center;
     text-align: center;
     padding: 0 var(--space-800);
@@ -230,7 +230,7 @@ const { headline, items = [] } = data;
 
   .menu-slide {
     position: relative;
-    aspect-ratio: 4 / 5;
+    height: 60svh;
     border-radius: var(--radius-300);
     overflow: hidden;
     background-color: var(--color-background-tertiary);
@@ -240,7 +240,7 @@ const { headline, items = [] } = data;
 
   @media (min-width: 768px) {
     .menu-slide {
-      aspect-ratio: 16 / 10;
+      height: 80svh;
     }
   }
 

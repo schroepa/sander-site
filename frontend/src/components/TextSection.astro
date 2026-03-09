@@ -42,7 +42,7 @@ const bgImage = data.background_image
       data.paragraphs && data.paragraphs.length > 0 && (
         <div class="text-section__body">
           {data.paragraphs.map((p) => (
-            <p class="text-section__paragraph">{p.text}</p>
+            <div class="text-section__paragraph markdown-content" set:html={p.text} />
           ))}
         </div>
       )

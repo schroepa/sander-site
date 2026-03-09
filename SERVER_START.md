@@ -11,7 +11,7 @@ This project is a monorepo: **Grav CMS** (backend) + **Astro** (frontend).
 
 ```bash
 cd cms
-php -d error_reporting=E_ALL\&~E_DEPRECATED -d max_execution_time=300 -S 0.0.0.0:8000 system/router.php
+php -d error_reporting=E_ALL\&~E_DEPRECATED -d max_execution_time=300 -d upload_max_filesize=500M -d post_max_size=500M -S 0.0.0.0:8000 system/router.php
 ```
 
 - Homepage: http://127.0.0.1:8000

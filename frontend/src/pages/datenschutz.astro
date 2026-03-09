@@ -1,10 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { getDatenschutz } from "../lib/grav";
-import { marked } from "marked";
 
 const page = getDatenschutz();
-const htmlBody = page?.body ? marked.parse(page.body) : "";
+
+/** Convert plain text with newlines to individual lines (for addresses) */
+function textToLines(text: string): string[] {
+  return text.split(/\n/).map((l) => l.trim()).filter(Boolean);
+}
 ---
 
 <Layout
@@ -32,13 +35,105 @@ const htmlBody = page?.body ? marked.parse(page.body) : "";
         Zurück zur Startseite
       </a>
       <h1 class="legal-title">{page?.title ?? "Datenschutzerklärung"}</h1>
-      {
-        htmlBody ? (
-          <div class="legal-body prose prose-invert" set:html={htmlBody} />
-        ) : (
-          <p class="legal-empty">Inhalt wird geladen…</p>
-        )
-      }
+
+      <div class="legal-body">
+
+        <!-- Einleitung -->
+        {page?.intro && (
+          <section>
+            <h2>Ihr Datenschutz ist unser Anliegen</h2>
+            <div class="markdown-content"><Fragment set:html={page.intro} /></div>
+          </section>
+        )}
+
+        <hr />
+
+        <!-- Verantwortlicher -->
+        {page?.responsible_company && (
+          <section>
+            <h2>Verantwortlicher (Art. 4 Nr. 7 DSGVO)</h2>
+            <div class="address-block">
+              <p><strong>{page.responsible_company}</strong></p>
+              {page.responsible_address && (
+                <p>
+                  {textToLines(page.responsible_address).map((line, i) => (
+                    <>{i > 0 && <br />}{line}</>
+                  ))}
+                </p>
+              )}
+              {page.responsible_phone && <p>Telefon: {page.responsible_phone}</p>}
+              {page.responsible_email && (
+                <p>E-Mail: <a href={`mailto:${page.responsible_email}`}>{page.responsible_email}</a></p>
+              )}
+            </div>
+            {page.responsible_authority && (
+              <div class="address-block">
+                <p><strong>Zuständige Datenschutz-Aufsichtsbehörde:</strong></p>
+                <p>
+                  {textToLines(page.responsible_authority).map((line, i) => (
+                    <>{i > 0 && <br />}{line}</>
+                  ))}
+                </p>
+              </div>
+            )}
+            {page.responsible_dpo && (
+              <div class="address-block">
+                <p><strong>Datenschutzbeauftragter:</strong></p>
+                <p>
+                  {textToLines(page.responsible_dpo).map((line, i) => (
+                    <>{i > 0 && <br />}{line}</>
+                  ))}
+                </p>
+              </div>
+            )}
+          </section>
+        )}
+
+        <hr />
+
+        <!-- Rechte der Betroffenen -->
+        {page?.rights && page.rights.length > 0 && (
+          <section>
+            <h2>Ihre Rechte (Art. 15–21 DSGVO)</h2>
+            {page.rights_intro && <p>{page.rights_intro}</p>}
+            <ul>
+              {page.rights.map((right) => (
+                <li><strong>{right.label}</strong></li>
+              ))}
+            </ul>
+            {page.rights_closing && <div class="markdown-content"><Fragment set:html={page.rights_closing} /></div>}
+          </section>
+        )}
+
+        <!-- Weitere Abschnitte -->
+        {page?.sections?.map((section) => (
+          <>
+            <hr />
+            <section>
+              <h2>{section.title}</h2>
+              {section.body && (
+                <div class="markdown-content"><Fragment set:html={section.body} /></div>
+              )}
+              {section.list_items && section.list_items.length > 0 && (
+                <ul>
+                  {section.list_items.map((entry) => (
+                    <li>{entry.item}</li>
+                  ))}
+                </ul>
+              )}
+              {section.body_after && (
+                <div class="markdown-content"><Fragment set:html={section.body_after} /></div>
+              )}
+            </section>
+          </>
+        ))}
+
+        <!-- Stand -->
+        {page?.last_updated && (
+          <p class="legal-stand"><em>Stand: {page.last_updated}</em></p>
+        )}
+
+      </div>
     </div>
   </main>
 </Layout>
@@ -88,17 +183,23 @@ const htmlBody = page?.body ? marked.parse(page.body) : "";
     line-height: var(--leading-body-md);
     color: var(--color-text-secondary);
   }
+  .legal-body :global(section) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+  }
+  .address-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
   .legal-body :global(h2) {
     font-family: var(--font-heading);
     font-size: var(--text-h3);
     font-weight: var(--weight-bold);
     line-height: var(--leading-h3);
     color: var(--color-text-primary);
-    margin-top: var(--space-500);
-    margin-bottom: var(--space-100);
-  }
-  .legal-body :global(h2:first-child) {
-    margin-top: 0;
+    margin: 0;
   }
   .legal-body :global(p) {
     margin: 0;
@@ -120,7 +221,7 @@ const htmlBody = page?.body ? marked.parse(page.body) : "";
   .legal-body :global(hr) {
     border: none;
     border-top: 1px solid var(--color-stroke-secondary);
-    margin: var(--space-300) 0;
+    margin: var(--space-100) 0;
   }
   .legal-body :global(ul) {
     padding-left: var(--space-300);
@@ -132,10 +233,10 @@ const htmlBody = page?.body ? marked.parse(page.body) : "";
   .legal-body :global(li strong) {
     color: var(--color-text-primary);
   }
-  .legal-empty {
+  .legal-stand {
     color: var(--color-text-tertiary);
-    font-family: var(--font-body);
-    font-size: var(--text-body-md);
+    font-size: var(--text-body-sm);
+    margin-top: var(--space-300);
   }
   @media (max-width: 640px) {
     .legal-page {

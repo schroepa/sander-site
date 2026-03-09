@@ -30,8 +30,8 @@ function resolveImage(raw: string | object | undefined): string {
                   src={imageUrl}
                   alt={item.title}
                   class="fsslider__bg"
-                  loading={index === 0 ? "eager" : "lazy"}
-                  decoding={index === 0 ? "sync" : "async"}
+                  loading="lazy"
+                  decoding="async"
                 />
               )}
               <div class="fsslider__scrim" />
@@ -108,10 +108,16 @@ function resolveImage(raw: string | object | undefined): string {
   .fsslider {
     position: relative;
     width: 100%;
-    height: 100svh;
+    height: 60svh;
     min-height: 480px;
     overflow: hidden;
     background: var(--color-bg-app);
+  }
+
+  @media (min-width: 768px) {
+    .fsslider {
+      height: 80svh;
+    }
   }
 
   .fsslider__viewport {

@@ -2,6 +2,13 @@
 
 RewriteEngine On
 
+## Begin - HTTPS Redirect
+# Redirect all HTTP traffic to HTTPS (requires SSL certificate on the server)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+## End - HTTPS Redirect
+
 ## Begin RewriteBase
 # If you are getting 500 or 404 errors on subpages, you may have to uncomment the RewriteBase entry
 # You should change the '/' to your appropriate subfolder. For example if you have
@@ -76,3 +83,51 @@ RewriteRule ^(LICENSE\.txt|composer\.lock|composer\.json|\.htaccess)$ error [F]
 Options -Indexes
 DirectoryIndex index.php index.html index.htm
 # End - Prevent Browsing and Set Default Resources
+
+## Begin - Security Headers
+<IfModule mod_headers.c>
+
+  # HSTS: erzwingt HTTPS für 1 Jahr (nur aktiv wenn HTTPS verbunden)
+  Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains" "expr=%{HTTPS} == 'on'"
+
+  # Clickjacking verhindern
+  Header always set X-Frame-Options "SAMEORIGIN"
+
+  # MIME-Type-Sniffing verhindern
+  Header always set X-Content-Type-Options "nosniff"
+
+  # Referrer-Informationen einschränken
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Cross-Origin Opener Policy (COOP) – Isolation des Browsing-Kontexts
+  Header always set Cross-Origin-Opener-Policy "same-origin-allow-popups"
+
+  # Permissions Policy – nicht benötigte Browser-Features deaktivieren
+  Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+
+  # Content Security Policy
+  # Erlaubt: eigene Domain, Google Fonts, YouTube (nocookie), jsDelivr (UnicornStudio)
+  Header always set Content-Security-Policy "\
+    default-src 'self'; \
+    script-src 'self' 'unsafe-inline' 'unsafe-eval' \
+      https://www.youtube.com \
+      https://s.ytimg.com \
+      https://cdn.jsdelivr.net; \
+    style-src 'self' 'unsafe-inline' \
+      https://fonts.googleapis.com; \
+    font-src 'self' \
+      https://fonts.gstatic.com; \
+    img-src 'self' data: blob: https:; \
+    frame-src \
+      https://www.youtube-nocookie.com \
+      https://www.youtube.com; \
+    connect-src 'self' https:; \
+    media-src 'self' blob: https:; \
+    worker-src 'none'; \
+    object-src 'none'; \
+    base-uri 'self'; \
+    form-action 'self'; \
+    frame-ancestors 'self';"
+
+</IfModule>
+## End - Security Headers

@@ -46,7 +46,7 @@ const { data } = Astro.props;
                     {item.answer && (
                       <div
                         class="faq__accordion-text markdown-content"
-                        set:html={marked.parse(item.answer)}
+                        set:html={item.answer}
                       />
                     )}
                   </div>
@@ -226,11 +226,6 @@ const { data } = Astro.props;
   .markdown-content :global(b) {
     font-weight: var(--weight-bold);
     color: var(--color-text-primary);
-  }
-
-  .markdown-content :global(em),
-  .markdown-content :global(i) {
-    font-style: italic;
   }
 
   .markdown-content :global(ul) {

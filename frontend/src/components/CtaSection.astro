@@ -25,14 +25,10 @@ if (!data) return null;
           {data.headline || "Welche Module benötigst du?"}
         </h2>
 
-        <p
-          class="font-body font-medium leading-[1.5] text-[16px] md:text-[18px] text-[var(--color-text-secondary)] tracking-[0.5px] w-full max-w-xl"
-        >
-          {
-            data.copy ||
-              "Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden."
-          }
-        </p>
+        <div
+          class="font-body font-medium leading-[1.5] text-[16px] md:text-[18px] text-[var(--color-text-secondary)] tracking-[0.5px] w-full max-w-xl markdown-content"
+          set:html={data.copy || "Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden."}
+        />
       </div>
 
       {
@@ -74,7 +70,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -85,7 +81,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -98,7 +94,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -111,7 +107,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -130,7 +126,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -141,7 +137,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -154,7 +150,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -167,7 +163,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -186,7 +182,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -197,7 +193,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -210,7 +206,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -223,7 +219,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -242,7 +238,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -253,7 +249,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -266,7 +262,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -279,7 +275,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -302,7 +298,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -313,7 +309,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -326,7 +322,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -339,7 +335,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -358,7 +354,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -369,7 +365,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -382,7 +378,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -395,7 +391,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -414,7 +410,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -425,7 +421,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -438,7 +434,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -451,7 +447,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -470,7 +466,7 @@ if (!data) return null;
               <div class="absolute inset-[0_86.49%_0_0]">
                 <img
                   alt=""
-                  class="absolute block max-w-none size-full"
+                  loading="lazy" class="absolute block max-w-none size-full"
                   src="/images/cta/rect17.svg"
                 />
               </div>
@@ -481,7 +477,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect19.svg"
                     />
                   </div>
@@ -494,7 +490,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect18.svg"
                     />
                   </div>
@@ -507,7 +503,7 @@ if (!data) return null;
                   <div class="relative size-full">
                     <img
                       alt=""
-                      class="absolute block max-w-none size-full"
+                      loading="lazy" class="absolute block max-w-none size-full"
                       src="/images/cta/rect20.svg"
                     />
                   </div>
@@ -539,7 +535,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -552,7 +548,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -567,7 +563,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -582,7 +578,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
@@ -609,7 +605,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -622,7 +618,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -637,7 +633,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -652,7 +648,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
@@ -679,7 +675,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -692,7 +688,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -707,7 +703,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -722,7 +718,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
@@ -749,7 +745,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -762,7 +758,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -777,7 +773,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -792,7 +788,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
@@ -827,7 +823,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -840,7 +836,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -855,7 +851,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -870,7 +866,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
@@ -897,7 +893,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -910,7 +906,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -925,7 +921,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -940,7 +936,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
@@ -967,7 +963,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -980,7 +976,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -995,7 +991,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -1010,7 +1006,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
@@ -1037,7 +1033,7 @@ if (!data) return null;
                       <div class="absolute inset-[0_86.49%_0_0]">
                         <img
                           alt=""
-                          class="absolute block max-w-none size-full"
+                          loading="lazy" class="absolute block max-w-none size-full"
                           src="/images/cta/rect17.svg"
                         />
                       </div>
@@ -1050,7 +1046,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect19.svg"
                             />
                           </div>
@@ -1065,7 +1061,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect18.svg"
                             />
                           </div>
@@ -1080,7 +1076,7 @@ if (!data) return null;
                           <div class="relative size-full">
                             <img
                               alt=""
-                              class="absolute block max-w-none size-full"
+                              loading="lazy" class="absolute block max-w-none size-full"
                               src="/images/cta/rect20.svg"
                             />
                           </div>
