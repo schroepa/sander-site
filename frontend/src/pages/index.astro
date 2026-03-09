@@ -1,0 +1,139 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/Hero.astro";
+import StatsCounter from "../components/StatsCounter.astro";
+import Solutions from "../components/Solutions.astro";
+import SmartCatering from "../components/SmartCatering.astro";
+import StickyScroll from "../components/StickyScroll.astro";
+import CtaSection from "../components/CtaSection.astro";
+import MenuSlider from "../components/MenuSlider.astro";
+import MenuSliderFullscreen from "../components/MenuSliderFullscreen.astro";
+import About from "../components/About.astro";
+import Team from "../components/Team.astro";
+import Faq from "../components/Faq.astro";
+import TextSection from "../components/TextSection.astro";
+import LogoSection from "../components/LogoSection.astro";
+import SplitSection from "../components/SplitSection.astro";
+import Awards from "../components/Awards.astro";
+import Tag from "../components/Tag.astro";
+import { getHomepage } from "../lib/grav";
+
+const page = getHomepage();
+
+const DEFAULT_ORDER = [
+  "hero",
+  "stats",
+  "menu_slider",
+  "solutions",
+  "smart_catering",
+  "sticky_scroll",
+  "cta",
+  "faq",
+];
+
+const sectionOrder =
+  page?.section_order?.map((s) => s.section).filter(Boolean) ?? DEFAULT_ORDER;
+---
+
+<Layout
+  title={page?.title ?? "Sander Catering"}
+  description={page?.hero?.subline}
+>
+  {
+    page ? (
+      <main>
+        {sectionOrder.map((key) => {
+          if (key === "hero" && page.hero) return <Hero hero={page.hero} />;
+          if (key === "stats" && page.stats)
+            return <StatsCounter data={page.stats} />;
+          if (key === "menu_slider" && page.menu_slider?.items?.length)
+            return <MenuSliderFullscreen data={page.menu_slider} />;
+          if (key === "solutions" && page.solutions?.items?.length)
+            return <Solutions data={page.solutions} />;
+          if (key === "smart_catering" && page.smart_catering?.columns?.length)
+            return <SmartCatering data={page.smart_catering} />;
+          if (key === "sticky_scroll" && page.sticky_scroll?.items)
+            return <StickyScroll data={page.sticky_scroll} />;
+          if (key === "cta" && page.cta) return <CtaSection data={page.cta} />;
+          if (key === "about" && page.about) return <About data={page.about} />;
+          if (key === "team" && page.team?.items?.length)
+            return <Team data={page.team} />;
+          if (key === "faq" && page.faq?.items?.length)
+            return <Faq data={page.faq} />;
+          if (key === "text_section" && page.text_section)
+            return <TextSection data={page.text_section} />;
+          if (key === "logo_section" && page.logo_section?.items?.length)
+            return <LogoSection data={page.logo_section} />;
+          if (key === "split_section" && page.split_section)
+            return <SplitSection data={page.split_section} />;
+          if (key === "awards" && page.awards?.items?.length)
+            return <Awards data={page.awards} />;
+          return null;
+        })}
+
+        {/* ── Content Sections (immer am Ende) ── */}
+        {page.sections && page.sections.length > 0 && (
+          <div>
+            {page.sections.map((section, i) => (
+              <section
+                style={`
+									padding: var(--space-1000) var(--space-300);
+									background-color: ${i % 2 === 0 ? "var(--color-bg-secondary)" : "var(--color-bg-app)"};
+								`}
+              >
+                <div
+                  class="max-w-3xl mx-auto"
+                  style="display: flex; flex-direction: column; gap: var(--space-200);"
+                >
+                  <h2 style="font-family: var(--font-heading); font-size: var(--text-h2); line-height: var(--leading-h2); font-weight: var(--weight-bold); color: var(--color-text-primary);">
+                    {section.title}
+                  </h2>
+                  <p style="font-family: var(--font-body); font-size: var(--text-body-lg); line-height: var(--leading-body-lg); color: var(--color-text-secondary);">
+                    {section.body}
+                  </p>
+
+                  {section.tags && section.tags.length > 0 && (
+                    <div style="display: flex; gap: var(--space-100); flex-wrap: wrap; margin-top: var(--space-100);">
+                      {section.tags.map((tag) => (
+                        <Tag text={tag} />
+                      ))}
+                    </div>
+                  )}
+                </div>
+              </section>
+            ))}
+          </div>
+        )}
+
+        {/* ── Markdown Body (if any) ── */}
+        {page.body && (
+          <section style="padding: var(--space-800) var(--space-300); background-color: var(--color-bg-app); color: var(--color-text-secondary);">
+            <div class="max-w-3xl mx-auto prose prose-invert">
+              <Fragment set:html={page.body} />
+            </div>
+          </section>
+        )}
+      </main>
+    ) : (
+      <main
+        class="min-h-screen flex items-center justify-center"
+        style="background-color: var(--color-bg-app); color: var(--color-text-primary);"
+      >
+        <div
+          class="text-center"
+          style="display: flex; flex-direction: column; gap: var(--space-200);"
+        >
+          <h1 style="font-family: var(--font-heading); font-size: var(--text-h1); font-weight: var(--weight-bold);">
+            Content not found
+          </h1>
+          <p style="color: var(--color-text-tertiary);">
+            Create a page at{" "}
+            <code style="background-color: var(--color-bg-secondary); padding: var(--space-050) var(--space-100); border-radius: var(--radius-100);">
+              cms/user/pages/01.home/homepage.md
+            </code>
+          </p>
+        </div>
+      </main>
+    )
+  }
+</Layout>

@@ -1,0 +1,349 @@
+---
+import type { SolutionsData } from "../lib/grav";
+
+interface Props {
+  data: SolutionsData;
+}
+
+const { data } = Astro.props;
+---
+
+<section class="solutions" id="loesungen">
+  <div class="solutions__headings">
+    <h2 class="solutions__headline">{data.headline}</h2>
+    {data.subline && <p class="solutions__subline">{data.subline}</p>}
+  </div>
+
+  <div class="solutions__container">
+    {
+      data.items.map((item, index) => (
+        <div
+          class="solutions__row"
+          id={
+            item.solution_title.toLowerCase().includes("frische")
+              ? "frische-manufaktur"
+              : `loesung-${index + 1}`
+          }
+        >
+          {/* Challenge Card */}
+          <div class="solutions__card solutions__card--challenge">
+            <p class="solutions__card-title">{item.challenge_title}</p>
+            <div class="solutions__card-text markdown-content" set:html={item.challenge_text} />
+          </div>
+
+          {/* Connector: dot → line(gradient) → check-circle → line(gradient) → arrowhead */}
+          <div class="solutions__connector">
+            {/* Dot */}
+            <div class="solutions__connector-dot" />
+            {/* Left line */}
+            <div class="solutions__connector-line solutions__connector-line--left" />
+            {/* Green check circle */}
+            <div class="solutions__connector-check">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 32 32"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M8 16L14 22L25 11"
+                  stroke="#2fa700"
+                  stroke-width="3"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+            {/* Right line */}
+            <div class="solutions__connector-line solutions__connector-line--right" />
+            {/* Arrowhead */}
+            <div class="solutions__connector-arrow">
+              <svg
+                width="10"
+                height="16"
+                viewBox="0 0 10 16"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  d="M1 1L9 8L1 15"
+                  stroke="#2fa700"
+                  stroke-width="2.5"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </div>
+          </div>
+
+          {/* Solution Card */}
+          <div class="solutions__card solutions__card--solution">
+            <p class="solutions__card-title">{item.solution_title}</p>
+            <div class="solutions__card-text markdown-content" set:html={item.solution_text} />
+          </div>
+        </div>
+      ))
+    }
+  </div>
+</section>
+
+<style>
+  /* ─── Section ─── */
+  .solutions {
+    padding: var(--space-1000) var(--space-1000);
+    background-color: var(--color-bg-app);
+    overflow: visible;
+  }
+
+  /* ─── Headings ─── */
+  .solutions__headings {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-100);
+    text-align: center;
+    max-width: var(--max-site-width);
+    margin-inline: auto;
+    width: 100%;
+    margin-bottom: var(--space-1000);
+  }
+
+  .solutions__headline {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-black);
+    font-size: var(--text-h1);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    max-width: 960px;
+    margin: 0;
+  }
+
+  .solutions__subline {
+    font-family: var(--font-heading);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-h3);
+    line-height: var(--leading-h3);
+    color: var(--color-text-secondary);
+    max-width: 960px;
+    margin: 0;
+  }
+
+  /* ─── Container ─── */
+  .solutions__container {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+    margin: 0 auto;
+    max-width: var(--max-site-width);
+    width: 100%;
+    overflow: visible;
+  }
+
+  /* ─── Row ─── */
+  .solutions__row {
+    display: flex;
+    align-items: stretch;
+    width: 100%;
+    overflow: visible;
+  }
+
+  /* ─── Cards ─── */
+  .solutions__card {
+    flex: 1 1 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+    justify-content: center;
+    padding: var(--space-300);
+    background-color: var(--color-bg-card);
+    border-radius: var(--radius-300);
+    box-shadow: var(--shadow-xxl);
+    overflow: visible;
+  }
+
+  .solutions__card--challenge {
+    border-right: var(--border-xl) solid var(--color-stroke-danger);
+  }
+
+  .solutions__card--solution {
+    border-left: var(--border-xl) solid var(--color-stroke-success);
+  }
+
+  .solutions__card-title {
+    font-family: var(--font-body);
+    font-weight: var(--weight-bold);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-primary);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  .solutions__card-text {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
+  /* ─── Connector (total width 176px, from Figma) ─── */
+  .solutions__connector {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    width: 176px;
+    align-self: center;
+    gap: 0;
+    overflow: visible;
+  }
+
+  /* Dot: 8px circle at challenge card edge */
+  .solutions__connector-dot {
+    width: var(--space-100);
+    height: var(--space-100);
+    min-width: var(--space-100);
+    border-radius: 50%;
+    background-color: var(--color-stroke-danger);
+    flex-shrink: 0;
+    margin-left: -4px; /* half-overlap into the card border */
+  }
+
+  /* Lines: fill remaining space between dot/circle and circle/arrow */
+  .solutions__connector-line {
+    flex: 1 1 0;
+    height: var(--border-m);
+    min-width: 0;
+  }
+
+  .solutions__connector-line--left {
+    background: linear-gradient(
+      to right,
+      var(--color-stroke-danger),
+      var(--color-stroke-tertiary)
+    );
+  }
+
+  .solutions__connector-line--right {
+    background: linear-gradient(
+      to right,
+      var(--color-stroke-tertiary),
+      var(--color-stroke-success)
+    );
+  }
+
+  /* Green check circle: 8px padding + 32px icon = 48px total */
+  .solutions__connector-check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    min-width: 48px;
+    background-color: var(--color-icon-success);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .solutions__connector-check svg {
+    display: block;
+    width: 32px;
+    height: 32px;
+  }
+
+  /* Arrowhead at solution card edge */
+  .solutions__connector-arrow {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    margin-right: -4px;
+    margin-left: -2px; /* close gap between line and arrowhead */
+  }
+
+  .solutions__connector-arrow svg {
+    display: block;
+  }
+
+  /* ─── Responsive ─── */
+  @media (max-width: 768px) {
+    .solutions {
+      padding: var(--space-500) var(--space-200);
+    }
+
+    .solutions__headings {
+      margin-bottom: var(--space-500);
+    }
+
+    .solutions__headline {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+
+    .solutions__subline {
+      font-size: var(--text-h4);
+      line-height: var(--leading-h4);
+    }
+
+    .solutions__row {
+      flex-direction: column;
+      gap: 0;
+      align-items: stretch;
+    }
+
+    .solutions__card {
+      border-radius: var(--radius-200);
+    }
+
+    .solutions__card--challenge {
+      border-right: none;
+      border-bottom: var(--border-xl) solid var(--color-stroke-danger);
+    }
+
+    .solutions__card--solution {
+      border-left: none;
+      border-top: var(--border-xl) solid var(--color-stroke-success);
+    }
+
+    .solutions__connector {
+      width: auto;
+      flex-direction: column;
+      padding: var(--space-100) 0;
+    }
+
+    .solutions__connector-dot {
+      margin-left: 0;
+      margin-top: -4px;
+    }
+
+    .solutions__connector-line {
+      width: var(--border-m);
+      height: var(--space-200);
+      flex: none;
+    }
+
+    .solutions__connector-line--left {
+      background: linear-gradient(
+        to bottom,
+        var(--color-stroke-danger),
+        var(--color-stroke-tertiary)
+      );
+    }
+
+    .solutions__connector-line--right {
+      background: linear-gradient(
+        to bottom,
+        var(--color-stroke-tertiary),
+        var(--color-stroke-success)
+      );
+    }
+
+    .solutions__connector-arrow {
+      margin-right: 0;
+      margin-bottom: -6px;
+      transform: rotate(90deg);
+    }
+  }
+</style>

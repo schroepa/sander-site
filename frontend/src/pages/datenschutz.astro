@@ -1,0 +1,250 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getDatenschutz } from "../lib/grav";
+
+const page = getDatenschutz();
+
+/** Convert plain text with newlines to individual lines (for addresses) */
+function textToLines(text: string): string[] {
+  return text.split(/\n/).map((l) => l.trim()).filter(Boolean);
+}
+---
+
+<Layout
+  title={page?.title ?? "Datenschutzerklärung – Sander Catering"}
+  description={page?.meta_description ??
+    "Datenschutzerklärung der Sander Betriebsgastronomie gemäß DSGVO"}
+>
+  <main class="legal-page">
+    <div class="legal-container">
+      <a href="/" class="back-link">
+        <svg
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+          aria-hidden="true"
+        >
+          <path
+            d="M10 12L6 8l4-4"
+            stroke="currentColor"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"></path>
+        </svg>
+        Zurück zur Startseite
+      </a>
+      <h1 class="legal-title">{page?.title ?? "Datenschutzerklärung"}</h1>
+
+      <div class="legal-body">
+
+        <!-- Einleitung -->
+        {page?.intro && (
+          <section>
+            <h2>Ihr Datenschutz ist unser Anliegen</h2>
+            <div class="markdown-content"><Fragment set:html={page.intro} /></div>
+          </section>
+        )}
+
+        <hr />
+
+        <!-- Verantwortlicher -->
+        {page?.responsible_company && (
+          <section>
+            <h2>Verantwortlicher (Art. 4 Nr. 7 DSGVO)</h2>
+            <div class="address-block">
+              <p><strong>{page.responsible_company}</strong></p>
+              {page.responsible_address && (
+                <p>
+                  {textToLines(page.responsible_address).map((line, i) => (
+                    <>{i > 0 && <br />}{line}</>
+                  ))}
+                </p>
+              )}
+              {page.responsible_phone && <p>Telefon: {page.responsible_phone}</p>}
+              {page.responsible_email && (
+                <p>E-Mail: <a href={`mailto:${page.responsible_email}`}>{page.responsible_email}</a></p>
+              )}
+            </div>
+            {page.responsible_authority && (
+              <div class="address-block">
+                <p><strong>Zuständige Datenschutz-Aufsichtsbehörde:</strong></p>
+                <p>
+                  {textToLines(page.responsible_authority).map((line, i) => (
+                    <>{i > 0 && <br />}{line}</>
+                  ))}
+                </p>
+              </div>
+            )}
+            {page.responsible_dpo && (
+              <div class="address-block">
+                <p><strong>Datenschutzbeauftragter:</strong></p>
+                <p>
+                  {textToLines(page.responsible_dpo).map((line, i) => (
+                    <>{i > 0 && <br />}{line}</>
+                  ))}
+                </p>
+              </div>
+            )}
+          </section>
+        )}
+
+        <hr />
+
+        <!-- Rechte der Betroffenen -->
+        {page?.rights && page.rights.length > 0 && (
+          <section>
+            <h2>Ihre Rechte (Art. 15–21 DSGVO)</h2>
+            {page.rights_intro && <p>{page.rights_intro}</p>}
+            <ul>
+              {page.rights.map((right) => (
+                <li><strong>{right.label}</strong></li>
+              ))}
+            </ul>
+            {page.rights_closing && <div class="markdown-content"><Fragment set:html={page.rights_closing} /></div>}
+          </section>
+        )}
+
+        <!-- Weitere Abschnitte -->
+        {page?.sections?.map((section) => (
+          <>
+            <hr />
+            <section>
+              <h2>{section.title}</h2>
+              {section.body && (
+                <div class="markdown-content"><Fragment set:html={section.body} /></div>
+              )}
+              {section.list_items && section.list_items.length > 0 && (
+                <ul>
+                  {section.list_items.map((entry) => (
+                    <li>{entry.item}</li>
+                  ))}
+                </ul>
+              )}
+              {section.body_after && (
+                <div class="markdown-content"><Fragment set:html={section.body_after} /></div>
+              )}
+            </section>
+          </>
+        ))}
+
+        <!-- Stand -->
+        {page?.last_updated && (
+          <p class="legal-stand"><em>Stand: {page.last_updated}</em></p>
+        )}
+
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .legal-page {
+    min-height: 100vh;
+    background-color: var(--color-background-primary);
+    padding: var(--space-1000) var(--space-300);
+  }
+  .legal-container {
+    max-width: 720px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-500);
+  }
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-100);
+    font-family: var(--font-body);
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
+    color: var(--color-text-tertiary);
+    text-decoration: none;
+    transition: color 0.2s ease;
+    width: fit-content;
+  }
+  .back-link:hover {
+    color: var(--color-text-secondary);
+  }
+  .legal-title {
+    font-family: var(--font-heading);
+    font-size: var(--text-h1);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-h1);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .legal-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-300);
+    font-family: var(--font-body);
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
+    color: var(--color-text-secondary);
+  }
+  .legal-body :global(section) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-200);
+  }
+  .address-block {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+  }
+  .legal-body :global(h2) {
+    font-family: var(--font-heading);
+    font-size: var(--text-h3);
+    font-weight: var(--weight-bold);
+    line-height: var(--leading-h3);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+  .legal-body :global(p) {
+    margin: 0;
+    color: var(--color-text-secondary);
+  }
+  .legal-body :global(strong) {
+    font-weight: var(--weight-bold);
+    color: var(--color-text-primary);
+  }
+  .legal-body :global(a) {
+    color: var(--color-text-secondary);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    transition: color 0.2s ease;
+  }
+  .legal-body :global(a:hover) {
+    color: var(--color-text-primary);
+  }
+  .legal-body :global(hr) {
+    border: none;
+    border-top: 1px solid var(--color-stroke-secondary);
+    margin: var(--space-100) 0;
+  }
+  .legal-body :global(ul) {
+    padding-left: var(--space-300);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100);
+    margin: 0;
+  }
+  .legal-body :global(li strong) {
+    color: var(--color-text-primary);
+  }
+  .legal-stand {
+    color: var(--color-text-tertiary);
+    font-size: var(--text-body-sm);
+    margin-top: var(--space-300);
+  }
+  @media (max-width: 640px) {
+    .legal-page {
+      padding: var(--space-800) var(--space-200);
+    }
+    .legal-title {
+      font-size: var(--text-h2);
+      line-height: var(--leading-h2);
+    }
+  }
+</style>

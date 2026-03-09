@@ -1,0 +1,284 @@
+/**
+ * ─── Design System Tokens ───
+ * Extracted from Figma variables via MCP Server.
+ * Font family: Geist
+ *
+ * This file sets the system to ALWAYS be dark mode per user request.
+ * Using CSS variables (no hardcoded values).
+ */
+
+@theme {
+  /* ─── Semantic Colors (Mapped for existing codebase) ─── */
+  --color-bg-app: hsl(322, 17%, 22%);
+  --color-bg-primary: hsl(322, 17%, 22%);
+  --color-bg-secondary: hsl(321, 15%, 31%);
+  --color-bg-card: hsl(321, 15%, 31%);
+  --color-bg-overlay: hsla(320, 16%, 22%, 0.8);
+  --color-bg-cta-section: hsl(324, 22%, 13%);
+  --color-bg-elevation-glass: hsla(324, 12%, 8%, 0.8);
+  --color-bg-primary-inverse: hsl(320, 10%, 94%);
+  --color-text-primary-inverse: hsl(322, 17%, 22%);
+  --color-stroke-danger: hsl(345, 100%, 65%);
+  --color-stroke-success: hsl(103, 67%, 60%);
+  --color-icon-success: hsl(103, 37%, 27%);
+  --color-state-success: hsl(103, 49%, 33%);
+  --color-btn-primary-bg: hsl(320, 10%, 94%);
+  --color-btn-primary-text: hsl(322, 17%, 22%);
+  --color-btn-secondary-bg: hsl(321, 18%, 85%);
+  --color-btn-secondary-text: hsl(315, 4%, 96%);
+  --color-input-bg: hsl(324, 22%, 13%);
+  --color-input-text: hsl(321, 15%, 31%);
+  --color-input-icon: hsl(321, 18%, 85%);
+  --color-fade-default: hsl(315, 2%, 98%);
+  --color-fade-invisible: hsla(322, 17%, 22%, 0);
+  --color-border: hsl(320, 12%, 41%);
+
+  /* ─── Semantic Colors (All directly from tokens.json) ─── */
+  --color-text-primary: hsl(315, 4%, 96%);
+  --color-text-secondary: hsl(321, 18%, 85%);
+  --color-text-tertiary: hsl(320, 13%, 63%);
+  --color-text-brand-bold: hsl(151, 10%, 57%);
+  --color-background-primary: hsl(322, 17%, 22%);
+  --color-background-secondary: hsl(321, 15%, 31%);
+  --color-background-tertiary: hsl(320, 12%, 41%);
+  --color-background-state-success-subtle: hsl(103, 49%, 33%);
+  --color-background-state-success-bold: hsl(104, 66%, 81%);
+  --color-text-state-success-bold: hsl(103, 66%, 91%);
+  --color-text-state-success-subtle: hsl(103, 100%, 21%);
+  --color-background-state-warning-subtle: hsl(28, 84%, 46%);
+  --color-background-state-warning-bold: hsl(42, 100%, 79%);
+  --color-text-state-warning-bold: hsl(43, 100%, 90%);
+  --color-text-state-warning-subtle: hsl(24, 45%, 31%);
+  --color-background-state-danger-subtle: hsl(345, 87%, 46%);
+  --color-background-state-danger-bold: hsl(344, 100%, 93%);
+  --color-text-state-danger-bold: hsl(344, 100%, 96%);
+  --color-text-state-danger-subtle: hsl(345, 60%, 37%);
+  --color-background-brand-subtle: hsl(320, 13%, 63%);
+  --color-background-brand-bold: hsl(321, 18%, 85%);
+  --color-text-brand-subtle: hsl(154, 7%, 37%);
+  --color-text-brand-medium: hsl(153, 7%, 47%);
+  --color-background-brand-medium: hsl(321, 18%, 75%);
+  --color-stroke-primary: hsl(322, 17%, 22%);
+  --color-stroke-secondary: hsl(321, 15%, 31%);
+  --color-stroke-tertiary: hsl(320, 12%, 41%);
+  --color-stroke-state-success-subtle: hsl(103, 49%, 33%);
+  --color-stroke-state-success-bold: hsl(103, 67%, 60%);
+  --color-stroke-state-warning-subtle: hsl(28, 84%, 46%);
+  --color-stroke-state-warning-bold: hsl(42, 100%, 54%);
+  --color-stroke-state-danger-subtle: hsl(345, 100%, 65%);
+  --color-stroke-state-danger-bold: hsl(345, 100%, 85%);
+  --color-stroke-brand-subtle: hsl(319, 12%, 51%);
+  --color-stroke-brand-medium: hsl(321, 18%, 75%);
+  --color-stroke-brand-bold: hsl(321, 18%, 85%);
+  --color-icon-primary: hsl(315, 4%, 96%);
+  --color-icon-secondary: hsl(320, 10%, 94%);
+  --color-icon-tertiary: hsl(321, 18%, 85%);
+  --color-icon-state-success-bold: hsl(104, 66%, 81%);
+  --color-icon-state-success-subtle: hsl(103, 37%, 27%);
+  --color-icon-state-warning-bold: hsl(42, 100%, 79%);
+  --color-icon-state-warning-subtle: hsl(26, 61%, 38%);
+  --color-icon-state-danger-bold: hsl(344, 100%, 93%);
+  --color-icon-state-danger-subtle: hsl(345, 87%, 46%);
+  --color-icon-brand-bold: hsl(315, 4%, 96%);
+  --color-icon-brand-medium: hsl(320, 10%, 94%);
+  --color-icon-brand-subtle: hsl(320, 13%, 63%);
+  --color-text-primary-inverse: hsl(322, 17%, 22%);
+  --color-text-secondary-inverse: hsl(321, 15%, 31%);
+  --color-text-tertiary-inverse: hsl(320, 12%, 41%);
+  --color-background-primary-inverse: hsl(320, 10%, 94%);
+  --color-background-state-disabled: hsl(247, 16%, 22%);
+  --color-stroke-state-hover: hsl(321, 15%, 31%);
+  --color-stroke-state-focused: hsl(320, 13%, 63%);
+  --color-icon-state-disabled: hsl(245, 16%, 32%);
+  --color-text-state-disabled: hsl(245, 16%, 42%);
+  --color-stroke-state-pressed: hsl(321, 18%, 85%);
+  --color-stroke-state-disabled: hsl(245, 16%, 32%);
+  --color-components-button-primary-background-default: hsl(320, 10%, 94%);
+  --color-components-button-primary-background-hover: hsl(321, 18%, 85%);
+  --color-components-button-primary-background-pressed: hsl(321, 18%, 85%);
+  --color-components-button-primary-background-focus: hsl(321, 18%, 75%);
+  --color-components-button-primary-background-disabled: hsl(322, 17%, 22%);
+  --color-components-button-primary-text-default: hsl(322, 17%, 22%);
+  --color-components-button-primary-icon-default: hsla(0, 0%, 100%, 0.69);
+  --color-components-button-primary-icon-disabled: hsl(245, 13%, 80%);
+  --color-components-button-primary-stroke-focus: hsl(315, 4%, 96%);
+  --color-components-button-primary-text-disabled: hsl(321, 15%, 31%);
+  --color-components-button-secondary-background-default: hsl(321, 18%, 85%);
+  --color-components-button-secondary-background-hover: hsl(320, 10%, 94%);
+  --color-components-button-secondary-background-pressed: hsl(320, 10%, 94%);
+  --color-components-button-secondary-background-focus: hsl(320, 12%, 41%);
+  --color-components-button-secondary-background-disabled: hsl(321, 15%, 31%);
+  --color-components-button-secondary-text-default: hsl(315, 4%, 96%);
+  --color-components-button-secondary-text-disabled: hsl(319, 12%, 51%);
+  --color-components-button-secondary-icon-default: hsla(0, 0%, 100%, 0.5);
+  --color-components-button-secondary-icon-disabled: hsl(245, 13%, 80%);
+  --color-components-button-secondary-stroke-focus: hsl(320, 13%, 63%);
+  --color-components-button-danger-background-default: hsl(345, 100%, 65%);
+  --color-components-button-danger-background-hover: hsl(345, 100%, 76%);
+  --color-components-button-danger-background-pressed: hsl(345, 60%, 37%);
+  --color-components-button-danger-background-focus: hsl(345, 100%, 76%);
+  --color-components-button-danger-background-disabled: hsl(240, 12%, 90%);
+  --color-components-button-danger-text-default: hsl(0, 0%, 100%);
+  --color-components-button-danger-text-disabled: hsl(245, 13%, 80%);
+  --color-components-button-danger-icon-default: hsla(0, 0%, 100%, 0.69);
+  --color-components-button-danger-icon-disabled: hsl(245, 13%, 80%);
+  --color-components-button-danger-stroke-focus: hsl(345, 100%, 65%);
+  --color-components-button-danger-secondary-background-default: hsl(345, 40%, 29%);
+  --color-components-button-danger-secondary-background-hover: hsl(345, 60%, 37%);
+  --color-components-button-danger-secondary-background-pressed: hsl(345, 100%, 13%);
+  --color-components-button-danger-secondary-background-focus: hsl(345, 60%, 37%);
+  --color-components-button-danger-secondary-background-disabled: hsl(240, 12%, 90%);
+  --color-components-button-danger-secondary-text-default: hsl(0, 0%, 100%);
+  --color-components-button-danger-secondary-text-disabled: hsl(245, 13%, 80%);
+  --color-components-button-danger-secondary-icon-default: hsla(0, 0%, 100%, 0.69);
+  --color-components-button-danger-secondary-icon-disabled: hsl(245, 13%, 80%);
+  --color-components-button-danger-secondary-stroke-focus: hsl(345, 100%, 65%);
+  --color-components-toggles-background-selected: hsl(319, 12%, 51%);
+  --color-components-toggles-background-hover: hsl(320, 13%, 63%);
+  --color-components-toggles-background-focus: hsl(319, 12%, 51%);
+  --color-components-toggles-background-disabled: hsl(240, 12%, 90%);
+  --color-components-toggles-icon-default: hsl(0, 0%, 100%);
+  --color-components-toggles-icon-disabled: hsl(245, 13%, 80%);
+  --color-components-toggles-stroke-focus: hsl(320, 13%, 63%);
+  --color-components-toggles-background-unselected: hsl(245, 16%, 32%);
+  --color-components-toggles-stroke-default: hsl(321, 18%, 75%);
+  --color-icon-primiary-inverse: hsl(321, 15%, 31%);
+  --color-components-rating-star: hsl(42, 100%, 54%);
+  --color-components-rating-heart: hsl(345, 100%, 65%);
+  --color-components-rating-empty: hsl(320, 10%, 94%);
+  --color-components-rating-disabled: hsl(245, 13%, 80%);
+  --color-components-rating-filled: hsl(42, 100%, 54%);
+  --color-background-elevation1: hsl(322, 10%, 8%);
+  --color-background-elevation2: hsl(324, 22%, 13%);
+  --color-background-elevation3: hsl(322, 17%, 22%);
+  --color-background-elevation-glass1: hsla(324, 12%, 8%, 0.5);
+  --color-background-elevation-glass2: hsla(324, 12%, 8%, 0.8);
+  --color-components-input-background-default: hsl(324, 22%, 13%);
+  --color-components-input-background-hover: hsl(324, 22%, 13%);
+  --color-components-input-background-pressed: hsl(324, 22%, 13%);
+  --color-components-input-background-focus: hsl(324, 22%, 13%);
+  --color-components-input-background-disabled: hsl(321, 15%, 31%);
+  --color-components-input-text-default: hsl(321, 15%, 31%);
+  --color-components-input-text-disabled: hsl(320, 12%, 41%);
+  --color-components-input-icon-default: hsl(321, 18%, 85%);
+  --color-components-input-icon-disabled: hsl(320, 12%, 41%);
+  --color-components-input-stroke-focus: hsl(320, 13%, 63%);
+  --color-components-input-stroke-default: hsl(321, 18%, 75%);
+  --color-components-input-stroke-disabled: hsl(320, 12%, 41%);
+  --color-components-input-stroke-pressed: hsl(321, 18%, 75%);
+  --color-components-input-text-placeholder: hsl(321, 15%, 31%);
+  --color-components-input-text-secondary: hsl(315, 4%, 96%);
+  --color-components-button-outline-background-default: hsla(0, 0%, 100%, 0);
+  --color-components-button-outline-background-hover: hsla(0, 0%, 100%, 0);
+  --color-components-button-outline-background-pressed: hsla(0, 0%, 100%, 0);
+  --color-components-button-outline-background-focus: hsla(0, 0%, 100%, 0);
+  --color-components-button-outline-background-disabled: hsl(240, 12%, 90%);
+  --color-components-button-outline-text-default: hsl(321, 15%, 31%);
+  --color-components-button-outline-text-disabled: hsl(245, 13%, 80%);
+  --color-components-button-outline-icon-default: hsla(0, 0%, 100%, 0.5);
+  --color-components-button-outline-icon-disabled: hsl(245, 13%, 80%);
+  --color-components-button-outline-stroke-focus: hsl(320, 13%, 63%);
+  --color-components-button-outline-stroke-default: hsl(321, 18%, 75%);
+  --color-components-button-outline-stroke-hover: hsl(321, 18%, 85%);
+  --color-components-button-outline-stroke-pressed: hsl(245, 13%, 80%);
+  --color-icon-secondary-inverse: hsl(245, 16%, 32%);
+  --color-icon-tertiary-inverse: hsl(244, 12%, 51%);
+  --color-text-on-dark-background: hsl(315, 4%, 96%);
+  --color-text-on-light-background: hsl(324, 12%, 8%);
+  --color-icon-on-light-background: hsl(324, 12%, 8%);
+  --color-icon-on-dark-background: hsl(0, 0%, 100%);
+  --color-background-overlay: hsla(320, 16%, 22%, 0.8);
+  --color-transparent: hsla(0, 0%, 100%, 0);
+  --color-background-app-background: hsl(322, 17%, 22%);
+  --color-background-card-background: hsl(321, 15%, 31%);
+  --color-components-fade-default: hsl(315, 2%, 98%);
+  --color-components-fade-invisible: hsla(322, 17%, 22%, 0);
+  --color-background-cta-section: hsl(324, 22%, 13%);
+
+  /* ─── Typography ─── */
+  --font-display: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-heading: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-body: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-action: 'Geist', system-ui, -apple-system, sans-serif;
+  --font-caption: 'Geist', system-ui, -apple-system, sans-serif;
+
+  /* Font Size */
+  --text-display-sm: 44px;
+  --text-h1: 38px;
+  --text-h2: 30px;
+  --text-h3: 24px;
+  --text-h4: 20px;
+  --text-h5: 16px;
+  --text-body-lg: 18px;
+  --text-body-md: 16px;
+  --text-body-sm: 14px;
+  --text-action-lg: 18px;
+  --text-action-sm: 12px;
+  --text-overline-lg: 12px;
+
+  /* Line Height */
+  --leading-display-sm: 48px;
+  --leading-h1: 58px;
+  --leading-h2: 41px;
+  --leading-h3: 29px;
+  --leading-h4: 24px;
+  --leading-h5: 24px;
+  --leading-body-lg: 27px;
+  --leading-body-md: 24px;
+  --leading-body-sm: 21px;
+  --leading-action-lg: 24px;
+  --leading-action-sm: 16px;
+  --leading-overline-lg: 14.5px;
+
+  /* Font Weight */
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-bold: 700;
+  --weight-extra-bold: 800;
+  --weight-black: 900;
+
+  /* ─── Spacing ─── */
+  --space-0: 0px;
+  --space-050: 4px;
+  --space-100: 8px;
+  --space-150: 12px;
+  --space-200: 16px;
+  --space-300: 24px;
+  --space-400: 32px;
+  --space-500: 40px;
+  --space-600: 48px;
+  --space-800: 64px;
+  --space-1000: 80px;
+
+  /* ─── Border Radius ─── */
+  --radius-0: 0px;
+  --radius-100: 8px;
+  --radius-150: 12px;
+  --radius-200: 16px;
+  --radius-300: 24px;
+  --radius-xl: 32px;
+  --radius-rounded: 1000px;
+
+  /* ─── Border Width ─── */
+  --border-m: 2px;
+  --border-l: 3px;
+  --border-xl: 4px;
+
+  /* ─── Layout ─── */
+  --max-site-width: 1440px;
+
+  /* ─── Blur ─── */
+  --blur-xl: 72px;
+
+  /* ─── Shadows ─── */
+  --shadow-m:
+      0px 2px 4px -1px #251c210f,
+      0px 4px 6px -1px #251c2114;
+  --shadow-xxl:
+      0px 6px 16px -2px #251c210a,
+      0px 24px 40px -4px #251c2114;
+}
+
+:root {
+  color-scheme: dark;
+}
