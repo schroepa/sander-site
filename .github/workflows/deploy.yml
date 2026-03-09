@@ -38,6 +38,15 @@ jobs:
             cp -r config/. cms/user/config/
           fi
 
+      - name: Debug - verify content after sync
+        run: |
+          echo "=== pages/ directory ==="
+          ls pages/ 2>/dev/null || echo "pages/ not found"
+          echo "=== impressum in pages/ ==="
+          grep "company_name" pages/02.impressum/impressum.md 2>/dev/null || echo "not found in pages/"
+          echo "=== impressum in cms/user/pages/ ==="
+          grep "company_name" cms/user/pages/02.impressum/impressum.md 2>/dev/null || echo "not found in cms/user/pages/"
+
       - name: Install dependencies
         working-directory: frontend
         run: npm install --no-workspaces
