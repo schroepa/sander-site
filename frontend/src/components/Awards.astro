@@ -1,0 +1,145 @@
+---
+import type { AwardsData } from "../lib/grav";
+
+interface Props {
+    data: AwardsData;
+}
+
+const { data } = Astro.props;
+const items = data.items ?? [];
+---
+
+<section class="awards" id="auszeichnungen">
+    <div class="awards__inner">
+        {data.headline && <h2 class="awards__headline">{data.headline}</h2>}
+
+        {
+            items.length > 0 && (
+                <div class="awards__grid">
+                    {items.map((item) => {
+                        const imgSrc = item.image
+                            ? `/user/pages/01.home/${item.image}`
+                            : null;
+                        return (
+                            <div class="awards__item">
+                                {imgSrc && (
+                                    <div class="awards__badge">
+                                        <img
+                                            class="awards__badge-img"
+                                            src={imgSrc}
+                                            alt={item.label ?? "Auszeichnung"}
+                                            loading="lazy"
+                                        />
+                                    </div>
+                                )}
+                                {item.label && (
+                                    <p class="awards__label">{item.label}</p>
+                                )}
+                            </div>
+                        );
+                    })}
+                </div>
+            )
+        }
+    </div>
+</section>
+
+<style>
+    /* ─── Section ─── */
+    .awards {
+        position: relative;
+        overflow: hidden;
+        padding: 0 var(--space-800) var(--space-1000);
+    }
+
+    /* ─── Inner ─── */
+    .awards__inner {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-800);
+    }
+
+    /* ─── Headline ─── */
+    .awards__headline {
+        font-family: var(--font-display);
+        font-weight: var(--weight-bold);
+        font-size: var(--text-display-sm);
+        line-height: var(--leading-display-sm);
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        color: var(--color-text-primary);
+        text-align: center;
+        margin: 0;
+    }
+
+    /* ─── Grid ─── */
+    .awards__grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--space-1000);
+        width: 100%;
+    }
+
+    /* ─── Item ─── */
+    .awards__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-100);
+        background-color: var(--color-background-elevation2);
+        padding: var(--space-300);
+        border-radius: var(--radius-xl);
+    }
+
+    /* ─── Badge image ─── */
+    .awards__badge {
+        width: 200px;
+        height: 200px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .awards__badge-img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: contain;
+    }
+
+    /* ─── Label ─── */
+    .awards__label {
+        font-family: var(--font-body);
+        font-weight: var(--weight-medium);
+        font-size: var(--text-body-lg);
+        line-height: var(--leading-body-lg);
+        letter-spacing: 0.5px;
+        color: var(--color-text-primary);
+        text-align: center;
+        margin: 0;
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 768px) {
+        .awards {
+            padding: 0 var(--space-300) var(--space-1000);
+        }
+
+        .awards__headline {
+            font-size: var(--text-h2);
+            line-height: var(--leading-h2);
+        }
+
+        .awards__grid {
+            gap: var(--space-500);
+        }
+
+        .awards__badge {
+            width: 150px;
+            height: 150px;
+        }
+    }
+</style>

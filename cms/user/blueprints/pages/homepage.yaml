@@ -45,9 +45,11 @@ form:
                     smart_catering: "🧑‍🍳 Smart Catering"
                     sticky_scroll: "🖱️ Sticky Scroll"
                     cta: "📣 Call to Action"
-                    about: "🏢 Über uns"
+                    about: "🏢 Rosin"
                     team: "👥 Team"
                     text_section: "📄 Text Section"
+                    logo_section: "🏢 Logo Section"
+                    awards: "🏆 Auszeichnungen"
                     faq: "❓ FAQ"
 
             # ── Hero ──
@@ -58,84 +60,73 @@ form:
 
             header.hero.headline:
               type: text
-              label: Hero Headline
+              label: Headline
               placeholder: "z.B. Premium Catering für jeden Anlass"
               validate:
                 required: true
 
-            header.hero.spotlight_text:
-              type: textarea
-              label: Spotlight Background Text
-              placeholder: "SMART\nCATERING"
-              help: "Großer Text im Hintergrund. Neue Zeile = Zeilenumbruch."
-              rows: 2
-
-            header.hero.spotlight_line_height:
-              type: text
-              label: Spotlight Line Height
-              placeholder: "0.9"
-              help: "Zeilenhöhe des Spotlight-Texts (z.B. 0.8 = enger, 1.0 = normal)"
-              default: "0.9"
-
-            header.hero.spotlight_blur:
-              type: text
-              label: Spotlight Text Blur
-              placeholder: "5"
-              help: "Unschärfe des Hintergrundtexts in Pixel (z.B. 3 = wenig, 8 = stark)"
-              default: "5"
-
-            header.hero.spotlight_softness:
-              type: text
-              label: Spotlight Light Softness
-              placeholder: "50"
-              help: "Weichheit des Lichtkegels 0–100 (0 = scharf, 100 = sehr weich)"
-              default: "50"
-
             header.hero.subline:
               type: text
-              label: Hero Subline
+              label: Subline
               placeholder: "z.B. Qualität, die man schmeckt"
+
+            hero_scale_columns:
+              type: columns
+              fields:
+                col_headline_scale:
+                  type: column
+                  fields:
+                    header.hero.headline_scale:
+                      type: text
+                      label: Headline Scale
+                      placeholder: "1.0"
+                      help: "Vergrößert/verkleinert die Überschrift (z.B. 1.2 = 20% größer)."
+                      default: "1.0"
+                col_subline_scale:
+                  type: column
+                  fields:
+                    header.hero.subline_scale:
+                      type: text
+                      label: Subline Scale
+                      placeholder: "1.0"
+                      help: "Vergrößert/verkleinert die Unterüberschrift (z.B. 0.8 = 20% kleiner)."
+                      default: "1.0"
+                col_spacing:
+                  type: column
+                  fields:
+                    header.hero.headline_subline_spacing:
+                      type: text
+                      label: Headline–Subline Abstand
+                      placeholder: "1.5"
+                      help: "Abstand in rem (z.B. 1.5 oder 2)."
+                      default: "1.5"
 
             header.hero.show_cta:
               type: toggle
-              label: Show Call-to-Action Toggle
+              label: Call-to-Action Button anzeigen
               highlight: 1
               default: 0
               options:
                 1: Ja
                 0: Nein
-              help: "Schaltet den Call-to-Action Button unten im Hero an oder aus"
 
-            header.hero.cta_text:
-              type: text
-              label: Call-to-Action Button Text
-              placeholder: "z.B. Jetzt anfragen"
-
-            header.hero.cta_link:
-              type: text
-              label: Call-to-Action Link
-              placeholder: "#kontakt"
-
-            header.hero.headline_scale:
-              type: text
-              label: Headline Scale
-              placeholder: "1.0"
-              help: "Vergrößert/verkleinert die Überschrift (z.B. 1.2 für 20% größer). Bleibt responsive."
-              default: "1.0"
-
-            header.hero.subline_scale:
-              type: text
-              label: Subline Scale
-              placeholder: "1.0"
-              help: "Vergrößert/verkleinert die Unterüberschrift (z.B. 0.8 für 20% kleiner). Bleibt responsive."
-              default: "1.0"
-
-            header.hero.headline_subline_spacing:
-              type: text
-              label: Spacing between Headline and Subline
-              placeholder: "1.5"
-              help: "Abstand zwischen der Überschrift und Unterüberschrift in rem. (z.B. 1.5 oder 2)"
-              default: "1.5"
+            hero_cta_columns:
+              type: columns
+              fields:
+                col_cta_text:
+                  type: column
+                  fields:
+                    header.hero.cta_text:
+                      type: text
+                      label: Button Text
+                      placeholder: "z.B. Jetzt anfragen"
+                col_cta_link:
+                  type: column
+                  fields:
+                    header.hero.cta_link:
+                      type: text
+                      label: Button Link
+                      placeholder: "#kontakt"
 
             # ── Stats / Kennzahlen ──
             stats_section:
@@ -186,75 +177,36 @@ form:
 
             header.solutions.headline:
               type: text
-              label: Section Headline
+              label: Überschrift
               placeholder: "Deine Herausforderung - Unsere Lösungen"
 
             header.solutions.subline:
               type: text
-              label: Section Subline
+              label: Unterüberschrift
               placeholder: "Hier werden Sie geholfen"
 
             header.solutions.items:
               type: list
-              label: Challenge / Solution Pairs
+              label: Challenge / Solution Paare
               style: vertical
               fields:
                 .challenge_title:
                   type: text
-                  label: Challenge Title
+                  label: Herausforderung – Titel
                   placeholder: "z.B. Küche kaputt oder nicht vorhanden?"
 
                 .challenge_text:
-                  type: textarea
-                  label: Challenge Description
-                  rows: 2
-                  placeholder: "Beschreiben Sie die Herausforderung"
+                  type: editor
+                  label: Herausforderung – Beschreibung
 
                 .solution_title:
                   type: text
-                  label: Solution Title
+                  label: Lösung – Titel
                   placeholder: "z.B. Smart Catering fängt genau das ab."
 
                 .solution_text:
-                  type: textarea
-                  label: Solution Description
-                  rows: 2
-                  placeholder: "Beschreiben Sie die Lösung"
-
-            # ── Content Sections ──
-            content_sections:
-              type: section
-              title: "📝 Content Sections"
-              underline: true
-
-            header.sections:
-              type: list
-              label: Content Sections
-              style: vertical
-              fields:
-                .title:
-                  type: text
-                  label: Section Title
-
-                .body:
-                  type: textarea
-                  label: Section Content
-                  rows: 5
-
-                .image:
-                  type: filepicker
-                  label: Section Image (optional)
-                  folder: "user://pages/01.home"
-                  accept:
-                    - image/*
-
-                .tags:
-                  type: selectize
-                  label: Tags (Optional)
-                  help: "Kommagetrennte Tags eingeben (z.B. Food, Events)"
-                  classes: fancy
-                  validate:
-                    type: commalist
+                  type: editor
+                  label: Lösung – Beschreibung
 
             # ── Menu Slider ──
             menu_slider_section:
@@ -264,7 +216,7 @@ form:
 
             header.menu_slider.headline:
               type: text
-              label: Section Headline
+              label: Überschrift
               placeholder: "z.B. Unsere Menülinien im Überblick"
 
             menu_slider_media:
@@ -301,48 +253,47 @@ form:
 
             header.smart_catering.headline:
               type: text
-              label: Section Headline
+              label: Überzeile
               placeholder: "Verantwortung & Entscheidungsdruck"
 
             header.smart_catering.title:
               type: text
-              label: Section Title
+              label: Haupttitel
               placeholder: "SMART CATERING"
 
             header.smart_catering.subline:
               type: text
-              label: Section Subline
+              label: Unterzeile
               placeholder: "Intelligent gelöst. Köstlich geliefert."
 
             header.smart_catering.columns:
               type: list
-              label: Columns
+              label: Spalten
               style: vertical
               fields:
                 .title:
                   type: text
-                  label: Column Title
+                  label: Spalten-Titel
                   placeholder: "z.B. Smart Catering"
 
                 .subline:
                   type: text
-                  label: Column Subtitle
+                  label: Spalten-Unterzeile
                   placeholder: "z.B. Hauptverpflegung"
 
                 .accordions:
                   type: list
-                  label: Accordions
+                  label: Akkordeons
                   style: vertical
                   fields:
                     .title:
                       type: text
-                      label: Accordion Title
+                      label: Akkordeon-Titel
                       placeholder: "z.B. Menükompositionen"
 
                     .content:
-                      type: textarea
-                      classes: editor-trumbowyg
-                      label: Description Content (Optional)
+                      type: editor
+                      label: Inhalt (Optional)
 
                     .tags:
                       type: selectize
@@ -354,16 +305,16 @@ form:
 
                     .cards:
                       type: list
-                      label: Nested Cards (Optional)
+                      label: Karten (Optional)
                       style: vertical
                       fields:
                         .title:
                           type: text
-                          label: Card Title
+                          label: Karten-Titel
 
                         .text:
                           type: textarea
-                          label: Card Text
+                          label: Karten-Text
                           rows: 3
 
             # ── Sticky Scroll ──
@@ -372,48 +323,49 @@ form:
               title: "🖱️ Sticky Scroll"
               underline: true
 
+            header.sticky_scroll.overline:
+              type: text
+              label: Überzeile
+              placeholder: "z.B. Frische Manufaktur"
+              help: "Kleiner Begleittext über der Überschrift"
+
             header.sticky_scroll.headline:
               type: text
-              label: Section Headline
+              label: Überschrift
               placeholder: "Was ist deine Herausforderung?"
 
             header.sticky_scroll.subline:
               type: textarea
-              label: Section Subline
+              label: Unterzeile
               rows: 3
-              placeholder: "Accumsan sapien ullamcorper massa dolor sed..."
+              placeholder: "Beschreibungstext…"
 
             header.sticky_scroll.items:
               type: list
-              label: Scroll Items
+              label: Scroll-Einträge
               style: vertical
               fields:
                 .dropdown_label:
                   type: text
-                  label: Dropdown Label
+                  label: Navigations-Label
                   placeholder: "Infrastrukturdefizit"
 
                 .title:
                   type: text
-                  label: Card Title
-                  placeholder: "Küche Kaputt oder nicht vorhanden?"
+                  label: Karten-Titel
+                  placeholder: "Küche kaputt oder nicht vorhanden?"
 
                 .subtitle:
                   type: text
-                  label: Card Subtitle
-                  placeholder: "Veraltete oder fehlende Infrastruktur macht Versorgung unsicher."
+                  label: Karten-Unterzeile
 
                 .body_bold:
-                  type: textarea
-                  label: Bold Body Text
-                  rows: 3
-                  placeholder: "Keine Küche vorhanden..."
+                  type: editor
+                  label: Fettgedruckter Text
 
                 .body_text:
-                  type: textarea
-                  label: Regular Body Text
-                  rows: 4
-                  placeholder: "Sie betrifft Organisation, Kosten..."
+                  type: editor
+                  label: Regulärer Text
 
             # ── Call to Action ──
             cta_section:
@@ -423,41 +375,54 @@ form:
 
             header.cta.headline:
               type: text
-              label: Section Headline
+              label: Überschrift
               placeholder: "Welche Module benötigst du?"
 
             header.cta.copy:
-              type: textarea
-              label: Section Copy Text
-              rows: 3
-              placeholder: "Reibungslose Implementierung mit Personalmanagement..."
+              type: editor
+              label: Beschreibungstext
 
-            header.cta.button_text:
-              type: text
-              label: Button Text
-              placeholder: "Jetzt Kontakt aufnehmen"
+            cta_button_columns:
+              type: columns
+              fields:
+                col_btn_text:
+                  type: column
+                  fields:
+                    header.cta.button_text:
+                      type: text
+                      label: Button Text
+                      placeholder: "Jetzt Kontakt aufnehmen"
+                col_btn_link:
+                  type: column
+                  fields:
+                    header.cta.button_link:
+                      type: text
+                      label: Button Link
+                      placeholder: "#kontakt"
 
-            header.cta.button_link:
-              type: text
-              label: Button Link
-              placeholder: "#kontakt"
-
-            # ── Über uns ──
+            # ── Rosin ──
             about_section:
               type: section
-              title: "🏢 Über uns"
+              title: "🏢 Rosin"
               underline: true
 
             header.about.headline:
               type: text
-              label: Headline
+              label: Überschrift
               placeholder: "Wer wir sind"
 
             header.about.body:
-              type: textarea
-              label: Body Text
-              rows: 5
-              placeholder: "Sander Betriebsgastronomie steht seit über 50 Jahren..."
+              type: editor
+              label: Text
+
+            about_media:
+              type: pagemedia
+              label: "Bild hochladen"
+
+            header.about.image:
+              type: mediapicker
+              label: Bild (rechte Spalte)
+              help: "Bild zuerst hochladen, dann hier auswählen."
 
             header.about.background_image:
               type: filepicker
@@ -465,16 +430,48 @@ form:
               folder: "user://pages/01.home"
               accept:
                 - image/*
-              help: "Optionales Hintergrundbild hinter dem Text"
 
-            about_media:
+            header.about.quote:
+              type: textarea
+              label: Zitat
+              rows: 3
+              placeholder: "z.B. Qualität ist keine Selbstverständlichkeit – sie ist eine Haltung."
+              help: "Wird in Anführungszeichen über die volle Breite angezeigt."
+
+            header.about.quote_author:
+              type: text
+              label: Zitat-Urheber
+              placeholder: "z.B. Hans Rosin, Gründer"
+
+            # ── Auszeichnungen ──
+            awards_section:
+              type: section
+              title: "🏆 Auszeichnungen"
+              underline: true
+
+            header.awards.headline:
+              type: text
+              label: Überschrift
+              placeholder: "z.B. Ein Ausgezeichnetes Familienunternehmen"
+
+            awards_media:
               type: pagemedia
-              label: "Bilder für 'Über uns' hochladen"
+              label: "Badge-Bilder hochladen"
 
-            header.about.image:
-              type: mediapicker
-              label: Bild (rechte Spalte)
-              help: "Bild zuerst über 'Bilder hochladen' hochladen, dann hier auswählen. Wird neben dem Beschreibungstext angezeigt."
+            header.awards.items:
+              type: list
+              label: Auszeichnungen
+              style: vertical
+              fields:
+                .label:
+                  type: text
+                  label: Beschriftung
+                  placeholder: "z.B. Best of Market 2026"
+
+                .image:
+                  type: mediapicker
+                  label: Badge-Bild
+                  help: "Bild zuerst hochladen, dann hier auswählen"
 
             # ── Team ──
             team_section:
@@ -484,12 +481,12 @@ form:
 
             header.team.headline:
               type: text
-              label: Headline
+              label: Überschrift
               placeholder: "Die Menschen hinter Sander"
 
             header.team.subline:
               type: text
-              label: Subline
+              label: Unterzeile
               placeholder: "Erfahrung, Leidenschaft und echtes Gastgeber-Herz."
 
             team_media:
@@ -514,15 +511,55 @@ form:
                   placeholder: "z.B. Geschäftsführer"
 
                 .bio:
-                  type: textarea
+                  type: editor
                   label: Kurzbeschreibung (optional)
-                  rows: 3
-                  placeholder: "Über 30 Jahre Erfahrung in der Gemeinschaftsverpflegung..."
 
                 .image:
                   type: mediapicker
                   label: Profilfoto (optional)
-                  help: "Bild zuerst über 'Team-Fotos hochladen' hochladen, dann hier auswählen"
+                  help: "Bild zuerst hochladen, dann hier auswählen"
+
+            # ── Logo Section ──
+            logo_section_section:
+              type: section
+              title: "🏢 Logo Section"
+              underline: true
+
+            header.logo_section.headline:
+              type: text
+              label: Überschrift (optional)
+              placeholder: "z.B. Unsere Partner"
+
+            header.logo_section.logo_color:
+              type: colorpicker
+              label: Logo-Farbe
+              default: "#f1eef0"
+              help: "Farbe, in der alle Logos eingefärbt werden (Hex-Wert)"
+
+            logo_section_media:
+              type: pagemedia
+              label: "Logo-Dateien hochladen (SVG empfohlen)"
+
+            header.logo_section.items:
+              type: list
+              label: Logos
+              style: vertical
+              fields:
+                .name:
+                  type: text
+                  label: Name / Alt-Text
+                  placeholder: "z.B. Sander Gourmet"
+                  validate:
+                    required: true
+
+                .image:
+                  type: filepicker
+                  label: Logo-Datei
+                  folder: "user://pages/01.home"
+                  accept:
+                    - image/*
+                    - .svg
+                  help: "SVG- oder Bilddatei auswählen (zuerst hochladen)"
 
             # ── Text Section ──
             text_section_section:
@@ -541,7 +578,6 @@ form:
               folder: "user://pages/01.home"
               accept:
                 - image/*
-              help: "Optional: Hintergrundbild hinter dem Text (wird durch einen halbtransparenten Overlay abgedunkelt)"
 
             header.text_section.paragraphs:
               type: list
@@ -550,10 +586,8 @@ form:
               help: "Jeder Eintrag wird als eigener Absatz dargestellt."
               fields:
                 .text:
-                  type: textarea
+                  type: editor
                   label: Absatz
-                  rows: 4
-                  placeholder: "Texto del párrafo…"
 
             # ── FAQ Section ──
             faq_section_section:
@@ -579,8 +613,6 @@ form:
                     required: true
 
                 .answer:
-                  type: textarea
+                  type: editor
                   label: Antwort
-                  classes: editor-trumbowyg
                   rows: 4
-                  placeholder: "Antwort auf die Frage..."

@@ -28,7 +28,7 @@ const { data } = Astro.props;
           {/* Challenge Card */}
           <div class="solutions__card solutions__card--challenge">
             <p class="solutions__card-title">{item.challenge_title}</p>
-            <p class="solutions__card-text">{item.challenge_text}</p>
+            <div class="solutions__card-text markdown-content" set:html={item.challenge_text} />
           </div>
 
           {/* Connector: dot → line(gradient) → check-circle → line(gradient) → arrowhead */}
@@ -80,7 +80,7 @@ const { data } = Astro.props;
           {/* Solution Card */}
           <div class="solutions__card solutions__card--solution">
             <p class="solutions__card-title">{item.solution_title}</p>
-            <p class="solutions__card-text">{item.solution_text}</p>
+            <div class="solutions__card-text markdown-content" set:html={item.solution_text} />
           </div>
         </div>
       ))
@@ -101,8 +101,11 @@ const { data } = Astro.props;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
+    gap: var(--space-100);
     text-align: center;
+    max-width: var(--max-site-width);
+    margin-inline: auto;
+    width: 100%;
     margin-bottom: var(--space-1000);
   }
 
@@ -130,8 +133,10 @@ const { data } = Astro.props;
   .solutions__container {
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    gap: var(--space-200);
     margin: 0 auto;
+    max-width: var(--max-site-width);
+    width: 100%;
     overflow: visible;
   }
 
@@ -148,28 +153,28 @@ const { data } = Astro.props;
     flex: 1 1 0;
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-100);
     justify-content: center;
-    padding: 24px;
+    padding: var(--space-300);
     background-color: var(--color-bg-card);
-    border-radius: 24px;
+    border-radius: var(--radius-300);
     box-shadow: var(--shadow-xxl);
     overflow: visible;
   }
 
   .solutions__card--challenge {
-    border-right: 4px solid var(--color-stroke-danger);
+    border-right: var(--border-xl) solid var(--color-stroke-danger);
   }
 
   .solutions__card--solution {
-    border-left: 4px solid var(--color-stroke-success);
+    border-left: var(--border-xl) solid var(--color-stroke-success);
   }
 
   .solutions__card-title {
     font-family: var(--font-body);
     font-weight: var(--weight-bold);
-    font-size: 18px;
-    line-height: 27px;
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
     color: var(--color-text-primary);
     letter-spacing: 0.5px;
     margin: 0;
@@ -178,8 +183,8 @@ const { data } = Astro.props;
   .solutions__card-text {
     font-family: var(--font-body);
     font-weight: var(--weight-medium);
-    font-size: 16px;
-    line-height: 24px;
+    font-size: var(--text-body-md);
+    line-height: var(--leading-body-md);
     color: var(--color-text-secondary);
     letter-spacing: 0.5px;
     margin: 0;
@@ -198,9 +203,9 @@ const { data } = Astro.props;
 
   /* Dot: 8px circle at challenge card edge */
   .solutions__connector-dot {
-    width: 8px;
-    height: 8px;
-    min-width: 8px;
+    width: var(--space-100);
+    height: var(--space-100);
+    min-width: var(--space-100);
     border-radius: 50%;
     background-color: var(--color-stroke-danger);
     flex-shrink: 0;
@@ -210,7 +215,7 @@ const { data } = Astro.props;
   /* Lines: fill remaining space between dot/circle and circle/arrow */
   .solutions__connector-line {
     flex: 1 1 0;
-    height: 2px;
+    height: var(--border-m);
     min-width: 0;
   }
 
@@ -289,23 +294,23 @@ const { data } = Astro.props;
     }
 
     .solutions__card {
-      border-radius: 16px;
+      border-radius: var(--radius-200);
     }
 
     .solutions__card--challenge {
       border-right: none;
-      border-bottom: 4px solid var(--color-stroke-danger);
+      border-bottom: var(--border-xl) solid var(--color-stroke-danger);
     }
 
     .solutions__card--solution {
       border-left: none;
-      border-top: 4px solid var(--color-stroke-success);
+      border-top: var(--border-xl) solid var(--color-stroke-success);
     }
 
     .solutions__connector {
       width: auto;
       flex-direction: column;
-      padding: 8px 0;
+      padding: var(--space-100) 0;
     }
 
     .solutions__connector-dot {
@@ -314,8 +319,8 @@ const { data } = Astro.props;
     }
 
     .solutions__connector-line {
-      width: 2px;
-      height: 16px;
+      width: var(--border-m);
+      height: var(--space-200);
       flex: none;
     }
 

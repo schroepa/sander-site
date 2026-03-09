@@ -1,54 +1,188 @@
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/trumbowyg.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/langs/de.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/plugins/cleanpaste/trumbowyg.cleanpaste.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/plugins/colors/trumbowyg.colors.min.js"></script>
 <style>
-  /* Debugging hint: textareas should briefly get a red border if this file loads */
-  textarea.editor-trumbowyg { border-left: 5px solid red !important; }
+/* ── Jump Navigation ── */
+#sc-jumpnav {
+  position: fixed;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  z-index: 9999;
+  background: #1a1a2e;
+  border-radius: 8px 0 0 8px;
+  padding: 8px 4px;
+  box-shadow: -2px 0 12px rgba(0,0,0,0.4);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  max-height: 90vh;
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+#sc-jumpnav::-webkit-scrollbar { display: none; }
+
+#sc-jumpnav a {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 10px;
+  color: #aaa;
+  text-decoration: none;
+  font-size: 11px;
+  font-weight: 500;
+  border-radius: 4px;
+  white-space: nowrap;
+  transition: background 0.15s, color 0.15s;
+  line-height: 1.2;
+}
+#sc-jumpnav a:hover {
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+}
+#sc-jumpnav a.active {
+  background: rgba(255,255,255,0.12);
+  color: #fff;
+}
+#sc-jumpnav .nav-emoji {
+  font-size: 13px;
+  flex-shrink: 0;
+}
+#sc-jumpnav .nav-label {
+  font-size: 10px;
+  letter-spacing: 0.02em;
+}
+
+/* Hide nav on narrow screens */
+@media (max-width: 1200px) {
+  #sc-jumpnav { display: none; }
+}
+
+/* ── Blueprint form improvements ── */
+
+/* Make section headings more prominent */
+.grav-edit-page .form-field[data-grav-field="section"] > .form-label,
+.grav-edit-page .section-title,
+form .form-field.section > .form-label {
+  font-size: 14px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.05em !important;
+}
+
+/* Better list item spacing */
+.grav-edit-page .form-field[data-grav-field="list"] .form-row {
+  margin-bottom: 4px;
+}
+
+/* Tighten up columns layout */
+.grav-edit-page .form-field[data-grav-field="columns"] {
+  gap: 12px;
+}
+
+/* Section scroll offset so nav links land below the sticky header */
+.sc-section-anchor {
+  scroll-margin-top: 80px;
+}
 </style>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        console.log("Trumbowyg Init Script Loaded");
-        // Polling for jQuery and Trumbowyg
-        var checkExist = setInterval(function() {
-           if (window.jQuery && window.jQuery.fn && window.jQuery.fn.trumbowyg) {
-              clearInterval(checkExist);
-              console.log("jQuery and Trumbowyg found, initializing...");
-              initTbw();
-           }
-        }, 100);
+(function () {
+  function init() {
+    // Only run on page/content edit forms
+    var form = document.querySelector('form.grav-edit-page, form[action*="pages"]');
+    if (!form) return;
 
-        // Grav might add nodes dynamically, catch them
-        document.addEventListener('mutation._grav', function() {
-            setTimeout(initTbw, 100);
+    // Map section field keys to emoji + label
+    var sections = [
+      { key: 'section_order_section', emoji: '🔢', label: 'Reihenfolge' },
+      { key: 'hero_section',          emoji: '🎬', label: 'Hero' },
+      { key: 'stats_section',         emoji: '📊', label: 'Kennzahlen' },
+      { key: 'solutions_section',     emoji: '✅', label: 'Lösungen' },
+      { key: 'menu_slider_section',   emoji: '🎞️',  label: 'Menu Slider' },
+      { key: 'smart_catering_section',emoji: '🧑‍🍳', label: 'Smart Catering' },
+      { key: 'sticky_scroll_section', emoji: '🖱️',  label: 'Sticky Scroll' },
+      { key: 'cta_section',           emoji: '📣', label: 'Call to Action' },
+      { key: 'about_section',         emoji: '🏢', label: 'Rosin' },
+      { key: 'awards_section',        emoji: '🏆', label: 'Auszeichnungen' },
+      { key: 'team_section',          emoji: '👥', label: 'Team' },
+      { key: 'logo_section_section',  emoji: '🏢', label: 'Logos' },
+      { key: 'text_section_section',  emoji: '📄', label: 'Text Section' },
+      { key: 'faq_section_section',   emoji: '❓', label: 'FAQ' },
+    ];
+
+    // Find section elements by data-grav-field-name or name attribute on child inputs
+    var found = [];
+    sections.forEach(function (s) {
+      // Grav renders section fields with a data attribute on the wrapper div
+      var el = document.querySelector('[data-grav-fieldname="' + s.key + '"]') ||
+               document.querySelector('[data-grav-field-name="' + s.key + '"]') ||
+               document.querySelector('div[data-section="' + s.key + '"]');
+
+      // Fallback: find by section title text
+      if (!el) {
+        var allSections = document.querySelectorAll('.form-field-wrapper');
+        allSections.forEach(function (wrapper) {
+          var label = wrapper.querySelector('.form-label');
+          if (label && label.textContent.trim().indexOf(s.label) !== -1) {
+            el = wrapper;
+          }
         });
+      }
 
-        function initTbw() {
-            var $targets = window.jQuery('textarea.editor-trumbowyg, textarea[name*="[content]"]').not('.trumbowyg-textarea');
-            console.log("Trumbowyg targets found: ", $targets.length);
-            
-            if ($targets.length > 0) {
-                $targets.trumbowyg({
-                svgPath: 'https://cdnjs.cloudflare.com/ajax/libs/Trumbowyg/2.28.0/ui/icons.svg',
-                semantic: true,
-                removeformatPasted: true,
-                lang: 'de',
-                btns: [
-                    ['viewHTML'],
-                    ['undo', 'redo'],
-                    ['formatting'],
-                    ['strong', 'em', 'del'],
-                    ['superscript', 'subscript'],
-                    ['link'],
-                    ['foreColor', 'backColor'],
-                    ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-                    ['unorderedList', 'orderedList'],
-                    ['horizontalRule'],
-                    ['removeformat'],
-                    ['fullscreen']
-                ]
-                });
-            }
-        }
+      if (el) {
+        var id = 'sc-anchor-' + s.key;
+        el.id = id;
+        el.classList.add('sc-section-anchor');
+        found.push({ id: id, emoji: s.emoji, label: s.label });
+      }
     });
+
+    if (found.length < 2) return;
+
+    // Build nav
+    var nav = document.createElement('div');
+    nav.id = 'sc-jumpnav';
+
+    found.forEach(function (item) {
+      var a = document.createElement('a');
+      a.href = '#' + item.id;
+      a.innerHTML =
+        '<span class="nav-emoji">' + item.emoji + '</span>' +
+        '<span class="nav-label">' + item.label + '</span>';
+      a.addEventListener('click', function (e) {
+        e.preventDefault();
+        var target = document.getElementById(item.id);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+      nav.appendChild(a);
+    });
+
+    document.body.appendChild(nav);
+
+    // Highlight active section on scroll
+    var links = nav.querySelectorAll('a');
+    function onScroll() {
+      var scrollY = window.scrollY + 120;
+      var active = null;
+      found.forEach(function (item) {
+        var el = document.getElementById(item.id);
+        if (el && el.getBoundingClientRect().top + window.scrollY <= scrollY) {
+          active = item.id;
+        }
+      });
+      links.forEach(function (a) {
+        var href = a.getAttribute('href').slice(1);
+        a.classList.toggle('active', href === active);
+      });
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>

@@ -74,7 +74,7 @@ const members = data.items ?? [];
                 <div class="team__info">
                   <p class="team__name">{member.name}</p>
                   {member.role && <p class="team__role">{member.role}</p>}
-                  {member.bio && <p class="team__bio">{member.bio}</p>}
+                  {member.bio && <div class="team__bio markdown-content" set:html={member.bio} />}
                 </div>
               </li>
             );

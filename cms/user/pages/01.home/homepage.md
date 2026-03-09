@@ -6,13 +6,15 @@ section_order:
     -
         section: about
     -
+        section: awards
+    -
         section: stats
     -
         section: solutions
     -
-        section: smart_catering
-    -
         section: cta
+    -
+        section: smart_catering
     -
         section: sticky_scroll
     -
@@ -20,11 +22,11 @@ section_order:
     -
         section: team
     -
+        section: logo_section
+    -
         section: faq
     -
         section: text_section
-    -
-        section: hero
 hero:
     headline: 'Betriebs&shy;gastronomie 4.0'
     subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
@@ -43,12 +45,12 @@ solutions:
     subline: 'Hier werden Sie geholfen'
     items:
         -
-            challenge_title: 'Küche kaputt oder nicht vorhanden?'
-            challenge_text: 'Veraltete oder fehlende Infrastruktur macht Versorgung unsicher.'
+            challenge_title: 'Noch eine Million investieren?'
+            challenge_text: 'Infrastrukturdefizit macht jede Kücheninvestition zum Investitionsrisiko.'
             solution_title: 'Smart Catering fängt genau das ab.'
-            solution_text: 'Versorgung wird unabhängig vom Zustand der Küche.'
+            solution_text: 'Versorgung, ohne überdimensionierte Investitionen vorort'
         -
-            challenge_title: 'Schon wieder Currywurst?'
+            challenge_title: 'Schon wieder das Gleiche?'
             challenge_text: 'Monotonie lässt Teilnahme und Akzeptanz sinken.'
             solution_title: 'Die Sander Frische Manufaktur'
             solution_text: 'Geplante Vielfalt sichert konstante Qualität und echte Abwechslung.'
@@ -63,15 +65,10 @@ solutions:
             solution_title: Personalmanagement
             solution_text: 'Klare Prozesse sichern konstante Servicequalität und Betriebssicherheit.'
         -
-            challenge_title: 'Wohin mit dem Müll?'
+            challenge_title: 'Geht Betriebsgastronomie auch nachhaltig?'
             challenge_text: 'Überproduktion & Verpackungsreste belasten Budget & Nachhaltigkeit.'
-            solution_title: 'Datengetriebener Einkauf & nachhaltige Verpackung'
+            solution_title: 'Datenbasierter zentralisierter Einkauf & nachhaltige Konzepte'
             solution_text: 'Bedarfsgerechte Produktion macht Nachhaltigkeit planbar.'
-        -
-            challenge_title: 'Noch eine Millionen investieren?'
-            challenge_text: 'Risiko durch Hohe Investitionskosten und unsichere Auslastung'
-            solution_title: 'Zentrale Produktion und skalierbares Versorgungsmodell'
-            solution_text: 'Versorgung, ohne überdimensionierte Investitionen vorort'
 smart_catering:
     headline: 'Verantwortung & Entscheidungsdruck'
     title: 'SMART CATERING'
@@ -217,27 +214,27 @@ menu_slider:
         -
             title: 'Regionale Küche'
             subtitle: 'Frisch aus der Region. Traditionell modern.'
-            image: Image_Entwickler_Dessert_Walnuss_Tarte.jpg
+            image: /home/231219-Sander-Gourmet-Slider-Produktkategorien-Gemuese.jpg
         -
             title: 'Mediterrane Genüsse'
             subtitle: 'Leichte Küche mit dem Geschmack des Südens.'
-            image: slider2.png
+            image: /home/antipasti.jpg
         -
             title: 'Vegetarisch & Vegan'
             subtitle: 'Pflanzenbasierte Power für den Arbeitsalltag.'
-            image: slider3.png
+            image: /home/feinkostsalate.jpg
         -
             title: 'Lorem Ipsum'
             subtitle: 'Pflanzenbasierte Power für den Arbeitsalltag.'
-            image: sander_Restaurant_Bienenstich_Kueche.jpg
+            image: /home/231219-Sander-Gourmet-Slider-Produktkategorien-Vegetarische_vegane_Spezialitaeten.jpg
 cta:
     headline: 'Welche Module benötigst du?'
     copy: 'Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden.'
     button_text: 'Jetzt Kontakt aufnehmen'
     button_link: '#'
 sticky_scroll:
-    headline: 'Was ist deine Herausforderung?'
-    subline: '## Accumsan sapien ullamcorper massa dolor sed phasellus faucibus fermentum. Tellus quis sed elementum semper arcu curabitur proin leo.'
+    headline: 'Die Sander Frische-Manufaktur'
+    subline: 'Zentrale Kompetenz, gesicherte Qualität und nachhaltige Prozesse aus einer Hand.'
     items:
         -
             dropdown_label: 'Zentralisierung der Produktion'
@@ -281,10 +278,25 @@ sticky_scroll:
             subtitle: null
             body_bold: null
             body_text: 'Zentralisierung spart Energie, reduziert Ressourcenverbrauch und minimiert Abfälle. Eigenes Energiemanagement, Verpackungsoptimierung und Prozessmonitoring machen Nachhaltigkeit bei Sander messbar.'
+    overline: 'Komplexitärt & Koordinationsaufwand'
 about:
-    headline: 'Wer wir sind'
-    body: "Sander Betriebsgastronomie steht seit über 50 Jahren für zuverlässige, qualitativ hochwertige Gemeinschaftsverpflegung. Als inhabergeführtes Familienunternehmen vereinen wir handwerkliche Kompetenz mit modernsten Produktionsmethoden – für Betriebsrestaurants, Cafeterias und Konferenzservices, die wirklich funktionieren.\n\nUnser Herzstück ist die Sander Frische Manufaktur: eine zentrale Produktionsküche, die täglich tausende frische Komponenten liefert und so höchste Qualität mit wirtschaftlicher Effizienz verbindet."
+    headline: 'Frank Rosin bei Sander '
+    body: "* Fachkräftemangel und steigende Kosten **belasten** viele Küchen.\n* Starke Kooperationspartner werden immer wichtiger.\n* In der Sander Manufaktur wird frisch und handwerklich gekocht.\n* Zentrale Vorbereitung entlastet Küchen vor Ort.\n* So bleiben Qualität, Planung und Wirtschaftlichkeit gesichert."
     image: sander_Restaurant_Bienenstich_Kueche.jpg
+    quote: "Ich weiß jetzt genau,\_ wo ich meine Rouladen hole…"
+    quote_author: 'Frank Rosin'
+awards:
+    headline: 'Ein Ausgezeichnetes Familienunternehmen'
+    items:
+        -
+            label: 'Best of Market 2026'
+            image: award-best-of-market.png
+        -
+            label: 'Höchste Kundenzufriedenheit 2025'
+            image: award-kundenzufriedenheit.png
+        -
+            label: 'Deutschlands Begehrtester Caterer'
+            image: award-begehrtester-caterer.png
 team:
     headline: 'Die Menschen hinter Sander'
     subline: 'Erfahrung, Leidenschaft und echtes Gastgeber-Herz – das ist unser Team.'
@@ -319,24 +331,55 @@ team:
             role: 'Sales Manager Region West'
             bio: null
             image: /home/Patrick_Gerharts_Profilbild_zugeschnitten%201.png
+logo_section:
+    headline: 'Unsere Partner'
+    logo_color: '#f1eef0'
+    items:
+        -
+            name: 'Partner 1'
+            image: audi-logo.svg
+        -
+            name: 'Partner 2'
+            image: basf.svg
+        -
+            name: 'Partner 3'
+            image: brita.svg
+        -
+            name: 'Partner 4'
+            image: ikea-logo.svg
+        -
+            name: 'Partner 5'
+            image: mb-logo.svg
 faq:
     headline: 'Häufig gestellte Fragen'
     items:
         -
-            question: 'Wie funktioniert die Lieferung?'
-            answer: 'Die Lieferung erfolgt täglich frisch und verzehrfertig direkt an Ihren Standort.'
+            question: 'Was ist ein Betriebsrestaurant?'
+            answer: 'Ein Betriebsrestaurant ist eine organisierte Form der Mitarbeiterverpflegung innerhalb eines Unternehmens. Es bietet Mitarbeitenden täglich frische Mahlzeiten und Getränke am Arbeitsplatz. Moderne Betriebsgastronomie geht heute über die klassische Kantine hinaus und umfasst modulare Konzepte wie Menülinien, Snacking-Angebote, Cafeteria, Automatenlösungen oder digitale Bestellsysteme.'
         -
-            question: 'Gibt es auch vegetarische und vegane Optionen?'
-            answer: 'Ja, wir bieten täglich eine vielfältige Auswahl an pflanzenbasierten Gerichten an.'
+            question: 'Wann lohnt sich ein Betriebsrestaurant für Unternehmen?'
+            answer: 'Ein Betriebsrestaurant lohnt sich besonders für Unternehmen mit vielen Mitarbeitenden am Standort oder mit regelmäßigen Arbeitszeiten vor Ort. Es steigert Mitarbeiterzufriedenheit, erleichtert den Arbeitsalltag und stärkt die Unternehmenskultur. Gleichzeitig lässt sich Mitarbeiterverpflegung heute auch für kleinere Standorte oder flexible Arbeitsmodelle wirtschaftlich organisieren.'
         -
-            question: 'Wie werden Unverträglichkeiten und Allergien gehandhabt?'
-            answer: 'Alle unsere Speisen sind transparent deklariert, sodass Allergene und Zusatzstoffe sofort ersichtlich sind.'
+            question: 'Was kostet ein Betriebsrestaurant für ein Unternehmen?'
+            answer: 'Die Kosten eines Betriebsrestaurants hängen von Standortgröße, Verpflegungskonzept und gewünschtem Service ab. Neben Investitionen für Küche oder Ausstattung spielen Personalkosten, Wareneinsatz und Zuschüsse eine Rolle. Moderne Konzepte der Betriebsgastronomie setzen deshalb häufig auf zentrale Produktion, digitale Steuerung und modulare Angebote, um Kosten planbar und wirtschaftlich zu halten.'
         -
-            question: 'Wie läuft die Bezahlung ab?'
-            answer: 'Die Bezahlung erfolgt digital über unsere App, Mitarbeiterkarten oder per monatlicher Sammelrechnung.'
+            question: 'Wie plant man ein Betriebsrestaurant im Unternehmen?'
+            answer: 'Die Planung eines Betriebsrestaurants beginnt mit der Analyse des Standorts: Anzahl der Mitarbeitenden, Arbeitszeiten, Flächen und Versorgungsbedarf. Anschließend wird ein passendes Verpflegungskonzept entwickelt – von der klassischen Kantine bis zu modularen Lösungen mit Snacking, Cafeteria oder Automaten. Eine strukturierte Implementierung sorgt dafür, dass Personal, Technik und Prozesse reibungslos starten.'
         -
-            question: 'Kann das Angebot individuell angepasst werden?'
-            answer: 'Absolut! Wir passen unsere Menülinien und flexiblen Module genau an die Bedürfnisse Ihres Unternehmens an.'
+            question: 'Welche Alternativen gibt es zu einer klassischen Betriebskantine?'
+            answer: 'Neben klassischen Kantinen gibt es heute zahlreiche Alternativen zur Mitarbeiterverpflegung. Dazu gehören modulare Gastronomiekonzepte, Snacking-Angebote, Cafeteria-Lösungen, Smart Fridges, Automaten oder Lunchbox-Systeme mit zentraler Produktion. Diese Modelle ermöglichen eine flexible Versorgung auch ohne große Küche oder Restaurantbetrieb.'
+        -
+            question: 'Wie funktioniert Mitarbeiterverpflegung ohne eigene Küche?'
+            answer: 'Bei der Mitarbeiterverpflegung ohne eigene Küche werden Speisen zentral produziert und anschließend an den Standort geliefert. Mitarbeitende können ihre Mahlzeiten digital bestellen und zum Beispiel über Smart Fridges oder Ausgabestationen kontaktlos entnehmen. So bleibt die Qualität der Verpflegung erhalten, während der Aufwand für Infrastruktur und Personal im Unternehmen gering bleibt.'
+        -
+            question: 'Welche Vorteile hat ein Betriebsrestaurant für Mitarbeitende?'
+            answer: 'Ein Betriebsrestaurant bietet Mitarbeitenden eine einfache, schnelle und oft gesündere Möglichkeit der Verpflegung im Arbeitsalltag. Kurze Wege, frische Mahlzeiten und ein attraktiver Pausenbereich verbessern die Aufenthaltsqualität im Unternehmen. Gleichzeitig fördert gemeinsames Essen Begegnung, Austausch und ein positives Arbeitsumfeld.'
+        -
+            question: 'Wie funktioniert digitale Bestellung im Betriebsrestaurant?'
+            answer: 'Digitale Systeme ermöglichen Mitarbeitenden, Speisen und Getränke bequem über eine App oder Webplattform auszuwählen. Gleichzeitig lassen sich Bestellungen, Abrechnung, Zuschüsse und Auswertungen zentral verwalten. Dadurch entstehen transparente Prozesse, weniger Verwaltungsaufwand und eine bessere Planung für Betrieb und Gastronomie.'
+        -
+            question: 'Welche Rolle spielt Nachhaltigkeit in der Betriebsgastronomie?'
+            answer: 'Nachhaltigkeit spielt eine immer größere Rolle in der Mitarbeiterverpflegung. Viele Betriebe setzen auf regionale Produkte, kurze Lieferketten und moderne Mehrwegsysteme für To-Go-Verpackungen. Zusätzlich ermöglichen digitale Systeme eine bessere Planung von Mengen und reduzieren Lebensmittelverschwendung.'
 text_section:
     headline: 'Gemeinsam Qualität gestalten.'
     paragraphs:
@@ -357,6 +400,6 @@ split_section:
     cta_link: '#kontakt'
     image: sander_Restaurant_Bienenstich_Kueche.jpg
     image_alt: 'Frische Produkte aus der Sander Manufaktur'
-media_order: 'about-bg.jpg,Image_Entwickler_Dessert_Walnuss_Tarte.jpg,sander_Restaurant_Bienenstich_Kueche.jpg,sander_Restaurant_TG_Bienenstich.jpg,sander_Restaurant_TG_Moelleux_au_Chocolat.jpg,slider1.png,slider2.png,slider3.png,231123-Sander-Ansprechpartner-Claudia_Kratschmer.jpg,231123-Sander-Ansprechpartner-Melanie_Kneip.jpg,251215-Sander-Ansprechpartner-Sascha_Sachse.jpg,251215-Sander-AnsprechpartnerChristine_Doernbach.jpg,Patrick_Gerharts_Profilbild_zugeschnitten.jpg,231123-Sander-Ansprechpartner-Claudia_Kratschmer 1.png,231123-Sander-Ansprechpartner-Melanie_Kneip 1.png,251215-Sander-Ansprechpartner-Sascha_Sachse 1.png,251215-Sander-AnsprechpartnerChristine_Doernbach 1.png,Jens_Duelme 1.png,Patrick_Gerharts_Profilbild_zugeschnitten 1.png'
+media_order: 'about-bg.jpg,Image_Entwickler_Dessert_Walnuss_Tarte.jpg,sander_Restaurant_Bienenstich_Kueche.jpg,sander_Restaurant_TG_Bienenstich.jpg,sander_Restaurant_TG_Moelleux_au_Chocolat.jpg,slider1.png,slider2.png,slider3.png,231123-Sander-Ansprechpartner-Claudia_Kratschmer 1.png,231123-Sander-Ansprechpartner-Melanie_Kneip 1.png,251215-Sander-Ansprechpartner-Sascha_Sachse 1.png,251215-Sander-AnsprechpartnerChristine_Doernbach 1.png,Jens_Duelme 1.png,Patrick_Gerharts_Profilbild_zugeschnitten 1.png,ikea-logo.svg,award-best-of-market.png,audi-logo.svg,award-kundenzufriedenheit.png,mb-logo.svg,brita.svg,basf.svg,award-begehrtester-caterer.png,231219-Sander-Gourmet-Slider-Produktkategorien-Dressings_Dips.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Gemuese.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Menueschalen.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Pasta_Teigwaren.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Saucen_Pestos.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Sonderkost.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Suppen_Eintoepfe.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Vegetarische_vegane_Spezialitaeten.jpg,240102-Sander-Gourmet-Slider-Produktkategorien-Kartoffel_Knoedel_Reis_Co.jpg,antipasti.jpg,feinkostsalate.jpg,frischfleisch.jpg,kaese-wurs-ei.jpg,leh.jpg'
 ---
 

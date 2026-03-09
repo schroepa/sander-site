@@ -12,7 +12,9 @@ import About from "../components/About.astro";
 import Team from "../components/Team.astro";
 import Faq from "../components/Faq.astro";
 import TextSection from "../components/TextSection.astro";
+import LogoSection from "../components/LogoSection.astro";
 import SplitSection from "../components/SplitSection.astro";
+import Awards from "../components/Awards.astro";
 import Tag from "../components/Tag.astro";
 import { getHomepage } from "../lib/grav";
 
@@ -45,12 +47,7 @@ const sectionOrder =
           if (key === "stats" && page.stats)
             return <StatsCounter data={page.stats} />;
           if (key === "menu_slider" && page.menu_slider?.items?.length)
-            return (
-              <>
-                <MenuSliderFullscreen data={page.menu_slider} />
-                <MenuSlider data={page.menu_slider} />
-              </>
-            );
+            return <MenuSliderFullscreen data={page.menu_slider} />;
           if (key === "solutions" && page.solutions?.items?.length)
             return <Solutions data={page.solutions} />;
           if (key === "smart_catering" && page.smart_catering?.columns?.length)
@@ -65,8 +62,12 @@ const sectionOrder =
             return <Faq data={page.faq} />;
           if (key === "text_section" && page.text_section)
             return <TextSection data={page.text_section} />;
+          if (key === "logo_section" && page.logo_section?.items?.length)
+            return <LogoSection data={page.logo_section} />;
           if (key === "split_section" && page.split_section)
             return <SplitSection data={page.split_section} />;
+          if (key === "awards" && page.awards?.items?.length)
+            return <Awards data={page.awards} />;
           return null;
         })}
 

@@ -21,6 +21,7 @@ function renderMarkdown(text: string | undefined) {
     {/* Left Column: Fixed Content */}
     <div class="content-left">
       <div class="header-content">
+        {data && <p class="section-overline">{data.overline}</p>}
         {data.headline && <h2 class="headline">{data.headline}</h2>}
         {
           data.subline && (
@@ -95,13 +96,13 @@ function renderMarkdown(text: string | undefined) {
                 {item.body_bold && (
                   <div
                     class="body-bold prose prose-invert"
-                    set:html={renderMarkdown(item.body_bold)}
+                    set:html={item.body_bold}
                   />
                 )}
                 {item.body_text && (
                   <div
                     class="body-text prose prose-invert"
-                    set:html={renderMarkdown(item.body_text)}
+                    set:html={item.body_text}
                   />
                 )}
               </div>
@@ -140,7 +141,6 @@ function renderMarkdown(text: string | undefined) {
 
   .sticky-scroll-container {
     position: relative;
-    z-index: 1;
   }
 
   .fade-top,
@@ -180,7 +180,7 @@ function renderMarkdown(text: string | undefined) {
     margin: 0 auto;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 40px;
+    gap: var(--space-500);
     position: relative;
     /* Height matches approximately the scroll container height */
     height: 715px;
@@ -201,9 +201,19 @@ function renderMarkdown(text: string | undefined) {
     gap: var(--space-100);
   }
 
+  .section-overline {
+    font-family: var(--font-body);
+    font-weight: var(--weight-regular);
+    font-size: var(--text-body-lg);
+    line-height: var(--leading-body-lg);
+    color: var(--color-text-tertiary);
+    letter-spacing: 0.5px;
+    margin: 0;
+  }
+
   .headline {
     font-family: var(--font-heading);
-    font-weight: 900;
+    font-weight: var(--weight-black);
     font-size: var(--text-h1);
     line-height: var(--leading-h1);
     color: var(--color-text-primary);
@@ -211,7 +221,7 @@ function renderMarkdown(text: string | undefined) {
 
   .subline {
     font-family: var(--font-body);
-    font-weight: 500;
+    font-weight: var(--weight-medium);
     font-size: var(--text-body-lg);
     line-height: var(--leading-body-lg);
     color: var(--color-text-secondary);
@@ -242,7 +252,7 @@ function renderMarkdown(text: string | undefined) {
 
   .dropdown-trigger span {
     font-family: var(--font-body);
-    font-weight: 500;
+    font-weight: var(--weight-medium);
     font-size: var(--text-body-sm);
     color: var(--color-text-primary);
     letter-spacing: 0.25px;
@@ -281,7 +291,7 @@ function renderMarkdown(text: string | undefined) {
     padding: var(--space-150) var(--space-300);
     font-family: var(--font-body);
     font-size: var(--text-body-sm);
-    font-weight: 500;
+    font-weight: var(--weight-medium);
     color: var(--color-text-secondary);
     cursor: pointer;
     transition:
@@ -301,7 +311,7 @@ function renderMarkdown(text: string | undefined) {
     scroll-snap-type: y mandatory;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: var(--space-300);
     /* Hide scrollbar */
     -ms-overflow-style: none;
     scrollbar-width: none;
@@ -352,7 +362,7 @@ function renderMarkdown(text: string | undefined) {
 
   .card-title {
     font-family: var(--font-heading);
-    font-weight: 800; /* Extra_Bold */
+    font-weight: var(--weight-extra-bold);
     font-size: var(--text-h3);
     line-height: var(--leading-h3);
     color: var(--color-text-primary);
@@ -360,7 +370,7 @@ function renderMarkdown(text: string | undefined) {
 
   .card-subtitle {
     font-family: var(--font-heading);
-    font-weight: 700; /* Bold */
+    font-weight: var(--weight-bold);
     font-size: var(--text-h4);
     line-height: var(--leading-h4);
     color: var(--color-text-secondary);
@@ -378,11 +388,11 @@ function renderMarkdown(text: string | undefined) {
   }
 
   .body-bold {
-    font-weight: 700; /* Bold */
+    font-weight: var(--weight-bold);
   }
 
   .body-text {
-    font-weight: 500; /* Medium */
+    font-weight: var(--weight-medium);
     letter-spacing: 0.5px;
   }
 

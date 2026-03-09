@@ -17,16 +17,9 @@
   --color-bg-cta-section: hsl(324, 22%, 13%);
   --color-bg-elevation-glass: hsla(324, 12%, 8%, 0.8);
   --color-bg-primary-inverse: hsl(320, 10%, 94%);
-  --color-text-primary: hsl(315, 4%, 96%);
-  --color-text-secondary: hsl(321, 18%, 85%);
-  --color-text-tertiary: hsl(320, 13%, 63%);
   --color-text-primary-inverse: hsl(322, 17%, 22%);
-  --color-stroke-primary: hsl(322, 17%, 22%);
-  --color-stroke-tertiary: hsl(320, 12%, 41%);
-  --color-stroke-brand-medium: hsl(321, 18%, 75%);
   --color-stroke-danger: hsl(345, 100%, 65%);
   --color-stroke-success: hsl(103, 67%, 60%);
-  --color-icon-primary: hsl(315, 4%, 96%);
   --color-icon-success: hsl(103, 37%, 27%);
   --color-state-success: hsl(103, 49%, 33%);
   --color-btn-primary-bg: hsl(320, 10%, 94%);
@@ -38,6 +31,7 @@
   --color-input-icon: hsl(321, 18%, 85%);
   --color-fade-default: hsl(315, 2%, 98%);
   --color-fade-invisible: hsla(322, 17%, 22%, 0);
+  --color-border: hsl(320, 12%, 41%);
 
   /* ─── Semantic Colors (All directly from tokens.json) ─── */
   --color-text-primary: hsl(315, 4%, 96%);
@@ -88,7 +82,7 @@
   --color-icon-brand-bold: hsl(315, 4%, 96%);
   --color-icon-brand-medium: hsl(320, 10%, 94%);
   --color-icon-brand-subtle: hsl(320, 13%, 63%);
-  --color-text-primiary-inverse: hsl(322, 17%, 22%);
+  --color-text-primary-inverse: hsl(322, 17%, 22%);
   --color-text-secondary-inverse: hsl(321, 15%, 31%);
   --color-text-tertiary-inverse: hsl(320, 12%, 41%);
   --color-background-primary-inverse: hsl(320, 10%, 94%);
@@ -250,7 +244,9 @@
   --space-150: 12px;
   --space-200: 16px;
   --space-300: 24px;
+  --space-400: 32px;
   --space-500: 40px;
+  --space-600: 48px;
   --space-800: 64px;
   --space-1000: 80px;
 
@@ -260,12 +256,16 @@
   --radius-150: 12px;
   --radius-200: 16px;
   --radius-300: 24px;
+  --radius-xl: 32px;
   --radius-rounded: 1000px;
 
   /* ─── Border Width ─── */
   --border-m: 2px;
   --border-l: 3px;
   --border-xl: 4px;
+
+  /* ─── Layout ─── */
+  --max-site-width: 1440px;
 
   /* ─── Blur ─── */
   --blur-xl: 72px;

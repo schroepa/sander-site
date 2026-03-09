@@ -1,0 +1,148 @@
+title: Datenschutzerklärung
+"@extends":
+  type: default
+  context: "blueprints://pages"
+
+form:
+  fields:
+    tabs:
+      fields:
+        content:
+          fields:
+
+            # ── Einleitung ──
+            intro_section:
+              type: section
+              title: "📢 Einleitung"
+              underline: true
+
+            header.intro:
+              type: editor
+              label: Einleitungstext
+
+            # ── Verantwortlicher ──
+            responsible_section:
+              type: section
+              title: "🏢 Verantwortlicher (Art. 4 Nr. 7 DSGVO)"
+              underline: true
+
+            header.responsible_company:
+              type: text
+              label: Firmenname
+              placeholder: "Sander GmbH"
+
+            header.responsible_address:
+              type: textarea
+              label: Adresse
+              rows: 3
+              placeholder: "Industriepark 12\n56291 Wiebelsheim"
+              help: "Jede Zeile = eine Zeile der Adresse."
+
+            responsible_contact_columns:
+              type: columns
+              fields:
+                col_phone:
+                  type: column
+                  fields:
+                    header.responsible_phone:
+                      type: text
+                      label: Telefon
+                      placeholder: "+49 6766 9303-0"
+                col_email:
+                  type: column
+                  fields:
+                    header.responsible_email:
+                      type: text
+                      label: E-Mail
+                      placeholder: "info@sander-gruppe.com"
+
+            header.responsible_authority:
+              type: textarea
+              label: Datenschutz-Aufsichtsbehörde
+              rows: 4
+              placeholder: "Der Landesbeauftragte für den Datenschutz und die Informationsfreiheit Rheinland-Pfalz\nProf. Dr. Dieter Kugelmann\nHintere Bleiche 34 · 55116 Mainz"
+              help: "Jede Zeile = eine Zeile der Behördenadresse."
+
+            header.responsible_dpo:
+              type: textarea
+              label: Datenschutzbeauftragter
+              rows: 4
+              placeholder: "CTM-COM GmbH, Herrn Moritz Görmann\nMarienburgstraße 27 · 64297 Darmstadt"
+              help: "Jede Zeile = eine Zeile der Kontaktdaten."
+
+            # ── Rechte der Betroffenen ──
+            rights_section:
+              type: section
+              title: "⚖️ Ihre Rechte (Art. 15–21 DSGVO)"
+              underline: true
+
+            header.rights_intro:
+              type: textarea
+              label: Einleitungstext vor der Liste
+              rows: 2
+              placeholder: "Sie haben gegenüber uns folgende Rechte..."
+
+            header.rights:
+              type: list
+              label: Rechte
+              style: vertical
+              fields:
+                .label:
+                  type: text
+                  label: Recht (Bezeichnung)
+                  placeholder: "z.B. Recht auf Auskunft (Art. 15 DSGVO)"
+                  validate:
+                    required: true
+
+            header.rights_closing:
+              type: editor
+              label: Abschließender Hinweis (nach der Liste)
+              placeholder: "Sie haben zudem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren."
+
+            # ── Weitere Abschnitte ──
+            sections_header:
+              type: section
+              title: "📄 Weitere Abschnitte"
+              underline: true
+
+            header.sections:
+              type: list
+              label: Abschnitte
+              style: vertical
+              fields:
+                .title:
+                  type: text
+                  label: Überschrift
+                  validate:
+                    required: true
+
+                .body:
+                  type: editor
+                  label: Text
+                  help: "Tipp: Aufzählungen können direkt hier mit dem Listen-Button erstellt werden."
+
+                .list_items:
+                  type: list
+                  label: Aufzählungspunkte (optional, Legacy)
+                  style: vertical
+                  help: "Nur noch nötig für bestehende Einträge. Neue Listen bitte direkt im Text-Editor oben erstellen."
+                  fields:
+                    .item:
+                      type: text
+                      label: Punkt
+                      placeholder: "z.B. Browsertyp und -version"
+
+                .body_after:
+                  type: editor
+                  label: Text nach der Liste (optional)
+
+            # ── Stand ──
+            stand_section:
+              type: section
+              title: "📅 Letzte Aktualisierung"
+              underline: true
+
+            header.last_updated:
+              type: text
+              label: "Stand (z.B. März 2026)"
+              placeholder: "März 2026"
