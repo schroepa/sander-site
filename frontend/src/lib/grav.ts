@@ -11,17 +11,18 @@ function md(value: string | undefined | null): string {
 }
 /**
  * Base path to Grav's content pages directory.
- * Works from both `frontend/` (dev) and build contexts.
+ * Can be overridden via GRAV_PAGES_DIR environment variable (for server deployment).
  */
-const GRAV_PAGES_DIR = path.resolve(
+const GRAV_PAGES_DIR = process.env.GRAV_PAGES_DIR ?? path.resolve(
     import.meta.dirname ?? new URL('.', import.meta.url).pathname,
     '../../../cms/user/pages'
 );
 
 /**
  * Base path to Grav's user config directory.
+ * Can be overridden via GRAV_CONFIG_DIR environment variable (for server deployment).
  */
-const GRAV_CONFIG_DIR = path.resolve(
+const GRAV_CONFIG_DIR = process.env.GRAV_CONFIG_DIR ?? path.resolve(
     import.meta.dirname ?? new URL('.', import.meta.url).pathname,
     '../../../cms/user/config'
 );

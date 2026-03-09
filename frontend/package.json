@@ -5,10 +5,12 @@
   "scripts": {
     "dev": "astro dev --host 0.0.0.0 --port 3000",
     "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/node": "^9.5.4",
     "@tailwindcss/vite": "^4.2.0",
     "@types/js-yaml": "^4.0.9",
     "@types/marked": "^5.0.2",
@@ -19,6 +21,5 @@
     "js-yaml": "^4.1.1",
     "marked": "^17.0.3",
     "tailwindcss": "^4.2.0"
-  },
-  "devDependencies": {}
+  }
 }
