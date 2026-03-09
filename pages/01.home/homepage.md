@@ -28,7 +28,7 @@ section_order:
     -
         section: text_section
 hero:
-    headline: 'Betriebs&shy;gastronomie 4.0 Lorem ipsum'
+    headline: 'Betriebs&shy;gastronomie 4.0 Lorem ipsum dolor'
     subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
     spotlight_text: "SMART\nCATERING"
     cta_text: 'Jetzt anfragen'
