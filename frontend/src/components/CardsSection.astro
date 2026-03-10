@@ -1,0 +1,119 @@
+---
+import type { CardsSectionData } from "../lib/grav";
+
+interface Props {
+    data: CardsSectionData;
+}
+
+const { data } = Astro.props;
+
+// If a background image is specified from Grav, we build the path.
+// The blueprint saves the filename. We assume it's located in the user/pages/01.home folder.
+const bgImage = data.background_image
+    ? `/user/pages/01.home/${data.background_image}`
+    : null;
+
+const isGrayscale =
+    data.background_grayscale === true ||
+    data.background_grayscale === 1 ||
+    data.background_grayscale === "1";
+// Default to true if not explicitly disabled
+const hasOverlay =
+    data.background_overlay !== false &&
+    data.background_overlay !== 0 &&
+    data.background_overlay !== "0";
+---
+
+<section
+    class="relative w-full py-[var(--space-1000)] px-[var(--space-800)]"
+    style="background-color: var(--color-bg-app);"
+>
+    {/* Background Image / Overlay */}
+    {
+        bgImage && (
+            <div
+                class="absolute inset-0 pointer-events-none"
+                aria-hidden="true"
+            >
+                <img
+                    src={bgImage}
+                    alt=""
+                    class={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isGrayscale ? "grayscale" : ""}`}
+                />
+
+                {hasOverlay && (
+                    <div
+                        class="absolute inset-0"
+                        style="background-color: var(--color-background-overlay);"
+                    />
+                )}
+            </div>
+        )
+    }
+
+    <div
+        class="relative max-w-(--max-site-width) mx-auto z-10 w-full flex flex-col items-center justify-center gap-[var(--space-500)] pb-[var(--space-500)]"
+    >
+        {/* Header Content */}
+        {
+            (data.overline || data.headline || data.subline) && (
+                <div class="flex flex-col items-center text-center gap-[var(--space-200)] w-full mb-8">
+                    {data.overline && (
+                        <p class="text-[color:var(--color-text-tertiary)] text-[length:var(--text-body-lg)] leading-[var(--leading-body-lg)] tracking-[0.5px]">
+                            {data.overline}
+                        </p>
+                    )}
+
+                    {(data.headline || data.subline) && (
+                        <div class="flex flex-col items-center gap-2">
+                            {data.headline && (
+                                <h2 class="font-[family-name:var(--font-display)] text-[color:var(--color-text-primary)] text-[length:var(--text-display-sm)] leading-[var(--leading-display-sm)] font-bold tracking-[1px] uppercase">
+                                    {data.headline}
+                                </h2>
+                            )}
+
+                            {data.subline && (
+                                <p class="font-[family-name:var(--font-heading)] text-[color:var(--color-text-secondary)] text-[length:var(--text-h3)] leading-[var(--leading-h3)] font-bold">
+                                    {data.subline}
+                                </p>
+                            )}
+                        </div>
+                    )}
+                </div>
+            )
+        }
+
+        {/* Cards Grid */}
+        {
+            data.items && data.items.length > 0 && (
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-400)] w-full">
+                    {data.items.map((card) => (
+                        <div
+                            class="flex items-stretch rounded-[var(--radius-200)] overflow-hidden relative shrink-0"
+                            style="background-color: var(--color-bg-secondary);"
+                        >
+                            {card.image && (
+                                <div class="relative shrink-0 w-[120px] overflow-hidden">
+                                    <img
+                                        src={`/user/pages/01.home/${card.image}`}
+                                        alt={card.title}
+                                        class="absolute inset-0 w-full h-full object-cover"
+                                    />
+                                </div>
+                            )}
+
+                            <div class="flex flex-col gap-2 flex-1 p-[var(--space-200)] justify-start">
+                                <h3 class="font-[family-name:var(--font-heading)] text-[color:var(--color-text-primary)] text-[length:var(--text-h4)] leading-[var(--leading-h4)] font-[800] tracking-[0.15px]">
+                                    {card.title}
+                                </h3>
+                                <p class="font-[family-name:var(--font-body)] text-[color:var(--color-text-secondary)] text-[length:var(--text-body-sm)] leading-[var(--leading-body-sm)] font-medium tracking-[0.25px]">
+                                    {card.text}
+                                </p>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )
+        }
+    </div>
+</section>

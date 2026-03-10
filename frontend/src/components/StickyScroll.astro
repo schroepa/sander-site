@@ -134,13 +134,14 @@ function renderMarkdown(text: string | undefined) {
     content: "";
     position: absolute;
     inset: 0;
-    background-color: var(--color-bg-overlay);
+    background-color: var(--color-background-overlay);
     z-index: 0;
     pointer-events: none;
   }
 
   .sticky-scroll-container {
     position: relative;
+    z-index: 1;
   }
 
   .fade-top,
