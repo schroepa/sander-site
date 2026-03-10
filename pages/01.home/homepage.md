@@ -92,6 +92,12 @@ smart_catering:
                         -
                             title: Qualitätsgarantie
                             text: null
+                        -
+                            title: Abwechslung
+                            text: null
+                        -
+                            title: Regionalität
+                            text: null
                 -
                     title: 'Sicher starten & ohne operative Reibung'
                     content: "<p><span style=\"font-weight: 400;\">Die Einf&uuml;hrung einer neuen Betriebsgastronomie ist eine organisatorische und rechtliche Verantwortung. </span><span style=\"font-weight: 400;\">Smart Catering wird deshalb in klar definierten Phasen implementiert:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Planung &amp; Koordination ca. 3 Monate vor Er&ouml;ffnung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Operative und technische Vorbereitung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Strukturierter Teamaufbau</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Implementierung aller Qualit&auml;ts- und Reporting-Standards</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coldrun vor Inbetriebnahme</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Personal, Lieferanten, Technik und Prozesse sind vor dem ersten Betriebstag vollst&auml;ndig vorbereitet.</span></p>\n<p><span style=\"font-weight: 400;\">Der &Uuml;bergang in den Regelbetrieb erfolgt strukturiert und rechtssicher &ndash; auch bei Betreiberwechseln nach &sect; 613a BGB.</span></p>"
