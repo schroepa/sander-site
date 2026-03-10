@@ -24,6 +24,8 @@ section_order:
     -
         section: logo_section
     -
+        section: cards_section
+    -
         section: faq
     -
         section: text_section
@@ -80,7 +82,7 @@ smart_catering:
             accordions:
                 -
                     title: 'Vielfalt, die planbar bleibt'
-                    content: "<p><span style=\"font-weight: 400;\">Eine Entscheidung f&uuml;r Betriebsgastronomie darf nicht im Tagesgesch&auml;ft unkontrollierbar werden. </span><span style=\"font-weight: 400;\">Deshalb ist die Hauptverpflegung bei Sander klar strukturiert. </span><span style=\"font-weight: 400;\">Smart Catering organisiert die kulinarische Vielfalt &uuml;ber definierte Men&uuml;linien:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Regionale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Internationale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Mediterrane K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Vegetarisch &amp; Vegan</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Pizza &amp; Pasta</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Suppen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Beilagen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Salat-Bar</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Desserts</span><span style=\"font-weight: 400;\"><br /></span></li>\n</ul>\n<p><strong>Jede Linie folgt zentral entwickelten Rezepturen, gepr&uuml;ften Rohwarenstandards und klaren Qualit&auml;tsvorgaben.<br />So bleibt Vielfalt steuerbar, reproduzierbar und wirtschaftlich kalkulierbar &ndash; auch &uuml;ber Standorte hinweg.</strong></p>"
+                    content: "Eine Entscheidung für Betriebsgastronomie darf nicht im Tagesgeschäft unkontrollierbar werden. Deshalb ist die Hauptverpflegung bei Sander klar strukturiert. Smart Catering organisiert die kulinarische Vielfalt über definierte Menülinien:\n\n* Regionale Küche\n* Internationale Küche\n* Mediterrane Küche\n* Vegetarisch & Vegan\n* Pizza & Pasta\n* Suppen\n* Beilagen\n* Salat-Bar\n* Desserts\n\n**Jede Linie folgt zentral entwickelten Rezepturen, geprüften Rohwarenstandards und klaren Qualitätsvorgaben.\nSo bleibt Vielfalt steuerbar, reproduzierbar und wirtschaftlich kalkulierbar – auch über Standorte hinweg.**"
                     tags:
                         - Flexibel
                         - Übersichtlich
@@ -383,6 +385,45 @@ faq:
         -
             question: 'Welche Rolle spielt Nachhaltigkeit in der Betriebsgastronomie?'
             answer: 'Nachhaltigkeit spielt eine immer größere Rolle in der Mitarbeiterverpflegung. Viele Betriebe setzen auf regionale Produkte, kurze Lieferketten und moderne Mehrwegsysteme für To-Go-Verpackungen. Zusätzlich ermöglichen digitale Systeme eine bessere Planung von Mengen und reduzieren Lebensmittelverschwendung.'
+cards_section:
+    overline: 'Digitalisierung & Innovation'
+    headline: 'Digitalisierung & Innovation'
+    subline: 'Mit digitalen Lösungen für die Zukunft des Mitarbeiterrestaurants'
+    background_image: 'cards-bg.png'
+    background_overlay: true
+    background_grayscale: true
+    items:
+        -
+            title: 'Smart Catering App'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: 'card-1.png'
+        -
+            title: 'Smarte Kassensysteme'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: 'card-2.png'
+        -
+            title: 'Digitale Warenwirtschaft'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: 'card-3.png'
+        -
+            title: 'Digitales HACCP'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: 'card-4.png'
+        -
+            title: 'Nachhaltige Ernährung'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: 'card-5.png'
+        -
+            title: 'Smart Vending Telemetrie'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: 'card-6.png'
+        -
+            title: 'Robotik'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: 'card-7.png'
+        -
+            title: 'Zukunft'
+            text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
 text_section:
     headline: 'Gemeinsam Qualität gestalten.'
     paragraphs:

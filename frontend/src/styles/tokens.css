@@ -61,11 +61,11 @@
   --color-stroke-primary: hsl(322, 17%, 22%);
   --color-stroke-secondary: hsl(321, 15%, 31%);
   --color-stroke-tertiary: hsl(320, 12%, 41%);
-  --color-stroke-state-success-subtle: hsl(103, 49%, 33%);
+  --color-stroke-state-success-subtle: #2fa700;
   --color-stroke-state-success-bold: hsl(103, 67%, 60%);
   --color-stroke-state-warning-subtle: hsl(28, 84%, 46%);
   --color-stroke-state-warning-bold: hsl(42, 100%, 54%);
-  --color-stroke-state-danger-subtle: hsl(345, 100%, 65%);
+  --color-stroke-state-danger-subtle: #e7000b;
   --color-stroke-state-danger-bold: hsl(345, 100%, 85%);
   --color-stroke-brand-subtle: hsl(319, 12%, 51%);
   --color-stroke-brand-medium: hsl(321, 18%, 75%);
