@@ -1,6 +1,50 @@
 title: PLUGIN_ADMIN.SITE
 form:
   fields:
+    header:
+      type: section
+      title: Header & Navigation
+      underline: true
+
+      fields:
+        header.logo:
+          type: text
+          label: Logo URL (z.B. /assets/logo.svg)
+          default: "/assets/39331785a20d94ae55004c6822ef1dd1b9eba1e7.svg"
+
+        header.cta_text:
+          type: text
+          label: Button Text
+          default: "Kontakt aufnehmen"
+
+        header.cta_link:
+          type: text
+          label: Button Link
+          default: "/#kontakt"
+
+        header.menus:
+          type: list
+          label: Hauptnavigation
+          style: vertical
+          fields:
+            .label:
+              type: text
+              label: Label (z.B. Lösungen)
+            .link:
+              type: text
+              label: Link URL (z.B. /#loesungen)
+            .submenus:
+              type: list
+              label: Dropdown-Einträge (optional)
+              style: vertical
+              fields:
+                .label:
+                  type: text
+                  label: Label
+                .link:
+                  type: text
+                  label: Link URL
+
     footer:
       type: section
       title: Footer

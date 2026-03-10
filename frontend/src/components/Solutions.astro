@@ -28,7 +28,10 @@ const { data } = Astro.props;
           {/* Challenge Card */}
           <div class="solutions__card solutions__card--challenge">
             <p class="solutions__card-title">{item.challenge_title}</p>
-            <div class="solutions__card-text markdown-content" set:html={item.challenge_text} />
+            <div
+              class="solutions__card-text markdown-content"
+              set:html={item.challenge_text}
+            />
           </div>
 
           {/* Connector: dot → line(gradient) → check-circle → line(gradient) → arrowhead */}
@@ -48,7 +51,7 @@ const { data } = Astro.props;
               >
                 <path
                   d="M8 16L14 22L25 11"
-                  stroke="#2fa700"
+                  stroke="white"
                   stroke-width="3"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -68,7 +71,7 @@ const { data } = Astro.props;
               >
                 <path
                   d="M1 1L9 8L1 15"
-                  stroke="#2fa700"
+                  stroke="var(--color-stroke-state-success-subtle)"
                   stroke-width="2.5"
                   stroke-linecap="round"
                   stroke-linejoin="round"
@@ -80,7 +83,10 @@ const { data } = Astro.props;
           {/* Solution Card */}
           <div class="solutions__card solutions__card--solution">
             <p class="solutions__card-title">{item.solution_title}</p>
-            <div class="solutions__card-text markdown-content" set:html={item.solution_text} />
+            <div
+              class="solutions__card-text markdown-content"
+              set:html={item.solution_text}
+            />
           </div>
         </div>
       ))
@@ -163,11 +169,11 @@ const { data } = Astro.props;
   }
 
   .solutions__card--challenge {
-    border-right: var(--border-xl) solid var(--color-stroke-danger);
+    border-right: var(--border-xl) solid var(--color-stroke-state-danger-subtle);
   }
 
   .solutions__card--solution {
-    border-left: var(--border-xl) solid var(--color-stroke-success);
+    border-left: var(--border-xl) solid var(--color-stroke-state-success-subtle);
   }
 
   .solutions__card-title {
@@ -207,7 +213,7 @@ const { data } = Astro.props;
     height: var(--space-100);
     min-width: var(--space-100);
     border-radius: 50%;
-    background-color: var(--color-stroke-danger);
+    background-color: var(--color-stroke-state-danger-subtle);
     flex-shrink: 0;
     margin-left: -4px; /* half-overlap into the card border */
   }
@@ -222,7 +228,7 @@ const { data } = Astro.props;
   .solutions__connector-line--left {
     background: linear-gradient(
       to right,
-      var(--color-stroke-danger),
+      var(--color-stroke-state-danger-subtle),
       var(--color-stroke-tertiary)
     );
   }
@@ -231,7 +237,7 @@ const { data } = Astro.props;
     background: linear-gradient(
       to right,
       var(--color-stroke-tertiary),
-      var(--color-stroke-success)
+      var(--color-stroke-state-success-subtle)
     );
   }
 
@@ -243,7 +249,7 @@ const { data } = Astro.props;
     width: 48px;
     height: 48px;
     min-width: 48px;
-    background-color: var(--color-icon-success);
+    background-color: #2fa700;
     border-radius: 50%;
     flex-shrink: 0;
   }
@@ -299,12 +305,14 @@ const { data } = Astro.props;
 
     .solutions__card--challenge {
       border-right: none;
-      border-bottom: var(--border-xl) solid var(--color-stroke-danger);
+      border-bottom: var(--border-xl) solid
+        var(--color-stroke-state-danger-subtle);
     }
 
     .solutions__card--solution {
       border-left: none;
-      border-top: var(--border-xl) solid var(--color-stroke-success);
+      border-top: var(--border-xl) solid
+        var(--color-stroke-state-success-subtle);
     }
 
     .solutions__connector {
@@ -327,7 +335,7 @@ const { data } = Astro.props;
     .solutions__connector-line--left {
       background: linear-gradient(
         to bottom,
-        var(--color-stroke-danger),
+        var(--color-stroke-state-danger-subtle),
         var(--color-stroke-tertiary)
       );
     }
@@ -336,7 +344,7 @@ const { data } = Astro.props;
       background: linear-gradient(
         to bottom,
         var(--color-stroke-tertiary),
-        var(--color-stroke-success)
+        var(--color-stroke-state-success-subtle)
       );
     }
 

@@ -178,6 +178,25 @@ export interface SplitSectionData {
     image_alt?: string;
 }
 
+/** A single card for the cards grid */
+export interface CardsItem {
+    title: string;
+    text: string;
+    image?: string;
+}
+
+/** Cards section data */
+export interface CardsSectionData {
+    overline?: string;
+    headline?: string;
+    subline?: string;
+    items?: CardsItem[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
+    background_grayscale?: boolean | number | string;
+}
+
+
 /** A single award / badge item */
 export interface AwardsItem {
     image?: string;
@@ -253,6 +272,7 @@ export interface GravPage {
     text_section?: TextSectionData;
     split_section?: SplitSectionData;
     awards?: AwardsData;
+    cards_section?: CardsSectionData;
     /** Raw markdown body content (below the frontmatter) */
     body: string;
     /** All frontmatter data as-is */
@@ -372,6 +392,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         text_section,
         split_section: data.split_section ?? undefined,
         awards: data.awards ?? undefined,
+        cards_section: data.cards_section ?? undefined,
         body: content.trim(),
         raw: data,
     };
@@ -529,6 +550,24 @@ export interface FooterConfig {
     copyright?: string;
 }
 
+export interface HeaderSubmenuItem {
+    label: string;
+    link: string;
+}
+
+export interface HeaderMenuItem {
+    label: string;
+    link: string;
+    submenus?: HeaderSubmenuItem[];
+}
+
+export interface HeaderConfig {
+    logo?: string;
+    cta_text?: string;
+    cta_link?: string;
+    menus?: HeaderMenuItem[];
+}
+
 export interface SiteConfig {
     title?: string;
     author?: {
@@ -538,6 +577,7 @@ export interface SiteConfig {
     metadata?: {
         description?: string;
     };
+    header?: HeaderConfig;
     footer?: FooterConfig;
 }
 

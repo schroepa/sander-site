@@ -595,6 +595,81 @@ form:
                   type: editor
                   label: Absatz
 
+            # ── Karten-Grid (Figma Section) ──
+            cards_section_section:
+              type: section
+              title: "🗂️ Karten-Grid"
+              underline: true
+
+            header.cards_section.overline:
+              type: text
+              label: Überzeile
+              placeholder: "z.B. Digitalisierung & Innovation"
+
+            header.cards_section.headline:
+              type: text
+              label: Überschrift
+              placeholder: "z.B. Digitalisierung & Innavation"
+
+            header.cards_section.subline:
+              type: text
+              label: Unterzeile
+              placeholder: "z.B. Mit digitalen Lösungen für die Zukunft..."
+
+            header.cards_section.background_image:
+              type: filepicker
+              label: Hintergrundbild (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - image/*
+
+            header.cards_section.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: Ja
+                0: Nein
+
+            header.cards_section.background_grayscale:
+              type: toggle
+              label: Hintergrundbild entsättigen (Graustufen)
+              highlight: 0
+              default: 0
+              options:
+                1: Ja
+                0: Nein
+
+            cards_section_media:
+              type: pagemedia
+              label: "Bilder für Karten hochladen"
+
+            header.cards_section.items:
+              type: list
+              label: Karten
+              style: vertical
+              fields:
+                .title:
+                  type: text
+                  label: Titel
+                  placeholder: "z.B. Smart Catering App"
+                  validate:
+                    required: true
+
+                .text:
+                  type: textarea
+                  label: Text
+                  rows: 3
+                  placeholder: "Beschreibungstext der Karte..."
+                  validate:
+                    required: true
+
+                .image:
+                  type: mediapicker
+                  label: Bild (optional)
+                  help: "Bild zuerst hochladen, dann hier auswählen"
+
             # ── FAQ Section ──
             faq_section_section:
               type: section
