@@ -1,12 +1,63 @@
 ---
-const pathname = new URL(Astro.request.url).pathname;
-const logoUrl = "/assets/39331785a20d94ae55004c6822ef1dd1b9eba1e7.svg";
+import { getSiteConfig } from "../lib/grav";
 
-function isActive(path: string) {
-  if (path === "/") {
-    return pathname === path;
+const pathname = new URL(Astro.request.url).pathname;
+
+// Get SiteConfig and header config
+const siteConfig = getSiteConfig();
+const headerConfig = siteConfig?.header || {};
+
+// Default values (fallback)
+const logoUrl = headerConfig.logo || "/assets/39331785a20d94ae55004c6822ef1dd1b9eba1e7.svg";
+const ctaText = headerConfig.cta_text || "Kontakt aufnehmen";
+const ctaLink = headerConfig.cta_link || "/#kontakt";
+const menus = headerConfig.menus || [
+  {
+    label: "Lösungen",
+    link: "/#loesungen",
+    submenus: [
+      { label: "Lösung 1 (Platzhalter)", link: "/#loesung-1" },
+      { label: "Lösung 2 (Platzhalter)", link: "/#loesung-2" },
+      { label: "Lösung 3 (Platzhalter)", link: "/#loesung-3" },
+      { label: "Lösung 4 (Platzhalter)", link: "/#loesung-4" },
+    ],
+  },
+  {
+    label: "Smart Catering",
+    link: "/#smart-catering",
+    submenus: [
+      { label: "Vielfalt & Menülinien", link: "/#smart-1-1" },
+      { label: "Sicher starten", link: "/#smart-1-2" },
+      { label: "Digitalisierung", link: "/#smart-1-3" },
+      { label: "Team & Personal", link: "/#smart-1-4" },
+    ],
+  },
+  {
+    label: "Die Frische Manufaktur",
+    link: "/#frische-manufaktur",
+  },
+];
+
+// Helper for dynamic href based on current page
+function getHref(link: string) {
+  if (pathname === "/" && link.startsWith("/#")) {
+    return link.substring(1);
   }
-  return pathname.startsWith(path);
+  return link;
+}
+
+// Check active state
+function isActive(link: string) {
+  // Extract path from link (e.g. "/#loesungen" -> "/")
+  const linkUrl = new URL(link, "http://localhost");
+  const linkPath = linkUrl.pathname;
+  if (linkPath === "/") {
+    // If it's an anchor link on the home page, don't mark it active server-side
+    // as that causes all anchor links to get the underline simultaneously.
+    if (linkUrl.hash) return false;
+    return pathname === linkPath;
+  }
+  return pathname.startsWith(linkPath);
 }
 ---
 
@@ -23,133 +74,79 @@ function isActive(path: string) {
 
     <!-- Navigation -->
     <nav class="hidden lg:flex flex-1 items-center justify-end gap-2 pr-4">
-      <!-- Dropdown 1: Lösungen -->
-      <div class="relative group">
-        <a
-          href="#loesungen"
-          class={`flex items-center gap-1 px-2 py-2 transition-colors ${isActive("/loesungen") ? "text-[var(--color-text-primary)] border-b border-[var(--color-stroke-brand-bold)]" : "text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]"}`}
-        >
-          <span class="font-medium text-[12px] leading-[16px] tracking-[0.4px]"
-            >Lösungen</span
-          >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-transform duration-300 group-hover:rotate-180"
-            ><path d="m6 9 6 6 6-6"></path></svg
-          >
-        </a>
-        <!-- Dropdown Menu -->
-        <div
-          class="absolute left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50"
-        >
-          <div
-            class="bg-[var(--color-background-elevation-glass2)] backdrop-blur-[var(--blur-xl)] rounded-xl p-2 w-52 shadow-lg border border-[var(--color-stroke-tertiary)] flex flex-col gap-1"
-          >
-            <a
-              href="#loesung-1"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Lösung 1 (Platzhalter)</a
-            >
-            <a
-              href="#loesung-2"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Lösung 2 (Platzhalter)</a
-            >
-            <a
-              href="#loesung-3"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Lösung 3 (Platzhalter)</a
-            >
-            <a
-              href="#loesung-4"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Lösung 4 (Platzhalter)</a
-            >
-          </div>
-        </div>
-      </div>
+      {
+        menus.map((item) => {
+          const hasSubmenus = item.submenus && item.submenus.length > 0;
+          const href = getHref(item.link);
+          const activeClass = isActive(item.link)
+            ? "text-[var(--color-text-primary)] border-b border-[var(--color-stroke-brand-bold)]"
+            : "text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]";
 
-      <!-- Dropdown 2: Smart Catering -->
-      <div class="relative group">
-        <a
-          href="#smart-catering"
-          class={`flex items-center gap-1 px-2 py-2 transition-colors ${isActive("/smart-catering") ? "text-[var(--color-text-primary)] border-b border-[var(--color-stroke-brand-bold)]" : "text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]"}`}
-        >
-          <span class="font-medium text-[12px] leading-[16px] tracking-[0.4px]"
-            >Smart Catering</span
-          >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="16"
-            height="16"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-transform duration-300 group-hover:rotate-180"
-            ><path d="m6 9 6 6 6-6"></path></svg
-          >
-        </a>
-        <!-- Dropdown Menu -->
-        <div
-          class="absolute left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50"
-        >
-          <div
-            class="bg-[var(--color-background-elevation-glass2)] backdrop-blur-[var(--blur-xl)] rounded-xl p-2 w-56 shadow-lg border border-[var(--color-stroke-tertiary)] flex flex-col gap-1"
-          >
-            <a
-              href="#smart-1-1"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Vielfalt & Menülinien</a
-            >
-            <a
-              href="#smart-1-2"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Sicher starten</a
-            >
-            <a
-              href="#smart-1-3"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Digitalisierung</a
-            >
-            <a
-              href="#smart-1-4"
-              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px]"
-              >Team & Personal</a
-            >
-          </div>
-        </div>
-      </div>
+          if (hasSubmenus) {
+            return (
+              <div class="relative group">
+                <a
+                  href={href}
+                  class={`flex items-center gap-1 px-2 py-2 transition-colors no-underline ${activeClass}`}
+                >
+                  <span class="font-medium text-[12px] leading-[16px] tracking-[0.4px]">
+                    {item.label}
+                  </span>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="w-4 h-4 opacity-70 group-hover:opacity-100 transition-transform duration-300 group-hover:rotate-180"
+                  >
+                    <path d="m6 9 6 6 6-6" />
+                  </svg>
+                </a>
+                <!-- Dropdown Menu -->
+                <div class="absolute left-0 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform translate-y-2 group-hover:translate-y-0 z-50">
+                  <div class="bg-[var(--color-background-elevation-glass2)] backdrop-blur-[var(--blur-xl)] rounded-xl p-2 min-w-[200px] shadow-lg border border-[var(--color-stroke-tertiary)] flex flex-col gap-1">
+                    {item.submenus!.map((sub) => (
+                      <a
+                        href={getHref(sub.link)}
+                        class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-2 rounded-lg text-[12px] leading-[16px] font-medium transition-colors tracking-[0.4px] whitespace-nowrap no-underline"
+                      >
+                        {sub.label}
+                      </a>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
+          }
 
-      <!-- Link without Dropdown: Die Frische Manufaktur -->
-      <a
-        href="#frische-manufaktur"
-        class={`flex items-center gap-1 px-2 py-2 transition-colors ${isActive("/frische-manufaktur") ? "text-[var(--color-text-primary)] border-b border-[var(--color-stroke-brand-bold)]" : "text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)]"}`}
-      >
-        <span class="font-medium text-[12px] leading-[16px] tracking-[0.4px]"
-          >Die Frische Manufaktur</span
-        >
-      </a>
+          // Single Link without dropdown
+          return (
+            <a
+              href={href}
+              class={`flex items-center gap-1 px-2 py-2 transition-colors no-underline ${activeClass}`}
+            >
+              <span class="font-medium text-[12px] leading-[16px] tracking-[0.4px]">
+                {item.label}
+              </span>
+            </a>
+          );
+        })
+      }
     </nav>
 
     <!-- CTA Button & Mobile Menu Toggle -->
     <div class="shrink-0 flex items-center gap-4">
       <a
-        href="#kontakt"
-        class="bg-[var(--color-components-button-primary-background-default)] hover:bg-[var(--color-components-button-primary-background-hover)] transition-colors text-[var(--color-components-button-primary-text-default)] flex items-center justify-center px-3 py-2 min-h-[32px] rounded-lg"
+        href={getHref(ctaLink)}
+        class="bg-[var(--color-components-button-primary-background-default)] hover:bg-[var(--color-components-button-primary-background-hover)] transition-colors text-[var(--color-components-button-primary-text-default)] flex items-center justify-center px-3 py-2 min-h-[32px] rounded-lg no-underline"
       >
         <span class="font-medium text-[12px] leading-[16px] tracking-[0.4px]"
-          >Kontakt aufnehmen</span
+          >{ctaText}</span
         >
       </a>
       <button
@@ -204,26 +201,24 @@ function isActive(path: string) {
     class="lg:hidden hidden mt-2 backdrop-blur-[var(--blur-xl)] bg-[var(--color-background-elevation-glass2)] rounded-[16px] shadow-sm overflow-hidden"
   >
     <nav class="flex flex-col p-4 gap-1">
-      <a
-        href="#loesungen"
-        class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-3 rounded-lg text-sm font-medium transition-colors mobile-nav-link"
-        >Lösungen</a
-      >
-      <a
-        href="#smart-catering"
-        class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-3 rounded-lg text-sm font-medium transition-colors mobile-nav-link"
-        >Smart Catering</a
-      >
-      <a
-        href="#frische-manufaktur"
-        class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-3 rounded-lg text-sm font-medium transition-colors mobile-nav-link"
-        >Die Frische Manufaktur</a
-      >
+      {
+        menus.map((item) => {
+          const href = getHref(item.link);
+          return (
+            <a
+              href={href}
+              class="text-[var(--color-text-primary)] hover:text-[var(--color-text-secondary)] hover:bg-[var(--color-stroke-primary)] px-3 py-3 rounded-lg text-sm font-medium transition-colors mobile-nav-link no-underline"
+            >
+              {item.label}
+            </a>
+          );
+        })
+      }
       <div class="border-t border-[var(--color-stroke-tertiary)] my-1"></div>
       <a
-        href="#kontakt"
-        class="bg-[var(--color-components-button-primary-background-default)] hover:bg-[var(--color-components-button-primary-background-hover)] transition-colors text-[var(--color-components-button-primary-text-default)] flex items-center justify-center px-3 py-3 rounded-lg text-sm font-medium mobile-nav-link"
-        >Kontakt aufnehmen</a
+        href={getHref(ctaLink)}
+        class="bg-[var(--color-components-button-primary-background-default)] hover:bg-[var(--color-components-button-primary-background-hover)] transition-colors text-[var(--color-components-button-primary-text-default)] flex items-center justify-center px-3 py-3 rounded-lg text-sm font-medium mobile-nav-link no-underline"
+        >{ctaText}</a
       >
     </nav>
   </div>
@@ -238,32 +233,39 @@ function isActive(path: string) {
 
     if (!toggle || !menu) return;
 
-    toggle.addEventListener("click", () => {
+    // Remove any existing event listeners by cloning
+    const newToggle = toggle.cloneNode(true) as HTMLElement;
+    toggle.parentNode?.replaceChild(newToggle, toggle);
+
+    newToggle.addEventListener("click", () => {
       const isOpen = !menu.classList.contains("hidden");
 
       if (isOpen) {
         menu.classList.add("hidden");
         iconOpen?.classList.remove("hidden");
         iconClose?.classList.add("hidden");
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Menu öffnen");
+        newToggle.setAttribute("aria-expanded", "false");
+        newToggle.setAttribute("aria-label", "Menu öffnen");
       } else {
         menu.classList.remove("hidden");
         iconOpen?.classList.add("hidden");
         iconClose?.classList.remove("hidden");
-        toggle.setAttribute("aria-expanded", "true");
-        toggle.setAttribute("aria-label", "Menu schließen");
+        newToggle.setAttribute("aria-expanded", "true");
+        newToggle.setAttribute("aria-label", "Menu schließen");
       }
     });
 
     // Close on nav-link click
     menu.querySelectorAll(".mobile-nav-link").forEach((link) => {
-      link.addEventListener("click", () => {
+      const newLink = link.cloneNode(true) as HTMLElement;
+      link.parentNode?.replaceChild(newLink, link);
+      
+      newLink.addEventListener("click", () => {
         menu.classList.add("hidden");
         iconOpen?.classList.remove("hidden");
         iconClose?.classList.add("hidden");
-        toggle.setAttribute("aria-expanded", "false");
-        toggle.setAttribute("aria-label", "Menu öffnen");
+        newToggle.setAttribute("aria-expanded", "false");
+        newToggle.setAttribute("aria-label", "Menu öffnen");
       });
     });
   }
