@@ -21,9 +21,21 @@ const { title = "Sander Catering", description = "Premium Catering Service" } =
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
 
-    <!-- Preconnect hints for third-party origins (performance + privacy) -->
+    <!-- Preconnect + preload for Google Fonts (Geist, font-display: swap via CSS) -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="preload"
+      as="style"
+      href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800;900&display=swap"
+    />
+    <!-- Noscript fallback -->
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;700;800;900&display=swap"
+      />
+    </noscript>
   </head>
   <body>
     <Header />

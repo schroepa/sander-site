@@ -74,7 +74,12 @@ const members = data.items ?? [];
                 <div class="team__info">
                   <p class="team__name">{member.name}</p>
                   {member.role && <p class="team__role">{member.role}</p>}
-                  {member.bio && <div class="team__bio markdown-content" set:html={member.bio} />}
+                  {member.bio && (
+                    <div
+                      class="team__bio markdown-content"
+                      set:html={member.bio}
+                    />
+                  )}
                 </div>
               </li>
             );
@@ -250,7 +255,7 @@ const members = data.items ?? [];
 
   @media (max-width: 768px) {
     .team {
-      padding: var(--space-1000) var(--space-300);
+      padding: var(--space-1000) var(--space-200);
     }
 
     .team__headline {
