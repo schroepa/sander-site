@@ -294,7 +294,7 @@ sticky_scroll:
     overline: 'Komplexitärt & Koordinationsaufwand'
 about:
     headline: 'Frank Rosin bei Sander '
-    body: "* Fachkräftemangel und steigende Kosten **belasten** viele Küchen.\n* Starke Kooperationspartner werden immer wichtiger.\n* In der Sander Manufaktur wird frisch und handwerklich gekocht.\n* Zentrale Vorbereitung entlastet Küchen vor Ort.\n* So bleiben Qualität, Planung und Wirtschaftlichkeit gesichert."
+    body: "* Fachkräftemangel belastet viele Küchen.\n* Kooperationspartner werden immer wichtiger.\n* Sander verbindet Handwerk mit moderner Produktion.\n* Gerichte werden frisch und professionell vorbereitet.\n* Zentrale Vorbereitung spart Zeit in der Küche.\n* Küchen vor Ort regenerieren statt vorbereiten.\n* Qualität bleibt planbar und wirtschaftlich."
     image: sander_Restaurant_Bienenstich_Kueche.jpg
     quote: "Ich weiß jetzt genau,\_ wo ich meine Rouladen hole…"
     quote_author: 'Frank Rosin'
