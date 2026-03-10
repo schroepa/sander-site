@@ -4,13 +4,6 @@ on:
   push:
     branches:
       - main
-    paths:
-      - 'pages/**'
-      - 'config/**'
-      - 'frontend/src/**'
-      - 'frontend/public/**'
-      - 'frontend/astro.config.mjs'
-      - 'frontend/package.json'
 
 jobs:
   build-and-deploy:
@@ -27,26 +20,6 @@ jobs:
           cache: 'npm'
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Sync Git Sync pages to cms/user/pages
-        run: |
-          if [ -d "pages" ]; then
-            mkdir -p cms/user/pages
-            cp -r pages/. cms/user/pages/
-          fi
-          if [ -d "config" ]; then
-            mkdir -p cms/user/config
-            cp -r config/. cms/user/config/
-          fi
-
-      - name: Debug - verify content after sync
-        run: |
-          echo "=== pages/ directory ==="
-          ls pages/ 2>/dev/null || echo "pages/ not found"
-          echo "=== impressum in pages/ ==="
-          grep "company_name" pages/02.impressum/impressum.md 2>/dev/null || echo "not found in pages/"
-          echo "=== impressum in cms/user/pages/ ==="
-          grep "company_name" cms/user/pages/02.impressum/impressum.md 2>/dev/null || echo "not found in cms/user/pages/"
-
       - name: Install dependencies
         working-directory: frontend
         run: npm install --no-workspaces
@@ -55,7 +28,7 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Deploy via FTP
+      - name: Deploy Frontend via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_SERVER }}
@@ -63,6 +36,18 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: frontend/dist/
           server-dir: ${{ secrets.FTP_PATH }}
+          exclude: |
+            **/.git*
+            **/.git*/**
+
+      - name: Deploy CMS via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: cms/user/
+          server-dir: ${{ secrets.FTP_CMS_PATH }}
           exclude: |
             **/.git*
             **/.git*/**
