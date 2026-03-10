@@ -134,7 +134,7 @@ smart_catering:
             subline: Zusatzmodule
             accordions:
                 -
-                    title: 'Café-Konzepte nach Bedarf'
+                    title: Café-Konzepte
                     content: '<p><span style="font-weight: 400;">F&uuml;r Betriebe, die Aufenthaltsqualit&auml;t, kurze Wege und hochwertige Kaffeeangebote als Teil ihrer Arbeitgeberattraktivit&auml;t verstehen.</span></p>'
                     tags: null
                     cards:
@@ -151,12 +151,12 @@ smart_catering:
                             title: Cafeteria
                             text: 'Großzügige Lösung mit Sitzbereichen, Snacks und Service – zentraler Treffpunkt für Mitarbeitende und Gäste.'
                 -
-                    title: 'Professionelle Meeting- & Konferenz-Verpflegung'
-                    content: "<p><span style=\"font-weight: 400;\">Digitale Bestellung und strukturierte Umsetzung sichern eine professionelle Meeting- und Konferenz-Verpflegung ohne internen Abstimmungsaufwand.</span></p>\n<p><strong>Bestellprozess:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Digital ausw&auml;hlen:</strong><span style=\"font-weight: 400;\"> Speisen und Getr&auml;nke aus dem zentralen Konferenz-Katalog zusammenstellen.</span><span style=\"font-weight: 400;\"><br /></span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Smart bestellen:</strong><span style=\"font-weight: 400;\"> Bequem &uuml;ber die Sander-App: transparent dokumentiert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Servieren lassen:</strong> Bereitstellung und Service erfolgen zuverl&auml;ssig durch das zust&auml;ndige Team vor Ort.</li>\n</ul>"
+                    title: Konferenz-Service
+                    content: "###Professionelle Meeting- & Konferenz-Verpflegung\n\n<p><span style=\"font-weight: 400;\">Digitale Bestellung und strukturierte Umsetzung sichern eine professionelle Meeting- und Konferenz-Verpflegung ohne internen Abstimmungsaufwand.</span></p>\n<p><strong>Bestellprozess:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Digital ausw&auml;hlen:</strong><span style=\"font-weight: 400;\"> Speisen und Getr&auml;nke aus dem zentralen Konferenz-Katalog zusammenstellen.</span><span style=\"font-weight: 400;\"><br /></span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Smart bestellen:</strong><span style=\"font-weight: 400;\"> Bequem &uuml;ber die Sander-App: transparent dokumentiert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Servieren lassen:</strong> Bereitstellung und Service erfolgen zuverl&auml;ssig durch das zust&auml;ndige Team vor Ort.</li>\n</ul>"
                     tags: null
                 -
-                    title: 'Zwischenverpflegung im Arbeitsalltag – Snacking-Konzepte'
-                    content: "<p>&nbsp;</p>\n<p><strong>Flexible Versorgung, die sich dem Arbeitsrhythmus anpasst &ndash; vom ersten Kaffee bis zum sp&auml;ten Energie-Boost.</strong></p>"
+                    title: Snacking-Konzepte
+                    content: "###Zwischenverpflegung im Arbeitsalltag – Snacking-Konzepte\n<p>&nbsp;</p>\n<p><strong>Flexible Versorgung, die sich dem Arbeitsrhythmus anpasst &ndash; vom ersten Kaffee bis zum sp&auml;ten Energie-Boost.</strong></p>"
                     tags: null
                     cards:
                         -
@@ -169,8 +169,8 @@ smart_catering:
                             title: 'Nachmittags – Energie & Begegnung'
                             text: 'Süße und herzhafte Snacks für Energie, Begegnung und produktive Auszeiten.'
                 -
-                    title: 24/7-Grundversorgung
-                    content: 'Versorgung bei Schichtbetrieb oder 24/7-Strukturen – Automaten & Smart Vending. Für Betriebe mit erweiterten Betriebszeiten oder geringer Personalbesetzung.'
+                    title: Automatenlösungen
+                    content: "###24/7-Grundversorgung\n\nVersorgung bei Schichtbetrieb oder 24/7-Strukturen – Automaten & Smart Vending. Für Betriebe mit erweiterten Betriebszeiten oder geringer Personalbesetzung."
                     tags: null
                     cards:
                         -
