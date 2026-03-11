@@ -1,5 +1,6 @@
 ---
 import type { MenuSliderData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: MenuSliderData;
@@ -38,7 +39,7 @@ const { headline, items = [] } = data;
                 }
 
                 const imageUrl = imageFilename
-                  ? `/user/pages/01.home/${imageFilename}`
+                  ? `${GRAV_MEDIA_BASE}/${imageFilename}`
                   : "";
 
                 return (

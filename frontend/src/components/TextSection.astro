@@ -5,6 +5,7 @@
  * Inhalte werden vollständig über Grav CMS gepflegt.
  */
 import type { TextSectionData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: TextSectionData;
@@ -14,7 +15,7 @@ const { data } = Astro.props;
 
 // Build absolute URL for background image (served by Grav)
 const bgImage = data.background_image
-  ? `/user/pages/01.home/${data.background_image.split('/').pop()}`
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
 ---
 

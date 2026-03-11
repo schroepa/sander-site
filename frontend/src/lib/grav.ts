@@ -19,6 +19,13 @@ const GRAV_PAGES_DIR = process.env.GRAV_PAGES_DIR ?? path.resolve(
 );
 
 /**
+ * Public URL base for Grav page media (images uploaded via Grav admin).
+ * On the live server, Grav is installed under /cms/, so images are at /cms/user/pages/01.home/.
+ * Can be overridden via GRAV_MEDIA_BASE environment variable for local development.
+ */
+export const GRAV_MEDIA_BASE = process.env.GRAV_MEDIA_BASE ?? '/cms/user/pages/01.home';
+
+/**
  * Base path to Grav's user config directory.
  * Can be overridden via GRAV_CONFIG_DIR environment variable (for server deployment).
  */
