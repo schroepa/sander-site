@@ -42,7 +42,10 @@ const bgImage = data.background_image
       data.paragraphs && data.paragraphs.length > 0 && (
         <div class="text-section__body">
           {data.paragraphs.map((p) => (
-            <div class="text-section__paragraph markdown-content" set:html={p.text} />
+            <div
+              class="text-section__paragraph markdown-content"
+              set:html={p.text}
+            />
           ))}
         </div>
       )
@@ -124,7 +127,7 @@ const bgImage = data.background_image
   /* ── Responsive ── */
   @media (max-width: 768px) {
     .text-section {
-      padding: var(--space-1000) var(--space-300);
+      padding: var(--space-1000) var(--space-200);
     }
 
     .text-section__headline {

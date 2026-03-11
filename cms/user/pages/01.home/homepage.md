@@ -29,6 +29,8 @@ section_order:
         section: faq
     -
         section: text_section
+    -
+        section: split_sections
 hero:
     headline: 'Betriebs&shy;gastronomie 4.0'
     subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
@@ -431,19 +433,35 @@ text_section:
             text: 'Sander Betriebsgastronomie steht für mehr als gutes Essen. Wir verstehen Verpflegung als strategischen Beitrag zum Unternehmenserfolg – als Faktor, der Mitarbeitende bindet, Produktivität fördert und Unternehmenskultur sichtbar macht.'
         -
             text: 'Mit über 50 Jahren Erfahrung, einer eigenen Frischemanufaktur und einem digitalen Versorgungsmodell bieten wir die Infrastruktur, die moderne Betriebsgastronomie braucht – skalierbar, zuverlässig und immer auf höchstem Niveau.'
-split_section:
-    overline: 'Unsere Manufaktur'
-    headline: 'Frische, die man schmeckt.'
-    subheadline: 'Täglich produziert. Direkt geliefert.'
-    body:
-        -
-            text: 'In der Sander Frischemanufaktur entstehen täglich tausende Komponenten – handwerklich entwickelt, industriell präzise umgesetzt. Zentrale Produktion bedeutet gleichbleibende Qualität, wirtschaftliche Effizienz und maximale Lebensmittelsicherheit.'
-        -
-            text: 'Von der Planung bis zur Lieferung. Alles aus einer Hand.'
-    cta_text: 'Mehr erfahren'
-    cta_link: '#kontakt'
-    image: sander_Restaurant_Bienenstich_Kueche.jpg
-    image_alt: 'Frische Produkte aus der Sander Manufaktur'
+split_sections:
+    -
+        image_position: left
+        overline: 'Unsere Manufaktur'
+        headline: 'Frische, die man schmeckt.'
+        subheadline: 'Täglich produziert. Direkt geliefert.'
+        body:
+            -
+                text: 'In der Sander Frischemanufaktur entstehen täglich tausende Komponenten – handwerklich entwickelt, industriell präzise umgesetzt. Zentrale Produktion bedeutet gleichbleibende Qualität, wirtschaftliche Effizienz und maximale Lebensmittelsicherheit.'
+            -
+                text: 'Von der Planung bis zur Lieferung. Alles aus einer Hand.'
+        cta_text: 'Mehr erfahren'
+        cta_link: '#kontakt'
+        image: sander_Restaurant_Bienenstich_Kueche.jpg
+        image_alt: 'Frische Produkte aus der Sander Manufaktur'
+    -
+        image_position: right
+        overline: 'Unser Versprechen'
+        headline: 'Qualität, die man versteht.'
+        subheadline: 'Transparent. Planbar. Verlässlich.'
+        body:
+            -
+                text: 'Unsere Qualitätsstandards beginnen beim Einkauf und enden beim Gäste-Feedback. Mit zertifizierten Prozessen, digitalem HACCP und eigenem Qualitätsmanagement gewährleisten wir höchste Sicherheit und Konstanz – an jedem Standort, jeden Tag.'
+            -
+                text: 'So machen wir Qualität planbar und für dein Unternehmen messbar.'
+        cta_text: 'Jetzt Kontakt aufnehmen'
+        cta_link: '#kontakt'
+        image: sander_Restaurant_TG_Bienenstich.jpg
+        image_alt: 'Qualitätsgeprüfte Produkte von Sander Betriebsgastronomie'
 media_order: 'about-bg.jpg,Image_Entwickler_Dessert_Walnuss_Tarte.jpg,sander_Restaurant_Bienenstich_Kueche.jpg,sander_Restaurant_TG_Bienenstich.jpg,sander_Restaurant_TG_Moelleux_au_Chocolat.jpg,slider1.png,slider2.png,slider3.png,231123-Sander-Ansprechpartner-Claudia_Kratschmer 1.png,231123-Sander-Ansprechpartner-Melanie_Kneip 1.png,251215-Sander-Ansprechpartner-Sascha_Sachse 1.png,251215-Sander-AnsprechpartnerChristine_Doernbach 1.png,Jens_Duelme 1.png,Patrick_Gerharts_Profilbild_zugeschnitten 1.png,ikea-logo.svg,award-best-of-market.png,audi-logo.svg,award-kundenzufriedenheit.png,mb-logo.svg,brita.svg,basf.svg,award-begehrtester-caterer.png,231219-Sander-Gourmet-Slider-Produktkategorien-Dressings_Dips.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Gemuese.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Menueschalen.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Pasta_Teigwaren.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Saucen_Pestos.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Sonderkost.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Suppen_Eintoepfe.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Vegetarische_vegane_Spezialitaeten.jpg,240102-Sander-Gourmet-Slider-Produktkategorien-Kartoffel_Knoedel_Reis_Co.jpg,antipasti.jpg,feinkostsalate.jpg,frischfleisch.jpg,kaese-wurs-ei.jpg,leh.jpg'
 ---
 

@@ -1,9 +1,17 @@
 ---
 /**
  * SplitSection.astro
- * Split-Section: linke Textspalte, rechts randabfallendes Foto.
- * Das Bild bricht rechts aus dem Layout heraus (bleed).
- * Alle Inhalte sind über Grav CMS editierbar.
+ *
+ * Figma: "Type=Left Image Full" / "Type=Right Image Full"
+ * Breakpoints: Desktop (≥1024px) · Tablet (≤1023px) · Mobile (≤600px)
+ *
+ * image_position: 'left' (default) | 'right'
+ * Desktop:  true viewport-bleed – Bild füllt seine Viewport-Hälfte edge-to-edge,
+ *           innere Bildkante abgerundet (--radius-500 = 40px).
+ * Tablet:   Stack – Bild oben (volle Breite, untere Ecken abgerundet), Text darunter.
+ * Mobile:   Stack – wie Tablet, kleinere Radien (--radius-300 = 24px).
+ *
+ * Alle Inhalte via Grav CMS editierbar.
  */
 import type { SplitSectionData } from "../lib/grav";
 
@@ -13,99 +21,205 @@ interface Props {
 
 const { data } = Astro.props;
 
-const image = data.image ? `/user/pages/01.home/${data.image}` : null;
+const imageUrl = data.image ? `/user/pages/01.home/${data.image}` : null;
+const isRight = data.image_position === "right";
 ---
 
-<section class="split" aria-labelledby="split-heading">
+<section
+  class:list={["split", { "split--right": isRight }]}
+  aria-labelledby="split-heading"
+>
   <div class="split__inner">
-    {/* ── Left: Text column ── */}
-    <div class="split__content">
-      {data.overline && <p class="split__overline">{data.overline}</p>}
-
-      {
-        data.headline && (
-          <h2 id="split-heading" class="split__headline">
-            {data.headline}
-          </h2>
-        )
-      }
-
-      {data.subheadline && <p class="split__subheadline">{data.subheadline}</p>}
-
-      {
-        data.body && data.body.length > 0 && (
-          <div class="split__body">
-            {data.body.map((p) => (
-              <p class="split__paragraph">{p.text}</p>
-            ))}
-          </div>
-        )
-      }
-
-      {
-        data.cta_text && data.cta_link && (
-          <a href={data.cta_link} class="split__cta">
-            {data.cta_text}
-          </a>
-        )
-      }
-    </div>
-
-    {/* ── Right: Bleed image ── */}
+    {/* ── Image pane – real viewport-bleed ── */}
     {
-      image && (
+      imageUrl && (
         <div class="split__image-wrap" aria-hidden="true">
           <img
             class="split__image"
-            src={image}
+            src={imageUrl}
             alt={data.image_alt ?? data.headline ?? ""}
             loading="lazy"
+            decoding="async"
           />
         </div>
       )
     }
+
+    {/* ── Content pane ── */}
+    <div class="split__content">
+      <div class="split__content-inner">
+        {
+          /* Heading group: overline + headline + subheadline at 8px gap (Figma) */
+        }
+        {
+          (data.overline || data.headline || data.subheadline) && (
+            <div class="split__headings">
+              {data.overline && <p class="split__overline">{data.overline}</p>}
+              {data.headline && (
+                <h2 id="split-heading" class="split__headline">
+                  {data.headline}
+                </h2>
+              )}
+              {data.subheadline && (
+                <p class="split__subheadline">{data.subheadline}</p>
+              )}
+            </div>
+          )
+        }
+
+        {/* Body text */}
+        {
+          data.body && data.body.length > 0 && (
+            <div class="split__body">
+              {data.body.map((p) => (
+                <p class="split__paragraph">{p.text}</p>
+              ))}
+            </div>
+          )
+        }
+
+        {/* CTA Button */}
+        {
+          data.cta_text && data.cta_link && (
+            <a href={data.cta_link} class="split__cta">
+              {data.cta_text}
+            </a>
+          )
+        }
+      </div>
+    </div>
   </div>
 </section>
 
 <style>
-  /* ── Section ── */
+  /* ══════════════════════════════════════════════
+     SECTION — full-viewport-width, no overflow clip
+     (blur/image spills intentionally)
+  ══════════════════════════════════════════════ */
   .split {
-    padding: var(--space-1000) 0;
-    border-top: 1px solid var(--color-stroke-tertiary);
-    overflow: hidden;
+    background-color: var(--color-background-primary);
+    /*
+      NO overflow: hidden here — we WANT the image to bleed
+      to the raw viewport edge.
+    */
   }
 
-  /* ── Inner: two-column grid
-     Text column gets full padding; image column bleeds to the right edge ── */
+  /* ══════════════════════════════════════════════
+     INNER GRID — 50 / 50, NO max-width
+     The grid itself fills the full viewport width.
+     The image cell therefore starts at x: 0 and ends at x: 50vw.
+     Text content is limited internally.
+  ══════════════════════════════════════════════ */
   .split__inner {
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: stretch;
-    min-height: 560px;
-    max-width: var(--max-site-width);
-    margin-inline: auto;
+    min-block-size: 697px; /* Figma desktop frame height */
+    width: 100%; /* TRUE full-viewport-width – key for bleed */
   }
 
-  /* ── Left: content ── */
+  /* ── Right variant: swap visual order ── */
+  .split--right .split__image-wrap {
+    order: 2;
+  }
+  .split--right .split__content {
+    order: 1;
+  }
+
+  /* ══════════════════════════════════════════════
+     IMAGE PANE
+     Fills its grid cell from edge to center.
+     Inner edge (facing text) is rounded.
+  ══════════════════════════════════════════════ */
+  .split__image-wrap {
+    position: relative;
+    overflow: hidden;
+    min-block-size: 400px; /* guarantees height even without aspect-ratio */
+
+    /* Left variant: right edge of image → rounded inward */
+    border-start-end-radius: var(--radius-500);
+    border-end-end-radius: var(--radius-500);
+  }
+
+  /* Right variant: left edge of image → rounded inward */
+  .split--right .split__image-wrap {
+    border-start-end-radius: 0;
+    border-end-end-radius: 0;
+    border-start-start-radius: var(--radius-500);
+    border-end-start-radius: var(--radius-500);
+  }
+
+  .split__image {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.6s ease;
+  }
+
+  .split__image-wrap:hover .split__image {
+    transform: scale(1.03);
+  }
+
+  /* ══════════════════════════════════════════════
+     CONTENT PANE
+     Flex column; inner wrapper limits width on ultra-wide screens.
+  ══════════════════════════════════════════════ */
   .split__content {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: var(--space-300);
-    padding: var(--space-1000) var(--space-500) var(--space-1000)
-      var(--space-800);
   }
 
+  /*
+    Inner wrapper: constrains readable text width.
+    For left-image (text on RIGHT): align toward the left of the column.
+    For right-image (text on LEFT): align toward the right of the column.
+  */
+  .split__content-inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-500); /* 40px – Figma item gap */
+
+    padding-block: var(--space-500); /* 40px top/bottom */
+    padding-inline-start: var(--space-500); /* 40px – site-padding */
+    padding-inline-end: var(--space-800); /* 64px */
+
+    max-inline-size: 720px; /* cap text width on ultra-wide viewports */
+    /* left-image: text sits on right → push toward center */
+    margin-inline-end: auto;
+  }
+
+  /* Right variant: flip padding */
+  .split--right .split__content-inner {
+    padding-inline-start: var(--space-800);
+    padding-inline-end: var(--space-500);
+    margin-inline-end: unset;
+    margin-inline-start: auto; /* text sits on left → push toward center */
+  }
+
+  /* ── Heading group (overline + headline + subheadline)
+     Figma SectionHeadings: gap 8px between all three ── */
+  .split__headings {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-100); /* 8px – Figma gap within heading group */
+  }
+  /* ── Overline ── */
   .split__overline {
     font-family: var(--font-body);
     font-weight: var(--weight-medium);
     font-size: var(--text-overline-lg);
+    line-height: var(--leading-overline-lg);
     letter-spacing: 2px;
     text-transform: uppercase;
     color: var(--color-text-tertiary);
     margin: 0;
   }
 
+  /* ── Headline ── */
   .split__headline {
     font-family: var(--font-heading);
     font-weight: var(--weight-black);
@@ -115,6 +229,7 @@ const image = data.image ? `/user/pages/01.home/${data.image}` : null;
     margin: 0;
   }
 
+  /* ── Subheadline ── */
   .split__subheadline {
     font-family: var(--font-heading);
     font-weight: var(--weight-bold);
@@ -124,11 +239,11 @@ const image = data.image ? `/user/pages/01.home/${data.image}` : null;
     margin: 0;
   }
 
+  /* ── Body ── */
   .split__body {
     display: flex;
     flex-direction: column;
     gap: var(--space-200);
-    max-width: 560px;
   }
 
   .split__paragraph {
@@ -141,85 +256,126 @@ const image = data.image ? `/user/pages/01.home/${data.image}` : null;
     margin: 0;
   }
 
-  /* ── CTA Button ── */
+  /* ── CTA Button (Primary) ── */
   .split__cta {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     align-self: flex-start;
-    padding: var(--space-200) var(--space-300);
+
+    padding-block: var(--space-200);
+    padding-inline: var(--space-300);
     border-radius: var(--radius-150);
-    background-color: var(--color-btn-primary-bg);
-    color: var(--color-btn-primary-text);
+
+    background-color: var(--color-components-button-primary-background-default);
+    color: var(--color-components-button-primary-text-default);
+
     font-family: var(--font-action);
     font-size: var(--text-action-lg);
     font-weight: var(--weight-medium);
     line-height: var(--leading-action-lg);
     letter-spacing: 0.5px;
     text-decoration: none;
+    white-space: nowrap;
+
     box-shadow: var(--shadow-m);
     transition:
       background-color 0.2s ease,
-      transform 0.2s ease;
+      transform 0.2s ease,
+      box-shadow 0.2s ease;
   }
 
   .split__cta:hover {
-    background-color: var(--color-btn-secondary-bg);
+    background-color: var(--color-components-button-primary-background-hover);
     transform: translateY(-1px);
+    box-shadow: var(--shadow-xxl);
   }
 
   .split__cta:active {
+    background-color: var(--color-components-button-primary-background-pressed);
     transform: translateY(0);
   }
 
-  /* ── Right: bleed image ──
-     Fills the grid cell completely in height.
-     Left edge is rounded, right edge bleeds to the viewport boundary. ── */
-  .split__image-wrap {
-    position: relative;
-    overflow: hidden;
-    border-radius: var(--radius-300) 0 0 var(--radius-300);
+  .split__cta:focus-visible {
+    outline: 2px solid var(--color-components-button-primary-stroke-focus);
+    outline-offset: 3px;
   }
 
-  .split__image {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
-    transition: transform 0.6s ease;
-  }
-
-  .split__image-wrap:hover .split__image {
-    transform: scale(1.03);
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 900px) {
+  /* ══════════════════════════════════════════════
+     TABLET  ≤ 1023px
+     Stack: image fills full width (no side-margins) on top,
+            bottom corners rounded, content below.
+  ══════════════════════════════════════════════ */
+  @media (width <= 1023px) {
     .split__inner {
       grid-template-columns: 1fr;
-      min-height: unset;
+      min-block-size: unset;
+    }
+
+    /* Image always on top regardless of left/right variant */
+    .split__image-wrap {
+      order: 0 !important;
+      aspect-ratio: 800 / 399; /* Figma tablet image ratio */
+      min-block-size: unset;
+
+      /* Reset desktop corner, apply tablet corners (bottom only) */
+      border-start-start-radius: 0;
+      border-start-end-radius: 0;
+      border-end-start-radius: var(--radius-500);
+      border-end-end-radius: var(--radius-500);
+    }
+
+    /* Override right-variant back to same bottom-only */
+    .split--right .split__image-wrap {
+      border-start-start-radius: 0;
+      border-start-end-radius: 0;
+      border-end-start-radius: var(--radius-500);
+      border-end-end-radius: var(--radius-500);
     }
 
     .split__content {
-      padding: var(--space-1000) var(--space-300) var(--space-500);
+      order: 1 !important;
     }
 
-    /* On mobile, image goes beneath text as a contained block */
-    .split__image-wrap {
-      position: relative;
-      aspect-ratio: 16 / 9;
-      border-radius: var(--radius-200);
-      margin: 0 var(--space-300) var(--space-800);
+    .split__content-inner {
+      max-inline-size: 100%;
+      margin-inline: 0;
+      padding-block: var(--space-500);
+      padding-inline: var(--space-500);
     }
 
-    .split__image {
-      position: absolute;
+    .split--right .split__content-inner {
+      padding-inline: var(--space-500);
+      margin-inline: 0;
     }
   }
 
-  @media (max-width: 600px) {
+  /* ══════════════════════════════════════════════
+     MOBILE  ≤ 600px
+     Tighter radii, 16px edge padding.
+  ══════════════════════════════════════════════ */
+  @media (width <= 600px) {
+    .split__image-wrap {
+      aspect-ratio: 375 / 280; /* Figma mobile image ratio */
+      border-end-start-radius: var(--radius-300); /* 24px */
+      border-end-end-radius: var(--radius-300);
+    }
+
+    .split--right .split__image-wrap {
+      border-end-start-radius: var(--radius-300);
+      border-end-end-radius: var(--radius-300);
+    }
+
+    .split__content-inner {
+      gap: var(--space-400); /* 32px */
+      padding-block: var(--space-500);
+      padding-inline: var(--space-200); /* 16px – consistent mobile edge */
+    }
+
+    .split--right .split__content-inner {
+      padding-inline: var(--space-200);
+    }
+
     .split__headline {
       font-size: var(--text-h2);
       line-height: var(--leading-h2);

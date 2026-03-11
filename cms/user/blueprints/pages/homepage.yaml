@@ -51,6 +51,8 @@ form:
                     logo_section: "🏢 Logo Section"
                     awards: "🏆 Auszeichnungen"
                     faq: "❓ FAQ"
+                    split_section: "🖼️ Split Section"
+                    cards_section: "🗂️ Karten-Grid"
 
             # ── Hero ──
             hero_section:
@@ -697,3 +699,68 @@ form:
                   type: editor
                   label: Antwort
                   rows: 4
+
+            # ── Split Section ──
+            split_sections_section:
+              type: section
+              title: "🖼️ Split Sections"
+              underline: true
+
+            header.split_sections:
+              type: list
+              label: Split Sections
+              style: vertical
+              help: "Jeder Eintrag erzeugt eine eigene Split-Sektion (Bild links oder rechts)."
+              fields:
+                .image_position:
+                  type: select
+                  label: Bildposition
+                  default: left
+                  options:
+                    left: "◀ Bild links"
+                    right: "Bild rechts ▶"
+
+                .overline:
+                  type: text
+                  label: Überzeile (optional)
+                  placeholder: "z.B. Unsere Manufaktur"
+
+                .headline:
+                  type: text
+                  label: Überschrift
+                  placeholder: "z.B. Frische, die man schmeckt."
+
+                .subheadline:
+                  type: text
+                  label: Unterüberschrift
+                  placeholder: "z.B. Täglich produziert. Direkt geliefert."
+
+                .body:
+                  type: list
+                  label: Textabsätze
+                  style: vertical
+                  fields:
+                    .text:
+                      type: textarea
+                      label: Absatz
+                      rows: 4
+
+                .cta_text:
+                  type: text
+                  label: Button Text
+                  placeholder: "z.B. Mehr erfahren"
+
+                .cta_link:
+                  type: text
+                  label: Button Link
+                  placeholder: "#kontakt"
+
+                .image:
+                  type: mediapicker
+                  label: Bild auswählen
+                  help: "Bild zuerst über 'Split Sections Bilder hochladen' hochladen."
+
+                .image_alt:
+                  type: text
+                  label: Bildbeschreibung (Alt-Text)
+                  placeholder: "z.B. Frische Produkte aus der Sander Manufaktur"
