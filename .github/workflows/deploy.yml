@@ -35,7 +35,7 @@ jobs:
         run: |
           sudo apt-get install -y lftp
           lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" \
-            -e "set ftp:ssl-allow no; mirror --verbose --no-perms ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
+            -e "set ftp:ssl-allow no; mirror --verbose --no-perms --exclude-glob='*.jpg' --exclude-glob='*.jpeg' --exclude-glob='*.png' --exclude-glob='*.gif' --exclude-glob='*.webp' --exclude-glob='*.svg' --exclude-glob='*.ico' --exclude-glob='*.mp4' --exclude-glob='*.pdf' ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
             ${{ secrets.FTP_SERVER }}
 
       - name: Build
