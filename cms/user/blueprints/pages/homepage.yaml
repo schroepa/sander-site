@@ -427,11 +427,9 @@ form:
               help: "Bild zuerst hochladen, dann hier auswählen."
 
             header.about.background_image:
-              type: filepicker
+              type: mediapicker
               label: Hintergrundbild (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - image/*
+              help: "Bild zuerst hochladen, dann hier auswählen"
 
             header.about.quote:
               type: textarea
@@ -581,11 +579,9 @@ form:
               placeholder: "z.B. Gemeinsam Qualität gestalten."
 
             header.text_section.background_image:
-              type: filepicker
+              type: mediapicker
               label: Hintergrundbild (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - image/*
+              help: "Bild zuerst hochladen, dann hier auswählen"
 
             header.text_section.paragraphs:
               type: list
@@ -619,11 +615,9 @@ form:
               placeholder: "z.B. Mit digitalen Lösungen für die Zukunft..."
 
             header.cards_section.background_image:
-              type: filepicker
+              type: mediapicker
               label: Hintergrundbild (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - image/*
+              help: "Bild zuerst hochladen, dann hier auswählen"
 
             header.cards_section.background_overlay:
               type: toggle
