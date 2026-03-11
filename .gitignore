@@ -15,6 +15,7 @@ cms/cache/
 cms/logs/
 cms/tmp/
 cms/user/data/
+cms/user/pages/
 
 # OS Files
 .DS_Store
