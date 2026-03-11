@@ -22,11 +22,11 @@ section_order:
     -
         section: team
     -
+        section: text_section
+    -
         section: logo_section
     -
         section: faq
-    -
-        section: text_section
 hero:
     headline: 'Betriebs&shy;gastronomie 4.0'
     subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
