@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  repository_dispatch:
+    types: [cms_content_updated]
+  workflow_dispatch:
 
 jobs:
   build-and-deploy:
@@ -25,6 +28,13 @@ jobs:
       - name: Install dependencies
         working-directory: frontend
         run: npm install --no-workspaces
+
+      - name: Download CMS pages from live server
+        run: |
+          sudo apt-get install -y lftp
+          lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" \
+            -e "set ftp:ssl-allow no; mirror --verbose --no-perms ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
+            ${{ secrets.FTP_SERVER }}
 
       - name: Build
         working-directory: frontend
@@ -53,3 +63,4 @@ jobs:
           exclude: |
             **/.git*
             **/.git*/**
+            pages/**
