@@ -1,5 +1,6 @@
 ---
 import type { LogoSectionData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
     data: LogoSectionData;
@@ -21,7 +22,7 @@ const allLogos = logos;
             {
                 allLogos.map((logo) => {
                     const src = logo.image
-                        ? `/user/pages/01.home/${logo.image}`
+                        ? `${GRAV_MEDIA_BASE}/${logo.image}`
                         : null;
                     return src ? (
                         <div class="logos__item" title={logo.name}>

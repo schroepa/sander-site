@@ -14,6 +14,7 @@
  * Alle Inhalte via Grav CMS editierbar.
  */
 import type { SplitSectionData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: SplitSectionData;
@@ -21,7 +22,7 @@ interface Props {
 
 const { data } = Astro.props;
 
-const imageUrl = data.image ? `/user/pages/01.home/${data.image.split('/').pop()}` : null;
+const imageUrl = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()}` : null;
 const isRight = data.image_position === "right";
 ---
 

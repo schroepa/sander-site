@@ -1,5 +1,6 @@
 ---
 import type { TeamData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: TeamData;
@@ -28,7 +29,7 @@ const members = data.items ?? [];
             //   "/home/filename.jpg"    (with /home/ prefix, from admin upload)
             // Strip the /home/ prefix and URL-decode before building the URL.
             const imgSrc = member.image
-              ? `/user/pages/01.home/${decodeURIComponent(member.image.replace(/^\/home\//, ""))}`
+              ? `${GRAV_MEDIA_BASE}/${decodeURIComponent(member.image.replace(/^\/home\//, ""))}`
               : null;
 
             return (

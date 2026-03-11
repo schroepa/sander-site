@@ -1,5 +1,6 @@
 ---
 import type { AboutData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: AboutData;
@@ -9,11 +10,11 @@ const { data } = Astro.props;
 
 // Resolve background image path (served from Grav pages media)
 const bgImage = data.background_image
-  ? `/user/pages/01.home/${data.background_image.split('/').pop()}`
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
 
 // Resolve the right-column image
-const sideImage = data.image ? `/user/pages/01.home/${data.image.split('/').pop()}` : null;
+const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()}` : null;
 ---
 
 <section class="about" id="rosin">

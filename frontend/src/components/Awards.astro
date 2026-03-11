@@ -1,5 +1,6 @@
 ---
 import type { AwardsData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
     data: AwardsData;
@@ -18,7 +19,7 @@ const items = data.items ?? [];
                 <div class="awards__grid">
                     {items.map((item) => {
                         const imgSrc = item.image
-                            ? `/user/pages/01.home/${item.image.split('/').pop()}`
+                            ? `${GRAV_MEDIA_BASE}/${item.image.split('/').pop()}`
                             : null;
                         return (
                             <div class="awards__item">

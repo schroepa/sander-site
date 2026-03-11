@@ -1,5 +1,6 @@
 ---
 import type { MenuSliderData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: MenuSliderData;
@@ -11,9 +12,9 @@ const { headline, items = [] } = data;
 function resolveImage(raw: string | object | undefined): string {
   if (!raw) return "";
   if (typeof raw === "object")
-    return `/user/pages/01.home/${Object.keys(raw)[0]}`;
+    return `${GRAV_MEDIA_BASE}/${Object.keys(raw)[0]}`;
   const filename = (raw as string).replace(/^\/?home\//, "");
-  return `/user/pages/01.home/${filename}`;
+  return `${GRAV_MEDIA_BASE}/${filename}`;
 }
 ---
 
