@@ -10,7 +10,7 @@ const { data } = Astro.props;
 // If a background image is specified from Grav, we build the path.
 // The blueprint saves the filename. We assume it's located in the user/pages/01.home folder.
 const bgImage = data.background_image
-    ? `/user/pages/01.home/${data.background_image}`
+    ? `/user/pages/01.home/${data.background_image.split('/').pop()}`
     : null;
 
 const isGrayscale =
@@ -95,7 +95,7 @@ const hasOverlay =
                             {card.image && (
                                 <div class="relative shrink-0 w-[120px] overflow-hidden">
                                     <img
-                                        src={`/user/pages/01.home/${card.image}`}
+                                        src={`/user/pages/01.home/${card.image.split('/').pop()}`}
                                         alt={card.title}
                                         class="absolute inset-0 w-full h-full object-cover"
                                     />

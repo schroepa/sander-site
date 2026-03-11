@@ -21,7 +21,7 @@ interface Props {
 
 const { data } = Astro.props;
 
-const imageUrl = data.image ? `/user/pages/01.home/${data.image}` : null;
+const imageUrl = data.image ? `/user/pages/01.home/${data.image.split('/').pop()}` : null;
 const isRight = data.image_position === "right";
 ---
 
