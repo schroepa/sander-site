@@ -614,10 +614,14 @@ form:
               label: Unterzeile
               placeholder: "z.B. Mit digitalen Lösungen für die Zukunft..."
 
+            cards_section_media:
+              type: pagemedia
+              label: "Bilder für Karten und Hintergrund hochladen"
+
             header.cards_section.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst hochladen, dann hier auswählen"
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
 
             header.cards_section.background_overlay:
               type: toggle
@@ -636,10 +640,6 @@ form:
               options:
                 1: Ja
                 0: Nein
-
-            cards_section_media:
-              type: pagemedia
-              label: "Bilder für Karten hochladen"
 
             header.cards_section.items:
               type: list
