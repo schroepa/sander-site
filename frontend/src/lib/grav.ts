@@ -166,8 +166,10 @@ export interface TextSectionData {
     background_image?: string;
 }
 
-/** Split section – left text column, right bleed image */
+/** Split section – image left or right, text column on the other side */
 export interface SplitSectionData {
+    /** Controls which side the image appears. Defaults to 'left'. */
+    image_position?: 'left' | 'right';
     overline?: string;
     headline?: string;
     subheadline?: string;
@@ -270,6 +272,9 @@ export interface GravPage {
     faq?: FaqData;
     logo_section?: LogoSectionData;
     text_section?: TextSectionData;
+    /** Array of split sections (Left/Right Image Full). Replaces the old singular split_section. */
+    split_sections?: SplitSectionData[];
+    /** @deprecated Use split_sections instead */
     split_section?: SplitSectionData;
     awards?: AwardsData;
     cards_section?: CardsSectionData;
@@ -390,6 +395,11 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         faq,
         logo_section: data.logo_section ?? undefined,
         text_section,
+        split_sections: data.split_sections
+            ? (data.split_sections as SplitSectionData[])
+            : data.split_section
+                ? [data.split_section as SplitSectionData]
+                : undefined,
         split_section: data.split_section ?? undefined,
         awards: data.awards ?? undefined,
         cards_section: data.cards_section ?? undefined,

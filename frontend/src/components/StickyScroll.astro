@@ -13,10 +13,7 @@ function renderMarkdown(text: string | undefined) {
 }
 ---
 
-<section
-  class="sticky-scroll-section"
-  style="padding: var(--space-1000) var(--space-800); position: relative;"
->
+<section class="sticky-scroll-section">
   <div class="sticky-scroll-container">
     {/* Left Column: Fixed Content */}
     <div class="content-left">
@@ -122,6 +119,8 @@ function renderMarkdown(text: string | undefined) {
 
 <style>
   .sticky-scroll-section {
+    position: relative;
+    padding: var(--space-1000) var(--space-800);
     width: 100%;
     margin-top: 100px;
     background-image: url("/assets/sander-manufaktur-image.png");
@@ -415,6 +414,13 @@ function renderMarkdown(text: string | undefined) {
     .fade-top,
     .fade-bottom {
       display: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .sticky-scroll-section {
+      padding: var(--space-800) var(--space-200);
+      margin-top: 40px;
     }
   }
 

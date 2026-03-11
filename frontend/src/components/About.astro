@@ -31,7 +31,11 @@ const sideImage = data.image ? `/user/pages/01.home/${data.image}` : null;
     {/* Left column: text */}
     <div class="about__text">
       {data.headline && <h2 class="about__headline">{data.headline}</h2>}
-      {data.body && <div class="about__body markdown-content" set:html={data.body} />}
+      {
+        data.body && (
+          <div class="about__body markdown-content" set:html={data.body} />
+        )
+      }
     </div>
 
     {/* Right column: video */}
@@ -354,7 +358,7 @@ const sideImage = data.image ? `/user/pages/01.home/${data.image}` : null;
 
   @media (max-width: 768px) {
     .about {
-      padding: var(--space-1000) var(--space-300);
+      padding: var(--space-1000) var(--space-200);
     }
 
     .about__headline {
@@ -368,9 +372,9 @@ const sideImage = data.image ? `/user/pages/01.home/${data.image}` : null;
     }
 
     .about__quote-bar {
-      margin-left: calc(-1 * var(--space-300));
-      margin-right: calc(-1 * var(--space-300));
-      padding: var(--space-600) var(--space-300);
+      margin-left: calc(-1 * var(--space-200));
+      margin-right: calc(-1 * var(--space-200));
+      padding: var(--space-600) var(--space-200);
     }
 
     .about__quote-text {

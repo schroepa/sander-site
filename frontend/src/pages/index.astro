@@ -74,8 +74,14 @@ const sectionOrder =
             Component = <LogoSection data={page.logo_section} />;
           else if (key === "cards_section" && page.cards_section?.items?.length)
             Component = <CardsSection data={page.cards_section} />;
-          else if (key === "split_section" && page.split_section)
-            Component = <SplitSection data={page.split_section} />;
+          else if (key === "split_sections" && page.split_sections?.length)
+            Component = (
+              <>
+                {page.split_sections.map((s) => (
+                  <SplitSection data={s} />
+                ))}
+              </>
+            );
           else if (key === "awards" && page.awards?.items?.length)
             Component = <Awards data={page.awards} />;
 
