@@ -28,6 +28,8 @@ section_order:
     -
         section: text_section
     -
+        section: split_sections
+    -
         section: faq
     -
         section: hero
