@@ -26,11 +26,11 @@ section_order:
     -
         section: cards_section
     -
-        section: faq
-    -
         section: text_section
     -
-        section: split_sections
+        section: faq
+    -
+        section: hero
 hero:
     headline: 'Betriebs&shy;gastronomie 4.0'
     subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
@@ -391,41 +391,42 @@ cards_section:
     overline: 'Digitalisierung & Innovation'
     headline: 'Digitalisierung & Innovation'
     subline: 'Mit digitalen Lösungen für die Zukunft des Mitarbeiterrestaurants'
-    background_image: 'cards-bg.png'
-    background_overlay: true
-    background_grayscale: true
+    background_image: cards-bg.png
+    background_overlay: '1'
+    background_grayscale: '1'
     items:
         -
             title: 'Smart Catering App'
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
-            image: 'card-1.png'
+            image: card-1.png
         -
             title: 'Smarte Kassensysteme'
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
-            image: 'card-2.png'
+            image: card-2.png
         -
             title: 'Digitale Warenwirtschaft'
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
-            image: 'card-3.png'
+            image: card-3.png
         -
             title: 'Digitales HACCP'
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
-            image: 'card-4.png'
+            image: card-4.png
         -
             title: 'Nachhaltige Ernährung'
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
-            image: 'card-5.png'
+            image: card-5.png
         -
             title: 'Smart Vending Telemetrie'
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
-            image: 'card-6.png'
+            image: card-6.png
         -
-            title: 'Robotik'
+            title: Robotik
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
-            image: 'card-7.png'
+            image: card-7.png
         -
-            title: 'Zukunft'
+            title: Zukunft
             text: 'Libero at volutpat adipiscing turpis nulla facilisis augue. Nibh vitae feugiat nulla vel eget suscipit morbi nunc.'
+            image: null
 text_section:
     headline: 'Gemeinsam Qualität gestalten.'
     paragraphs:
