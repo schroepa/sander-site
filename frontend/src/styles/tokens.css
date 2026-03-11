@@ -257,6 +257,7 @@
   --radius-200: 16px;
   --radius-300: 24px;
   --radius-xl: 32px;
+  --radius-500: 40px;
   --radius-rounded: 1000px;
 
   /* ─── Border Width ─── */
@@ -272,11 +273,11 @@
 
   /* ─── Shadows ─── */
   --shadow-m:
-      0px 2px 4px -1px #251c210f,
-      0px 4px 6px -1px #251c2114;
+    0px 2px 4px -1px #251c210f,
+    0px 4px 6px -1px #251c2114;
   --shadow-xxl:
-      0px 6px 16px -2px #251c210a,
-      0px 24px 40px -4px #251c2114;
+    0px 6px 16px -2px #251c210a,
+    0px 24px 40px -4px #251c2114;
 }
 
 :root {
