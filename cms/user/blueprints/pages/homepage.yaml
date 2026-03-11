@@ -47,7 +47,7 @@ form:
                     cta: "📣 Call to Action"
                     about: "🏢 Rosin"
                     team: "👥 Team"
-                    text_section: "📄 Text Section"
+                    text_section: "🖼️ Image Split Sections"
                     logo_section: "🏢 Logo Section"
                     awards: "🏆 Auszeichnungen"
                     faq: "❓ FAQ"
@@ -572,7 +572,7 @@ form:
             # ── Text Section ──
             text_section_section:
               type: section
-              title: "📄 Text Section"
+              title: "🖼️ Image Split Sections"
               underline: true
 
             header.text_section.headline:
