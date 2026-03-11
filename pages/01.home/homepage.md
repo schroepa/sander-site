@@ -20,9 +20,9 @@ section_order:
     -
         section: menu_slider
     -
-        section: team
-    -
         section: text_section
+    -
+        section: team
     -
         section: logo_section
     -
