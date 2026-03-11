@@ -9,11 +9,11 @@ const { data } = Astro.props;
 
 // Resolve background image path (served from Grav pages media)
 const bgImage = data.background_image
-  ? `/user/pages/01.home/${data.background_image}`
+  ? `/user/pages/01.home/${data.background_image.split('/').pop()}`
   : null;
 
 // Resolve the right-column image
-const sideImage = data.image ? `/user/pages/01.home/${data.image}` : null;
+const sideImage = data.image ? `/user/pages/01.home/${data.image.split('/').pop()}` : null;
 ---
 
 <section class="about" id="rosin">
