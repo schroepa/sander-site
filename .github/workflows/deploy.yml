@@ -35,8 +35,16 @@ jobs:
         run: |
           sudo apt-get install -y lftp
           lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" \
-            -e "set ftp:ssl-allow no; mirror --verbose --no-perms --exclude-glob='*.jpg' --exclude-glob='*.jpeg' --exclude-glob='*.png' --exclude-glob='*.gif' --exclude-glob='*.webp' --exclude-glob='*.svg' --exclude-glob='*.ico' --exclude-glob='*.mp4' --exclude-glob='*.pdf' ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
+            -e "set ftp:ssl-allow no; set net:timeout 30; set net:max-retries 3; set cmd:fail-exit yes; mirror --verbose --no-perms --exclude-glob='*.jpg' --exclude-glob='*.jpeg' --exclude-glob='*.png' --exclude-glob='*.gif' --exclude-glob='*.webp' --exclude-glob='*.svg' --exclude-glob='*.ico' --exclude-glob='*.mp4' --exclude-glob='*.pdf' ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
             ${{ secrets.FTP_SERVER }}
+
+          # Sicherheitscheck: Bricht den Build ab wenn der Download fehlgeschlagen ist
+          if [ ! -f "cms/user/pages/01.home/homepage.md" ]; then
+            echo "FEHLER: CMS-Download fehlgeschlagen – homepage.md nicht gefunden."
+            echo "Der Build wird abgebrochen, um zu verhindern, dass ein veralteter Stand deployed wird."
+            exit 1
+          fi
+          echo "CMS-Download erfolgreich: $(find cms/user/pages -name '*.md' | wc -l) Markdown-Dateien geladen."
 
       - name: Build
         working-directory: frontend
