@@ -11,6 +11,16 @@ const items = data.items ?? [];
 ---
 
 <section class="awards" id="auszeichnungen">
+    <video
+        class="awards__video"
+        src="/assets/apple-ungraded.MP4"
+        autoplay
+        loop
+        muted
+        playsinline
+        aria-hidden="true"
+    ></video>
+    <div class="awards__overlay" aria-hidden="true"></div>
     <div class="awards__inner">
         {data.headline && <h2 class="awards__headline">{data.headline}</h2>}
 
@@ -73,6 +83,24 @@ const items = data.items ?? [];
         position: relative;
         overflow: hidden;
         padding: 0 var(--space-800) var(--space-1000);
+    }
+
+    /* ─── Video Background ─── */
+    .awards__video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        pointer-events: none;
+    }
+
+    /* ─── Overlay ─── */
+    .awards__overlay {
+        position: absolute;
+        inset: 0;
+        background-color: var(--color-background-overlay);
+        pointer-events: none;
     }
 
     /* ─── Inner ─── */
