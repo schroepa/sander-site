@@ -342,14 +342,6 @@ form:
                       label: Bild (Optional)
                       help: "Bild zuerst oben über 'Hintergrundbild hochladen' hochladen, dann hier auswählen"
 
-                    .tags:
-                      type: selectize
-                      label: Tags (Optional)
-                      help: "Kommagetrennte Tags eingeben (z.B. Food, Events)"
-                      classes: fancy
-                      validate:
-                        type: commalist
-
                     .cards:
                       type: list
                       label: Karten (Optional)
