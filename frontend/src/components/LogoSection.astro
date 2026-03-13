@@ -12,9 +12,26 @@ const logoColor = data.logo_color || "#f1eef0";
 
 // JS on the client will duplicate as needed — render one copy here
 const allLogos = logos;
+
+const bgImage = data.background_image
+    ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+    : null;
+
+const hasOverlay =
+    data.background_overlay !== false &&
+    data.background_overlay !== 0 &&
+    data.background_overlay !== "0";
 ---
 
 <section class="logos" id="logos">
+    {bgImage && (
+        <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+            <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+            {hasOverlay && (
+                <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
+            )}
+        </div>
+    )}
     {data.headline && <h2 class="logos__headline">{data.headline}</h2>}
 
     <div class="logos__track-wrapper">
@@ -72,12 +89,15 @@ const allLogos = logos;
 <style>
     /* ─── Section ─── */
     .logos {
+        position: relative;
+        overflow: hidden;
         background-color: var(--color-background-elevation2);
         padding: var(--space-800) var(--space-400);
-        overflow: hidden;
     }
 
     .logos__headline {
+        position: relative;
+        z-index: 10;
         font-family: var(--font-heading);
         font-weight: var(--weight-bold);
         font-size: var(--text-h3);
@@ -89,8 +109,9 @@ const allLogos = logos;
 
     /* ─── Marquee wrapper ─── */
     .logos__track-wrapper {
-        padding: var(--space-1000) var(--space-500);
         position: relative;
+        z-index: 10;
+        padding: var(--space-1000) var(--space-500);
         width: 100%;
         overflow: hidden;
         /* Fade edges */

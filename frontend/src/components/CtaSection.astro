@@ -1,5 +1,6 @@
 ---
 import type { CtaData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: CtaData;
@@ -7,12 +8,29 @@ interface Props {
 
 const { data } = Astro.props;
 if (!data) return null;
+
+const bgImage = data.background_image
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+  : null;
+
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
 ---
 
 <section
   class="w-full relative overflow-hidden py-16 md:py-20 lg:py-24 px-6 md:px-16 lg:px-[113px] flex items-center justify-center bg-[var(--color-bg-cta-section)]"
   id="kontakt"
 >
+  {bgImage && (
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      {hasOverlay && (
+        <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
+      )}
+    </div>
+  )}
   <div
     class="max-w-[1440px] w-full grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-12 lg:gap-16 relative z-10 items-center"
   >

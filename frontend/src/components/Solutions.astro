@@ -1,14 +1,32 @@
 ---
 import type { SolutionsData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: SolutionsData;
 }
 
 const { data } = Astro.props;
+
+const bgImage = data.background_image
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+  : null;
+
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
 ---
 
 <section class="solutions" id="loesungen">
+  {bgImage && (
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      {hasOverlay && (
+        <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
+      )}
+    </div>
+  )}
   <div class="solutions__headings">
     <h2 class="solutions__headline">{data.headline}</h2>
     {data.subline && <p class="solutions__subline">{data.subline}</p>}
@@ -97,13 +115,16 @@ const { data } = Astro.props;
 <style>
   /* ─── Section ─── */
   .solutions {
+    position: relative;
+    overflow: hidden;
     padding: var(--space-1000) var(--space-1000);
     background-color: var(--color-bg-app);
-    overflow: visible;
   }
 
   /* ─── Headings ─── */
   .solutions__headings {
+    position: relative;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -137,6 +158,8 @@ const { data } = Astro.props;
 
   /* ─── Container ─── */
   .solutions__container {
+    position: relative;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     gap: var(--space-200);
