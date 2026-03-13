@@ -337,6 +337,11 @@ form:
                       type: editor
                       label: Inhalt (Optional)
 
+                    .image:
+                      type: mediapicker
+                      label: Bild (Optional)
+                      help: "Bild zuerst oben über 'Hintergrundbild hochladen' hochladen, dann hier auswählen"
+
                     .tags:
                       type: selectize
                       label: Tags (Optional)

@@ -81,6 +81,13 @@ const hasOverlay =
                   <div class="smart-catering__accordion-content-wrapper">
                     <div class="smart-catering__accordion-content">
                       <div class="smart-catering__accordion-inner">
+                        {accordion.image && (
+                          <img
+                            src={`${GRAV_MEDIA_BASE}/${accordion.image.split('/').pop()}`}
+                            alt=""
+                            class="smart-catering__accordion-image"
+                          />
+                        )}
                         {accordion.content && (
                           <div
                             class="smart-catering__accordion-text markdown-content"
@@ -335,6 +342,14 @@ const hasOverlay =
     gap: var(--space-300);
   }
 
+  .smart-catering__accordion-image {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-200);
+    display: block;
+    object-fit: cover;
+  }
+
   .smart-catering__accordion-text {
     font-family: var(--font-body);
     font-weight: var(--weight-medium);
@@ -443,6 +458,12 @@ const hasOverlay =
     .smart-catering__title {
       font-size: var(--text-h1);
       line-height: var(--leading-h1);
+    }
+    .smart-catering__accordion-summary {
+      padding: var(--space-300) 16px;
+    }
+    .smart-catering__accordion-inner {
+      padding: 0 16px 16px 16px;
     }
   }
 </style>
