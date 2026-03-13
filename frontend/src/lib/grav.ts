@@ -101,7 +101,6 @@ export interface SmartCateringAccordion {
     title: string;
     content?: string;
     image?: string;
-    tags?: string[];
     cards?: SmartCateringCard[];
 }
 
