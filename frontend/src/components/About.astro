@@ -13,6 +13,11 @@ const bgImage = data.background_image
   ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
 
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
+
 // Resolve the right-column image
 const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()}` : null;
 ---
@@ -23,7 +28,7 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
     bgImage && (
       <div class="about__bg" aria-hidden="true">
         <img class="about__bg-img" src={bgImage} alt="" loading="lazy" />
-        <div class="about__bg-overlay" />
+        {hasOverlay && <div class="about__bg-overlay" />}
       </div>
     )
   }

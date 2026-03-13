@@ -1,6 +1,7 @@
 ---
 import { marked } from "marked";
 import type { SmartCateringData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 import Tag from "./Tag.astro";
 
 interface Props {
@@ -8,9 +9,26 @@ interface Props {
 }
 
 const { data } = Astro.props;
+
+const bgImage = data.background_image
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+  : null;
+
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
 ---
 
 <section class="smart-catering" id="smart-catering">
+  {bgImage && (
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      {hasOverlay && (
+        <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
+      )}
+    </div>
+  )}
   <div class="smart-catering__inner">
     <div class="smart-catering__header">
       {data.headline && <p class="smart-catering__headline">{data.headline}</p>}
@@ -143,10 +161,14 @@ const { data } = Astro.props;
 
 <style>
   .smart-catering {
+    position: relative;
+    overflow: hidden;
     padding: var(--space-1000) var(--space-800);
   }
 
   .smart-catering__inner {
+    position: relative;
+    z-index: 10;
     margin: 0 auto;
     max-width: var(--max-site-width);
     width: 100%;

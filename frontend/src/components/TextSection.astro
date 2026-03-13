@@ -17,6 +17,11 @@ const { data } = Astro.props;
 const bgImage = data.background_image
   ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
+
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
 ---
 
 <section class="text-section" aria-labelledby="text-section-heading">
@@ -25,7 +30,7 @@ const bgImage = data.background_image
     bgImage && (
       <div class="text-section__bg" aria-hidden="true">
         <img class="text-section__bg-img" src={bgImage} alt="" loading="lazy" />
-        <div class="text-section__overlay" />
+        {hasOverlay && <div class="text-section__overlay" />}
       </div>
     )
   }

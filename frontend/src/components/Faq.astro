@@ -1,15 +1,33 @@
 ---
 import { marked } from "marked";
 import type { FaqData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: FaqData;
 }
 
 const { data } = Astro.props;
+
+const bgImage = data.background_image
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+  : null;
+
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
 ---
 
 <section class="faq" id="faq">
+  {bgImage && (
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      {hasOverlay && (
+        <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
+      )}
+    </div>
+  )}
   <div class="faq__inner">
     <div class="faq__header">
       {data.headline && <h2 class="faq__title">{data.headline}</h2>}
@@ -93,6 +111,8 @@ const { data } = Astro.props;
 
 <style>
   .faq {
+    position: relative;
+    overflow: hidden;
     padding: var(--space-800) var(--space-200);
     background-color: var(--color-bg-app);
   }
@@ -104,6 +124,8 @@ const { data } = Astro.props;
   }
 
   .faq__inner {
+    position: relative;
+    z-index: 10;
     max-width: 800px;
     margin: 0 auto;
     display: flex;
