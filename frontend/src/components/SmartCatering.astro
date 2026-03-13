@@ -145,6 +145,18 @@ const hasOverlay =
         if (!isOpen) {
           accordion.classList.add("is-open");
           summary.setAttribute("aria-expanded", "true");
+
+          // After the expand animation finishes, scroll into view if needed
+          const wrapper = accordion.querySelector(
+            ".smart-catering__accordion-content-wrapper",
+          );
+          wrapper?.addEventListener(
+            "transitionend",
+            () => {
+              accordion.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            },
+            { once: true },
+          );
         }
       });
     });
