@@ -464,15 +464,19 @@ form:
                   placeholder: "#kontakt"
 
                 .illustration_image:
-                  type: mediapicker
+                  type: filepicker
                   label: Illustration (optional, ersetzt SVG-Grafik)
-                  help: "PNG/JPG hochladen, das die 3D-Bausteine-Grafik ersetzt"
-                  folder: "@self"
+                  help: "PNG/JPG auswählen, das die 3D-Bausteine-Grafik ersetzt"
+                  folder: "user://pages/01.home"
+                  accept:
+                    - image/*
 
                 .background_image:
-                  type: mediapicker
+                  type: filepicker
                   label: Hintergrundbild (optional)
-                  folder: "@self"
+                  folder: "user://pages/01.home"
+                  accept:
+                    - image/*
 
                 .background_overlay:
                   type: toggle
