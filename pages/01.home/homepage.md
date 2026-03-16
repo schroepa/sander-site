@@ -309,12 +309,13 @@ menu_slider:
             title: 'Lorem Ipsum'
             subtitle: 'Pflanzenbasierte Power für den Arbeitsalltag.'
             image: /home/231219-Sander-Gourmet-Slider-Produktkategorien-Vegetarische_vegane_Spezialitaeten.jpg
-cta:
-    headline: 'Welche Module benötigst du?'
-    copy: 'Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden.'
-    button_text: 'Jetzt Kontakt aufnehmen'
-    button_link: '#'
-    background_overlay: true
+ctas:
+    -
+        headline: 'Welche Module benötigst du?'
+        copy: 'Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden.'
+        button_text: 'Jetzt Kontakt aufnehmen'
+        button_link: '#'
+        background_overlay: true
 sticky_scroll:
     headline: 'Die Sander Frische-Manufaktur'
     subline: 'Zentrale Kompetenz, gesicherte Qualität und nachhaltige Prozesse aus einer Hand.'
