@@ -459,6 +459,15 @@ form:
                       label: Button Link
                       placeholder: "#kontakt"
 
+            cta_illustration_media:
+              type: pagemedia
+              label: "Illustration hochladen (ersetzt SVG-Grafik)"
+
+            header.cta.illustration_image:
+              type: mediapicker
+              label: Illustration (optional, ersetzt SVG-Grafik)
+              help: "PNG/JPG hochladen, das die 3D-Bausteine-Grafik ersetzt. Bild zuerst oben hochladen, dann hier auswählen."
+
             cta_bg_media:
               type: pagemedia
               label: "Hintergrundbild hochladen"

@@ -13,6 +13,10 @@ const bgImage = data.background_image
   ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
 
+const illustrationImage = data.illustration_image
+  ? `${GRAV_MEDIA_BASE}/${data.illustration_image.split('/').pop()}`
+  : null;
+
 const hasOverlay =
   data.background_overlay !== false &&
   data.background_overlay !== 0 &&
@@ -67,6 +71,9 @@ const hasOverlay =
     <div
       class="hidden lg:flex relative z-0 items-center justify-center w-full min-h-[400px]"
     >
+      {illustrationImage ? (
+        <img src={illustrationImage} alt="" class="max-w-full max-h-[500px] object-contain" />
+      ) : (
       <div
         class="relative w-full h-full scale-[0.5] xl:scale-[0.85] origin-center -translate-y-24"
       >
@@ -1108,6 +1115,7 @@ const hasOverlay =
           </div>
         </div>
       </div>
+      )}
     </div>
   </div>
 </section>
