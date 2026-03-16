@@ -52,50 +52,20 @@ const hasOverlay =
             />
           </div>
 
-          {/* Connector: dot → line(gradient) → check-circle → line(gradient) → arrowhead */}
+          {/* Connector: start → circle-check → end */}
           <div class="solutions__connector">
-            {/* Dot */}
-            <div class="solutions__connector-dot" />
-            {/* Left line */}
-            <div class="solutions__connector-line solutions__connector-line--left" />
-            {/* Green check circle */}
-            <div class="solutions__connector-check">
-              <svg
-                width="32"
-                height="32"
-                viewBox="0 0 32 32"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M8 16L14 22L25 11"
-                  stroke="white"
-                  stroke-width="3"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
-            {/* Right line */}
-            <div class="solutions__connector-line solutions__connector-line--right" />
-            {/* Arrowhead */}
-            <div class="solutions__connector-arrow">
-              <svg
-                width="10"
-                height="16"
-                viewBox="0 0 10 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M1 1L9 8L1 15"
-                  stroke="var(--color-stroke-state-success-subtle)"
-                  stroke-width="2.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
-              </svg>
-            </div>
+            <picture class="solutions__connector-start">
+              <source media="(max-width: 768px)" srcset="/assets/connector-start__mobile.svg" width="16" height="32" />
+              <img src="/assets/connector-start__desktop.svg" width="72" height="16" alt="" aria-hidden="true" />
+            </picture>
+            <picture class="solutions__connector-circle">
+              <source media="(max-width: 768px)" srcset="/assets/connector-circle-check__mobile.svg" width="24" height="24" />
+              <img src="/assets/connector-circle-check__desktop.svg" width="40" height="40" alt="" />
+            </picture>
+            <picture class="solutions__connector-end">
+              <source media="(max-width: 768px)" srcset="/assets/connector-end__mobile.svg" width="23" height="26" />
+              <img src="/assets/connector-end__desktop.svg" width="66" height="23" alt="" aria-hidden="true" />
+            </picture>
           </div>
 
           {/* Solution Card */}
@@ -192,11 +162,11 @@ const hasOverlay =
   }
 
   .solutions__card--challenge {
-    border-right: var(--border-xl) solid var(--color-stroke-state-danger-subtle);
+    border-right: var(--border-xl) solid #FFD9E3;
   }
 
   .solutions__card--solution {
-    border-left: var(--border-xl) solid var(--color-stroke-state-success-subtle);
+    border-left: var(--border-xl) solid #E1F7D8;
   }
 
   .solutions__card-title {
@@ -219,80 +189,25 @@ const hasOverlay =
     margin: 0;
   }
 
-  /* ─── Connector (total width 176px, from Figma) ─── */
+  /* ─── Connector ─── */
   .solutions__connector {
     display: flex;
     align-items: center;
     flex-shrink: 0;
-    width: 176px;
     align-self: center;
-    gap: 0;
-    overflow: visible;
+    margin-left: -10px;
   }
 
-  /* Dot: 8px circle at challenge card edge */
-  .solutions__connector-dot {
-    width: var(--space-100);
-    height: var(--space-100);
-    min-width: var(--space-100);
-    border-radius: 50%;
-    background-color: var(--color-stroke-state-danger-subtle);
-    flex-shrink: 0;
-    margin-left: -4px; /* half-overlap into the card border */
-  }
-
-  /* Lines: fill remaining space between dot/circle and circle/arrow */
-  .solutions__connector-line {
-    flex: 1 1 0;
-    height: var(--border-m);
-    min-width: 0;
-  }
-
-  .solutions__connector-line--left {
-    background: linear-gradient(
-      to right,
-      var(--color-stroke-state-danger-subtle),
-      var(--color-stroke-tertiary)
-    );
-  }
-
-  .solutions__connector-line--right {
-    background: linear-gradient(
-      to right,
-      var(--color-stroke-tertiary),
-      var(--color-stroke-state-success-subtle)
-    );
-  }
-
-  /* Green check circle: 8px padding + 32px icon = 48px total */
-  .solutions__connector-check {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 48px;
-    height: 48px;
-    min-width: 48px;
-    background-color: #2fa700;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
-
-  .solutions__connector-check svg {
+  .solutions__connector-start,
+  .solutions__connector-circle,
+  .solutions__connector-end {
     display: block;
-    width: 32px;
-    height: 32px;
-  }
-
-  /* Arrowhead at solution card edge */
-  .solutions__connector-arrow {
-    display: flex;
-    align-items: center;
     flex-shrink: 0;
-    margin-right: -4px;
-    margin-left: -2px; /* close gap between line and arrowhead */
   }
 
-  .solutions__connector-arrow svg {
+  .solutions__connector-start img,
+  .solutions__connector-circle img,
+  .solutions__connector-end img {
     display: block;
   }
 
@@ -328,53 +243,20 @@ const hasOverlay =
 
     .solutions__card--challenge {
       border-right: none;
-      border-bottom: var(--border-xl) solid
-        var(--color-stroke-state-danger-subtle);
+      border-bottom: var(--border-xl) solid #FFD9E3;
     }
 
     .solutions__card--solution {
       border-left: none;
-      border-top: var(--border-xl) solid
-        var(--color-stroke-state-success-subtle);
+      border-top: var(--border-xl) solid #E1F7D8;
     }
 
     .solutions__connector {
-      width: auto;
       flex-direction: column;
+      width: auto;
       padding: var(--space-100) 0;
-    }
-
-    .solutions__connector-dot {
       margin-left: 0;
-      margin-top: -4px;
-    }
-
-    .solutions__connector-line {
-      width: var(--border-m);
-      height: var(--space-200);
-      flex: none;
-    }
-
-    .solutions__connector-line--left {
-      background: linear-gradient(
-        to bottom,
-        var(--color-stroke-state-danger-subtle),
-        var(--color-stroke-tertiary)
-      );
-    }
-
-    .solutions__connector-line--right {
-      background: linear-gradient(
-        to bottom,
-        var(--color-stroke-tertiary),
-        var(--color-stroke-state-success-subtle)
-      );
-    }
-
-    .solutions__connector-arrow {
-      margin-right: 0;
-      margin-bottom: -6px;
-      transform: rotate(90deg);
+      margin-top: -10px;
     }
   }
 </style>
