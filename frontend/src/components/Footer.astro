@@ -74,10 +74,26 @@ function getSocialIcon(social: any, index: number) {
       }
     </div>
 
-    <p
-      class="font-geist font-medium leading-[14.5px] relative text-(--color-text-tertiary) text-xs tracking-[0.4px]"
-    >
-      {footerData.copyright}
-    </p>
+    <div class="flex items-center gap-4">
+      <p
+        class="font-geist font-medium leading-[14.5px] relative text-(--color-text-tertiary) text-xs tracking-[0.4px]"
+      >
+        {footerData.copyright}
+      </p>
+      <span class="text-(--color-text-tertiary) text-xs">·</span>
+      <button
+        id="cookie-settings-btn"
+        class="font-geist font-medium leading-[14.5px] text-(--color-text-tertiary) text-xs tracking-[0.4px] hover:text-(--color-text-secondary) transition-colors cursor-pointer bg-transparent border-none p-0"
+      >
+        Cookie-Einstellungen
+      </button>
+    </div>
   </div>
 </footer>
+
+<script>
+  document.getElementById("cookie-settings-btn")?.addEventListener("click", () => {
+    // @ts-ignore
+    CookieConsent.showPreferences();
+  });
+</script>

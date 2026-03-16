@@ -1,0 +1,86 @@
+---
+// Cookie Consent - Orestbida v3.1.0 (CDN)
+// Konfiguration spiegelt cms/user/plugins/orestbida-cookie-consent/orestbida-cookie-consent.yaml
+---
+
+<link
+  rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.css"
+/>
+
+<script
+  is:inline
+  src="https://cdn.jsdelivr.net/gh/orestbida/cookieconsent@3.1.0/dist/cookieconsent.umd.js"
+></script>
+
+<script is:inline>
+  CookieConsent.run({
+    autoShow: true,
+    hideFromBots: false,
+    disablePageInteraction: false,
+
+    guiOptions: {
+      consentModal: {
+        layout: "box",
+        position: "bottom right",
+        equalWeightButtons: false,
+        flipButtons: false,
+      },
+      preferencesModal: {
+        layout: "box",
+        position: "left",
+        equalWeightButtons: false,
+        flipButtons: false,
+      },
+    },
+
+    categories: {
+      necessary: { readOnly: true },
+    },
+
+    language: {
+      default: "de",
+      translations: {
+        de: {
+          consentModal: {
+            title: "Wir verwenden Cookies",
+            description:
+              "Wir verwenden Cookies, um sicherzustellen, dass wir Ihnen die beste Erfahrung auf unserer Website bieten.",
+            acceptAllBtn: "Alle akzeptieren",
+            acceptNecessaryBtn: "Alle ablehnen",
+            showPreferencesBtn: "Einstellungen verwalten",
+          },
+          preferencesModal: {
+            title: "Cookie-Einstellungen",
+            acceptAllBtn: "Alle akzeptieren",
+            acceptNecessaryBtn: "Alle ablehnen",
+            savePreferencesBtn: "Einstellungen speichern",
+            closeIconLabel: "X",
+            sections: [
+              {
+                title: "Cookie-Nutzung",
+                description:
+                  "Wir verwenden Cookies, um sicherzustellen, dass wir Ihnen die beste Erfahrung auf unserer Website bieten.",
+              },
+              {
+                title: "Notwendige Cookies",
+                description:
+                  "Diese Cookies sind für das ordnungsgemäße Funktionieren der Website unerlässlich und können nicht deaktiviert werden.",
+                linkedCategory: "necessary",
+              },
+              {
+                title: "Weitere Informationen",
+                description:
+                  "Bei Fragen zu unserer Cookie-Richtlinie und Ihren Auswahlmöglichkeiten kontaktieren Sie uns bitte.",
+              },
+            ],
+          },
+        },
+      },
+    },
+  });
+
+  setTimeout(function () {
+    CookieConsent.show();
+  }, 3000);
+</script>

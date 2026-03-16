@@ -1,5 +1,6 @@
 ---
 import type { AwardsData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
     data: AwardsData;
@@ -7,9 +8,24 @@ interface Props {
 
 const { data } = Astro.props;
 const items = data.items ?? [];
+
+const bgImage = data.background_image
+    ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+    : null;
+
+const hasOverlay =
+    data.background_overlay !== false &&
+    data.background_overlay !== 0 &&
+    data.background_overlay !== "0";
 ---
 
 <section class="awards" id="auszeichnungen">
+    {bgImage && (
+        <div class="awards__bg" aria-hidden="true">
+            <img src={bgImage} alt="" class="awards__video" />
+            {hasOverlay && <div class="awards__overlay" />}
+        </div>
+    )}
     <div class="awards__inner">
         {data.headline && <h2 class="awards__headline">{data.headline}</h2>}
 
@@ -18,7 +34,7 @@ const items = data.items ?? [];
                 <div class="awards__grid">
                     {items.map((item) => {
                         const imgSrc = item.image
-                            ? `/user/pages/01.home/${item.image}`
+                            ? `${GRAV_MEDIA_BASE}/${item.image.split('/').pop()}`
                             : null;
                         return (
                             <div class="awards__item">
@@ -74,8 +90,33 @@ const items = data.items ?? [];
         padding: 0 var(--space-800) var(--space-1000);
     }
 
+    /* ─── Background wrapper ─── */
+    .awards__bg {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+    }
+
+    /* ─── Background image ─── */
+    .awards__video {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* ─── Overlay ─── */
+    .awards__overlay {
+        position: absolute;
+        inset: 0;
+        background-color: var(--color-background-overlay);
+    }
+
     /* ─── Inner ─── */
     .awards__inner {
+        position: relative;
+        z-index: 10;
         max-width: 1200px;
         margin: 0 auto;
         display: flex;

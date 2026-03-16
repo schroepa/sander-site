@@ -19,6 +19,13 @@ const GRAV_PAGES_DIR = process.env.GRAV_PAGES_DIR ?? path.resolve(
 );
 
 /**
+ * Public URL base for Grav page media (images uploaded via Grav admin).
+ * On the live server, Grav is installed under /cms/, so images are at /cms/user/pages/01.home/.
+ * Can be overridden via GRAV_MEDIA_BASE environment variable for local development.
+ */
+export const GRAV_MEDIA_BASE = process.env.GRAV_MEDIA_BASE ?? '/cms/user/pages/01.home';
+
+/**
  * Base path to Grav's user config directory.
  * Can be overridden via GRAV_CONFIG_DIR environment variable (for server deployment).
  */
@@ -64,6 +71,8 @@ export interface SolutionsData {
     headline: string;
     subline?: string;
     items: SolutionItem[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** A single stat/counter item */
@@ -77,6 +86,8 @@ export interface StatsItem {
 /** Stats section data */
 export interface StatsData {
     items: StatsItem[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** A single smart catering card */
@@ -89,7 +100,7 @@ export interface SmartCateringCard {
 export interface SmartCateringAccordion {
     title: string;
     content?: string;
-    tags?: string[];
+    image?: string;
     cards?: SmartCateringCard[];
 }
 
@@ -106,6 +117,8 @@ export interface SmartCateringData {
     title?: string;
     subline?: string;
     columns: SmartCateringColumn[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** About section data */
@@ -113,6 +126,7 @@ export interface AboutData {
     headline?: string;
     body?: string;
     background_image?: string;
+    background_overlay?: boolean | number | string;
     /** Optional image shown in the right column of the About section */
     image?: string;
     quote?: string;
@@ -132,6 +146,8 @@ export interface TeamData {
     headline?: string;
     subline?: string;
     items: TeamMember[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** A single FAQ item */
@@ -144,6 +160,8 @@ export interface FaqItem {
 export interface FaqData {
     headline?: string;
     items: FaqItem[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** A single logo item */
@@ -157,6 +175,8 @@ export interface LogoSectionData {
     headline?: string;
     logo_color?: string;
     items?: LogoItem[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** Text section – centered headline + body paragraphs, optional background image */
@@ -164,6 +184,7 @@ export interface TextSectionData {
     headline?: string;
     paragraphs?: { text: string }[];
     background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** Split section – image left or right, text column on the other side */
@@ -210,6 +231,8 @@ export interface AwardsItem {
 export interface AwardsData {
     headline?: string;
     items?: AwardsItem[];
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** Call to Action section data */
@@ -218,6 +241,8 @@ export interface CtaData {
     copy?: string;
     button_text?: string;
     button_link?: string;
+    background_image?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** Sticky Scroll Item */

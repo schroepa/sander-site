@@ -171,6 +171,26 @@ form:
                   validate:
                     required: true
 
+            stats_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.stats.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.stats.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
             # ── Solutions ──
             solutions_section:
               type: section
@@ -209,6 +229,26 @@ form:
                 .solution_text:
                   type: editor
                   label: Lösung – Beschreibung
+
+            solutions_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.solutions.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.solutions.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
 
             # ── Menu Slider ──
             menu_slider_section:
@@ -297,13 +337,10 @@ form:
                       type: editor
                       label: Inhalt (Optional)
 
-                    .tags:
-                      type: selectize
-                      label: Tags (Optional)
-                      help: "Kommagetrennte Tags eingeben (z.B. Food, Events)"
-                      classes: fancy
-                      validate:
-                        type: commalist
+                    .image:
+                      type: mediapicker
+                      label: Bild (Optional)
+                      help: "Bild zuerst oben über 'Hintergrundbild hochladen' hochladen, dann hier auswählen"
 
                     .cards:
                       type: list
@@ -318,6 +355,26 @@ form:
                           type: textarea
                           label: Karten-Text
                           rows: 3
+
+            smart_catering_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.smart_catering.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.smart_catering.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
 
             # ── Sticky Scroll ──
             sticky_scroll_section:
@@ -402,6 +459,26 @@ form:
                       label: Button Link
                       placeholder: "#kontakt"
 
+            cta_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.cta.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.cta.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
             # ── Rosin ──
             about_section:
               type: section
@@ -427,11 +504,20 @@ form:
               help: "Bild zuerst hochladen, dann hier auswählen."
 
             header.about.background_image:
-              type: filepicker
+              type: mediapicker
               label: Hintergrundbild (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - image/*
+              help: "Bild zuerst hochladen, dann hier auswählen"
+
+            header.about.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
 
             header.about.quote:
               type: textarea
@@ -481,6 +567,26 @@ form:
                   rows: 3
                   placeholder: "Kurze Erklärung zur Auszeichnung..."
 
+            awards_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.awards.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.awards.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
             # ── Team ──
             team_section:
               type: section
@@ -527,6 +633,26 @@ form:
                   label: Profilfoto (optional)
                   help: "Bild zuerst hochladen, dann hier auswählen"
 
+            team_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.team.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.team.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
             # ── Logo Section ──
             logo_section_section:
               type: section
@@ -569,6 +695,26 @@ form:
                     - .svg
                   help: "SVG- oder Bilddatei auswählen (zuerst hochladen)"
 
+            logo_section_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.logo_section.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.logo_section.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
             # ── Text Section ──
             text_section_section:
               type: section
@@ -580,12 +726,25 @@ form:
               label: Überschrift
               placeholder: "z.B. Gemeinsam Qualität gestalten."
 
+            text_section_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
             header.text_section.background_image:
-              type: filepicker
+              type: mediapicker
               label: Hintergrundbild (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - image/*
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.text_section.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
 
             header.text_section.paragraphs:
               type: list
@@ -618,12 +777,14 @@ form:
               label: Unterzeile
               placeholder: "z.B. Mit digitalen Lösungen für die Zukunft..."
 
+            cards_section_media:
+              type: pagemedia
+              label: "Bilder für Karten und Hintergrund hochladen"
+
             header.cards_section.background_image:
-              type: filepicker
+              type: mediapicker
               label: Hintergrundbild (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - image/*
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
 
             header.cards_section.background_overlay:
               type: toggle
@@ -642,10 +803,6 @@ form:
               options:
                 1: Ja
                 0: Nein
-
-            cards_section_media:
-              type: pagemedia
-              label: "Bilder für Karten hochladen"
 
             header.cards_section.items:
               type: list
@@ -699,6 +856,26 @@ form:
                   type: editor
                   label: Antwort
                   rows: 4
+
+            faq_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild hochladen"
+
+            header.faq.background_image:
+              type: mediapicker
+              label: Hintergrundbild (optional)
+              help: "Bild zuerst oben hochladen, dann hier auswählen"
+
+            header.faq.background_overlay:
+              type: toggle
+              label: Dunkles Overlay aktivieren
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
 
             # ── Split Section ──
             split_sections_section:
