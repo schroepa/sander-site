@@ -62,11 +62,8 @@ const sectionOrder =
             Component = <StickyScroll data={page.sticky_scroll} />;
           else if (key === "cta" && page.ctas?.[0])
             Component = <CtaSection data={page.ctas[0]} />;
-          else if (key.startsWith("cta_") && page.ctas) {
-            const idx = parseInt(key.slice(4)) - 1;
-            const ctaItem = page.ctas[idx];
-            if (ctaItem) Component = <CtaSection data={ctaItem} />;
-          }
+          else if (key.startsWith("cta_") && page.ctas?.[parseInt(key.slice(4)) - 1])
+            Component = <CtaSection data={page.ctas[parseInt(key.slice(4)) - 1]!} />;
           else if (key === "about" && page.about)
             Component = <About data={page.about} />;
           else if (key === "team" && page.team?.items?.length)
