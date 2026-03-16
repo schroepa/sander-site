@@ -44,7 +44,9 @@ form:
                     solutions: "✅ Herausforderungen & Lösungen"
                     smart_catering: "🧑‍🍳 Smart Catering"
                     sticky_scroll: "🖱️ Sticky Scroll"
-                    cta: "📣 Call to Action"
+                    cta_1: "📣 CTA 1"
+                    cta_2: "📣 CTA 2"
+                    cta_3: "📣 CTA 3"
                     about: "🏢 Rosin"
                     team: "👥 Team"
                     text_section: "📝 Text Section"
@@ -465,10 +467,12 @@ form:
                   type: mediapicker
                   label: Illustration (optional, ersetzt SVG-Grafik)
                   help: "PNG/JPG hochladen, das die 3D-Bausteine-Grafik ersetzt"
+                  folder: "@self"
 
                 .background_image:
                   type: mediapicker
                   label: Hintergrundbild (optional)
+                  folder: "@self"
 
                 .background_overlay:
                   type: toggle

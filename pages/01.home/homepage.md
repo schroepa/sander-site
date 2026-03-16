@@ -12,7 +12,7 @@ section_order:
     -
         section: smart_catering
     -
-        section: cta
+        section: cta_1
     -
         section: sticky_scroll
     -
