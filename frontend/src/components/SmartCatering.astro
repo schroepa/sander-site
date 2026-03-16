@@ -1,16 +1,33 @@
 ---
 import { marked } from "marked";
 import type { SmartCateringData } from "../lib/grav";
-import Tag from "./Tag.astro";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: SmartCateringData;
 }
 
 const { data } = Astro.props;
+
+const bgImage = data.background_image
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+  : null;
+
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
 ---
 
 <section class="smart-catering" id="smart-catering">
+  {bgImage && (
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      {hasOverlay && (
+        <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
+      )}
+    </div>
+  )}
   <div class="smart-catering__inner">
     <div class="smart-catering__header">
       {data.headline && <p class="smart-catering__headline">{data.headline}</p>}
@@ -63,24 +80,20 @@ const { data } = Astro.props;
                   <div class="smart-catering__accordion-content-wrapper">
                     <div class="smart-catering__accordion-content">
                       <div class="smart-catering__accordion-inner">
+                        {accordion.image && (
+                          <img
+                            src={`${GRAV_MEDIA_BASE}/${accordion.image.split('/').pop()}`}
+                            alt=""
+                            class="smart-catering__accordion-image"
+                          />
+                        )}
                         {accordion.content && (
                           <div
                             class="smart-catering__accordion-text markdown-content"
                             set:html={accordion.content}
                           />
                         )}
-                        {accordion.tags && accordion.tags.length > 0 && (
-                          <div
-                            class="smart-catering__tags"
-                            style="display: flex; gap: var(--space-100); flex-wrap: wrap; background-color: var(--color-bg-secondary); border-radius: var(--radius-200); border: 1px solid var(--color-border);"
-                          >
-                            {accordion.tags.map((tag) => (
-                              <div>
-                                <Tag text={tag} />
-                              </div>
-                            ))}
-                          </div>
-                        )}
+
                         {accordion.cards && accordion.cards.length > 0 && (
                           <div class="smart-catering__cards">
                             {accordion.cards.map((card) => (
@@ -132,6 +145,18 @@ const { data } = Astro.props;
         if (!isOpen) {
           accordion.classList.add("is-open");
           summary.setAttribute("aria-expanded", "true");
+
+          // After the expand animation finishes, scroll into view if needed
+          const wrapper = accordion.querySelector(
+            ".smart-catering__accordion-content-wrapper",
+          );
+          wrapper?.addEventListener(
+            "transitionend",
+            () => {
+              accordion.scrollIntoView({ behavior: "smooth", block: "nearest" });
+            },
+            { once: true },
+          );
         }
       });
     });
@@ -143,10 +168,14 @@ const { data } = Astro.props;
 
 <style>
   .smart-catering {
+    position: relative;
+    overflow: hidden;
     padding: var(--space-1000) var(--space-800);
   }
 
   .smart-catering__inner {
+    position: relative;
+    z-index: 10;
     margin: 0 auto;
     max-width: var(--max-site-width);
     width: 100%;
@@ -313,6 +342,14 @@ const { data } = Astro.props;
     gap: var(--space-300);
   }
 
+  .smart-catering__accordion-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    border-radius: var(--radius-200);
+    display: block;
+    object-fit: cover;
+  }
+
   .smart-catering__accordion-text {
     font-family: var(--font-body);
     font-weight: var(--weight-medium);
@@ -421,6 +458,12 @@ const { data } = Astro.props;
     .smart-catering__title {
       font-size: var(--text-h1);
       line-height: var(--leading-h1);
+    }
+    .smart-catering__accordion-summary {
+      padding: var(--space-300) 16px;
+    }
+    .smart-catering__accordion-inner {
+      padding: 0 16px 16px 16px;
     }
   }
 </style>

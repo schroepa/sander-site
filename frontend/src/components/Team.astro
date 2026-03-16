@@ -1,5 +1,6 @@
 ---
 import type { TeamData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
   data: TeamData;
@@ -7,9 +8,26 @@ interface Props {
 
 const { data } = Astro.props;
 const members = data.items ?? [];
+
+const bgImage = data.background_image
+  ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+  : null;
+
+const hasOverlay =
+  data.background_overlay !== false &&
+  data.background_overlay !== 0 &&
+  data.background_overlay !== "0";
 ---
 
 <section class="team" id="team">
+  {bgImage && (
+    <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
+      <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      {hasOverlay && (
+        <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
+      )}
+    </div>
+  )}
   <div class="team__inner">
     {/* Header */}
     <div class="team__header">
@@ -28,7 +46,7 @@ const members = data.items ?? [];
             //   "/home/filename.jpg"    (with /home/ prefix, from admin upload)
             // Strip the /home/ prefix and URL-decode before building the URL.
             const imgSrc = member.image
-              ? `/user/pages/01.home/${decodeURIComponent(member.image.replace(/^\/home\//, ""))}`
+              ? `${GRAV_MEDIA_BASE}/${decodeURIComponent(member.image.replace(/^\/home\//, ""))}`
               : null;
 
             return (
@@ -102,6 +120,8 @@ const members = data.items ?? [];
 
   /* ─── Inner ─── */
   .team__inner {
+    position: relative;
+    z-index: 10;
     display: flex;
     flex-direction: column;
     gap: var(--space-800);
