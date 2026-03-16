@@ -4,7 +4,7 @@ section_order:
     -
         section: hero
     -
-        section: about
+        section: solutions
     -
         section: awards
     -
@@ -13,8 +13,6 @@ section_order:
         section: smart_catering
     -
         section: cta
-    -
-        section: smart_catering
     -
         section: sticky_scroll
     -
@@ -26,9 +24,15 @@ section_order:
     -
         section: logo_section
     -
+        section: about
+    -
+        section: cards_section
+    -
+        section: split_sections
+    -
         section: faq
 hero:
-    headline: 'Betriebs&shy;gastronomie 4.0'
+    headline: 'Betriebs&shy;gastronomie 4.0 Test'
     subline: 'Ein System für Betriebsrestaurant, Cafeteria, Konferenzservice und flexible Verpflegungslösungen.'
     spotlight_text: "SMART\nCATERING"
     cta_text: 'Jetzt anfragen'
@@ -42,7 +46,7 @@ hero:
     headline_subline_spacing: '1.0'
 solutions:
     headline: 'Deine Herausforderung - Unsere Lösungen'
-    subline: 'Hier werden Sie geholfen'
+    subline: 'Aus der Praxis mit Betrieben entwickelt'
     items:
         -
             challenge_title: 'Noch eine Million investieren?'
@@ -69,46 +73,61 @@ solutions:
             challenge_text: 'Überproduktion & Verpackungsreste belasten Budget & Nachhaltigkeit.'
             solution_title: 'Datenbasierter zentralisierter Einkauf & nachhaltige Konzepte'
             solution_text: 'Bedarfsgerechte Produktion macht Nachhaltigkeit planbar.'
+    background_image: /home/231219-Sander-Gourmet-Slider-Produktkategorien-Dressings_Dips.jpg
+    background_overlay: true
 smart_catering:
     headline: 'Verantwortung & Entscheidungsdruck'
     title: 'SMART CATERING'
-    subline: 'Intelligent gelöst. Köstlich geliefert. Modulare Verpflegungslösungen für Dein Unternehmen.'
+    subline: 'Modulare Verpflegungslösungen für Dein Unternehmen'
     columns:
         -
             title: 'Smart Catering'
             subline: 'Hauptverpflegung mit Struktur, Steuerbarkeit und Verantwortung'
             accordions:
                 -
-                    title: Hauptverpflegung
-                    content: "### Vielfalt, die planbar bleibt\n\n<p><span style=\"font-weight: 400;\">Eine Entscheidung f&uuml;r Betriebsgastronomie darf nicht im Tagesgesch&auml;ft unkontrollierbar werden. </span><span style=\"font-weight: 400;\">Deshalb ist die Hauptverpflegung bei Sander klar strukturiert. </span><span style=\"font-weight: 400;\">Smart Catering organisiert die kulinarische Vielfalt &uuml;ber definierte Men&uuml;linien:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Regionale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Internationale K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Mediterrane K&uuml;che</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Vegetarisch &amp; Vegan</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Pizza &amp; Pasta</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Suppen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Beilagen</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Salat-Bar</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Desserts</span><span style=\"font-weight: 400;\"><br /></span></li>\n</ul>\n<p><strong>Jede Linie folgt zentral entwickelten Rezepturen, gepr&uuml;ften Rohwarenstandards und klaren Qualit&auml;tsvorgaben.<br />So bleibt Vielfalt steuerbar, reproduzierbar und wirtschaftlich kalkulierbar &ndash; auch &uuml;ber Standorte hinweg.</strong></p>"
-                    tags:
-                        - Flexibel
-                        - Übersichtlich
-                        - Standardisiert
+                    title: Hauptverpflegung/Menülinien
+                    content: "### Vielfalt, die planbar bleibt\n\nZentrale Planung, Frischemanufaktur und klare Qualitätsstandards sorgen für eine verlässliche Hauptverpflegung im Betrieb."
+                    image: /home/slider2.png
                     cards:
                         -
-                            title: Liefersicherheit
-                            text: null
+                            title: 'Kulinarische Vielfalt'
+                            text: 'Über 2.500 Produkte, entwickelt von acht Innovationsköchen.'
                         -
-                            title: Qualitätsgarantie
-                            text: null
+                            title: Frischemanufaktur
+                            text: 'Zentrale Produktion – frisch vorbereitet, vor Ort effizient fertiggestellt.'
                         -
-                            title: Abwechslung
-                            text: null
+                            title: 'Geprüfte Qualitätsstandards'
+                            text: 'Standardisierte Rezepturen und geprüfte Rohwaren sichern konstante Qualität.'
                         -
-                            title: Regionalität
-                            text: null
+                            title: Versorgungssicherheit
+                            text: 'Zentrale Produktion und Logistik sichern stabile Versorgung.'
+                        -
+                            title: 'Planbare Wirtschaftlichkeit'
+                            text: 'Zentrale Planung ermöglicht klare Kalkulation und Kostenkontrolle.'
+                        -
+                            title: 'Skalierbares System'
+                            text: 'Geeignet für große Betriebsrestaurants wie auch kleinere Standorte oder Schichtbetriebe.'
                 -
                     title: 'Smarte Implementierung'
-                    content: "### Sicher starten & ohne operative Reibung\n\n<p><span style=\"font-weight: 400;\">Die Einf&uuml;hrung einer neuen Betriebsgastronomie ist eine organisatorische und rechtliche Verantwortung. </span><span style=\"font-weight: 400;\">Smart Catering wird deshalb in klar definierten Phasen implementiert:</span></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Planung &amp; Koordination ca. 3 Monate vor Er&ouml;ffnung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Operative und technische Vorbereitung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Strukturierter Teamaufbau</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Implementierung aller Qualit&auml;ts- und Reporting-Standards</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coldrun vor Inbetriebnahme</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Personal, Lieferanten, Technik und Prozesse sind vor dem ersten Betriebstag vollst&auml;ndig vorbereitet.</span></p>\n<p><span style=\"font-weight: 400;\">Der &Uuml;bergang in den Regelbetrieb erfolgt strukturiert und rechtssicher &ndash; auch bei Betreiberwechseln nach &sect; 613a BGB.</span></p>"
-                    tags:
-                        - Planung
-                        - Sicherheit
-                        - Umsetzung
+                    content: "### Sicher starten & ohne operative Reibung\n\nStrukturierte Planung sichert einen stabilen Start des Betriebsrestaurants."
+                    image: null
+                    cards:
+                        -
+                            title: 'Strukturierte Implementierungsplanung'
+                            text: 'Frühzeitige Planung (ca. 3 Monate vor Start) schafft klare Abläufe und Planungssicherheit.'
+                        -
+                            title: 'Teamaufbau & Schulung'
+                            text: 'Recruiting, Onboarding und Trainings sichern ein eingespieltes Team zum Betriebsstart.'
+                        -
+                            title: 'Technische & operative Integration'
+                            text: 'Kassen, IT, Lieferantenstruktur und Prozesse werden vorbereitet und abgestimmt.'
+                        -
+                            title: 'Coldrun & Opening-Team'
+                            text: 'Alle Abläufe werden getestet und der Start durch ein erfahrenes Team begleitet.'
                 -
                     title: 'Digitalisierung & Innovationen'
-                    content: "### Kontrolle ohne Bürokratie\n\n<p><span style=\"font-weight: 400;\">Verantwortung braucht Transparenz &ndash; aber ohne zus&auml;tzlichen Verwaltungsaufwand. </span><span style=\"font-weight: 400;\">Digitale Systeme sind integraler Bestandteil von Smart Catering</span></p>"
-                    tags: null
+                    content: "### Kontrolle ohne Bürokratie\n\nMit digitalen Lösungen für die Zukunft des Mitarbeiter Restaurants"
+                    image: null
                     cards:
                         -
                             title: 'Smart Catering App'
@@ -127,8 +146,56 @@ smart_catering:
                             text: 'Automatisierte Hygiene-Kontrollen und Dokumentation'
                 -
                     title: Personal-Management
-                    content: "### Gastgeber-Mentalität mit System\n\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Verl&auml;ssliche Teams. Systemisch abgesichert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Stabile Teams statt Personalrisiko</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Gastgeber-Mentalit&auml;t mit System</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Professionelle Teams. Stabil organisiert.</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Betriebssicherheit h&auml;ngt von qualifizierten und strukturiert gef&uuml;hrten Teams ab.</span></p>\n<p><strong>Sander &uuml;bernimmt:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Rekrutierung und Teamaufbau</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Fachliche Schulung und kontinuierliche Weiterbildung</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Coaching durch Gebietsleiter</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><span style=\"font-weight: 400;\">Rechtssichere &Uuml;bernahme bestehender Arbeitsverh&auml;ltnisse</span></li>\n</ul>\n<p><span style=\"font-weight: 400;\">Die Mitarbeitenden verf&uuml;gen &uuml;ber fachliche Qualifikation, Serviceorientierung und gelebte Gastgebermentalit&auml;t. </span><span style=\"font-weight: 400;\">Einheitliche, moderne und nachhaltige Mitarbeiter-Outfits sorgen f&uuml;r Professionalit&auml;t und klare Wiedererkennbarkeit im Betrieb.</span></p>\n<p><strong>Auch in Zeiten des Fachkr&auml;ftemangels bleibt der Betrieb stabil, da Planung, Rezepturentwicklung und Produktionssteuerung zentral in der Frische-Manufaktur erfolgen.</strong></p>"
-                    tags: null
+                    content: "### Gastgeber-Mentalität mit System\nServicequalität durch erfahrene Teams\n"
+                    image: null
+                    cards:
+                        -
+                            title: 'Qualifizierte Fachkräfte'
+                            text: 'Erfahrene Köche, Servicekräfte und Küchenhilfen mit gastronomischer Ausbildung und Praxis.'
+                        -
+                            title: 'Gastgebermentalität im Service'
+                            text: 'Freundliche, serviceorientierte Teams sorgen für eine positive Gästeerfahrung.'
+                        -
+                            title: 'Schulung & Weiterbildung'
+                            text: 'Regelmäßige Trainings über die Sander Akademie und externe Programme sichern fachliche Qualität.'
+                        -
+                            title: 'Professionelles Erscheinungsbild'
+                            text: 'Einheitliche, nachhaltige Mitarbeiter-Outfits sorgen für Wiedererkennung und Professionalität.'
+                        -
+                            title: 'Betriebsübergang nach §613a BGB'
+                            text: 'Mitarbeitende können rechtssicher übernommen werden – ohne Unterbrechung des Betriebs.'
+                -
+                    title: Menükompositionen
+                    content: "###Kulinarische Vielfalt – strukturiert geplant und zuverlässig umgesetzt\n\nDie Menülinien bei Sander strukturieren kulinarische Vielfalt im Betriebsrestaurant und ermöglichen abwechslungsreiche, zuverlässig planbare Speisepläne."
+                    image: null
+                    cards:
+                        -
+                            title: 'Regionale Küche'
+                            text: 'Klassische Gerichte aus regionaler Tradition mit saisonalen Zutaten und kurzen Lieferwegen.'
+                        -
+                            title: 'Internationale Küche'
+                            text: 'Gerichte aus verschiedenen Ländern sorgen für kulinarische Vielfalt und Abwechslung im Speiseplan.'
+                        -
+                            title: 'Mediterrane Küche'
+                            text: 'Leichte Gerichte mit Gemüse, Kräutern und ausgewählten Fisch- oder Fleischkomponenten.'
+                        -
+                            title: 'Vegetarisch & Vegan'
+                            text: 'Pflanzenbasierte Gerichte als fester Bestandteil moderner und nachhaltiger Verpflegung.'
+                        -
+                            title: 'Pizza & Pasta'
+                            text: 'Beliebte Klassiker der italienischen Küche mit hoher Akzeptanz im Betriebsrestaurant.'
+                        -
+                            title: Suppen
+                            text: 'Warme, leichte Gerichte für eine flexible und saisonale Ergänzung des Angebots.'
+                        -
+                            title: Beilagen
+                            text: 'Kartoffeln, Reis, Gemüse und weitere Komponenten zur individuellen Kombination der Menüs.'
+                        -
+                            title: Salat-Bar
+                            text: 'Frische Zutaten und frei kombinierbare Salate für leichte und gesunde Mahlzeiten.'
+                        -
+                            title: Desserts
+                            text: 'Süße Speisen als Abschluss des Menüs und kleine Genussmomente im Arbeitsalltag.'
         -
             title: 'Smart Catering Plus'
             subline: Zusatzmodule
@@ -136,7 +203,7 @@ smart_catering:
                 -
                     title: Café-Konzepte
                     content: '<p><span style="font-weight: 400;">F&uuml;r Betriebe, die Aufenthaltsqualit&auml;t, kurze Wege und hochwertige Kaffeeangebote als Teil ihrer Arbeitgeberattraktivit&auml;t verstehen.</span></p>'
-                    tags: null
+                    image: null
                     cards:
                         -
                             title: Kaffeemaschine
@@ -153,11 +220,11 @@ smart_catering:
                 -
                     title: Konferenz-Service
                     content: "###Professionelle Meeting- & Konferenz-Verpflegung\n\n<p><span style=\"font-weight: 400;\">Digitale Bestellung und strukturierte Umsetzung sichern eine professionelle Meeting- und Konferenz-Verpflegung ohne internen Abstimmungsaufwand.</span></p>\n<p><strong>Bestellprozess:</strong></p>\n<ul>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Digital ausw&auml;hlen:</strong><span style=\"font-weight: 400;\"> Speisen und Getr&auml;nke aus dem zentralen Konferenz-Katalog zusammenstellen.</span><span style=\"font-weight: 400;\"><br /></span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Smart bestellen:</strong><span style=\"font-weight: 400;\"> Bequem &uuml;ber die Sander-App: transparent dokumentiert.</span></li>\n<li style=\"font-weight: 400;\" aria-level=\"1\"><strong>Servieren lassen:</strong> Bereitstellung und Service erfolgen zuverl&auml;ssig durch das zust&auml;ndige Team vor Ort.</li>\n</ul>"
-                    tags: null
+                    image: null
                 -
                     title: Snacking-Konzepte
                     content: "###Zwischenverpflegung im Arbeitsalltag – Snacking-Konzepte\n<p>&nbsp;</p>\n<p><strong>Flexible Versorgung, die sich dem Arbeitsrhythmus anpasst &ndash; vom ersten Kaffee bis zum sp&auml;ten Energie-Boost.</strong></p>"
-                    tags: null
+                    image: null
                     cards:
                         -
                             title: 'Morgens – Kraftvoll in den Tag starten'
@@ -171,7 +238,7 @@ smart_catering:
                 -
                     title: Automatenlösungen
                     content: "###24/7-Grundversorgung\n\nVersorgung bei Schichtbetrieb oder 24/7-Strukturen – Automaten & Smart Vending. Für Betriebe mit erweiterten Betriebszeiten oder geringer Personalbesetzung."
-                    tags: null
+                    image: null
                     cards:
                         -
                             title: 'Standard-Automaten:'
@@ -182,7 +249,7 @@ smart_catering:
                 -
                     title: Lunchbox
                     content: "Vollwertige Verpflegung für Standorte ohne eigene Küche – digital organisiert und frisch geliefert.\n\nSo funktioniert das Konzept:"
-                    tags: null
+                    image: null
                     cards:
                         -
                             title: 'Bestellung in der App:'
@@ -199,6 +266,7 @@ smart_catering:
                         -
                             title: 'Mehrweg-Rückgabe:'
                             text: 'Nachhaltige Pfandsysteme wie Rebowl oder Recup.'
+    background_overlay: true
 stats:
     items:
         -
@@ -221,6 +289,7 @@ stats:
             suffix: +
             separator: '1'
             label: 'Zufriedene Kunden'
+    background_overlay: true
 menu_slider:
     headline: 'Unsere Menülinien im Überblick'
     items:
@@ -245,6 +314,7 @@ cta:
     copy: 'Reibungslose Implementierung mit Personalmanagement, Digitalisierung & Innovation sind sind bei uns immer gegeben. Das Verpflegungsangebot sollte noch auf das Unternehmen zugeschnitten werden.'
     button_text: 'Jetzt Kontakt aufnehmen'
     button_link: '#'
+    background_overlay: true
 sticky_scroll:
     headline: 'Die Sander Frische-Manufaktur'
     subline: 'Zentrale Kompetenz, gesicherte Qualität und nachhaltige Prozesse aus einer Hand.'
@@ -298,18 +368,23 @@ about:
     image: sander_Restaurant_Bienenstich_Kueche.jpg
     quote: "Ich weiß jetzt genau,\_ wo ich meine Rouladen hole…"
     quote_author: 'Frank Rosin'
+    background_overlay: true
 awards:
     headline: 'Ein Ausgezeichnetes Familienunternehmen'
     items:
         -
             label: 'Best of Market 2026'
             image: award-best-of-market.png
+            description: "- Von Branchenpraktikern gewählt\n- Bewährt im Einsatz\n- Leserpreis der führenden Gastro-Fachmagazine“"
         -
             label: 'Höchste Kundenzufriedenheit 2025'
             image: award-kundenzufriedenheit.png
+            description: null
         -
             label: 'Deutschlands Begehrtester Caterer'
             image: award-begehrtester-caterer.png
+            description: null
+    background_overlay: true
 team:
     headline: 'Die Menschen hinter Sander'
     subline: 'Erfahrung, Leidenschaft und echtes Gastgeber-Herz – das ist unser Team.'
@@ -344,6 +419,7 @@ team:
             role: 'Sales Manager Region West'
             bio: null
             image: /home/Patrick_Gerharts_Profilbild_zugeschnitten%201.png
+    background_overlay: true
 logo_section:
     headline: Referenzen
     logo_color: '#f1eef0'
@@ -363,6 +439,7 @@ logo_section:
         -
             name: 'Partner 5'
             image: mb-logo.svg
+    background_overlay: true
 faq:
     headline: 'Häufig gestellte Fragen'
     items:
@@ -393,6 +470,7 @@ faq:
         -
             question: 'Welche Rolle spielt Nachhaltigkeit in der Betriebsgastronomie?'
             answer: 'Nachhaltigkeit spielt eine immer größere Rolle in der Mitarbeiterverpflegung. Viele Betriebe setzen auf regionale Produkte, kurze Lieferketten und moderne Mehrwegsysteme für To-Go-Verpackungen. Zusätzlich ermöglichen digitale Systeme eine bessere Planung von Mengen und reduzieren Lebensmittelverschwendung.'
+    background_overlay: true
 text_section:
     headline: 'Gemeinsam Qualität gestalten.'
     paragraphs:
@@ -400,6 +478,7 @@ text_section:
             text: 'Sander Betriebsgastronomie steht für mehr als gutes Essen. Wir verstehen Verpflegung als strategischen Beitrag zum Unternehmenserfolg – als Faktor, der Mitarbeitende bindet, Produktivität fördert und Unternehmenskultur sichtbar macht.'
         -
             text: 'Mit über 50 Jahren Erfahrung, einer eigenen Frischemanufaktur und einem digitalen Versorgungsmodell bieten wir die Infrastruktur, die moderne Betriebsgastronomie braucht – skalierbar, zuverlässig und immer auf höchstem Niveau.'
+    background_overlay: true
 split_section:
     overline: 'Unsere Manufaktur'
     headline: 'Frische, die man schmeckt.'
@@ -413,6 +492,71 @@ split_section:
     cta_link: '#kontakt'
     image: sander_Restaurant_Bienenstich_Kueche.jpg
     image_alt: 'Frische Produkte aus der Sander Manufaktur'
-media_order: 'about-bg.jpg,Image_Entwickler_Dessert_Walnuss_Tarte.jpg,sander_Restaurant_Bienenstich_Kueche.jpg,sander_Restaurant_TG_Bienenstich.jpg,sander_Restaurant_TG_Moelleux_au_Chocolat.jpg,slider1.png,slider2.png,slider3.png,231123-Sander-Ansprechpartner-Claudia_Kratschmer 1.png,231123-Sander-Ansprechpartner-Melanie_Kneip 1.png,251215-Sander-Ansprechpartner-Sascha_Sachse 1.png,251215-Sander-AnsprechpartnerChristine_Doernbach 1.png,Jens_Duelme 1.png,Patrick_Gerharts_Profilbild_zugeschnitten 1.png,ikea-logo.svg,award-best-of-market.png,audi-logo.svg,award-kundenzufriedenheit.png,mb-logo.svg,brita.svg,basf.svg,award-begehrtester-caterer.png,231219-Sander-Gourmet-Slider-Produktkategorien-Dressings_Dips.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Gemuese.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Menueschalen.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Pasta_Teigwaren.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Saucen_Pestos.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Sonderkost.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Suppen_Eintoepfe.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Vegetarische_vegane_Spezialitaeten.jpg,240102-Sander-Gourmet-Slider-Produktkategorien-Kartoffel_Knoedel_Reis_Co.jpg,antipasti.jpg,feinkostsalate.jpg,frischfleisch.jpg,kaese-wurs-ei.jpg,leh.jpg'
+media_order: 'about-bg.jpg,Image_Entwickler_Dessert_Walnuss_Tarte.jpg,sander_Restaurant_Bienenstich_Kueche.jpg,sander_Restaurant_TG_Bienenstich.jpg,sander_Restaurant_TG_Moelleux_au_Chocolat.jpg,slider1.png,slider2.png,slider3.png,231123-Sander-Ansprechpartner-Claudia_Kratschmer 1.png,231123-Sander-Ansprechpartner-Melanie_Kneip 1.png,251215-Sander-Ansprechpartner-Sascha_Sachse 1.png,251215-Sander-AnsprechpartnerChristine_Doernbach 1.png,Jens_Duelme 1.png,Patrick_Gerharts_Profilbild_zugeschnitten 1.png,ikea-logo.svg,award-best-of-market.png,audi-logo.svg,award-kundenzufriedenheit.png,mb-logo.svg,brita.svg,basf.svg,award-begehrtester-caterer.png,231219-Sander-Gourmet-Slider-Produktkategorien-Dressings_Dips.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Gemuese.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Menueschalen.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Pasta_Teigwaren.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Saucen_Pestos.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Sonderkost.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Suppen_Eintoepfe.jpg,231219-Sander-Gourmet-Slider-Produktkategorien-Vegetarische_vegane_Spezialitaeten.jpg,240102-Sander-Gourmet-Slider-Produktkategorien-Kartoffel_Knoedel_Reis_Co.jpg,antipasti.jpg,feinkostsalate.jpg,frischfleisch.jpg,kaese-wurs-ei.jpg,leh.jpg,bg-cards.jpg'
+cards_section:
+    background_overlay: '1'
+    background_grayscale: '1'
+    items:
+        -
+            title: 'Smart Catering APP'
+            text: 'Digitales Gästemanagement bündelt digitale Speisepläne, Reservierung, Feedback, App- bzw. Web-Portal-Lösungen & mehr.'
+            image: /home/about-bg.jpg
+        -
+            title: 'Smarte Kassen'
+            text: 'Cloudbasiertes Kassensystem mit  integriertem bargeldlosem Bezahlen, Mitarbeiterzuschüssen, Self-Service und Echtzeit-Reporting.'
+            image: /home/231219-Sander-Gourmet-Slider-Produktkategorien-Dressings_Dips.jpg
+        -
+            title: 'Smarte Warenwirtschaft'
+            text: 'Einkaufs- & Produktionsplanung, Warenwirtschaft, Speiseplanung inkl. Allergen-Kennzeichnung, Controlling & Rezepturmanagement.'
+            image: /home/sander_Restaurant_TG_Bienenstich.jpg
+        -
+            title: 'Digitales HACCP'
+            text: 'Hygiene-Kontrollen, Temperatur-Messungen, automatisch erfasste Checklisten & Nachweise, Dokumentation & Auswertung.'
+            image: /home/sander_Restaurant_TG_Moelleux_au_Chocolat.jpg
+        -
+            title: 'CO2 Billanz'
+            text: 'Messung des co2 Fußabdruck von Lebensmitteln macht nachhaltige Ernährung messbar.'
+            image: /home/bg-cards.jpg
+        -
+            title: 'Smart Vending Telemetrie'
+            text: 'Systeme, die durch Telemetrie, KI und Automatisierung zu intelligenten, nachhaltigen und nutzerorientierten Mini-Restaurant werden.'
+            image: /home/kaese-wurs-ei.jpg
+        -
+            title: 'goodBytz Robotic'
+            text: 'Lorem ipsum dolor sit amet…'
+            image: /home/slider2.png
+        -
+            title: 'Zukunft der Digitalisierung'
+            text: '#'
+            image: /home/slider1.png
+    overline: 'Wirtschaftlichkeit & Steuerbarkeit'
+    headline: 'Digitalisierung & Innovation'
+    subline: 'Digitale Steuerung & Transparenz'
+    background_image: /home/bg-cards.jpg
+split_sections:
+    -
+        image_position: left
+        overline: 'Betriebssicherheit & Verlässlichkeit'
+        headline: 'Qualitäts-, Produkt- & Liefersicherheit'
+        subheadline: 'Sander Frischemanufaktur & zentrale Logistik'
+        body:
+            -
+                text: "Betriebsgastronomie muss jeden Tag funktionieren.\nIn der Sander Frischemanufaktur werden Produkte zentral entwickelt, geprüft und produziert. Klare Qualitätsstandards, ein strukturiertes Lieferantenmanagement und eigene Logistik sorgen dafür, dass Rohwaren, Produktion und Lieferung zuverlässig ineinandergreifen. So bleiben Qualität, Produktsicherheit und Versorgung auch bei wechselnden Rahmenbedingungen stabil."
+        cta_text: null
+        cta_link: null
+        image: /home/231219-Sander-Gourmet-Slider-Produktkategorien-Dressings_Dips.jpg
+        image_alt: vuihguigui
+    -
+        image_position: right
+        overline: 'Akzeptanz & Unternehmenskultur'
+        headline: 'Nutzerorientierte Verpflegungskonzepte'
+        subheadline: 'New Work, Nachhaltigkeit & regionale Verantwortung'
+        body:
+            -
+                text: "Betriebsgastronomie ist mehr als Verpflegung. \nAls sichtbarer Teil des Arbeitsalltags beeinflusst sie Zufriedenheit, Austausch und Identifikation der Mitarbeitenden. Flexible Angebote, Wahlfreiheit sowie Themen wie Nachhaltigkeit und Regionalität stärken Akzeptanz und machen das Betriebsrestaurant zu einem Ort der Begegnung und zu einem echten Bestandteil moderner Unternehmenskultur."
+        cta_text: null
+        cta_link: null
+        image: /home/sander_Restaurant_TG_Bienenstich.jpg
+        image_alt: null
 ---
 
