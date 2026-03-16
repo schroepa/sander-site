@@ -243,6 +243,7 @@ export interface CtaData {
     button_link?: string;
     background_image?: string;
     background_overlay?: boolean | number | string;
+    illustration_image?: string;
 }
 
 /** Sticky Scroll Item */
