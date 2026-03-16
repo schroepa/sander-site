@@ -60,8 +60,14 @@ const sectionOrder =
             Component = <SmartCatering data={page.smart_catering} />;
           else if (key === "sticky_scroll" && page.sticky_scroll?.items)
             Component = <StickyScroll data={page.sticky_scroll} />;
-          else if (key === "cta" && page.cta)
-            Component = <CtaSection data={page.cta} />;
+          else if (key === "cta" && page.ctas?.length)
+            Component = (
+              <>
+                {page.ctas.map((c) => (
+                  <CtaSection data={c} />
+                ))}
+              </>
+            );
           else if (key === "about" && page.about)
             Component = <About data={page.about} />;
           else if (key === "team" && page.team?.items?.length)

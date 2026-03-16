@@ -432,61 +432,54 @@ form:
               title: "📣 Call to Action"
               underline: true
 
-            header.cta.headline:
-              type: text
-              label: Überschrift
-              placeholder: "Welche Module benötigst du?"
+            cta_media:
+              type: pagemedia
+              label: "Bilder für CTA-Sections hochladen (Illustration & Hintergrund)"
 
-            header.cta.copy:
-              type: editor
-              label: Beschreibungstext
-
-            cta_button_columns:
-              type: columns
+            header.ctas:
+              type: list
+              label: CTA-Sections
+              style: vertical
+              help: "Jeder Eintrag erzeugt eine eigene CTA-Section. Reihenfolge im Abschnitt-Sortierer bestimmt die Position auf der Seite – alle CTAs erscheinen als Gruppe dort."
               fields:
-                col_btn_text:
-                  type: column
-                  fields:
-                    header.cta.button_text:
-                      type: text
-                      label: Button Text
-                      placeholder: "Jetzt Kontakt aufnehmen"
-                col_btn_link:
-                  type: column
-                  fields:
-                    header.cta.button_link:
-                      type: text
-                      label: Button Link
-                      placeholder: "#kontakt"
+                .headline:
+                  type: text
+                  label: Überschrift
+                  placeholder: "Welche Module benötigst du?"
 
-            cta_illustration_media:
-              type: pagemedia
-              label: "Illustration hochladen (ersetzt SVG-Grafik)"
+                .copy:
+                  type: editor
+                  label: Beschreibungstext
 
-            header.cta.illustration_image:
-              type: mediapicker
-              label: Illustration (optional, ersetzt SVG-Grafik)
-              help: "PNG/JPG hochladen, das die 3D-Bausteine-Grafik ersetzt. Bild zuerst oben hochladen, dann hier auswählen."
+                .button_text:
+                  type: text
+                  label: Button Text
+                  placeholder: "Jetzt Kontakt aufnehmen"
 
-            cta_bg_media:
-              type: pagemedia
-              label: "Hintergrundbild hochladen"
+                .button_link:
+                  type: text
+                  label: Button Link
+                  placeholder: "#kontakt"
 
-            header.cta.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+                .illustration_image:
+                  type: mediapicker
+                  label: Illustration (optional, ersetzt SVG-Grafik)
+                  help: "PNG/JPG hochladen, das die 3D-Bausteine-Grafik ersetzt"
 
-            header.cta.background_overlay:
-              type: toggle
-              label: Dunkles Overlay aktivieren
-              highlight: 1
-              default: 1
-              options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
-              validate:
-                type: bool
+                .background_image:
+                  type: mediapicker
+                  label: Hintergrundbild (optional)
+
+                .background_overlay:
+                  type: toggle
+                  label: Dunkles Overlay aktivieren
+                  highlight: 1
+                  default: 1
+                  options:
+                    1: PLUGIN_ADMIN.ENABLED
+                    0: PLUGIN_ADMIN.DISABLED
+                  validate:
+                    type: bool
 
             # ── Rosin ──
             about_section:

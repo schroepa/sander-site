@@ -292,7 +292,8 @@ export interface GravPage {
     menu_slider?: MenuSliderData;
     smart_catering?: SmartCateringData;
     sticky_scroll?: StickyScrollData;
-    cta?: CtaData;
+    /** Array of CTA sections. Falls back to single `cta` for backward compat. */
+    ctas?: CtaData[];
     about?: AboutData;
     team?: TeamData;
     faq?: FaqData;
@@ -368,9 +369,11 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         }
         : undefined;
 
-    const cta: CtaData | undefined = data.cta
-        ? { ...data.cta, copy: md(data.cta.copy) }
-        : undefined;
+    const ctas: CtaData[] | undefined = data.ctas
+        ? (data.ctas as CtaData[]).map((c: CtaData) => ({ ...c, copy: md((c as any).copy) }))
+        : data.cta
+            ? [{ ...data.cta, copy: md((data.cta as any).copy) }]
+            : undefined;
 
     const about: AboutData | undefined = data.about
         ? { ...data.about, body: md(data.about.body) }
@@ -415,7 +418,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         menu_slider: data.menu_slider ?? undefined,
         smart_catering,
         sticky_scroll,
-        cta,
+        ctas,
         about,
         team,
         faq,
