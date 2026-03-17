@@ -56,6 +56,9 @@ export interface HeroData {
     headline_scale?: string;
     subline_scale?: string;
     headline_subline_spacing?: string;
+    background_image?: string;
+    background_video?: string;
+    background_overlay?: boolean | number | string;
 }
 
 /** A single challenge/solution pair */
