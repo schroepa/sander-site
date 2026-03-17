@@ -77,6 +77,7 @@ export interface SolutionsData {
     subline?: string;
     items: SolutionItem[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -92,6 +93,7 @@ export interface StatsItem {
 export interface StatsData {
     items: StatsItem[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -123,6 +125,7 @@ export interface SmartCateringData {
     subline?: string;
     columns: SmartCateringColumn[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -131,6 +134,7 @@ export interface AboutData {
     headline?: string;
     body?: string;
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
     /** Optional image shown in the right column of the About section */
     image?: string;
@@ -152,6 +156,7 @@ export interface TeamData {
     subline?: string;
     items: TeamMember[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -166,6 +171,7 @@ export interface FaqData {
     headline?: string;
     items: FaqItem[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -181,6 +187,7 @@ export interface LogoSectionData {
     logo_color?: string;
     items?: LogoItem[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -189,6 +196,7 @@ export interface TextSectionData {
     headline?: string;
     paragraphs?: { text: string }[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -220,6 +228,7 @@ export interface CardsSectionData {
     subline?: string;
     items?: CardsItem[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
     background_grayscale?: boolean | number | string;
 }
@@ -237,6 +246,7 @@ export interface AwardsData {
     headline?: string;
     items?: AwardsItem[];
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
 }
 
@@ -247,6 +257,7 @@ export interface CtaData {
     button_text?: string;
     button_link?: string;
     background_image?: string;
+    background_video?: string;
     background_overlay?: boolean | number | string;
     illustration_image?: string;
 }
@@ -272,7 +283,8 @@ export interface StickyScrollData {
 export interface MenuSliderItem {
     title: string;
     subtitle?: string;
-    image?: string;
+    image?: string | object;
+    video?: string | object;
 }
 
 /** Menu Slider Section Data */

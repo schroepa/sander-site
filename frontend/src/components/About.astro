@@ -9,7 +9,11 @@ interface Props {
 const { data } = Astro.props;
 
 // Resolve background image path (served from Grav pages media)
-const bgImage = data.background_image
+const bgVideo = data.background_video
+  ? `${GRAV_MEDIA_BASE}/${data.background_video.split('/').pop()}`
+  : null;
+
+const bgImage = !bgVideo && data.background_image
   ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
 
@@ -25,9 +29,13 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
 <section class="about" id="rosin">
   {/* Background layer */}
   {
-    bgImage && (
+    (bgVideo || bgImage) && (
       <div class="about__bg" aria-hidden="true">
-        <img class="about__bg-img" src={bgImage} alt="" loading="lazy" />
+        {bgVideo ? (
+          <video class="about__bg-img" src={bgVideo} autoplay muted loop playsinline />
+        ) : (
+          <img class="about__bg-img" src={bgImage!} alt="" loading="lazy" />
+        )}
         {hasOverlay && <div class="about__bg-overlay" />}
       </div>
     )

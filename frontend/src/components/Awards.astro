@@ -9,7 +9,11 @@ interface Props {
 const { data } = Astro.props;
 const items = data.items ?? [];
 
-const bgImage = data.background_image
+const bgVideo = data.background_video
+    ? `${GRAV_MEDIA_BASE}/${data.background_video.split("/").pop()}`
+    : null;
+
+const bgImage = !bgVideo && data.background_image
     ? `${GRAV_MEDIA_BASE}/${data.background_image.split("/").pop()}`
     : null;
 
@@ -21,9 +25,13 @@ const hasOverlay =
 
 <section class="awards" id="auszeichnungen">
     {
-        bgImage && (
+        (bgVideo || bgImage) && (
             <div class="awards__bg" aria-hidden="true">
-                <img src={bgImage} alt="" class="awards__video" />
+                {bgVideo ? (
+                    <video src={bgVideo} autoplay muted loop playsinline class="awards__video" />
+                ) : (
+                    <img src={bgImage!} alt="" class="awards__video" />
+                )}
                 {hasOverlay && <div class="awards__overlay" />}
             </div>
         )

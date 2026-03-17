@@ -14,7 +14,11 @@ interface Props {
 const { data } = Astro.props;
 
 // Build absolute URL for background image (served by Grav)
-const bgImage = data.background_image
+const bgVideo = data.background_video
+  ? `${GRAV_MEDIA_BASE}/${data.background_video.split('/').pop()}`
+  : null;
+
+const bgImage = !bgVideo && data.background_image
   ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
 
@@ -25,11 +29,15 @@ const hasOverlay =
 ---
 
 <section class="text-section" aria-labelledby="text-section-heading">
-  {/* Background image layer */}
+  {/* Background layer */}
   {
-    bgImage && (
+    (bgVideo || bgImage) && (
       <div class="text-section__bg" aria-hidden="true">
-        <img class="text-section__bg-img" src={bgImage} alt="" loading="lazy" />
+        {bgVideo ? (
+          <video class="text-section__bg-img" src={bgVideo} autoplay muted loop playsinline />
+        ) : (
+          <img class="text-section__bg-img" src={bgImage!} alt="" loading="lazy" />
+        )}
         {hasOverlay && <div class="text-section__overlay" />}
       </div>
     )

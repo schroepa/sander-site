@@ -30,22 +30,31 @@ const { headline, items = [] } = data;
                 //   "slider1.png"           → bare filename (correct)
                 //   "/home/slider1.png"     → mediapicker adds /home/ prefix (must strip)
                 //   {filename: {...}}       → legacy file-upload object
-                let imageFilename: string | undefined;
-                if (item.image && typeof item.image === "object") {
-                  imageFilename = Object.keys(item.image)[0];
-                } else if (typeof item.image === "string") {
-                  // Strip any leading /home/ that mediapicker injects
-                  imageFilename = item.image.replace(/^\/?home\//, "");
+                function resolveFilename(raw: string | object | undefined): string {
+                  if (!raw) return "";
+                  if (typeof raw === "object") return Object.keys(raw)[0] ?? "";
+                  return (raw as string).replace(/^\/?home\//, "");
                 }
 
-                const imageUrl = imageFilename
-                  ? `${GRAV_MEDIA_BASE}/${imageFilename}`
-                  : "";
+                const videoFilename = resolveFilename(item.video);
+                const videoUrl = videoFilename ? `${GRAV_MEDIA_BASE}/${videoFilename}` : "";
+
+                const imageFilename = !videoUrl ? resolveFilename(item.image) : "";
+                const imageUrl = imageFilename ? `${GRAV_MEDIA_BASE}/${imageFilename}` : "";
 
                 return (
                   <div class="embla__slide">
                     <div class="menu-slide">
-                      {imageUrl && (
+                      {videoUrl ? (
+                        <video
+                          src={videoUrl}
+                          autoplay
+                          muted
+                          loop
+                          playsinline
+                          class="menu-slide__image"
+                        />
+                      ) : imageUrl ? (
                         <img
                           src={imageUrl}
                           alt={item.title}
@@ -53,7 +62,7 @@ const { headline, items = [] } = data;
                           loading="lazy"
                           decoding={index === 0 ? "sync" : "async"}
                         />
-                      )}
+                      ) : null}
                       <div class="menu-slide__overlay">
                         <div class="menu-slide__content">
                           <h3 class="menu-slide__title">{item.title}</h3>

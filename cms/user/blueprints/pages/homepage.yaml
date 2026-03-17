@@ -241,12 +241,23 @@ form:
 
             stats_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.stats.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.stats.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.stats.background_overlay:
               type: toggle
@@ -300,12 +311,23 @@ form:
 
             solutions_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.solutions.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.solutions.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.solutions.background_overlay:
               type: toggle
@@ -331,7 +353,7 @@ form:
 
             menu_slider_media:
               type: pagemedia
-              label: "Slider Bilder hochladen"
+              label: "Slider Bilder oder Videos hochladen"
 
             header.menu_slider.items:
               type: list
@@ -352,8 +374,19 @@ form:
 
                 .image:
                   type: mediapicker
-                  label: Bild auswählen
-                  help: "Wähle ein über 'Slider Bilder hochladen' hochgeladenes Bild aus"
+                  label: Bild auswählen (optional)
+                  help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+                .video:
+                  type: filepicker
+                  label: Video auswählen (optional)
+                  folder: "user://pages/01.home"
+                  accept:
+                    - video/mp4
+                    - video/webm
+                    - .mp4
+                    - .webm
+                  help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             # ── Smart Catering ──
             smart_catering_section:
@@ -426,12 +459,23 @@ form:
 
             smart_catering_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.smart_catering.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.smart_catering.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.smart_catering.background_overlay:
               type: toggle
@@ -569,7 +613,7 @@ form:
 
             about_media:
               type: pagemedia
-              label: "Bild hochladen"
+              label: "Bilder oder Videos hochladen"
 
             header.about.image:
               type: mediapicker
@@ -579,7 +623,18 @@ form:
             header.about.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.about.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.about.background_overlay:
               type: toggle
@@ -642,12 +697,23 @@ form:
 
             awards_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.awards.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.awards.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.awards.background_overlay:
               type: toggle
@@ -708,12 +774,23 @@ form:
 
             team_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.team.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.team.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.team.background_overlay:
               type: toggle
@@ -770,12 +847,23 @@ form:
 
             logo_section_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.logo_section.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.logo_section.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.logo_section.background_overlay:
               type: toggle
@@ -801,12 +889,23 @@ form:
 
             text_section_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.text_section.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.text_section.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.text_section.background_overlay:
               type: toggle
@@ -852,12 +951,23 @@ form:
 
             cards_section_media:
               type: pagemedia
-              label: "Bilder für Karten und Hintergrund hochladen"
+              label: "Bilder/Videos für Karten und Hintergrund hochladen"
 
             header.cards_section.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.cards_section.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.cards_section.background_overlay:
               type: toggle
@@ -932,12 +1042,23 @@ form:
 
             faq_bg_media:
               type: pagemedia
-              label: "Hintergrundbild hochladen"
+              label: "Hintergrundbild oder -video hochladen"
 
             header.faq.background_image:
               type: mediapicker
               label: Hintergrundbild (optional)
-              help: "Bild zuerst oben hochladen, dann hier auswählen"
+              help: "Wird angezeigt wenn kein Video gesetzt ist."
+
+            header.faq.background_video:
+              type: filepicker
+              label: Hintergrundvideo (optional)
+              folder: "user://pages/01.home"
+              accept:
+                - video/mp4
+                - video/webm
+                - .mp4
+                - .webm
+              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
             header.faq.background_overlay:
               type: toggle
