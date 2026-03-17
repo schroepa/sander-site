@@ -246,7 +246,7 @@ const isDesaturated =
     line-height: 0.81;
     user-select: none;
     pointer-events: none;
-    font-size: 294px;
+    font-size: clamp(60px, 21.5vw, 294px);
   }
 
   /* Ambient-Layer: immer sichtbar, gedimmt */
@@ -280,20 +280,6 @@ const isDesaturated =
     position: absolute;
     color: #745c6c;
     opacity: 0.16;
-  }
-
-  /* Tablet */
-  @media (min-width: 576px) and (max-width: 991px) {
-    .hero__deco-text {
-      font-size: 365px;
-    }
-  }
-
-  /* Mobile */
-  @media (max-width: 575px) {
-    .hero__deco-text {
-      font-size: 179px;
-    }
   }
 
   /* Spotlight folgt der Maus via CSS Custom Properties */
