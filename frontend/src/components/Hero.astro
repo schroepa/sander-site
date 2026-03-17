@@ -1,5 +1,6 @@
 ---
 import type { HeroData } from "../lib/grav";
+import { GRAV_MEDIA_BASE } from "../lib/grav";
 import SanderLogoHero from "./SanderLogoHero.astro";
 
 interface Props {
@@ -11,6 +12,18 @@ const { hero } = Astro.props;
 const headlineScale = hero.headline_scale ?? 1;
 const sublineScale = hero.subline_scale ?? 1;
 const gapSpacing = hero.headline_subline_spacing ?? 1.5;
+
+const bgVideo = hero.background_video
+  ? `${GRAV_MEDIA_BASE}/${hero.background_video.split("/").pop()}`
+  : null;
+const bgImage = !bgVideo && hero.background_image
+  ? `${GRAV_MEDIA_BASE}/${hero.background_image.split("/").pop()}`
+  : null;
+const hasOverlay =
+  (bgVideo || bgImage) &&
+  hero.background_overlay !== false &&
+  hero.background_overlay !== 0 &&
+  hero.background_overlay !== "0";
 ---
 
 <section
@@ -19,6 +32,22 @@ const gapSpacing = hero.headline_subline_spacing ?? 1.5;
 >
   {/* Background: Vanilla CSS/JS – kein WebGL, kein Canvas */}
   <div class="hero__bg" aria-hidden="true">
+    {/* Optionaler Medien-Hintergrund: Video hat Vorrang vor Bild */}
+    {bgVideo && (
+      <video
+        class="hero__media"
+        src={bgVideo}
+        autoplay
+        muted
+        loop
+        playsinline
+      />
+    )}
+    {bgImage && (
+      <img class="hero__media" src={bgImage} alt="" />
+    )}
+    {hasOverlay && <div class="hero__media-overlay" />}
+
     <div class="hero__perspective">
       <div class="hero__deco-wrap">
         <span class="hero__deco-text hero__deco-text--dim">SMART<br />CATERING</span>
@@ -149,6 +178,23 @@ const gapSpacing = hero.headline_subline_spacing ?? 1.5;
     overflow: hidden;
     pointer-events: none;
     background-color: var(--color-bg-app);
+  }
+
+  /* Optionaler Medien-Hintergrund (Video oder Bild) */
+  .hero__media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  /* Dunkles Overlay damit Deko-Text und Foreground lesbar bleiben */
+  .hero__media-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.45);
   }
 
   /* Perspective-Container: gibt dem Kind-Element den 3D-Kontext */

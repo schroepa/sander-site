@@ -132,6 +132,45 @@ form:
                       label: Button Link
                       placeholder: "#kontakt"
 
+            hero_bg_media:
+              type: pagemedia
+              label: "Hero-Hintergrund hochladen (Bild oder Video)"
+
+            hero_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.hero.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild (optional)
+                      help: "Wird angezeigt wenn kein Video gesetzt ist."
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.hero.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo (optional)
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+
+            header.hero.background_overlay:
+              type: toggle
+              label: Dunkles Overlay über Hintergrund
+              highlight: 1
+              default: 1
+              options:
+                1: PLUGIN_ADMIN.ENABLED
+                0: PLUGIN_ADMIN.DISABLED
+              validate:
+                type: bool
+
             # ── Stats / Kennzahlen ──
             stats_section:
               type: section
