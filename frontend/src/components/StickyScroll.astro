@@ -231,7 +231,8 @@ function renderMarkdown(text: string | undefined) {
   /* Dropdown styling */
   .dropdown-wrapper {
     position: relative;
-    width: 343px;
+    width: 100%;
+    max-width: 343px;
   }
 
   .dropdown-trigger {
@@ -256,6 +257,10 @@ function renderMarkdown(text: string | undefined) {
     font-size: var(--text-body-sm);
     color: var(--color-text-primary);
     letter-spacing: 0.25px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    min-width: 0;
   }
 
   .dropdown-menu {
@@ -474,11 +479,17 @@ function renderMarkdown(text: string | undefined) {
       );
     }
 
+    function setActiveCard(activeCard: HTMLElement) {
+      cards.forEach((c) => c.classList.remove("active"));
+      activeCard.classList.add("active");
+    }
+
     // Set initial scroll to the first element of the middle set
     const middleFirstCard = cards[uniqueCardsCount] as HTMLElement;
     if (middleFirstCard) {
       scrollContainer.style.scrollSnapType = "none";
       scrollContainer.scrollTop = getSnapPosition(middleFirstCard);
+      setActiveCard(middleFirstCard);
       setTimeout(() => {
         if (scrollContainer)
           scrollContainer.style.scrollSnapType = "y mandatory";
@@ -505,18 +516,28 @@ function renderMarkdown(text: string | undefined) {
       // Midpoint between last item of middle set and first item of third set
       const maxScroll = Math.ceil((snapCard2NMinus1 + snapCard2N) / 2);
 
+      function teleport(delta: number) {
+        scrollContainer!.style.scrollSnapType = "none";
+        scrollContainer!.scrollTop += delta;
+        // Find the card closest to center after teleport and mark it active
+        const center = scrollContainer!.scrollTop + scrollContainer!.clientHeight / 2;
+        let closest: HTMLElement | null = null;
+        let minDist = Infinity;
+        cards.forEach((c) => {
+          const el = c as HTMLElement;
+          const dist = Math.abs(el.offsetTop + el.clientHeight / 2 - center);
+          if (dist < minDist) { minDist = dist; closest = el; }
+        });
+        if (closest) setActiveCard(closest);
+        setTimeout(() => {
+          scrollContainer!.style.scrollSnapType = "y mandatory";
+        }, 0);
+      }
+
       if (scrollContainer.scrollTop <= minScroll) {
-        scrollContainer.style.scrollSnapType = "none";
-        scrollContainer.scrollTop += setHeight;
-        setTimeout(() => {
-          scrollContainer.style.scrollSnapType = "y mandatory";
-        }, 0);
+        teleport(setHeight);
       } else if (scrollContainer.scrollTop >= maxScroll) {
-        scrollContainer.style.scrollSnapType = "none";
-        scrollContainer.scrollTop -= setHeight;
-        setTimeout(() => {
-          scrollContainer.style.scrollSnapType = "y mandatory";
-        }, 0);
+        teleport(-setHeight);
       }
     });
 
