@@ -14,47 +14,19 @@ const gapSpacing = hero.headline_subline_spacing ?? 1.5;
 ---
 
 <section
-  class="relative min-h-screen flex items-center justify-center"
+  class="hero-section relative min-h-screen flex items-center justify-center"
   style="background-color: var(--color-bg-app); color: var(--color-text-primary);"
 >
-  <div
-    class="absolute inset-0 z-0 overflow-hidden"
-    style="width: 100%; height: 100%; pointer-events: none;"
-  >
-    <div
-      data-us-project-src="/unicorn-hero.json"
-      style="width:100%; height: 100%"
-    >
+  {/* Background: Vanilla CSS/JS – kein WebGL, kein Canvas */}
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__perspective">
+      <div class="hero__deco-wrap">
+        <span class="hero__deco-text hero__deco-text--dim">SMART<br />CATERING</span>
+        <span class="hero__deco-text hero__deco-text--lit">SMART<br />CATERING</span>
+        <span class="hero__deco-text hero__deco-text--shadow">SMART<br />CATERING</span>
+      </div>
     </div>
-    <script type="text/javascript" is:inline>
-      !(function () {
-        var u = window.UnicornStudio;
-        if (u && u.init) {
-          if (document.readyState === "loading") {
-            document.addEventListener("DOMContentLoaded", function () {
-              u.init();
-            });
-          } else {
-            u.init();
-          }
-        } else {
-          window.UnicornStudio = { isInitialized: !1 };
-          var i = document.createElement("script");
-          ((i.src =
-            "https://cdn.jsdelivr.net/gh/hiunicornstudio/unicornstudio.js@v2.0.5/dist/unicornStudio.umd.js"),
-            (i.onload = function () {
-              if (document.readyState === "loading") {
-                document.addEventListener("DOMContentLoaded", function () {
-                  UnicornStudio.init();
-                });
-              } else {
-                UnicornStudio.init();
-              }
-            }),
-            (document.head || document.body).appendChild(i));
-        }
-      })();
-    </script>
+    <div class="hero__spotlight"></div>
   </div>
 
   {/* Foreground content */}
@@ -110,3 +82,163 @@ const gapSpacing = hero.headline_subline_spacing ?? 1.5;
     <SanderLogoHero />
   </div>
 </section>
+
+<script is:inline>
+  (function () {
+    var section = document.querySelector(".hero-section");
+    var decoWrap = section && section.querySelector(".hero__deco-wrap");
+    var spotlight = section && section.querySelector(".hero__spotlight");
+    var litText = section && section.querySelector(".hero__deco-text--lit");
+    if (!section || !decoWrap || !spotlight || !litText) return;
+
+    var targetX = 0.5,
+      targetY = 0.5;
+    var currentX = 0.5,
+      currentY = 0.5;
+    var rafId = null;
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t;
+    }
+
+    function tick() {
+      currentX = lerp(currentX, targetX, 0.06);
+      currentY = lerp(currentY, targetY, 0.06);
+
+      var rx = (currentY - 0.5) * 10;
+      var ry = (currentX - 0.5) * -10;
+      decoWrap.style.transform =
+        "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
+
+      spotlight.style.setProperty("--mx", currentX * 100 + "%");
+      spotlight.style.setProperty("--my", currentY * 100 + "%");
+
+      if (
+        Math.abs(currentX - targetX) > 0.0005 ||
+        Math.abs(currentY - targetY) > 0.0005
+      ) {
+        rafId = requestAnimationFrame(tick);
+      } else {
+        rafId = null;
+      }
+    }
+
+    section.addEventListener("mousemove", function (e) {
+      var rect = section.getBoundingClientRect();
+      targetX = (e.clientX - rect.left) / rect.width;
+      targetY = (e.clientY - rect.top) / rect.height;
+      if (!rafId) rafId = requestAnimationFrame(tick);
+
+      // Taschenlampe: Koordinaten relativ zum lit-Element selbst
+      var litRect = litText.getBoundingClientRect();
+      litText.style.setProperty("--lx", e.clientX - litRect.left + "px");
+      litText.style.setProperty("--ly", e.clientY - litRect.top + "px");
+    });
+
+    section.addEventListener("mouseleave", function () {
+      litText.style.setProperty("--lx", "-9999px");
+      litText.style.setProperty("--ly", "-9999px");
+    });
+  })();
+</script>
+
+<style>
+  .hero__bg {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    background-color: var(--color-bg-app);
+  }
+
+  /* Perspective-Container: gibt dem Kind-Element den 3D-Kontext */
+  .hero__perspective {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    perspective: 900px;
+  }
+
+  /* Wird per JS mit rotateX/rotateY animiert */
+  .hero__deco-wrap {
+    position: relative;
+    width: 120%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    will-change: transform;
+  }
+
+  .hero__deco-text {
+    font-family: var(--font-heading);
+    font-weight: 900;
+    text-align: center;
+    line-height: 0.81;
+    user-select: none;
+    pointer-events: none;
+    font-size: 294px;
+  }
+
+  /* Ambient-Layer: immer sichtbar, gedimmt */
+  .hero__deco-text--dim {
+    color: #ad94a5;
+    opacity: 0.3;
+  }
+
+  /* Lit-Layer: volle Helligkeit, nur im Taschenlampen-Radius sichtbar */
+  .hero__deco-text--lit {
+    position: absolute;
+    color: #ad94a5;
+    --lx: -9999px;
+    --ly: -9999px;
+    -webkit-mask-image: radial-gradient(
+      circle 260px at var(--lx) var(--ly),
+      black 0%,
+      black 30%,
+      transparent 70%
+    );
+    mask-image: radial-gradient(
+      circle 260px at var(--lx) var(--ly),
+      black 0%,
+      black 30%,
+      transparent 70%
+    );
+  }
+
+  /* Shadow-Layer: liegt absolut über dem Dim-Text */
+  .hero__deco-text--shadow {
+    position: absolute;
+    color: #745c6c;
+    opacity: 0.16;
+  }
+
+  /* Tablet */
+  @media (min-width: 576px) and (max-width: 991px) {
+    .hero__deco-text {
+      font-size: 365px;
+    }
+  }
+
+  /* Mobile */
+  @media (max-width: 575px) {
+    .hero__deco-text {
+      font-size: 179px;
+    }
+  }
+
+  /* Spotlight folgt der Maus via CSS Custom Properties */
+  .hero__spotlight {
+    --mx: 50%;
+    --my: 50%;
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 55% 45% at var(--mx) var(--my),
+      rgba(173, 148, 165, 0.1) 0%,
+      transparent 70%
+    );
+    pointer-events: none;
+  }
+</style>
