@@ -10,7 +10,11 @@ const { data } = Astro.props;
 
 // If a background image is specified from Grav, we build the path.
 // The blueprint saves the filename. We assume it's located in the user/pages/01.home folder.
-const bgImage = data.background_image
+const bgVideo = data.background_video
+    ? `${GRAV_MEDIA_BASE}/${data.background_video.split('/').pop()}`
+    : null;
+
+const bgImage = !bgVideo && data.background_image
     ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
     : null;
 
@@ -29,19 +33,30 @@ const hasOverlay =
     class="relative w-full py-[var(--space-800)] md:py-[var(--space-1000)] px-[var(--space-200)] md:px-[var(--space-800)]"
     style="background-color: var(--color-bg-app);"
 >
-    {/* Background Image / Overlay */}
+    {/* Background Image / Video / Overlay */}
     {
-        bgImage && (
+        (bgVideo || bgImage) && (
             <div
                 class="absolute inset-0 pointer-events-none"
                 aria-hidden="true"
             >
-                <img
-                    src={bgImage}
-                    alt=""
-                    class={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isGrayscale ? "grayscale" : ""}`}
-                />
-
+                {bgVideo && (
+                    <video
+                        src={bgVideo}
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        class={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isGrayscale ? "grayscale" : ""}`}
+                    />
+                )}
+                {bgImage && (
+                    <img
+                        src={bgImage}
+                        alt=""
+                        class={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isGrayscale ? "grayscale" : ""}`}
+                    />
+                )}
                 {hasOverlay && (
                     <div
                         class="absolute inset-0"

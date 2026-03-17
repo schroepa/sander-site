@@ -9,7 +9,7 @@ interface Props {
 const { data } = Astro.props;
 const { headline, items = [] } = data;
 
-function resolveImage(raw: string | object | undefined): string {
+function resolveMedia(raw: string | object | undefined): string {
   if (!raw) return "";
   if (typeof raw === "object")
     return `${GRAV_MEDIA_BASE}/${Object.keys(raw)[0]}`;
@@ -23,10 +23,20 @@ function resolveImage(raw: string | object | undefined): string {
     <div class="fsslider__container">
       {
         items.map((item, index) => {
-          const imageUrl = resolveImage(item.image);
+          const videoUrl = resolveMedia(item.video);
+          const imageUrl = !videoUrl ? resolveMedia(item.image) : "";
           return (
             <div class={`fsslider__slide${index === 0 ? " is-active" : ""}`}>
-              {imageUrl && (
+              {videoUrl ? (
+                <video
+                  src={videoUrl}
+                  autoplay
+                  muted
+                  loop
+                  playsinline
+                  class="fsslider__bg"
+                />
+              ) : imageUrl ? (
                 <img
                   src={imageUrl}
                   alt={item.title}
@@ -34,7 +44,7 @@ function resolveImage(raw: string | object | undefined): string {
                   loading="lazy"
                   decoding="async"
                 />
-              )}
+              ) : null}
               <div class="fsslider__scrim" />
               <div class="fsslider__content">
                 {headline && index === 0 && (

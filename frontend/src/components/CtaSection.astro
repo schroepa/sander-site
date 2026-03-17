@@ -9,7 +9,11 @@ interface Props {
 const { data } = Astro.props;
 if (!data) return null;
 
-const bgImage = data.background_image
+const bgVideo = data.background_video
+  ? `${GRAV_MEDIA_BASE}/${data.background_video.split('/').pop()}`
+  : null;
+
+const bgImage = !bgVideo && data.background_image
   ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
   : null;
 
@@ -27,9 +31,14 @@ const hasOverlay =
   class="w-full relative overflow-hidden py-16 md:py-20 lg:py-24 px-6 md:px-16 lg:px-[113px] flex items-center justify-center bg-[var(--color-bg-cta-section)]"
   id="kontakt"
 >
-  {bgImage && (
+  {(bgVideo || bgImage) && (
     <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
-      <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      {bgVideo && (
+        <video src={bgVideo} autoplay muted loop playsinline class="absolute inset-0 w-full h-full object-cover" />
+      )}
+      {bgImage && (
+        <img src={bgImage} alt="" class="absolute inset-0 w-full h-full object-cover" />
+      )}
       {hasOverlay && (
         <div class="absolute inset-0" style="background-color: var(--color-background-overlay);" />
       )}
