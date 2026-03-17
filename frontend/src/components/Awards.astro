@@ -10,7 +10,7 @@ const { data } = Astro.props;
 const items = data.items ?? [];
 
 const bgImage = data.background_image
-    ? `${GRAV_MEDIA_BASE}/${data.background_image.split('/').pop()}`
+    ? `${GRAV_MEDIA_BASE}/${data.background_image.split("/").pop()}`
     : null;
 
 const hasOverlay =
@@ -20,12 +20,14 @@ const hasOverlay =
 ---
 
 <section class="awards" id="auszeichnungen">
-    {bgImage && (
-        <div class="awards__bg" aria-hidden="true">
-            <img src={bgImage} alt="" class="awards__video" />
-            {hasOverlay && <div class="awards__overlay" />}
-        </div>
-    )}
+    {
+        bgImage && (
+            <div class="awards__bg" aria-hidden="true">
+                <img src={bgImage} alt="" class="awards__video" />
+                {hasOverlay && <div class="awards__overlay" />}
+            </div>
+        )
+    }
     <div class="awards__inner">
         {data.headline && <h2 class="awards__headline">{data.headline}</h2>}
 
@@ -34,7 +36,7 @@ const hasOverlay =
                 <div class="awards__grid">
                     {items.map((item) => {
                         const imgSrc = item.image
-                            ? `${GRAV_MEDIA_BASE}/${item.image.split('/').pop()}`
+                            ? `${GRAV_MEDIA_BASE}/${item.image.split("/").pop()}`
                             : null;
                         return (
                             <div class="awards__item">
@@ -87,7 +89,7 @@ const hasOverlay =
     .awards {
         position: relative;
         overflow: hidden;
-        padding: 0 var(--space-800) var(--space-1000);
+        padding: var(--space-800) var(--space-800) var(--space-1000);
     }
 
     /* ─── Background wrapper ─── */
