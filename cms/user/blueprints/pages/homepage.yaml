@@ -160,16 +160,36 @@ form:
                         - .webm
                       help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
-            header.hero.background_overlay:
-              type: toggle
-              label: Dunkles Overlay über Hintergrund
-              highlight: 1
-              default: 1
-              options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
-              validate:
-                type: bool
+            hero_bg_options_columns:
+              type: columns
+              fields:
+                col_overlay:
+                  type: column
+                  fields:
+                    header.hero.background_overlay:
+                      type: toggle
+                      label: Overlay aktivieren
+                      highlight: 1
+                      default: 1
+                      options:
+                        1: PLUGIN_ADMIN.ENABLED
+                        0: PLUGIN_ADMIN.DISABLED
+                      validate:
+                        type: bool
+                col_desaturate:
+                  type: column
+                  fields:
+                    header.hero.background_desaturate:
+                      type: toggle
+                      label: Medium entsättigen
+                      highlight: 1
+                      default: 0
+                      help: "Wandelt Bild/Video in Graustufen um – der farbige Overlay tönt es dann in den Markenton."
+                      options:
+                        1: PLUGIN_ADMIN.ENABLED
+                        0: PLUGIN_ADMIN.DISABLED
+                      validate:
+                        type: bool
 
             # ── Stats / Kennzahlen ──
             stats_section:
