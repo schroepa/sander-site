@@ -160,6 +160,13 @@ form:
                         - .webm
                       help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
 
+                    header.hero.background_video_speed:
+                      type: text
+                      label: Video-Geschwindigkeit
+                      placeholder: "1.0"
+                      default: "1.0"
+                      help: "Wiedergabegeschwindigkeit: 0.5 = halbe Geschwindigkeit, 1.0 = normal, 2.0 = doppelt."
+
             hero_bg_options_columns:
               type: columns
               fields:

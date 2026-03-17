@@ -45,6 +45,7 @@ const isDesaturated =
         muted
         loop
         playsinline
+        data-speed={hero.background_video_speed ?? 1}
       />
     )}
     {bgImage && (
@@ -176,6 +177,13 @@ const isDesaturated =
       litText.style.setProperty("--lx", "-9999px");
       litText.style.setProperty("--ly", "-9999px");
     });
+
+    // Video-Geschwindigkeit via data-speed Attribut
+    var video = section.querySelector("video.hero__media");
+    if (video) {
+      var speed = parseFloat(video.dataset.speed);
+      if (!isNaN(speed) && speed > 0) video.playbackRate = speed;
+    }
   })();
 </script>
 
