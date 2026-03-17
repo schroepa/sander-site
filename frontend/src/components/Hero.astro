@@ -24,6 +24,10 @@ const hasOverlay =
   hero.background_overlay !== false &&
   hero.background_overlay !== 0 &&
   hero.background_overlay !== "0";
+const isDesaturated =
+  hero.background_desaturate === true ||
+  hero.background_desaturate === 1 ||
+  hero.background_desaturate === "1";
 ---
 
 <section
@@ -35,7 +39,7 @@ const hasOverlay =
     {/* Optionaler Medien-Hintergrund: Video hat Vorrang vor Bild */}
     {bgVideo && (
       <video
-        class="hero__media"
+        class={`hero__media${isDesaturated ? " hero__media--desaturate" : ""}`}
         src={bgVideo}
         autoplay
         muted
@@ -44,7 +48,11 @@ const hasOverlay =
       />
     )}
     {bgImage && (
-      <img class="hero__media" src={bgImage} alt="" />
+      <img
+        class={`hero__media${isDesaturated ? " hero__media--desaturate" : ""}`}
+        src={bgImage}
+        alt=""
+      />
     )}
     {hasOverlay && <div class="hero__media-overlay" />}
 
@@ -190,11 +198,17 @@ const hasOverlay =
     object-position: center;
   }
 
-  /* Dunkles Overlay damit Deko-Text und Foreground lesbar bleiben */
+  /* Overlay in der Markenfarbe aus den Design-Tokens */
   .hero__media-overlay {
     position: absolute;
     inset: 0;
-    background-color: rgba(0, 0, 0, 0.45);
+    background-color: var(--color-bg-overlay);
+  }
+
+  /* Entsättigt das Medium – kombiniert mit dem farbigen Overlay
+     ergibt sich automatisch der Aubergine-Ton der Marke */
+  .hero__media--desaturate {
+    filter: grayscale(100%);
   }
 
   /* Perspective-Container: gibt dem Kind-Element den 3D-Kontext */
