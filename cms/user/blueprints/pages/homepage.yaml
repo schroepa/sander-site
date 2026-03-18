@@ -457,6 +457,29 @@ form:
                           label: Karten-Text
                           rows: 3
 
+                    .accordion_bg_image:
+                      type: mediapicker
+                      label: Hintergrundbild (Optional)
+                      help: "Bild zuerst oben über 'Hintergrundbild hochladen' hochladen, dann hier auswählen"
+
+                    .accordion_bg_overlay:
+                      type: toggle
+                      label: Overlay aktivieren
+                      highlight: 1
+                      default: true
+                      options:
+                        1: PLUGIN_ADMIN.YES
+                        0: PLUGIN_ADMIN.NO
+
+                    .accordion_bg_desaturate:
+                      type: toggle
+                      label: Entsättigung (Grayscale)
+                      highlight: 1
+                      default: false
+                      options:
+                        1: PLUGIN_ADMIN.YES
+                        0: PLUGIN_ADMIN.NO
+
             smart_catering_bg_media:
               type: pagemedia
               label: "Hintergrundbild oder -video hochladen"
