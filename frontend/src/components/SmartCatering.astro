@@ -101,7 +101,7 @@ const hasOverlay =
                   </button>
                   <div class="smart-catering__accordion-content-wrapper">
                     <div class="smart-catering__accordion-content">
-                      <div class="smart-catering__accordion-inner">
+                      <div class={`smart-catering__accordion-inner${accBgImage ? " smart-catering__accordion-inner--has-bg" : ""}`}>
                         {accBgImage && (
                           <div class="smart-catering__accordion-bg" aria-hidden="true">
                             <img
@@ -415,6 +415,11 @@ const hasOverlay =
     gap: var(--space-300);
   }
 
+  /* Wenn ein Hintergrundbild gesetzt ist: Abstand oben */
+  .smart-catering__accordion-inner--has-bg .smart-catering__accordion-inner-content {
+    padding-top: var(--space-300);
+  }
+
   .smart-catering__accordion-image {
     width: 100%;
     aspect-ratio: 16 / 9;
@@ -537,6 +542,9 @@ const hasOverlay =
     }
     .smart-catering__accordion-inner-content {
       padding: 0 16px 16px 16px;
+    }
+    .smart-catering__accordion-inner--has-bg .smart-catering__accordion-inner-content {
+      padding-top: 16px;
     }
   }
 </style>
