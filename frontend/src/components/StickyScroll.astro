@@ -420,6 +420,10 @@ function renderMarkdown(text: string | undefined) {
     .fade-bottom {
       display: none;
     }
+
+    .dropdown-wrapper {
+      max-width: 100%;
+    }
   }
 
   @media (max-width: 768px) {
@@ -431,7 +435,7 @@ function renderMarkdown(text: string | undefined) {
 
   @media (max-width: 640px) {
     .card {
-      padding: var(--space-300) var(--space-400);
+      padding: var(--space-300) var(--space-200);
       height: auto;
       min-height: 250px;
     }
@@ -496,9 +500,25 @@ function renderMarkdown(text: string | undefined) {
       }, 50);
     }
 
+    // Helper: find card closest to center and mark it active
+    function updateActiveCardByCenter() {
+      const center = scrollContainer!.scrollTop + scrollContainer!.clientHeight / 2;
+      let closest: HTMLElement | null = null;
+      let minDist = Infinity;
+      cards.forEach((c) => {
+        const el = c as HTMLElement;
+        const dist = Math.abs(el.offsetTop + el.clientHeight / 2 - center);
+        if (dist < minDist) { minDist = dist; closest = el; }
+      });
+      if (closest) setActiveCard(closest);
+    }
+
     // Teleport logic on scroll to create the illusion of infinite scrolling
     scrollContainer.addEventListener("scroll", () => {
       if (cards.length < 3) return;
+
+      // Always keep the closest card active – prevents transparent state on fast scroll
+      updateActiveCardByCenter();
 
       const snapCardN = getSnapPosition(cards[uniqueCardsCount] as HTMLElement);
       const snapCardNMinus1 = getSnapPosition(
@@ -519,16 +539,7 @@ function renderMarkdown(text: string | undefined) {
       function teleport(delta: number) {
         scrollContainer!.style.scrollSnapType = "none";
         scrollContainer!.scrollTop += delta;
-        // Find the card closest to center after teleport and mark it active
-        const center = scrollContainer!.scrollTop + scrollContainer!.clientHeight / 2;
-        let closest: HTMLElement | null = null;
-        let minDist = Infinity;
-        cards.forEach((c) => {
-          const el = c as HTMLElement;
-          const dist = Math.abs(el.offsetTop + el.clientHeight / 2 - center);
-          if (dist < minDist) { minDist = dist; closest = el; }
-        });
-        if (closest) setActiveCard(closest);
+        updateActiveCardByCenter();
         setTimeout(() => {
           scrollContainer!.style.scrollSnapType = "y mandatory";
         }, 0);
@@ -575,10 +586,7 @@ function renderMarkdown(text: string | undefined) {
               const card = entry.target as HTMLElement;
               const index = card.dataset.index;
 
-              // Update active state on the cards themselves
-              cards.forEach((c) => c.classList.remove("active"));
-              card.classList.add("active");
-
+              // Only update dropdown label – active card class is managed by scroll handler
               const matchingDropdownItem = document.querySelector(
                 `.dropdown-item[data-index="${index}"]`,
               );
@@ -587,7 +595,6 @@ function renderMarkdown(text: string | undefined) {
                 activeLabel.textContent =
                   matchingDropdownItem.textContent || "";
 
-                // Update active state in dropdown list
                 dropdownItems.forEach((i) => i.classList.remove("active"));
                 matchingDropdownItem.classList.add("active");
               }
@@ -596,7 +603,7 @@ function renderMarkdown(text: string | undefined) {
         },
         {
           root: scrollContainer,
-          threshold: 0.6, // Trigger when 60% of the card is visible
+          threshold: 0.6,
         },
       );
 
