@@ -519,9 +519,6 @@ function renderMarkdown(text: string | undefined) {
     scrollContainer.addEventListener("scroll", () => {
       if (cards.length < 3) return;
 
-      // Always keep the closest card active – prevents transparent state on fast scroll
-      updateActiveCardByCenter();
-
       const snapCardN = getSnapPosition(cards[uniqueCardsCount] as HTMLElement);
       const snapCardNMinus1 = getSnapPosition(
         cards[uniqueCardsCount - 1] as HTMLElement,
@@ -552,6 +549,11 @@ function renderMarkdown(text: string | undefined) {
       } else if (scrollContainer.scrollTop >= maxScroll) {
         teleport(-setHeight);
       }
+    });
+
+    // Update active card after scroll snap has fully settled
+    scrollContainer.addEventListener("scrollend", () => {
+      updateActiveCardByCenter();
     });
 
     // Handle Dropdown Item Click
