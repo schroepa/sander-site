@@ -109,6 +109,9 @@ export interface SmartCateringAccordion {
     content?: string;
     image?: string;
     cards?: SmartCateringCard[];
+    accordion_bg_image?: string;
+    accordion_bg_overlay?: boolean | number | string;
+    accordion_bg_desaturate?: boolean | number | string;
 }
 
 /** A single smart catering column */

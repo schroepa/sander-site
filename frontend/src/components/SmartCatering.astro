@@ -56,7 +56,20 @@ const hasOverlay =
             </div>
 
             <div class="smart-catering__accordions">
-              {column.accordions?.map((accordion, accIndex) => (
+              {column.accordions?.map((accordion, accIndex) => {
+                const accBgImage = accordion.accordion_bg_image
+                  ? `${GRAV_MEDIA_BASE}/${accordion.accordion_bg_image.split('/').pop()}`
+                  : null;
+                const accHasOverlay =
+                  accBgImage &&
+                  accordion.accordion_bg_overlay !== false &&
+                  accordion.accordion_bg_overlay !== 0 &&
+                  accordion.accordion_bg_overlay !== "0";
+                const accIsDesaturated =
+                  accordion.accordion_bg_desaturate === true ||
+                  accordion.accordion_bg_desaturate === 1 ||
+                  accordion.accordion_bg_desaturate === "1";
+                return (
                 <div
                   class="smart-catering__accordion group"
                   id={`smart-${colIndex + 1}-${accIndex + 1}`}
@@ -89,39 +102,54 @@ const hasOverlay =
                   <div class="smart-catering__accordion-content-wrapper">
                     <div class="smart-catering__accordion-content">
                       <div class="smart-catering__accordion-inner">
-                        {accordion.image && (
-                          <img
-                            src={`${GRAV_MEDIA_BASE}/${accordion.image.split('/').pop()}`}
-                            alt=""
-                            class="smart-catering__accordion-image"
-                          />
-                        )}
-                        {accordion.content && (
-                          <div
-                            class="smart-catering__accordion-text markdown-content"
-                            set:html={accordion.content}
-                          />
-                        )}
-
-                        {accordion.cards && accordion.cards.length > 0 && (
-                          <div class="smart-catering__cards">
-                            {accordion.cards.map((card) => (
-                              <div class="smart-catering__card">
-                                <h4 class="smart-catering__card-title">
-                                  {card.title}
-                                </h4>
-                                <p class="smart-catering__card-text">
-                                  {card.text}
-                                </p>
-                              </div>
-                            ))}
+                        {accBgImage && (
+                          <div class="smart-catering__accordion-bg" aria-hidden="true">
+                            <img
+                              src={accBgImage}
+                              alt=""
+                              class={`smart-catering__accordion-bg-media${accIsDesaturated ? " smart-catering__accordion-bg-media--desaturate" : ""}`}
+                            />
+                            {accHasOverlay && (
+                              <div class="smart-catering__accordion-bg-overlay" />
+                            )}
                           </div>
                         )}
+                        <div class="smart-catering__accordion-inner-content">
+                          {accordion.image && (
+                            <img
+                              src={`${GRAV_MEDIA_BASE}/${accordion.image.split('/').pop()}`}
+                              alt=""
+                              class="smart-catering__accordion-image"
+                            />
+                          )}
+                          {accordion.content && (
+                            <div
+                              class="smart-catering__accordion-text markdown-content"
+                              set:html={accordion.content}
+                            />
+                          )}
+
+                          {accordion.cards && accordion.cards.length > 0 && (
+                            <div class="smart-catering__cards">
+                              {accordion.cards.map((card) => (
+                                <div class="smart-catering__card">
+                                  <h4 class="smart-catering__card-title">
+                                    {card.title}
+                                  </h4>
+                                  <p class="smart-catering__card-text">
+                                    {card.text}
+                                  </p>
+                                </div>
+                              ))}
+                            </div>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         ))
@@ -345,6 +373,42 @@ const hasOverlay =
   }
 
   .smart-catering__accordion-inner {
+    position: relative;
+    overflow: hidden;
+    padding: 0;
+  }
+
+  /* Hintergrundbild-Schicht */
+  .smart-catering__accordion-bg {
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .smart-catering__accordion-bg-media {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .smart-catering__accordion-bg-media--desaturate {
+    filter: grayscale(100%);
+  }
+
+  .smart-catering__accordion-bg-overlay {
+    position: absolute;
+    inset: 0;
+    background-color: var(--color-bg-overlay);
+  }
+
+  /* Eigentlicher Inhalt liegt über dem Hintergrund */
+  .smart-catering__accordion-inner-content {
+    position: relative;
+    z-index: 1;
     padding: 0 var(--space-500) var(--space-300) var(--space-500);
     display: flex;
     flex-direction: column;
@@ -471,7 +535,7 @@ const hasOverlay =
     .smart-catering__accordion-summary {
       padding: var(--space-300) 16px;
     }
-    .smart-catering__accordion-inner {
+    .smart-catering__accordion-inner-content {
       padding: 0 16px 16px 16px;
     }
   }
