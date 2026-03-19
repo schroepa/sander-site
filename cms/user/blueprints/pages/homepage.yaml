@@ -198,11 +198,29 @@ form:
                       validate:
                         type: bool
 
-            header.hero.deco_color:
-              type: colorpicker
-              label: Hintergrundschrift-Farbe
-              default: "#ad94a5"
-              help: "Farbe des dekorativen Schriftzugs im Hintergrund."
+            hero_deco_columns:
+              type: columns
+              fields:
+                col_deco_color:
+                  type: column
+                  fields:
+                    header.hero.deco_color:
+                      type: colorpicker
+                      label: Hintergrundschrift-Farbe
+                      default: "#ad94a5"
+                      help: "Farbe des dekorativen Schriftzugs im Hintergrund."
+                col_deco_width:
+                  type: column
+                  fields:
+                    header.hero.deco_width:
+                      type: number
+                      label: Breite (vw)
+                      placeholder: "110"
+                      default: 110
+                      help: "Breite des SVG in Viewport-Einheiten (vw). 100 = Vollbreite, 110 = 10% überbreit."
+                      validate:
+                        min: 50
+                        max: 300
 
             # ── Stats / Kennzahlen ──
             stats_section:
