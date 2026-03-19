@@ -198,6 +198,12 @@ form:
                       validate:
                         type: bool
 
+            header.hero.deco_color:
+              type: colorpicker
+              label: Hintergrundschrift-Farbe
+              default: "#ad94a5"
+              help: "Farbe des dekorativen Schriftzugs im Hintergrund."
+
             # ── Stats / Kennzahlen ──
             stats_section:
               type: section

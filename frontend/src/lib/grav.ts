@@ -61,6 +61,7 @@ export interface HeroData {
     background_overlay?: boolean | number | string;
     background_desaturate?: boolean | number | string;
     background_video_speed?: string | number;
+    deco_color?: string;
 }
 
 /** A single challenge/solution pair */
