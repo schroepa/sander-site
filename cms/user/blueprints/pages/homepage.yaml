@@ -10,21 +10,19 @@ form:
       active: 1
 
       fields:
-        content:
+
+        # ═══════════════════════════════════════════
+        # TAB: Reihenfolge
+        # ═══════════════════════════════════════════
+        tab_order:
           type: tab
-          title: Content
+          title: "🔢 Reihenfolge"
 
           fields:
-            # ── Section Order ──
-            section_order_section:
-              type: section
-              title: "🔢 Reihenfolge der Sections"
-              underline: true
-
-            section_order_help:
+            order_info:
               type: display
               label: ""
-              content: "Ziehe die Einträge per **Drag & Drop** (≡) in die gewünschte Reihenfolge. Die Seite wird genau in dieser Reihenfolge aufgebaut."
+              content: "Ziehe die Einträge per **Drag & Drop** (≡) in die gewünschte Reihenfolge. Die Seite wird genau in dieser Abfolge aufgebaut."
               markdown: true
 
             header.section_order:
@@ -56,23 +54,30 @@ form:
                     split_sections: "🖼️ Split Sections"
                     cards_section: "🗂️ Karten-Grid"
 
-            # ── Hero ──
-            hero_section:
+        # ═══════════════════════════════════════════
+        # TAB: Hero
+        # ═══════════════════════════════════════════
+        tab_hero:
+          type: tab
+          title: "🎬 Hero"
+
+          fields:
+            hero_content_divider:
               type: section
-              title: "🎬 Hero"
+              title: "Texte"
               underline: true
 
             header.hero.headline:
               type: text
               label: Headline
-              placeholder: "z.B. Premium Catering für jeden Anlass"
+              placeholder: "z.B. Betriebsgastronomie 4.0"
               validate:
                 required: true
 
             header.hero.subline:
               type: text
               label: Subline
-              placeholder: "z.B. Qualität, die man schmeckt"
+              placeholder: "z.B. Intelligent gelöst. Köstlich geliefert."
 
             hero_scale_columns:
               type: columns
@@ -82,32 +87,37 @@ form:
                   fields:
                     header.hero.headline_scale:
                       type: text
-                      label: Headline Scale
+                      label: Headline-Größe
                       placeholder: "1.0"
-                      help: "Vergrößert/verkleinert die Überschrift (z.B. 1.2 = 20% größer)."
+                      help: "Skalierungsfaktor (1.0 = normal, 1.2 = 20% größer)"
                       default: "1.0"
                 col_subline_scale:
                   type: column
                   fields:
                     header.hero.subline_scale:
                       type: text
-                      label: Subline Scale
+                      label: Subline-Größe
                       placeholder: "1.0"
-                      help: "Vergrößert/verkleinert die Unterüberschrift (z.B. 0.8 = 20% kleiner)."
+                      help: "Skalierungsfaktor (1.0 = normal, 0.8 = kleiner)"
                       default: "1.0"
                 col_spacing:
                   type: column
                   fields:
                     header.hero.headline_subline_spacing:
                       type: text
-                      label: Headline–Subline Abstand
+                      label: Abstand Headline–Subline
                       placeholder: "1.5"
-                      help: "Abstand in rem (z.B. 1.5 oder 2)."
+                      help: "In rem-Einheiten (z.B. 1.5 oder 2)"
                       default: "1.5"
+
+            hero_cta_divider:
+              type: section
+              title: "Call-to-Action Button"
+              underline: true
 
             header.hero.show_cta:
               type: toggle
-              label: Call-to-Action Button anzeigen
+              label: Button anzeigen
               highlight: 1
               default: 0
               options:
@@ -122,81 +132,20 @@ form:
                   fields:
                     header.hero.cta_text:
                       type: text
-                      label: Button Text
+                      label: Button-Text
                       placeholder: "z.B. Jetzt anfragen"
                 col_cta_link:
                   type: column
                   fields:
                     header.hero.cta_link:
                       type: text
-                      label: Button Link
+                      label: Button-Link
                       placeholder: "#kontakt"
 
-            hero_bg_media:
-              type: pagemedia
-              label: "Hero-Hintergrund hochladen (Bild oder Video)"
-
-            hero_bg_columns:
-              type: columns
-              fields:
-                col_bg_image:
-                  type: column
-                  fields:
-                    header.hero.background_image:
-                      type: mediapicker
-                      label: Hintergrundbild (optional)
-                      help: "Wird angezeigt wenn kein Video gesetzt ist."
-                col_bg_video:
-                  type: column
-                  fields:
-                    header.hero.background_video:
-                      type: filepicker
-                      label: Hintergrundvideo (optional)
-                      folder: "user://pages/01.home"
-                      accept:
-                        - video/mp4
-                        - video/webm
-                        - .mp4
-                        - .webm
-                      help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
-
-                    header.hero.background_video_speed:
-                      type: text
-                      label: Video-Geschwindigkeit
-                      placeholder: "1.0"
-                      default: "1.0"
-                      help: "Wiedergabegeschwindigkeit: 0.5 = halbe Geschwindigkeit, 1.0 = normal, 2.0 = doppelt."
-
-            hero_bg_options_columns:
-              type: columns
-              fields:
-                col_overlay:
-                  type: column
-                  fields:
-                    header.hero.background_overlay:
-                      type: toggle
-                      label: Overlay aktivieren
-                      highlight: 1
-                      default: 1
-                      options:
-                        1: PLUGIN_ADMIN.ENABLED
-                        0: PLUGIN_ADMIN.DISABLED
-                      validate:
-                        type: bool
-                col_desaturate:
-                  type: column
-                  fields:
-                    header.hero.background_desaturate:
-                      type: toggle
-                      label: Medium entsättigen
-                      highlight: 1
-                      default: 0
-                      help: "Wandelt Bild/Video in Graustufen um – der farbige Overlay tönt es dann in den Markenton."
-                      options:
-                        1: PLUGIN_ADMIN.ENABLED
-                        0: PLUGIN_ADMIN.DISABLED
-                      validate:
-                        type: bool
+            hero_deco_divider:
+              type: section
+              title: "Dekorativer Hintergrundschriftzug"
+              underline: true
 
             hero_deco_columns:
               type: columns
@@ -206,9 +155,9 @@ form:
                   fields:
                     header.hero.deco_color:
                       type: colorpicker
-                      label: Hintergrundschrift-Farbe
+                      label: Farbe
                       default: "#ad94a5"
-                      help: "Farbe des dekorativen Schriftzugs im Hintergrund."
+                      help: "Farbe des dekorativen SVG-Schriftzugs"
                 col_deco_width:
                   type: column
                   fields:
@@ -217,20 +166,98 @@ form:
                       label: Breite (vw)
                       placeholder: "110"
                       default: 110
-                      help: "Breite des SVG in Viewport-Einheiten (vw). 100 = Vollbreite, 110 = 10% überbreit."
+                      help: "100 = Vollbreite, 110 = 10% überbreit"
                       validate:
                         min: 50
                         max: 300
 
-            # ── Stats / Kennzahlen ──
-            stats_section:
+            hero_bg_divider:
               type: section
-              title: "📊 Kennzahlen"
+              title: "Hintergrund"
+              underline: true
+
+            hero_bg_media:
+              type: pagemedia
+              label: "Bild oder Video hochladen"
+
+            hero_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.hero.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.hero.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang vor Bild · stumm · Loop · Autoplay"
+
+                    header.hero.background_video_speed:
+                      type: text
+                      label: Videotempo
+                      placeholder: "1.0"
+                      default: "1.0"
+                      help: "0.5 = halbe Geschwindigkeit · 1.0 = normal · 2.0 = doppelt"
+
+            hero_bg_options:
+              type: columns
+              fields:
+                col_overlay:
+                  type: column
+                  fields:
+                    header.hero.background_overlay:
+                      type: toggle
+                      label: Dunkles Overlay
+                      highlight: 1
+                      default: 1
+                      options:
+                        1: An
+                        0: Aus
+                      validate:
+                        type: bool
+                col_desaturate:
+                  type: column
+                  fields:
+                    header.hero.background_desaturate:
+                      type: toggle
+                      label: Entsättigen (Graustufen)
+                      highlight: 1
+                      default: 0
+                      help: "Wandelt Bild/Video in Graustufen um"
+                      options:
+                        1: An
+                        0: Aus
+                      validate:
+                        type: bool
+
+        # ═══════════════════════════════════════════
+        # TAB: Kennzahlen
+        # ═══════════════════════════════════════════
+        tab_stats:
+          type: tab
+          title: "📊 Kennzahlen"
+
+          fields:
+            stats_content_divider:
+              type: section
+              title: "Kennzahlen"
               underline: true
 
             header.stats.items:
               type: list
-              label: Kennzahlen
+              label: Einträge
               style: vertical
               fields:
                 .value:
@@ -242,19 +269,17 @@ form:
 
                 .suffix:
                   type: text
-                  label: Suffix
+                  label: Suffix (z.B. + oder %)
                   placeholder: "+"
-                  help: "Zeichen nach der Zahl, z.B. '+' oder '%'"
 
                 .separator:
                   type: toggle
-                  label: Tausender-Trennzeichen
+                  label: Tausender-Trennzeichen (z.B. 2.500)
                   highlight: 1
                   default: 0
                   options:
                     1: Ja
                     0: Nein
-                  help: "Aktivieren für Zahlen wie 2.500"
 
                 .label:
                   type: text
@@ -263,62 +288,137 @@ form:
                   validate:
                     required: true
 
+            stats_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
+
             stats_bg_media:
               type: pagemedia
-              label: "Hintergrundbild oder -video hochladen"
+              label: "Bild oder Video hochladen"
 
-            header.stats.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.stats.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            stats_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.stats.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.stats.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.stats.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            # ── Solutions ──
-            solutions_section:
+        # ═══════════════════════════════════════════
+        # TAB: Menu Slider
+        # ═══════════════════════════════════════════
+        tab_menu_slider:
+          type: tab
+          title: "🎞️ Menu Slider"
+
+          fields:
+            menu_slider_content_divider:
               type: section
-              title: "✅ Herausforderungen & Lösungen"
+              title: "Inhalt"
+              underline: true
+
+            header.menu_slider.headline:
+              type: text
+              label: Überschrift
+              placeholder: "z.B. Unsere Menülinien im Überblick"
+
+            menu_slider_media:
+              type: pagemedia
+              label: "Bilder oder Videos für die Slides hochladen"
+
+            header.menu_slider.items:
+              type: list
+              label: Slides
+              style: vertical
+              fields:
+                .title:
+                  type: text
+                  label: Titel
+                  placeholder: "z.B. Regionale Küche"
+                  validate:
+                    required: true
+
+                .subtitle:
+                  type: text
+                  label: Untertitel
+                  placeholder: "z.B. Frisch aus der Region. Traditionell modern."
+
+                .image:
+                  type: mediapicker
+                  label: Bild (optional)
+                  help: "Fallback, wenn kein Video gesetzt ist"
+
+                .video:
+                  type: filepicker
+                  label: Video (optional)
+                  folder: "user://pages/01.home"
+                  accept:
+                    - video/mp4
+                    - video/webm
+                    - .mp4
+                    - .webm
+                  help: "Video hat Vorrang · stumm · Loop · Autoplay"
+
+        # ═══════════════════════════════════════════
+        # TAB: Lösungen
+        # ═══════════════════════════════════════════
+        tab_solutions:
+          type: tab
+          title: "✅ Lösungen"
+
+          fields:
+            solutions_content_divider:
+              type: section
+              title: "Texte"
               underline: true
 
             header.solutions.headline:
               type: text
               label: Überschrift
-              placeholder: "Deine Herausforderung - Unsere Lösungen"
+              placeholder: "Deine Herausforderung – Unsere Lösungen"
 
             header.solutions.subline:
               type: text
-              label: Unterüberschrift
+              label: Unterzeile
               placeholder: "Hier werden Sie geholfen"
 
             header.solutions.items:
               type: list
-              label: Challenge / Solution Paare
+              label: Herausforderung / Lösung Paare
               style: vertical
               fields:
                 .challenge_title:
                   type: text
                   label: Herausforderung – Titel
-                  placeholder: "z.B. Küche kaputt oder nicht vorhanden?"
+                  placeholder: "z.B. Küche nicht vorhanden?"
 
                 .challenge_text:
                   type: editor
@@ -333,105 +433,98 @@ form:
                   type: editor
                   label: Lösung – Beschreibung
 
+            solutions_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
+
             solutions_bg_media:
               type: pagemedia
-              label: "Hintergrundbild oder -video hochladen"
+              label: "Bild oder Video hochladen"
 
-            header.solutions.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.solutions.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            solutions_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.solutions.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.solutions.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.solutions.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            # ── Menu Slider ──
-            menu_slider_section:
+        # ═══════════════════════════════════════════
+        # TAB: Smart Catering
+        # ═══════════════════════════════════════════
+        tab_smart_catering:
+          type: tab
+          title: "🧑‍🍳 Smart Catering"
+
+          fields:
+            smart_catering_content_divider:
               type: section
-              title: "🎞️ Menu Slider"
+              title: "Texte"
               underline: true
 
-            header.menu_slider.headline:
-              type: text
-              label: Überschrift
-              placeholder: "z.B. Unsere Menülinien im Überblick"
-
-            menu_slider_media:
-              type: pagemedia
-              label: "Slider Bilder oder Videos hochladen"
-
-            header.menu_slider.items:
-              type: list
-              label: Slides
-              style: vertical
+            smart_catering_header_columns:
+              type: columns
               fields:
-                .title:
-                  type: text
-                  label: Slide Titel
-                  placeholder: "z.B. Regionale Küche"
-                  validate:
-                    required: true
+                col_overline:
+                  type: column
+                  fields:
+                    header.smart_catering.headline:
+                      type: text
+                      label: Überzeile
+                      placeholder: "Verantwortung & Entscheidungsdruck"
+                col_title:
+                  type: column
+                  fields:
+                    header.smart_catering.title:
+                      type: text
+                      label: Haupttitel
+                      placeholder: "SMART CATERING"
+                col_subline:
+                  type: column
+                  fields:
+                    header.smart_catering.subline:
+                      type: text
+                      label: Unterzeile
+                      placeholder: "Intelligent gelöst. Köstlich geliefert."
 
-                .subtitle:
-                  type: text
-                  label: Slide Untertitel
-                  placeholder: "z.B. Frisch aus der Region. Traditionell modern."
-
-                .image:
-                  type: mediapicker
-                  label: Bild auswählen (optional)
-                  help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-                .video:
-                  type: filepicker
-                  label: Video auswählen (optional)
-                  folder: "user://pages/01.home"
-                  accept:
-                    - video/mp4
-                    - video/webm
-                    - .mp4
-                    - .webm
-                  help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
-
-            # ── Smart Catering ──
-            smart_catering_section:
+            smart_catering_columns_divider:
               type: section
-              title: "🧑‍🍳 Smart Catering"
+              title: "Spalten & Akkordeons"
               underline: true
 
-            header.smart_catering.headline:
-              type: text
-              label: Überzeile
-              placeholder: "Verantwortung & Entscheidungsdruck"
-
-            header.smart_catering.title:
-              type: text
-              label: Haupttitel
-              placeholder: "SMART CATERING"
-
-            header.smart_catering.subline:
-              type: text
-              label: Unterzeile
-              placeholder: "Intelligent gelöst. Köstlich geliefert."
+            smart_catering_info:
+              type: display
+              label: ""
+              content: "Jede Spalte kann mehrere Akkordeons enthalten. Jedes Akkordeon kann Inhalt, ein Bild und/oder Karten haben."
+              markdown: true
 
             header.smart_catering.columns:
               type: list
@@ -460,16 +553,16 @@ form:
 
                     .content:
                       type: editor
-                      label: Inhalt (Optional)
+                      label: Inhalt (optional)
 
                     .image:
                       type: mediapicker
-                      label: Bild (Optional)
-                      help: "Bild zuerst oben über 'Hintergrundbild hochladen' hochladen, dann hier auswählen"
+                      label: Bild (optional)
+                      help: "Zuerst unten unter 'Hintergrund' hochladen, dann hier auswählen"
 
                     .cards:
                       type: list
-                      label: Karten (Optional)
+                      label: Karten (optional)
                       style: vertical
                       fields:
                         .title:
@@ -483,69 +576,98 @@ form:
 
                     .accordion_bg_image:
                       type: mediapicker
-                      label: Hintergrundbild (Optional)
-                      help: "Bild zuerst oben über 'Hintergrundbild hochladen' hochladen, dann hier auswählen"
+                      label: Hintergrundbild (optional)
+                      help: "Zuerst unten unter 'Hintergrund' hochladen, dann hier auswählen"
 
-                    .accordion_bg_overlay:
-                      type: toggle
-                      label: Overlay aktivieren
-                      highlight: 1
-                      default: true
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
+                    .accordion_bg_options:
+                      type: columns
+                      fields:
+                        col_overlay:
+                          type: column
+                          fields:
+                            .accordion_bg_overlay:
+                              type: toggle
+                              label: Overlay
+                              highlight: 1
+                              default: true
+                              options:
+                                1: An
+                                0: Aus
 
-                    .accordion_bg_desaturate:
-                      type: toggle
-                      label: Entsättigung (Grayscale)
-                      highlight: 1
-                      default: false
-                      options:
-                        1: PLUGIN_ADMIN.YES
-                        0: PLUGIN_ADMIN.NO
+                        col_desaturate:
+                          type: column
+                          fields:
+                            .accordion_bg_desaturate:
+                              type: toggle
+                              label: Entsättigen
+                              highlight: 1
+                              default: false
+                              options:
+                                1: An
+                                0: Aus
+
+            smart_catering_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
 
             smart_catering_bg_media:
               type: pagemedia
-              label: "Hintergrundbild oder -video hochladen"
+              label: "Bild oder Video hochladen (auch für Akkordeon-Bilder nutzbar)"
 
-            header.smart_catering.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.smart_catering.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            smart_catering_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.smart_catering.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.smart_catering.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.smart_catering.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            # ── Sticky Scroll ──
-            sticky_scroll_section:
+        # ═══════════════════════════════════════════
+        # TAB: Sticky Scroll
+        # ═══════════════════════════════════════════
+        tab_sticky_scroll:
+          type: tab
+          title: "🖱️ Sticky Scroll"
+
+          fields:
+            sticky_scroll_header_divider:
               type: section
-              title: "🖱️ Sticky Scroll"
+              title: "Einleitung"
               underline: true
 
             header.sticky_scroll.overline:
               type: text
               label: Überzeile
               placeholder: "z.B. Frische Manufaktur"
-              help: "Kleiner Begleittext über der Überschrift"
+              help: "Kleiner Text über der Hauptüberschrift"
 
             header.sticky_scroll.headline:
               type: text
@@ -558,6 +680,11 @@ form:
               rows: 3
               placeholder: "Beschreibungstext…"
 
+            sticky_scroll_items_divider:
+              type: section
+              title: "Einträge"
+              underline: true
+
             header.sticky_scroll.items:
               type: list
               label: Scroll-Einträge
@@ -565,7 +692,7 @@ form:
               fields:
                 .dropdown_label:
                   type: text
-                  label: Navigations-Label
+                  label: Navigations-Label (Dropdown)
                   placeholder: "Infrastrukturdefizit"
 
                 .title:
@@ -585,21 +712,28 @@ form:
                   type: editor
                   label: Regulärer Text
 
-            # ── Call to Action ──
-            cta_section:
-              type: section
-              title: "📣 Call to Action"
-              underline: true
+        # ═══════════════════════════════════════════
+        # TAB: CTAs
+        # ═══════════════════════════════════════════
+        tab_ctas:
+          type: tab
+          title: "📣 CTAs"
+
+          fields:
+            cta_info:
+              type: display
+              label: ""
+              content: "Jeder Eintrag erzeugt eine eigene CTA-Section. Im Tab **Reihenfolge** kannst du sie als **CTA 1**, **CTA 2**, **CTA 3** individuell platzieren."
+              markdown: true
 
             cta_media:
               type: pagemedia
-              label: "Bilder für CTA-Sections hochladen (Illustration & Hintergrund)"
+              label: "Bilder hochladen (Illustration & Hintergrund)"
 
             header.ctas:
               type: list
               label: CTA-Sections
               style: vertical
-              help: "Jeder Eintrag erzeugt eine eigene CTA-Section. Reihenfolge im Abschnitt-Sortierer bestimmt die Position auf der Seite – alle CTAs erscheinen als Gruppe dort."
               fields:
                 .headline:
                   type: text
@@ -610,43 +744,56 @@ form:
                   type: editor
                   label: Beschreibungstext
 
-                .button_text:
-                  type: text
-                  label: Button Text
-                  placeholder: "Jetzt Kontakt aufnehmen"
-
-                .button_link:
-                  type: text
-                  label: Button Link
-                  placeholder: "#kontakt"
+                .cta_button_row:
+                  type: columns
+                  fields:
+                    col_btn_text:
+                      type: column
+                      fields:
+                        .button_text:
+                          type: text
+                          label: Button-Text
+                          placeholder: "Jetzt Kontakt aufnehmen"
+                    col_btn_link:
+                      type: column
+                      fields:
+                        .button_link:
+                          type: text
+                          label: Button-Link
+                          placeholder: "#kontakt"
 
                 .illustration_image:
-                  type: text
-                  label: Illustration – Dateiname (optional, ersetzt SVG-Grafik)
-                  placeholder: "z.B. mein-bild.jpg"
-                  help: "Bild oben über 'Bilder hochladen' hochladen, dann hier nur den Dateinamen eintragen."
+                  type: mediapicker
+                  label: Illustration (optional, ersetzt SVG-Grafik)
+                  help: "Bild zuerst oben hochladen, dann hier auswählen"
 
                 .background_image:
-                  type: text
-                  label: Hintergrundbild – Dateiname (optional)
-                  placeholder: "z.B. hintergrund.jpg"
-                  help: "Bild oben über 'Bilder hochladen' hochladen, dann hier nur den Dateinamen eintragen."
+                  type: mediapicker
+                  label: Hintergrundbild (optional)
+                  help: "Bild zuerst oben hochladen, dann hier auswählen"
 
                 .background_overlay:
                   type: toggle
-                  label: Dunkles Overlay aktivieren
+                  label: Dunkles Overlay
                   highlight: 1
                   default: 1
                   options:
-                    1: PLUGIN_ADMIN.ENABLED
-                    0: PLUGIN_ADMIN.DISABLED
+                    1: An
+                    0: Aus
                   validate:
                     type: bool
 
-            # ── Rosin ──
-            about_section:
+        # ═══════════════════════════════════════════
+        # TAB: Rosin
+        # ═══════════════════════════════════════════
+        tab_about:
+          type: tab
+          title: "🏢 Rosin"
+
+          fields:
+            about_content_divider:
               type: section
-              title: "🏢 Rosin"
+              title: "Inhalt"
               underline: true
 
             header.about.headline:
@@ -658,64 +805,91 @@ form:
               type: editor
               label: Text
 
+            about_quote_columns:
+              type: columns
+              fields:
+                col_quote:
+                  type: column
+                  fields:
+                    header.about.quote:
+                      type: textarea
+                      label: Zitat
+                      rows: 3
+                      placeholder: "z.B. Qualität ist keine Selbstverständlichkeit – sie ist eine Haltung."
+                col_author:
+                  type: column
+                  fields:
+                    header.about.quote_author:
+                      type: text
+                      label: Zitat-Urheber
+                      placeholder: "z.B. Hans Rosin, Gründer"
+
+            about_media_divider:
+              type: section
+              title: "Bild & Hintergrund"
+              underline: true
+
             about_media:
               type: pagemedia
               label: "Bilder oder Videos hochladen"
 
             header.about.image:
               type: mediapicker
-              label: Bild (rechte Spalte)
-              help: "Bild zuerst hochladen, dann hier auswählen."
+              label: Hauptbild (rechte Spalte)
+              help: "Bild zuerst hochladen, dann hier auswählen"
 
-            header.about.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.about.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            about_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.about.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.about.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.about.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            header.about.quote:
-              type: textarea
-              label: Zitat
-              rows: 3
-              placeholder: "z.B. Qualität ist keine Selbstverständlichkeit – sie ist eine Haltung."
-              help: "Wird in Anführungszeichen über die volle Breite angezeigt."
+        # ═══════════════════════════════════════════
+        # TAB: Auszeichnungen
+        # ═══════════════════════════════════════════
+        tab_awards:
+          type: tab
+          title: "🏆 Auszeichnungen"
 
-            header.about.quote_author:
-              type: text
-              label: Zitat-Urheber
-              placeholder: "z.B. Hans Rosin, Gründer"
-
-            # ── Auszeichnungen ──
-            awards_section:
+          fields:
+            awards_content_divider:
               type: section
-              title: "🏆 Auszeichnungen"
+              title: "Inhalt"
               underline: true
 
             header.awards.headline:
               type: text
               label: Überschrift
-              placeholder: "z.B. Ein Ausgezeichnetes Familienunternehmen"
+              placeholder: "z.B. Ein ausgezeichnetes Familienunternehmen"
 
             awards_media:
               type: pagemedia
@@ -734,60 +908,93 @@ form:
                 .image:
                   type: mediapicker
                   label: Badge-Bild
-                  help: "Bild zuerst hochladen, dann hier auswählen"
+                  help: "Bild zuerst oben hochladen, dann hier auswählen"
 
                 .description:
                   type: textarea
                   label: Beschreibung
                   rows: 3
-                  placeholder: "Kurze Erklärung zur Auszeichnung..."
+                  placeholder: "Kurze Erklärung zur Auszeichnung…"
+
+            awards_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
 
             awards_bg_media:
               type: pagemedia
               label: "Hintergrundbild oder -video hochladen"
 
-            header.awards.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.awards.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            awards_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.awards.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.awards.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.awards.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            # ── Team ──
-            team_section:
+        # ═══════════════════════════════════════════
+        # TAB: Team
+        # ═══════════════════════════════════════════
+        tab_team:
+          type: tab
+          title: "👥 Team"
+
+          fields:
+            team_content_divider:
               type: section
-              title: "👥 Team"
+              title: "Einleitung"
               underline: true
 
-            header.team.headline:
-              type: text
-              label: Überschrift
-              placeholder: "Die Menschen hinter Sander"
+            team_header_columns:
+              type: columns
+              fields:
+                col_headline:
+                  type: column
+                  fields:
+                    header.team.headline:
+                      type: text
+                      label: Überschrift
+                      placeholder: "Die Menschen hinter Sander"
+                col_subline:
+                  type: column
+                  fields:
+                    header.team.subline:
+                      type: text
+                      label: Unterzeile
+                      placeholder: "Erfahrung, Leidenschaft und echtes Gastgeber-Herz."
 
-            header.team.subline:
-              type: text
-              label: Unterzeile
-              placeholder: "Erfahrung, Leidenschaft und echtes Gastgeber-Herz."
+            team_members_divider:
+              type: section
+              title: "Teammitglieder"
+              underline: true
 
             team_media:
               type: pagemedia
@@ -817,57 +1024,85 @@ form:
                 .image:
                   type: mediapicker
                   label: Profilfoto (optional)
-                  help: "Bild zuerst hochladen, dann hier auswählen"
+                  help: "Foto zuerst oben hochladen, dann hier auswählen"
+
+            team_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
 
             team_bg_media:
               type: pagemedia
               label: "Hintergrundbild oder -video hochladen"
 
-            header.team.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.team.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            team_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.team.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.team.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.team.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            # ── Logo Section ──
-            logo_section_section:
+        # ═══════════════════════════════════════════
+        # TAB: Logo Section
+        # ═══════════════════════════════════════════
+        tab_logo_section:
+          type: tab
+          title: "🏢 Logos"
+
+          fields:
+            logo_section_content_divider:
               type: section
-              title: "🏢 Logo Section"
+              title: "Inhalt"
               underline: true
 
-            header.logo_section.headline:
-              type: text
-              label: Überschrift (optional)
-              placeholder: "z.B. Unsere Partner"
+            logo_section_header_columns:
+              type: columns
+              fields:
+                col_headline:
+                  type: column
+                  fields:
+                    header.logo_section.headline:
+                      type: text
+                      label: Überschrift (optional)
+                      placeholder: "z.B. Unsere Partner"
+                col_color:
+                  type: column
+                  fields:
+                    header.logo_section.logo_color:
+                      type: colorpicker
+                      label: Logo-Farbe
+                      default: "#f1eef0"
+                      help: "Alle Logos werden in dieser Farbe eingefärbt"
 
-            header.logo_section.logo_color:
-              type: colorpicker
-              label: Logo-Farbe
-              default: "#f1eef0"
-              help: "Farbe, in der alle Logos eingefärbt werden (Hex-Wert)"
-
-            logo_section_media:
+            logo_media:
               type: pagemedia
               label: "Logo-Dateien hochladen (SVG empfohlen)"
 
@@ -890,80 +1125,69 @@ form:
                   accept:
                     - image/*
                     - .svg
-                  help: "SVG- oder Bilddatei auswählen (zuerst hochladen)"
+                  help: "SVG oder Bild auswählen (zuerst hochladen)"
+
+            logo_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
 
             logo_section_bg_media:
               type: pagemedia
               label: "Hintergrundbild oder -video hochladen"
 
-            header.logo_section.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.logo_section.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            logo_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.logo_section.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.logo_section.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.logo_section.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            # ── Text Section ──
-            text_section_section:
+        # ═══════════════════════════════════════════
+        # TAB: Text Section
+        # ═══════════════════════════════════════════
+        tab_text_section:
+          type: tab
+          title: "📝 Text"
+
+          fields:
+            text_section_content_divider:
               type: section
-              title: "📝 Text Section"
+              title: "Inhalt"
               underline: true
 
             header.text_section.headline:
               type: text
               label: Überschrift
               placeholder: "z.B. Gemeinsam Qualität gestalten."
-
-            text_section_bg_media:
-              type: pagemedia
-              label: "Hintergrundbild oder -video hochladen"
-
-            header.text_section.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.text_section.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
-
-            header.text_section.background_overlay:
-              type: toggle
-              label: Dunkles Overlay aktivieren
-              highlight: 1
-              default: 1
-              options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
-              validate:
-                type: bool
 
             header.text_section.paragraphs:
               type: list
@@ -975,64 +1199,94 @@ form:
                   type: editor
                   label: Absatz
 
-            # ── Karten-Grid (Figma Section) ──
-            cards_section_section:
+            text_section_bg_divider:
               type: section
-              title: "🗂️ Karten-Grid"
+              title: "Hintergrund"
               underline: true
 
-            header.cards_section.overline:
-              type: text
-              label: Überzeile
-              placeholder: "z.B. Digitalisierung & Innovation"
+            text_section_bg_media:
+              type: pagemedia
+              label: "Bild oder Video hochladen"
 
-            header.cards_section.headline:
-              type: text
-              label: Überschrift
-              placeholder: "z.B. Digitalisierung & Innavation"
+            text_section_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.text_section.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.text_section.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
+
+            header.text_section.background_overlay:
+              type: toggle
+              label: Dunkles Overlay
+              highlight: 1
+              default: 1
+              options:
+                1: An
+                0: Aus
+              validate:
+                type: bool
+
+        # ═══════════════════════════════════════════
+        # TAB: Karten-Grid
+        # ═══════════════════════════════════════════
+        tab_cards_section:
+          type: tab
+          title: "🗂️ Karten"
+
+          fields:
+            cards_section_content_divider:
+              type: section
+              title: "Einleitung"
+              underline: true
+
+            cards_header_row:
+              type: columns
+              fields:
+                col_overline:
+                  type: column
+                  fields:
+                    header.cards_section.overline:
+                      type: text
+                      label: Überzeile
+                      placeholder: "z.B. Digitalisierung & Innovation"
+                col_headline:
+                  type: column
+                  fields:
+                    header.cards_section.headline:
+                      type: text
+                      label: Überschrift
+                      placeholder: "z.B. Digitalisierung & Innovation"
 
             header.cards_section.subline:
               type: text
               label: Unterzeile
               placeholder: "z.B. Mit digitalen Lösungen für die Zukunft..."
 
+            cards_items_divider:
+              type: section
+              title: "Karten"
+              underline: true
+
             cards_section_media:
               type: pagemedia
               label: "Bilder/Videos für Karten und Hintergrund hochladen"
-
-            header.cards_section.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.cards_section.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
-
-            header.cards_section.background_overlay:
-              type: toggle
-              label: Dunkles Overlay aktivieren
-              highlight: 1
-              default: 1
-              options:
-                1: Ja
-                0: Nein
-
-            header.cards_section.background_grayscale:
-              type: toggle
-              label: Hintergrundbild entsättigen (Graustufen)
-              highlight: 0
-              default: 0
-              options:
-                1: Ja
-                0: Nein
 
             header.cards_section.items:
               type: list
@@ -1050,19 +1304,81 @@ form:
                   type: textarea
                   label: Text
                   rows: 3
-                  placeholder: "Beschreibungstext der Karte..."
+                  placeholder: "Beschreibungstext der Karte…"
                   validate:
                     required: true
 
                 .image:
                   type: mediapicker
                   label: Bild (optional)
-                  help: "Bild zuerst hochladen, dann hier auswählen"
+                  help: "Bild zuerst oben hochladen, dann hier auswählen"
 
-            # ── FAQ Section ──
-            faq_section_section:
+            cards_bg_divider:
               type: section
-              title: "❓ FAQ"
+              title: "Hintergrund"
+              underline: true
+
+            cards_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.cards_section.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.cards_section.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
+
+            cards_bg_options:
+              type: columns
+              fields:
+                col_overlay:
+                  type: column
+                  fields:
+                    header.cards_section.background_overlay:
+                      type: toggle
+                      label: Dunkles Overlay
+                      highlight: 1
+                      default: 1
+                      options:
+                        1: An
+                        0: Nein
+                col_grayscale:
+                  type: column
+                  fields:
+                    header.cards_section.background_grayscale:
+                      type: toggle
+                      label: Hintergrund entsättigen
+                      highlight: 0
+                      default: 0
+                      options:
+                        1: An
+                        0: Nein
+
+        # ═══════════════════════════════════════════
+        # TAB: FAQ
+        # ═══════════════════════════════════════════
+        tab_faq:
+          type: tab
+          title: "❓ FAQ"
+
+          fields:
+            faq_content_divider:
+              type: section
+              title: "Inhalt"
               underline: true
 
             header.faq.headline:
@@ -1085,50 +1401,73 @@ form:
                 .answer:
                   type: editor
                   label: Antwort
-                  rows: 4
+
+            faq_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
 
             faq_bg_media:
               type: pagemedia
-              label: "Hintergrundbild oder -video hochladen"
+              label: "Bild oder Video hochladen"
 
-            header.faq.background_image:
-              type: mediapicker
-              label: Hintergrundbild (optional)
-              help: "Wird angezeigt wenn kein Video gesetzt ist."
-
-            header.faq.background_video:
-              type: filepicker
-              label: Hintergrundvideo (optional)
-              folder: "user://pages/01.home"
-              accept:
-                - video/mp4
-                - video/webm
-                - .mp4
-                - .webm
-              help: "Video hat Vorrang vor Bild. Stumm, Loop, Autoplay."
+            faq_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.faq.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.faq.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.faq.background_overlay:
               type: toggle
-              label: Dunkles Overlay aktivieren
+              label: Dunkles Overlay
               highlight: 1
               default: 1
               options:
-                1: PLUGIN_ADMIN.ENABLED
-                0: PLUGIN_ADMIN.DISABLED
+                1: An
+                0: Aus
               validate:
                 type: bool
 
-            # ── Split Section ──
-            split_sections_section:
-              type: section
-              title: "🖼️ Split Sections"
-              underline: true
+        # ═══════════════════════════════════════════
+        # TAB: Split Sections
+        # ═══════════════════════════════════════════
+        tab_split_sections:
+          type: tab
+          title: "🖼️ Split Sections"
+
+          fields:
+            split_info:
+              type: display
+              label: ""
+              content: "Jeder Eintrag erzeugt eine eigene Split-Sektion (Bild links oder rechts)."
+              markdown: true
+
+            split_media:
+              type: pagemedia
+              label: "Bilder hochladen"
 
             header.split_sections:
               type: list
               label: Split Sections
               style: vertical
-              help: "Jeder Eintrag erzeugt eine eigene Split-Sektion (Bild links oder rechts)."
               fields:
                 .image_position:
                   type: select
@@ -1163,20 +1502,28 @@ form:
                       label: Absatz
                       rows: 4
 
-                .cta_text:
-                  type: text
-                  label: Button Text
-                  placeholder: "z.B. Mehr erfahren"
-
-                .cta_link:
-                  type: text
-                  label: Button Link
-                  placeholder: "#kontakt"
+                .cta_row:
+                  type: columns
+                  fields:
+                    col_cta_text:
+                      type: column
+                      fields:
+                        .cta_text:
+                          type: text
+                          label: Button-Text
+                          placeholder: "z.B. Mehr erfahren"
+                    col_cta_link:
+                      type: column
+                      fields:
+                        .cta_link:
+                          type: text
+                          label: Button-Link
+                          placeholder: "#kontakt"
 
                 .image:
                   type: mediapicker
-                  label: Bild auswählen
-                  help: "Bild zuerst über 'Split Sections Bilder hochladen' hochladen."
+                  label: Bild
+                  help: "Bild zuerst oben hochladen, dann hier auswählen"
 
                 .image_alt:
                   type: text
