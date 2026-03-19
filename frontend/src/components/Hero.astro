@@ -10,6 +10,7 @@ interface Props {
 const { hero } = Astro.props;
 
 const decoColor = hero.deco_color ?? "#ad94a5";
+const decoWidth = hero.deco_width ? `${hero.deco_width}vw` : "110vw";
 const headlineScale = hero.headline_scale ?? 1;
 const sublineScale = hero.subline_scale ?? 1;
 const gapSpacing = hero.headline_subline_spacing ?? 1.5;
@@ -59,7 +60,7 @@ const isDesaturated =
     {hasOverlay && <div class="hero__media-overlay" />}
 
     <div class="hero__perspective">
-      <div class="hero__deco-wrap" style={`--deco-color: ${decoColor}`}>
+      <div class="hero__deco-wrap" style={`--deco-color: ${decoColor}; --deco-width: ${decoWidth}`}>
         <svg class="hero__deco-svg hero__deco-svg--dim" viewBox="0 0 1997 697" fill="currentColor" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <path d="M1778.3 393.006V93.65H1666.25V8.6614H1997V93.65H1884.94V393.006H1778.3Z"/>
           <path d="M1308.9 393.006V8.6614H1492.41C1521.28 8.6614 1546.36 13.3529 1567.65 22.736C1589.31 32.119 1605.91 45.2914 1617.46 62.2531C1629.37 79.2148 1635.32 99.244 1635.32 122.341C1635.32 140.385 1631.89 156.445 1625.03 170.519C1618.18 184.233 1608.25 195.601 1595.26 204.623C1582.27 213.645 1566.57 219.78 1548.17 223.028L1547.08 217.615C1574.15 217.615 1594.36 223.389 1607.71 234.938C1621.06 246.125 1628.46 262.726 1629.91 284.74L1638.57 393.006H1530.3L1524.89 303.145C1524.17 289.071 1520.38 278.785 1513.52 272.29C1506.66 265.433 1494.57 262.004 1477.25 262.004H1415V393.006H1308.9ZM1415 177.015H1472.92C1490.6 177.015 1503.96 173.406 1512.98 166.189C1522.36 158.61 1527.05 148.144 1527.05 134.791C1527.05 121.078 1522.36 110.792 1512.98 103.936C1503.96 97.079 1490.6 93.65 1472.92 93.65H1415V177.015Z"/>
@@ -280,7 +281,7 @@ const isDesaturated =
 
   .hero__deco-svg {
     display: block;
-    width: 110vw;
+    width: var(--deco-width, 110vw);
     height: auto;
     user-select: none;
     pointer-events: none;
