@@ -76,9 +76,10 @@ const hasOverlay =
       }
     </div>
 
-    <!-- 3D Bricks Illustration Graphic wrapper -->
+    <!-- 3D Bricks Illustration Graphic wrapper (rein dekorativ, für Screenreader versteckt) -->
     <div
       class="hidden lg:flex relative z-0 items-center justify-center w-full min-h-[400px]"
+      aria-hidden="true"
     >
       {illustrationImage ? (
         <img src={illustrationImage} alt="" class="max-w-full max-h-[500px] object-contain" />
