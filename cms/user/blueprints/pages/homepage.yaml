@@ -16,7 +16,7 @@ form:
         # ═══════════════════════════════════════════
         tab_order:
           type: tab
-          title: "🔢 Reihenfolge"
+          title: "Reihenfolge"
 
           fields:
             order_info:
@@ -36,22 +36,22 @@ form:
                   validate:
                     required: true
                   options:
-                    hero: "🎬 Hero"
-                    stats: "📊 Kennzahlen"
-                    menu_slider: "🎞️ Menu Slider"
+                    hero: "Hero"
+                    stats: "Kennzahlen"
+                    menu_slider: "Menu Slider"
                     solutions: "✅ Herausforderungen & Lösungen"
-                    smart_catering: "🧑‍🍳 Smart Catering"
-                    sticky_scroll: "🖱️ Sticky Scroll"
+                    smart_catering: "Smart Catering"
+                    sticky_scroll: "Sticky Scroll"
                     cta_1: "📣 CTA 1"
                     cta_2: "📣 CTA 2"
                     cta_3: "📣 CTA 3"
-                    about: "🏢 Rosin"
-                    team: "👥 Team"
+                    about: "Rosin"
+                    team: "Team"
                     text_section: "📝 Text Section"
                     logo_section: "🏢 Logo Section"
-                    awards: "🏆 Auszeichnungen"
-                    faq: "❓ FAQ"
-                    split_sections: "🖼️ Split Sections"
+                    awards: "Auszeichnungen"
+                    faq: "FAQ"
+                    split_sections: "Split Sections"
                     cards_section: "🗂️ Karten-Grid"
 
         # ═══════════════════════════════════════════
@@ -59,7 +59,7 @@ form:
         # ═══════════════════════════════════════════
         tab_hero:
           type: tab
-          title: "🎬 Hero"
+          title: "Hero"
 
           fields:
             hero_content_divider:
@@ -247,7 +247,7 @@ form:
         # ═══════════════════════════════════════════
         tab_stats:
           type: tab
-          title: "📊 Kennzahlen"
+          title: "Kennzahlen"
 
           fields:
             stats_content_divider:
@@ -337,7 +337,7 @@ form:
         # ═══════════════════════════════════════════
         tab_menu_slider:
           type: tab
-          title: "🎞️ Menu Slider"
+          title: "Menu Slider"
 
           fields:
             menu_slider_content_divider:
@@ -392,7 +392,7 @@ form:
         # ═══════════════════════════════════════════
         tab_solutions:
           type: tab
-          title: "✅ Lösungen"
+          title: "Lösungen"
 
           fields:
             solutions_content_divider:
@@ -482,7 +482,7 @@ form:
         # ═══════════════════════════════════════════
         tab_smart_catering:
           type: tab
-          title: "🧑‍🍳 Smart Catering"
+          title: "Smart Catering"
 
           fields:
             smart_catering_content_divider:
@@ -655,7 +655,7 @@ form:
         # ═══════════════════════════════════════════
         tab_sticky_scroll:
           type: tab
-          title: "🖱️ Sticky Scroll"
+          title: "Sticky Scroll"
 
           fields:
             sticky_scroll_header_divider:
@@ -717,7 +717,7 @@ form:
         # ═══════════════════════════════════════════
         tab_ctas:
           type: tab
-          title: "📣 CTAs"
+          title: "CTAs"
 
           fields:
             cta_info:
@@ -788,7 +788,7 @@ form:
         # ═══════════════════════════════════════════
         tab_about:
           type: tab
-          title: "🏢 Rosin"
+          title: "Rosin"
 
           fields:
             about_content_divider:
@@ -878,7 +878,7 @@ form:
         # ═══════════════════════════════════════════
         tab_awards:
           type: tab
-          title: "🏆 Auszeichnungen"
+          title: "Auszeichnungen"
 
           fields:
             awards_content_divider:
@@ -965,7 +965,7 @@ form:
         # ═══════════════════════════════════════════
         tab_team:
           type: tab
-          title: "👥 Team"
+          title: "Team"
 
           fields:
             team_content_divider:
@@ -1075,7 +1075,7 @@ form:
         # ═══════════════════════════════════════════
         tab_logo_section:
           type: tab
-          title: "🏢 Logos"
+          title: "Logos"
 
           fields:
             logo_section_content_divider:
@@ -1176,7 +1176,7 @@ form:
         # ═══════════════════════════════════════════
         tab_text_section:
           type: tab
-          title: "📝 Text"
+          title: "Text"
 
           fields:
             text_section_content_divider:
@@ -1248,7 +1248,7 @@ form:
         # ═══════════════════════════════════════════
         tab_cards_section:
           type: tab
-          title: "🗂️ Karten"
+          title: "Karten"
 
           fields:
             cards_section_content_divider:
@@ -1373,7 +1373,7 @@ form:
         # ═══════════════════════════════════════════
         tab_faq:
           type: tab
-          title: "❓ FAQ"
+          title: "FAQ"
 
           fields:
             faq_content_divider:
@@ -1451,7 +1451,7 @@ form:
         # ═══════════════════════════════════════════
         tab_split_sections:
           type: tab
-          title: "🖼️ Split Sections"
+          title: "Split Sections"
 
           fields:
             split_info:
