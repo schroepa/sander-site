@@ -36,7 +36,7 @@
   /* ─── Semantic Colors (All directly from tokens.json) ─── */
   --color-text-primary: hsl(315, 4%, 96%);
   --color-text-secondary: hsl(321, 18%, 85%);
-  --color-text-tertiary: hsl(320, 13%, 63%);
+  --color-text-tertiary: hsl(320, 13%, 75%); /* Angehoben von 63% → 75% für WCAG AA Kontrast (4.5:1) */
   --color-text-brand-bold: hsl(151, 10%, 57%);
   --color-background-primary: hsl(322, 17%, 22%);
   --color-background-secondary: hsl(321, 15%, 31%);
