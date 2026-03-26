@@ -1779,3 +1779,37 @@ a.tab__link[data-scope="data.tab_split_sections"]::before {
   vertical-align: middle !important;
   flex-shrink: 0 !important;
 }
+
+/* ================================================================
+   26. GRAY-BG FIX + KOMPAKTE PILLS
+   Behebt: Grauer Hintergrund #E2E2E2 (von Grav-Eltern-Containern)
+   Behebt: Tab-Bar zu hoch
+   ================================================================ */
+
+/* --- 26.1 Grav-Eltern-Container: Grau-Hintergründe neutralisieren --- */
+/* .form-tabs / .block-tabs / .block.block-tabs haben Grav-Default ~#E2E2E2 */
+
+.form-tabs,
+.block-tabs,
+.block.block-tabs,
+.form-tabs-group,
+#blueprints {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+/* --- 26.2 Pill-Container: kein Rahmen, kompakteres Padding --- */
+/* Rahmen entfernt — Pill-Shape wird nur durch BG + aktive Pills definiert */
+
+.form-tabs > .tabs-nav {
+  border: none !important;
+  border-bottom: none !important;
+  padding: 0.1875rem !important;      /* 3px — sehr kompakt */
+  background: var(--c-bg-subtle) !important;
+}
+
+/* --- 26.3 Tab-Links: kompakter (wie shadcn Preview/Code Referenz) --- */
+
+.form-tabs > .tabs-nav > a.tab__link {
+  padding: 0.25rem 0.625rem !important;  /* reduziert von 0.375rem */
+}
