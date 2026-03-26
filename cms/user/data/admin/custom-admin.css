@@ -1,0 +1,1253 @@
+/* ================================================================
+   SANDER CATERING — Grav Admin Design System
+
+   Preset:  shadcn/ui · Nova · Taupe · Brand Aubergine
+   Font:    Geist (selbst gehostet via /fonts/)
+   Radius:  0.5 rem (Nova-style)
+   Updated: 2026-03-26
+
+   Farbmapping: shadcn Orange → Brand Aubergine/Mauve
+   ================================================================ */
+
+
+/* ================================================================
+   0. DESIGN TOKENS
+   ================================================================ */
+
+:root {
+  /* ── Brand (Aubergine-Palette aus tokens.css) ── */
+  --ab-900:  hsl(322, 17%, 14%);   /* Tiefes Aubergine */
+  --ab-800:  hsl(322, 17%, 22%);   /* Sidebar BG, Primary Buttons */
+  --ab-700:  hsl(321, 15%, 28%);   /* Sidebar Hover */
+  --ab-600:  hsl(321, 15%, 31%);   /* Sidebar Active */
+  --ab-500:  hsl(319, 12%, 41%);   /* Border auf dunklem Grund */
+  --ab-400:  hsl(319, 12%, 51%);   /* Fokusring, Accent */
+  --ab-300:  hsl(321, 18%, 65%);   /* Sidebar Muted Text */
+  --ab-200:  hsl(321, 18%, 75%);   /* Sidebar Light Text */
+  --ab-100:  hsl(321, 18%, 85%);   /* Sidebar Aktiver Text */
+  --ab-050:  hsl(320, 10%, 94%);   /* Sidebar Text Primary */
+
+  /* ── Content Area (Warm Taupe — shadcn Nova/Taupe) ── */
+  --c-bg:          #ffffff;
+  --c-bg-muted:    #fafaf9;
+  --c-bg-subtle:   #f5f2ef;
+  --c-fg:          #1c1714;       /* Warmes Near-Black */
+  --c-fg-mid:      #6b5e57;
+  --c-fg-muted:    #9d8f89;
+  --c-border:      #e8e2dd;       /* Warme Taupe-Border */
+  --c-border-hover: #d4cdc7;
+
+  /* ── Sidebar ── */
+  --sb-bg:     var(--ab-800);
+  --sb-hover:  var(--ab-700);
+  --sb-active: var(--ab-600);
+  --sb-fg:     var(--ab-050);
+  --sb-fg-mid: var(--ab-200);
+  --sb-border: var(--ab-500);
+
+  /* ── Radii (Nova = leicht abgerundet) ── */
+  --r-sm:  0.375rem;   /*  6px */
+  --r-md:  0.5rem;     /*  8px */
+  --r-lg:  0.75rem;    /* 12px */
+
+  /* ── Shadows ── */
+  --s-xs: 0 1px 2px rgba(28, 23, 20, 0.05);
+  --s-sm: 0 1px 3px rgba(28, 23, 20, 0.10), 0 1px 2px -1px rgba(28, 23, 20, 0.06);
+  --s-md: 0 4px 6px -1px rgba(28, 23, 20, 0.10), 0 2px 4px -2px rgba(28, 23, 20, 0.06);
+  --s-hover: 0 3px 8px -1px rgba(28, 23, 20, 0.12);
+}
+
+
+/* ================================================================
+   1. FONT — Geist (self-hosted)
+   ================================================================ */
+
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Regular.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Medium.woff2') format('woff2');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Geist';
+  src: url('/fonts/Geist-Bold.woff2') format('woff2');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+
+/* ================================================================
+   2. BASE TYPOGRAPHY & BODY
+   ================================================================ */
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  letter-spacing: -0.01em;
+  font-family: 'Geist', system-ui, -apple-system, sans-serif !important;
+  color: var(--c-fg) !important;
+  background-color: var(--c-bg-muted) !important;
+}
+
+
+/* ================================================================
+   3. SIDEBAR
+   ================================================================ */
+
+#admin-sidebar {
+  background-color: var(--sb-bg) !important;
+  border-right: 1px solid var(--sb-border) !important;
+  width: 220px !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  height: 100vh !important;
+  z-index: 200 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  overflow: hidden !important;
+  transition: width 0.2s ease !important;
+  box-shadow: 2px 0 8px rgba(28, 23, 20, 0.15) !important;
+}
+
+/* Collapsed sidebar */
+body.sidebar-closed #admin-sidebar {
+  width: 56px !important;
+}
+
+/* Logo / Branding area */
+#admin-logo {
+  padding: 0 1rem !important;
+  border-bottom: 1px solid var(--sb-border) !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  min-height: 56px !important;
+  flex-shrink: 0 !important;
+  background: var(--ab-900) !important;
+}
+
+#admin-logo a {
+  color: var(--sb-fg) !important;
+  font-size: 0.9375rem !important;
+  font-weight: 600 !important;
+  letter-spacing: -0.02em !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+/* Sidebar toggle handle */
+#open-handle {
+  color: var(--ab-300) !important;
+  cursor: pointer !important;
+  width: 1.75rem !important;
+  height: 1.75rem !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  border-radius: var(--r-sm) !important;
+  flex-shrink: 0 !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
+}
+#open-handle:hover {
+  background: var(--sb-hover) !important;
+  color: var(--sb-fg) !important;
+}
+
+/* Scrollable menu area */
+.admin-menu-wrapper {
+  flex: 1 1 auto !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 0.5rem 0 !important;
+  scrollbar-width: thin !important;
+  scrollbar-color: var(--ab-500) transparent !important;
+}
+
+/* Nav list */
+#admin-menu {
+  list-style: none !important;
+  padding: 0 0.5rem !important;
+  margin: 0 !important;
+}
+
+#admin-menu > li {
+  margin-bottom: 1px !important;
+}
+
+/* Nav links */
+#admin-menu li a {
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.625rem !important;
+  padding: 0.5rem 0.75rem !important;
+  border-radius: var(--r-sm) !important;
+  color: var(--sb-fg-mid) !important;
+  text-decoration: none !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+}
+
+#admin-menu li a:hover {
+  background-color: var(--sb-hover) !important;
+  color: var(--sb-fg) !important;
+}
+
+#admin-menu li.selected > a {
+  background-color: var(--sb-active) !important;
+  color: var(--sb-fg) !important;
+  font-weight: 600 !important;
+}
+
+/* Nav icons */
+#admin-menu li a i.fa {
+  width: 1rem !important;
+  text-align: center !important;
+  font-size: 0.9375rem !important;
+  opacity: 0.6 !important;
+  flex-shrink: 0 !important;
+  transition: opacity 0.15s ease !important;
+}
+#admin-menu li a:hover i.fa,
+#admin-menu li.selected a i.fa {
+  opacity: 1 !important;
+}
+
+/* Nav label */
+#admin-menu li a em {
+  font-style: normal !important;
+  transition: opacity 0.2s ease !important;
+}
+
+/* Badges on nav items */
+#admin-menu .badge {
+  margin-left: auto !important;
+  background: var(--ab-400) !important;
+  color: var(--sb-fg) !important;
+  font-size: 0.65rem !important;
+  font-weight: 600 !important;
+  padding: 0.1rem 0.4rem !important;
+  border-radius: 999px !important;
+  line-height: 1.4 !important;
+}
+
+/* Version label at bottom */
+#admin-sidebar .admin-version,
+#admin-sidebar .sidebar-footer {
+  padding: 0.75rem 1.25rem !important;
+  border-top: 1px solid var(--sb-border) !important;
+  font-size: 0.7rem !important;
+  color: var(--ab-400) !important;
+  flex-shrink: 0 !important;
+}
+
+/* Collapsed: hide labels, keep icons centered */
+body.sidebar-closed #admin-menu li a {
+  justify-content: center !important;
+  padding: 0.5rem !important;
+}
+body.sidebar-closed #admin-menu li a em,
+body.sidebar-closed #admin-menu .badge,
+body.sidebar-closed #admin-logo a,
+body.sidebar-closed .admin-version {
+  display: none !important;
+}
+body.sidebar-closed #admin-menu li a i.fa {
+  margin: 0 !important;
+}
+
+/* Main area offset */
+#admin-main {
+  margin-left: 220px !important;
+  transition: margin-left 0.2s ease !important;
+}
+body.sidebar-closed #admin-main {
+  margin-left: 56px !important;
+}
+
+
+/* ================================================================
+   4. CONTENT AREA
+   ================================================================ */
+
+#admin-main .content-wrapper,
+#admin-main .content-padding {
+  background-color: var(--c-bg-muted) !important;
+}
+
+.content-padding {
+  padding: 1.5rem !important;
+}
+
+
+/* ================================================================
+   5. TITLEBAR
+   ================================================================ */
+
+#titlebar {
+  background: var(--c-bg) !important;
+  padding: 0 1.5rem !important;
+  border-bottom: 1px solid var(--c-border) !important;
+  box-shadow: none !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  height: 56px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+}
+
+#titlebar h1 {
+  font-weight: 600 !important;
+  font-size: 1rem !important;
+  color: var(--c-fg) !important;
+  margin: 0 !important;
+  letter-spacing: -0.02em !important;
+}
+
+#titlebar .button-bar {
+  display: flex !important;
+  gap: 0.5rem !important;
+}
+#titlebar .button-bar .button {
+  margin: 0 !important;
+}
+
+/* Mobile hamburger button */
+.lines-button {
+  display: none !important;
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  padding: 0.5rem !important;
+  margin-right: 0.5rem !important;
+}
+@media (max-width: 768px) {
+  .lines-button { display: flex !important; }
+}
+
+
+/* ================================================================
+   6. CARDS / ADMIN-BLOCK
+   ================================================================ */
+
+.admin-block {
+  background: var(--c-bg) !important;
+  border-radius: var(--r-lg) !important;
+  box-shadow: var(--s-sm) !important;
+  padding: 1.5rem !important;
+  border: 1px solid var(--c-border) !important;
+  margin-bottom: 1.25rem !important;
+}
+
+@media (max-width: 768px) {
+  .admin-block { padding: 1rem !important; }
+}
+
+
+/* ================================================================
+   7. FORM LAYOUT — Label über Input (vertikal)
+   ================================================================ */
+
+.form-field.grid {
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.3rem !important;
+  align-items: stretch !important;
+  margin-bottom: 1.25rem !important;
+  padding-bottom: 1.25rem !important;
+  border-bottom: 1px solid var(--c-bg-subtle) !important;
+}
+
+.form-field.grid:last-child {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+/* Label – volle Breite */
+.form-label.block,
+.form-label.block.size-1-3 {
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Data wrapper – volle Breite */
+.form-data.block,
+.form-data.block.size-2-3 {
+  flex: 1 1 auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
+  float: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+
+/* ================================================================
+   8. COLUMNS (type: columns — nebeneinander)
+   ================================================================ */
+
+.form-columns.pure-g {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1.25rem !important;
+  margin: 0 !important;
+  letter-spacing: 0 !important;
+}
+
+.form-column.pure-u-1-2 {
+  width: calc(50% - 0.625rem) !important;
+  box-sizing: border-box !important;
+  letter-spacing: 0 !important;
+  display: block !important;
+}
+
+.form-column.pure-u-1-3 {
+  width: calc(33.333% - 0.834rem) !important;
+  box-sizing: border-box !important;
+  letter-spacing: 0 !important;
+  display: block !important;
+}
+
+.form-column .form-field,
+.form-column .form-field.grid {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+.form-field.grid:has(.form-columns) {
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+
+/* ================================================================
+   9. LABELS & SUBLABELS
+   ================================================================ */
+
+.form-label label {
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  color: var(--c-fg) !important;
+  margin-bottom: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.4rem !important;
+  line-height: 1.2 !important;
+}
+
+.form-sublabel {
+  font-size: 0.75rem !important;
+  color: var(--c-fg-muted) !important;
+  line-height: 1.4 !important;
+  font-weight: 400 !important;
+  margin-top: 0.2rem !important;
+}
+
+
+/* ================================================================
+   10. INPUTS, SELECTS, TEXTAREAS
+   ================================================================ */
+
+.form-input-wrapper input[type="text"],
+.form-input-wrapper input[type="password"],
+.form-input-wrapper input[type="email"],
+.form-input-wrapper input[type="number"],
+.form-input-wrapper select,
+.form-input-wrapper textarea {
+  width: 100% !important;
+  height: 2.25rem !important;
+  padding: 0 0.75rem !important;
+  font-size: 0.875rem !important;
+  font-family: 'Geist', system-ui, sans-serif !important;
+  line-height: 1.25rem !important;
+  color: var(--c-fg) !important;
+  background-color: var(--c-bg) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-sm) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  box-shadow: var(--s-xs) !important;
+  box-sizing: border-box !important;
+}
+
+.form-input-wrapper textarea {
+  height: auto !important;
+  min-height: 4.5rem !important;
+  padding: 0.5rem 0.75rem !important;
+  line-height: 1.5 !important;
+  resize: vertical !important;
+}
+
+.form-input-wrapper input:focus,
+.form-input-wrapper select:focus,
+.form-input-wrapper textarea:focus {
+  outline: none !important;
+  border-color: var(--ab-400) !important;
+  box-shadow: 0 0 0 2px hsla(319, 12%, 51%, 0.2) !important;
+}
+
+.form-input-wrapper input::placeholder,
+.form-input-wrapper textarea::placeholder {
+  color: var(--c-fg-muted) !important;
+}
+
+
+/* ================================================================
+   11. SECTION DIVIDERS (type: section)
+   ================================================================ */
+
+.form-field.grid:has(.section-field) {
+  border-bottom: none !important;
+  padding-bottom: 0 !important;
+  margin-bottom: 0.5rem !important;
+}
+
+.section-field h3 {
+  font-size: 0.8125rem !important;
+  font-weight: 600 !important;
+  color: var(--c-fg-mid) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  margin: 0 !important;
+}
+
+
+/* ================================================================
+   12. TOGGLE / SWITCH BUTTONS (.switch-toggle.switch-grav)
+
+   HTML: <div class="switch-toggle switch-grav">
+           <input type="radio" id="x0" name="x" value="0" checked>
+           <label for="x0">Aus</label>
+           <input type="radio" id="x1" name="x" value="1">
+           <label for="x1">An</label>
+           <a></a>
+         </div>
+   ================================================================ */
+
+.switch-toggle {
+  display: inline-flex !important;
+  align-items: center !important;
+  background: var(--c-bg-subtle) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-md) !important;
+  padding: 3px !important;
+  gap: 2px !important;
+  position: relative !important;
+}
+
+/* Verstecke native radio inputs */
+.switch-toggle input[type="radio"] {
+  position: absolute !important;
+  opacity: 0 !important;
+  width: 0 !important;
+  height: 0 !important;
+  pointer-events: none !important;
+}
+
+/* Labels als Buttons */
+.switch-toggle label {
+  all: unset !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.3rem 0.875rem !important;
+  border-radius: calc(var(--r-md) - 2px) !important;
+  font-size: 0.8125rem !important;
+  font-weight: 500 !important;
+  color: var(--c-fg-mid) !important;
+  cursor: pointer !important;
+  transition: all 0.15s ease !important;
+  line-height: 1.4 !important;
+  user-select: none !important;
+  white-space: nowrap !important;
+}
+
+.switch-toggle label:hover {
+  color: var(--c-fg) !important;
+  background: rgba(0,0,0,0.04) !important;
+}
+
+/* Aktiver Label-Zustand */
+.switch-toggle input[type="radio"]:checked + label {
+  background: var(--c-bg) !important;
+  color: var(--c-fg) !important;
+  box-shadow: var(--s-sm) !important;
+  font-weight: 600 !important;
+}
+
+/* Verstecke den <a>-Slider */
+.switch-toggle a {
+  display: none !important;
+}
+
+
+/* ================================================================
+   13. LISTE / KOLLEKTION (type: list / collection)
+   ================================================================ */
+
+.form-list-wrapper .item,
+.form-list-wrapper[data-type="collection"] > ul > li {
+  background: var(--c-bg) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-md) !important;
+  padding: 1.25rem 1.25rem 1.25rem 2.25rem !important;
+  margin-bottom: 0.625rem !important;
+  box-shadow: var(--s-xs) !important;
+  position: relative !important;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease !important;
+}
+
+.form-list-wrapper[data-type="collection"] > ul > li:hover {
+  box-shadow: var(--s-hover) !important;
+  border-color: var(--c-border-hover) !important;
+}
+
+/* Sort-Handle */
+.form-list-wrapper[data-type="collection"] > ul > li > .collection-sort {
+  position: absolute !important;
+  left: 0.625rem !important;
+  top: 1.25rem !important;
+  color: var(--c-fg-muted) !important;
+  cursor: grab !important;
+  opacity: 0.5 !important;
+  transition: opacity 0.15s !important;
+}
+.form-list-wrapper[data-type="collection"] > ul > li:hover > .collection-sort {
+  opacity: 1 !important;
+}
+.form-list-wrapper[data-type="collection"] > ul > li > .collection-sort:active {
+  cursor: grabbing !important;
+}
+
+/* Delete / Collapse */
+.form-list-wrapper[data-type="collection"] > ul > li > .item-actions {
+  position: absolute !important;
+  right: 0.875rem !important;
+  top: 1.1rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 0.4rem !important;
+  color: var(--c-fg-muted) !important;
+}
+
+.form-list-wrapper[data-type="collection"] > ul > li > .item-actions .fa-trash-o {
+  color: #dc4f4f !important;
+  cursor: pointer !important;
+  transition: color 0.15s !important;
+}
+.form-list-wrapper[data-type="collection"] > ul > li > .item-actions .fa-trash-o:hover {
+  color: #b91c1c !important;
+}
+
+/* Felder innerhalb von List-Items */
+.form-list-wrapper[data-type="collection"] > ul > li > .form-field {
+  margin-bottom: 0.75rem !important;
+  padding-bottom: 0 !important;
+  border-bottom: none !important;
+}
+
+/* Modul-Typ-Chip — der Badge der den Abschnitttyp zeigt */
+.form-list-wrapper[data-type="collection"] > ul > li .collection-title,
+.form-list-wrapper[data-type="collection"] > ul > li [data-collection-title],
+.form-list-wrapper[data-type="collection"] > ul > li .admin-block-title {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.375rem !important;
+  padding: 0.2rem 0.625rem !important;
+  background: var(--c-bg-subtle) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-sm) !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  color: var(--c-fg-mid) !important;
+  letter-spacing: 0.01em !important;
+}
+
+
+/* ================================================================
+   14. SPEZIAL-KOLLEKTIONEN
+   ================================================================ */
+
+/* Kennzahlen (Stats) — kompakte Zeilen */
+[data-collection-holder="header.stats.items"] > li {
+  display: flex !important;
+  align-items: flex-end !important;
+  gap: 1rem !important;
+  padding: 0.75rem 2.25rem !important;
+}
+[data-collection-holder="header.stats.items"] > li > .collection-sort {
+  position: absolute !important;
+  left: 0.625rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  margin: 0 !important;
+}
+[data-collection-holder="header.stats.items"] > li > .item-actions {
+  position: absolute !important;
+  right: 0.625rem !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+}
+[data-collection-holder="header.stats.items"] > li > div.form-field {
+  flex: 1 !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  gap: 0.75rem !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+[data-collection-holder="header.stats.items"] > li > div.form-field > .form-field {
+  flex: 1 1 0% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+[data-collection-holder="header.stats.items"] > li > div.form-field > .form-field .form-label {
+  margin-bottom: 0.25rem !important;
+}
+
+/* Herausforderungen & Lösungen — 2 Spalten */
+[data-collection-holder="header.solutions.items"] > li {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1.25rem !important;
+}
+[data-collection-holder="header.solutions.items"] > li > .form-field {
+  width: calc(50% - 0.625rem) !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border: none !important;
+}
+[data-collection-holder="header.solutions.items"] > li .form-input-wrapper textarea {
+  min-height: 4rem !important;
+}
+
+/* Sticky Scroll — Label/Titel/Subtitle in einer Reihe */
+[data-collection-holder="header.sticky_scroll.items"] > li {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1rem !important;
+}
+[data-collection-holder="header.sticky_scroll.items"] > li > .form-field {
+  width: 100% !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+  border: none !important;
+}
+[data-collection-holder="header.sticky_scroll.items"] > li > .form-field:nth-child(1),
+[data-collection-holder="header.sticky_scroll.items"] > li > .form-field:nth-child(2),
+[data-collection-holder="header.sticky_scroll.items"] > li > .form-field:nth-child(3) {
+  width: calc(33.333% - 0.667rem) !important;
+}
+[data-collection-holder="header.sticky_scroll.items"] > li > .form-field:nth-child(4),
+[data-collection-holder="header.sticky_scroll.items"] > li > .form-field:nth-child(5) {
+  width: calc(50% - 0.5rem) !important;
+}
+
+/* Smart Catering — verschachtelte Container */
+[data-collection-holder="header.smart_catering.columns"] > li {
+  background: var(--c-bg-muted) !important;
+  box-shadow: none !important;
+}
+[data-collection-holder="header.smart_catering.columns"] > li .form-list-wrapper[data-type="collection"] > ul > li {
+  background: var(--c-bg) !important;
+  padding: 1rem 1rem 1rem 2rem !important;
+}
+[data-collection-holder="header.smart_catering.columns"] > li .form-list-wrapper[data-type="collection"] > ul > li .form-list-wrapper > ul > li {
+  background: var(--c-bg-muted) !important;
+  border: 1px dashed var(--c-border) !important;
+  padding: 0.875rem 0.875rem 0.875rem 1.75rem !important;
+}
+
+
+/* ================================================================
+   15. DROPZONE
+   ================================================================ */
+
+.dropzone {
+  border: 1px dashed var(--c-border-hover) !important;
+  border-radius: var(--r-md) !important;
+  background: var(--c-bg-muted) !important;
+  transition: background 0.2s ease, border-color 0.2s ease !important;
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: wrap !important;
+  align-items: flex-start !important;
+  gap: 0.625rem !important;
+  padding: 0.75rem !important;
+  min-height: 5.5rem !important;
+}
+
+.dropzone:hover {
+  background: var(--c-bg-subtle) !important;
+  border-color: var(--ab-400) !important;
+}
+
+.dropzone .dz-message {
+  flex: 0 0 100% !important;
+  text-align: center !important;
+  padding: 0.75rem 0 !important;
+  color: var(--c-fg-mid) !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+}
+
+.dropzone.dz-started .dz-message {
+  flex: 0 0 100% !important;
+  font-size: 0.7rem !important;
+  color: var(--c-fg-muted) !important;
+  padding: 0.25rem 0 !important;
+}
+
+.dropzone .dz-preview {
+  flex-shrink: 0 !important;
+  width: 88px !important;
+  text-align: center !important;
+  position: relative !important;
+}
+
+.dropzone .dz-image {
+  width: 84px !important;
+  height: 84px !important;
+  border-radius: var(--r-sm) !important;
+  overflow: hidden !important;
+  border: 1px solid var(--c-border) !important;
+  margin: 0 auto !important;
+  background: var(--c-bg-subtle) !important;
+}
+
+.dropzone .dz-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  border-radius: var(--r-sm) !important;
+}
+
+.dropzone .dz-details {
+  font-size: 0.65rem !important;
+  color: var(--c-fg-muted) !important;
+  margin-top: 0.25rem !important;
+  overflow: hidden !important;
+}
+
+.dropzone .dz-details .dz-filename,
+.dropzone .dz-details .dz-size {
+  display: block !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  white-space: nowrap !important;
+  max-width: 84px !important;
+  margin: 0 auto !important;
+}
+
+.dropzone .dz-remove {
+  display: block !important;
+  font-size: 0.65rem !important;
+  color: #dc4f4f !important;
+  text-align: center !important;
+  margin-top: 0.2rem !important;
+  cursor: pointer !important;
+}
+
+.dropzone .dz-progress { display: none !important; }
+.dropzone .dz-error-mark,
+.dropzone .dz-success-mark {
+  top: 24px !important;
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  margin-left: 0 !important;
+}
+
+
+/* ================================================================
+   16. TABS
+   ================================================================ */
+
+.content-tabs {
+  position: relative !important;
+  margin-bottom: 1.5rem !important;
+}
+
+.tabs-nav,
+.content-tabs .tabs-nav {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  gap: 1.5rem !important;
+  border-bottom: 1px solid var(--c-border) !important;
+  margin-bottom: 1.5rem !important;
+  padding: 0 !important;
+  background: transparent !important;
+}
+
+.tabs-nav li,
+.content-tabs .tabs-nav li {
+  margin-bottom: -1px !important;
+}
+
+.tabs-nav li a,
+.content-tabs .tabs-nav li a {
+  display: block !important;
+  padding: 0.625rem 0.25rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  color: var(--c-fg-mid) !important;
+  border-bottom: 2px solid transparent !important;
+  transition: all 0.15s ease !important;
+  text-decoration: none !important;
+  background: transparent !important;
+  border-top: none !important;
+  border-left: none !important;
+  border-right: none !important;
+  border-radius: 0 !important;
+}
+
+.tabs-nav li.active a,
+.content-tabs .tabs-nav li.active a,
+.tabs-nav li a:hover,
+.content-tabs .tabs-nav li a:hover {
+  color: var(--c-fg) !important;
+  border-bottom-color: var(--ab-800) !important;
+  background: transparent !important;
+}
+
+
+/* ================================================================
+   17. BUTTONS
+   ================================================================ */
+
+.button, .btn {
+  padding: 0 1rem !important;
+  font-size: 0.875rem !important;
+  font-weight: 500 !important;
+  font-family: 'Geist', system-ui, sans-serif !important;
+  border-radius: var(--r-sm) !important;
+  transition: all 0.15s ease !important;
+  text-transform: none !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 0.5rem !important;
+  line-height: 1.25rem !important;
+  height: 2.25rem !important;
+  box-shadow: var(--s-xs) !important;
+  cursor: pointer !important;
+  letter-spacing: -0.01em !important;
+}
+
+/* Secondary Button (Default) */
+.button:not(.button-primary):not(.danger):not(.success) {
+  background-color: var(--c-bg) !important;
+  border: 1px solid var(--c-border) !important;
+  color: var(--c-fg) !important;
+}
+.button:not(.button-primary):not(.danger):not(.success):hover {
+  background-color: var(--c-bg-subtle) !important;
+  border-color: var(--c-border-hover) !important;
+}
+
+/* Primary Button (Speichern etc.) — Brand Aubergine */
+.button-primary, .button.success {
+  background-color: var(--ab-800) !important;
+  color: var(--ab-050) !important;
+  border: 1px solid transparent !important;
+}
+.button-primary:hover, .button.success:hover {
+  background-color: var(--ab-700) !important;
+}
+
+/* Danger Button */
+.button.danger {
+  background-color: #dc4f4f !important;
+  color: #fff !important;
+  border: 1px solid transparent !important;
+}
+.button.danger:hover { background-color: #b91c1c !important; }
+
+
+/* ================================================================
+   18. PAGE TREE
+   ================================================================ */
+
+.pages-list .page-item { margin-bottom: 0.25rem !important; }
+
+.pages-list .page-item__row {
+  padding: 0.5rem 0.75rem !important;
+  background: transparent !important;
+  border-radius: var(--r-sm) !important;
+  border: 1px solid transparent !important;
+  transition: background 0.15s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+}
+
+.pages-list .page-item__row:hover {
+  background: var(--c-bg-subtle) !important;
+  border-color: transparent !important;
+  transform: none !important;
+}
+
+.pages-list .page-item__toggle {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 1.5rem !important;
+  height: 1.5rem !important;
+  margin-right: 0.5rem !important;
+  border-radius: 4px !important;
+}
+
+.pages-list .page-item__toggle[data-toggle="children"] {
+  background: transparent !important;
+  cursor: pointer !important;
+  border: none !important;
+}
+.pages-list .page-item__toggle[data-toggle="children"]:hover {
+  background: var(--c-border) !important;
+}
+.pages-list .page-item__toggle[data-toggle="children"] .page-icon {
+  font-size: 0.875rem !important;
+  color: var(--c-fg-mid) !important;
+}
+.pages-list .page-item__toggle[data-toggle="children"] .page-icon.children-closed:before { content: "\f07b" !important; }
+.pages-list .page-item__toggle[data-toggle="children"] .page-icon.children-open:before,
+.pages-list .page-item__toggle[data-toggle="children"] .page-icon:not(.children-closed):before { content: "\f07c" !important; }
+
+.pages-list .page-item__toggle:not([data-toggle="children"]) {
+  cursor: default !important;
+  background: transparent !important;
+  border: none !important;
+}
+.pages-list .page-item__toggle:not([data-toggle="children"]) .page-icon {
+  font-size: 0.875rem !important;
+  color: var(--c-fg-muted) !important;
+}
+.pages-list .page-item__toggle:not([data-toggle="children"]) .page-icon:before { content: "\f0f6" !important; }
+
+.pages-list ul[class^="depth-"] {
+  margin-left: 1.25rem !important;
+  padding-left: 1rem !important;
+  border-left: 1px solid var(--c-border) !important;
+  margin-top: 0.125rem !important;
+  margin-bottom: 0.125rem !important;
+}
+
+.pages-list .page-item__content {
+  display: flex !important;
+  align-items: baseline !important;
+  flex-wrap: nowrap !important;
+  gap: 0.5rem !important;
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.pages-list .page-item__content-name {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 0.5rem !important;
+  flex-shrink: 0 !important;
+}
+
+.pages-list .page-edit {
+  font-weight: 500 !important;
+  font-size: 0.875rem !important;
+  color: var(--c-fg) !important;
+  text-decoration: none !important;
+  white-space: nowrap !important;
+}
+
+.pages-list .page-route {
+  font-size: 0.75rem !important;
+  color: var(--c-fg-muted) !important;
+  margin: 0 !important;
+  white-space: nowrap !important;
+  overflow: hidden !important;
+  text-overflow: ellipsis !important;
+  flex-grow: 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 0.25rem !important;
+}
+
+.pages-list .badge.lang {
+  font-size: 0.65rem !important;
+  padding: 0.1rem 0.3rem !important;
+  border-radius: 4px !important;
+  background: var(--c-bg-subtle) !important;
+  color: var(--c-fg-mid) !important;
+  line-height: 1 !important;
+  border: 1px solid var(--c-border) !important;
+}
+
+.pages-list .page-home { color: var(--c-fg-mid) !important; font-size: 0.875rem !important; }
+.pages-list .page-item__tools { flex-shrink: 0 !important; margin-left: 1rem !important; }
+.pages-list .page-item__tools a { color: var(--c-fg-muted) !important; font-size: 0.875rem !important; }
+.pages-list .page-item__tools a:hover { color: var(--c-fg) !important; }
+
+
+/* ================================================================
+   19. CODEMIRROR & GRAV EDITOR
+   ================================================================ */
+
+.grav-editor-toolbar {
+  border-radius: var(--r-sm) var(--r-sm) 0 0 !important;
+  border: 1px solid var(--c-border) !important;
+  border-bottom: none !important;
+  background-color: var(--c-bg-muted) !important;
+  padding: 0.5rem !important;
+}
+
+.CodeMirror {
+  border-radius: 0 0 var(--r-sm) var(--r-sm) !important;
+  border: 1px solid var(--c-border) !important;
+  padding: 0.75rem !important;
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace !important;
+}
+
+
+/* ================================================================
+   20. TRUMBOWYG RICH TEXT EDITOR
+   ================================================================ */
+
+.trumbowyg-box, .trumbowyg-editor {
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-sm) !important;
+  box-shadow: var(--s-xs) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+  margin: 0 !important;
+  background: var(--c-bg) !important;
+}
+
+.trumbowyg-box:focus-within {
+  border-color: var(--ab-400) !important;
+  box-shadow: 0 0 0 2px hsla(319, 12%, 51%, 0.2) !important;
+}
+
+.trumbowyg-button-pane {
+  background-color: var(--c-bg-muted) !important;
+  border-bottom: 1px solid var(--c-border) !important;
+  border-radius: var(--r-sm) var(--r-sm) 0 0 !important;
+}
+
+.trumbowyg-button-pane::after { display: none !important; }
+
+.trumbowyg-button-pane button {
+  border-radius: 4px !important;
+  color: var(--c-fg-mid) !important;
+  transition: all 0.15s ease !important;
+}
+
+.trumbowyg-button-pane button:hover,
+.trumbowyg-button-pane button.trumbowyg-active {
+  background-color: var(--c-border) !important;
+  color: var(--c-fg) !important;
+}
+
+.trumbowyg-button-pane button.trumbowyg-active {
+  background-color: var(--c-border-hover) !important;
+}
+
+.trumbowyg-button-pane button svg { fill: currentColor !important; }
+
+.trumbowyg-editor {
+  padding: 0.75rem 1rem !important;
+  min-height: 120px !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 0 var(--r-sm) var(--r-sm) !important;
+  color: var(--c-fg) !important;
+  font-size: 0.875rem !important;
+  font-family: 'Geist', system-ui, sans-serif !important;
+  line-height: 1.5 !important;
+}
+
+
+/* ================================================================
+   21. SELECTIZE (Tag-Felder)
+   ================================================================ */
+
+.selectize-control.multi .selectize-input {
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-sm) !important;
+  padding: 0.25rem 0.5rem !important;
+  min-height: 2.25rem !important;
+  box-shadow: var(--s-xs) !important;
+  background-color: var(--c-bg) !important;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease !important;
+}
+
+.selectize-control.multi .selectize-input.focus {
+  border-color: var(--ab-400) !important;
+  box-shadow: 0 0 0 2px hsla(319, 12%, 51%, 0.2) !important;
+}
+
+.selectize-control.multi .selectize-input > div {
+  background: var(--c-bg-subtle) !important;
+  color: var(--c-fg) !important;
+  border: 1px solid var(--c-border) !important;
+  border-radius: 4px !important;
+  padding: 0.15rem 0.4rem !important;
+  margin: 0.125rem 0.25rem 0.125rem 0 !important;
+  font-size: 0.75rem !important;
+  font-weight: 500 !important;
+  text-shadow: none !important;
+  box-shadow: none !important;
+}
+
+.selectize-control.multi .selectize-input > div.active {
+  background: var(--c-border) !important;
+  color: var(--c-fg) !important;
+  border-color: var(--c-border-hover) !important;
+}
+
+.selectize-control.multi .selectize-input input {
+  font-size: 0.875rem !important;
+  color: var(--c-fg) !important;
+  height: 1.5rem !important;
+}
+
+.selectize-dropdown {
+  border: 1px solid var(--c-border) !important;
+  border-radius: var(--r-sm) !important;
+  box-shadow: var(--s-md) !important;
+  padding: 0.25rem !important;
+  margin-top: 0.25rem !important;
+  background: var(--c-bg) !important;
+}
+
+.selectize-dropdown .option {
+  padding: 0.375rem 0.5rem !important;
+  border-radius: 4px !important;
+  font-size: 0.875rem !important;
+  color: var(--c-fg) !important;
+  cursor: pointer !important;
+}
+
+.selectize-dropdown .option.active,
+.selectize-dropdown .option:hover {
+  background-color: var(--c-bg-subtle) !important;
+  color: var(--c-fg) !important;
+}
