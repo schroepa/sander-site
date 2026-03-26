@@ -55,7 +55,7 @@ function renderMarkdown(text: string | undefined) {
               </svg>
             </button>
 
-            <ul class="dropdown-menu" id="sticky-dropdown-menu" role="listbox">
+            <ul class="dropdown-menu" id="sticky-dropdown-menu" role="listbox" aria-labelledby="sticky-dropdown-trigger">
               {data.items.map((item, index) => (
                 <li class="dropdown-item" data-index={index} role="option" aria-selected="false" tabindex="-1">
                   {item.dropdown_label}
