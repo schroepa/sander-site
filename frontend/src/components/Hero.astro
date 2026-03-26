@@ -292,10 +292,11 @@ const isDesaturated =
     pointer-events: none;
   }
 
-  /* Ambient-Layer: immer sichtbar, gedimmt */
+  /* Ambient-Layer: immer sichtbar, verschmilzt mit dem Hintergrund */
   .hero__deco-svg--dim {
     color: var(--deco-color, #ad94a5);
-    opacity: 0.05;
+    opacity: 0.2;
+    mix-blend-mode: soft-light;
   }
 
   /* Lit-Layer: 0.8 Helligkeit, nur im Taschenlampen-Radius sichtbar */
@@ -329,7 +330,8 @@ const isDesaturated =
     width: 100%;
     height: 100%;
     color: var(--deco-color, #ad94a5);
-    opacity: 0.16;
+    opacity: 0.03;
+    mix-blend-mode: soft-light;
   }
 
   /* Hashtag-Tags unter der Subline */
