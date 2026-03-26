@@ -16,6 +16,12 @@ const headlineScale = hero.headline_scale ?? 1;
 const sublineScale = hero.subline_scale ?? 1;
 const gapSpacing = hero.headline_subline_spacing ?? 1.5;
 
+// Subline: #Hashtags als separate Tags extrahieren
+const sublineRaw = hero.subline ?? '';
+const hashtagRegex = /(#[\wÄäÖöÜüß]+)/gu;
+const heroTags = [...sublineRaw.matchAll(hashtagRegex)].map(m => m[1]);
+const sublineClean = sublineRaw.replace(hashtagRegex, '').trim();
+
 const bgVideo = hero.background_video
   ? `${GRAV_MEDIA_BASE}/${path.basename(hero.background_video)}`
   : null;
@@ -124,15 +130,20 @@ const isDesaturated =
     >
       <Fragment set:html={hero.headline} />
     </h1>
-    {
-      hero.subline && (
-        <p
-          style={`font-family: var(--font-body); font-size: calc(var(--text-body-lg) * ${sublineScale}); line-height: var(--leading-body-lg); color: var(--color-text-secondary);`}
-        >
-          {hero.subline}
-        </p>
-      )
-    }
+    {sublineClean && (
+      <p
+        style={`font-family: var(--font-body); font-size: calc(var(--text-body-lg) * ${sublineScale}); line-height: var(--leading-body-lg); color: var(--color-text-secondary);`}
+      >
+        {sublineClean}
+      </p>
+    )}
+    {heroTags.length > 0 && (
+      <div class="hero__tags" role="list" aria-label="Kategorien">
+        {heroTags.map(tag => (
+          <span class="hero__tag" role="listitem">{tag}</span>
+        ))}
+      </div>
+    )}
     {
       (hero.show_cta === true ||
         hero.show_cta === 1 ||
@@ -170,10 +181,9 @@ const isDesaturated =
 <script is:inline>
   (function () {
     var section = document.querySelector(".hero-section");
-    var decoWrap = section && section.querySelector(".hero__deco-wrap");
     var spotlight = section && section.querySelector(".hero__spotlight");
     var litText = section && section.querySelector(".hero__deco-svg--lit");
-    if (!section || !decoWrap || !spotlight || !litText) return;
+    if (!section || !spotlight || !litText) return;
 
     var targetX = 0.5,
       targetY = 0.5;
@@ -188,11 +198,6 @@ const isDesaturated =
     function tick() {
       currentX = lerp(currentX, targetX, 0.06);
       currentY = lerp(currentY, targetY, 0.06);
-
-      var rx = (currentY - 0.5) * 10;
-      var ry = (currentX - 0.5) * -10;
-      decoWrap.style.transform =
-        "rotateX(" + rx + "deg) rotateY(" + ry + "deg)";
 
       spotlight.style.setProperty("--mx", currentX * 100 + "%");
       spotlight.style.setProperty("--my", currentY * 100 + "%");
@@ -275,10 +280,8 @@ const isDesaturated =
     perspective: 900px;
   }
 
-  /* Wird per JS mit rotateX/rotateY animiert */
   .hero__deco-wrap {
     position: relative;
-    will-change: transform;
   }
 
   .hero__deco-svg {
@@ -326,6 +329,32 @@ const isDesaturated =
     height: 100%;
     color: var(--deco-color, #ad94a5);
     opacity: 0.16;
+  }
+
+  /* Hashtag-Tags unter der Subline */
+  .hero__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-100);
+    justify-content: center;
+    pointer-events: none;
+  }
+
+  .hero__tag {
+    display: inline-flex;
+    align-items: center;
+    padding: var(--space-050) var(--space-150);
+    background: hsla(320, 12%, 41%, 0.25);
+    border: 1px solid var(--color-stroke-tertiary);
+    border-radius: var(--radius-rounded);
+    font-family: var(--font-body);
+    font-size: var(--text-body-sm);
+    font-weight: var(--weight-medium);
+    line-height: var(--leading-body-sm);
+    color: var(--color-text-secondary);
+    letter-spacing: 0.01em;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
   }
 
   /* Spotlight folgt der Maus via CSS Custom Properties */
