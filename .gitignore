@@ -14,7 +14,10 @@ cms/backup/
 cms/cache/
 cms/logs/
 cms/tmp/
-cms/user/data/
+cms/user/data/*
+# Ausnahmen: Design-Dateien die getrackt werden sollen
+!cms/user/data/admin
+!cms/user/data/admin/*
 cms/user/pages/
 cms/cookies.txt
 # Plugin-Token nie in git (wird direkt auf dem Server gesetzt)
