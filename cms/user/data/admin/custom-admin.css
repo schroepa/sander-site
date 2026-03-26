@@ -1554,3 +1554,70 @@ body.sidebar-closed #admin-main {
   padding: 0 0.5rem !important;
   font-size: 0.7rem !important;
 }
+
+
+/* ================================================================
+   24. TAB-ICONS (FontAwesome 7 via ::before)
+   ================================================================ */
+
+/* Basis-Setup für alle Icon-Pseudo-Elemente */
+.form-tabs > .tabs-nav > a.tab__link::before {
+  font-family: "Font Awesome 7 Free" !important;
+  font-weight: 900 !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto !important;
+  -webkit-font-smoothing: antialiased !important;
+  font-size: 0.8rem !important;
+  margin-right: 0.375rem !important;
+  display: inline-block !important;
+  flex-shrink: 0 !important;
+}
+
+/* Reihenfolge — list-ol */
+a.tab__link[data-scope="data.tab_order"]::before    { content: "\f0ca" !important; }
+
+/* Hero — star */
+a.tab__link[data-scope="data.tab_hero"]::before     { content: "\f005" !important; }
+
+/* Kennzahlen — chart-bar */
+a.tab__link[data-scope="data.tab_stats"]::before    { content: "\f080" !important; }
+
+/* Menu Slider — film */
+a.tab__link[data-scope="data.tab_menu_slider"]::before { content: "\f008" !important; }
+
+/* Lösungen — check-circle */
+a.tab__link[data-scope="data.tab_solutions"]::before { content: "\f058" !important; }
+
+/* Smart Catering — utensils */
+a.tab__link[data-scope="data.tab_smart_catering"]::before { content: "\f2e7" !important; }
+
+/* Sticky Scroll — align-justify (sections/layout) */
+a.tab__link[data-scope="data.tab_sticky_scroll"]::before { content: "\f039" !important; }
+
+/* CTAs — bullhorn */
+a.tab__link[data-scope="data.tab_ctas"]::before     { content: "\f0a1" !important; }
+
+/* Rosin — building */
+a.tab__link[data-scope="data.tab_rosin"]::before    { content: "\f1ad" !important; }
+
+/* Auszeichnungen — trophy */
+a.tab__link[data-scope="data.tab_awards"]::before   { content: "\f091" !important; }
+
+/* Team — users */
+a.tab__link[data-scope="data.tab_team"]::before     { content: "\f0c0" !important; }
+
+/* Logos — paint-brush */
+a.tab__link[data-scope="data.tab_logos"]::before    { content: "\f1fc" !important; }
+
+/* Text — align-left */
+a.tab__link[data-scope="data.tab_text"]::before     { content: "\f036" !important; }
+
+/* Karten — th-large (grid/cards) */
+a.tab__link[data-scope="data.tab_cards"]::before    { content: "\f009" !important; }
+
+/* FAQ — question-circle */
+a.tab__link[data-scope="data.tab_faq"]::before      { content: "\f059" !important; }
+
+/* Split Sections — columns */
+a.tab__link[data-scope="data.tab_split_sections"]::before { content: "\f0db" !important; }
