@@ -34,7 +34,7 @@ function renderMarkdown(text: string | undefined) {
       {
         data.items && data.items.length > 0 && (
           <div class="dropdown-wrapper">
-            <div class="dropdown-trigger" id="sticky-dropdown-trigger">
+            <button class="dropdown-trigger" id="sticky-dropdown-trigger" aria-haspopup="listbox" aria-expanded="false" aria-label="Kategorie wählen">
               <span id="sticky-active-label">
                 {data.items[0].dropdown_label || "Select..."}
               </span>
@@ -53,11 +53,11 @@ function renderMarkdown(text: string | undefined) {
                   stroke-linejoin="round"
                 />
               </svg>
-            </div>
+            </button>
 
-            <ul class="dropdown-menu" id="sticky-dropdown-menu">
+            <ul class="dropdown-menu" id="sticky-dropdown-menu" role="listbox">
               {data.items.map((item, index) => (
-                <li class="dropdown-item" data-index={index}>
+                <li class="dropdown-item" data-index={index} role="option" aria-selected="false" tabindex="-1">
                   {item.dropdown_label}
                 </li>
               ))}
@@ -462,11 +462,13 @@ function renderMarkdown(text: string | undefined) {
     if (dropdownTrigger && dropdownWrapper) {
       dropdownTrigger.addEventListener("click", (e) => {
         e.stopPropagation();
-        dropdownWrapper.classList.toggle("open");
+        const isOpen = dropdownWrapper.classList.toggle("open");
+        dropdownTrigger.setAttribute("aria-expanded", String(isOpen));
       });
 
       document.addEventListener("click", () => {
         dropdownWrapper.classList.remove("open");
+        dropdownTrigger.setAttribute("aria-expanded", "false");
       });
     }
 
