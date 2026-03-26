@@ -1,6 +1,7 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
 import path from 'node:path';
+import sitemap from '@astrojs/sitemap';
 
 import tailwindcss from '@tailwindcss/vite';
 
@@ -9,6 +10,8 @@ const gravPagesDir = path.resolve(import.meta.dirname, '../cms/user/pages');
 
 // https://astro.build/config
 export default defineConfig({
+  site: "https://smart-catering.de",
+  integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
 
