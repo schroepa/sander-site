@@ -34,7 +34,7 @@ const hasOverlay =
     (bgVideo || bgImage) && (
       <div class="text-section__bg" aria-hidden="true">
         {bgVideo ? (
-          <video class="text-section__bg-img" src={bgVideo} autoplay muted loop playsinline />
+          <video class="text-section__bg-img" src={bgVideo} autoplay muted loop playsinline preload="none" />
         ) : (
           <img class="text-section__bg-img" src={bgImage!} alt="" loading="lazy" />
         )}
