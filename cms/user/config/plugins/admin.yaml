@@ -1,2 +1,2 @@
 whitelabel:
-  custom_css: '@import url("/user/data/admin/custom-admin.css");'
+  custom_css: '@import url("/cms/user/data/admin/custom-admin.css");'
