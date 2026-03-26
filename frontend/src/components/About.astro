@@ -32,7 +32,7 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
     (bgVideo || bgImage) && (
       <div class="about__bg" aria-hidden="true">
         {bgVideo ? (
-          <video class="about__bg-img" src={bgVideo} autoplay muted loop playsinline />
+          <video class="about__bg-img" src={bgVideo} autoplay muted loop playsinline preload="none" />
         ) : (
           <img class="about__bg-img" src={bgImage!} alt="" loading="lazy" />
         )}
