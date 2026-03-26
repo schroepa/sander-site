@@ -16,6 +16,7 @@ cms/logs/
 cms/tmp/
 cms/user/data/
 cms/user/pages/
+cms/cookies.txt
 # Plugin-Token nie in git (wird direkt auf dem Server gesetzt)
 cms/user/config/plugins/github-deploy.yaml
 
