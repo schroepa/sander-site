@@ -294,8 +294,7 @@ const isDesaturated =
 
   /* Ambient-Layer: immer sichtbar, gedimmt */
   .hero__deco-svg--dim {
-    color: var(--deco-color, #ad94a5);
-    opacity: 0.05;
+    color: color-mix(in srgb, var(--deco-color, #ad94a5) 5%, transparent);
   }
 
   /* Lit-Layer: 0.8 Helligkeit, nur im Taschenlampen-Radius sichtbar */
@@ -328,8 +327,7 @@ const isDesaturated =
     inset: 0;
     width: 100%;
     height: 100%;
-    color: var(--deco-color, #ad94a5);
-    opacity: 0.16;
+    color: color-mix(in srgb, var(--deco-color, #ad94a5) 16%, transparent);
   }
 
   /* Hashtag-Tags unter der Subline */
