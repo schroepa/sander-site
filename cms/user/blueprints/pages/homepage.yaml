@@ -79,6 +79,16 @@ form:
               label: Subline
               placeholder: "z.B. Intelligent gelöst. Köstlich geliefert."
 
+            header.hero.tags:
+              type: list
+              label: Tags
+              help: "Tags erscheinen unter der Subline. Ohne # eingeben, z.B. «Catering» oder «Betriebsgastronomie»."
+              style: vertical
+              fields:
+                .item:
+                  type: text
+                  placeholder: "z.B. Catering"
+
             hero_scale_columns:
               type: columns
               fields:
