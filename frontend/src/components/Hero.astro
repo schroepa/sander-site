@@ -3,6 +3,7 @@ import path from "node:path";
 import type { HeroData } from "../lib/grav";
 import { GRAV_MEDIA_BASE } from "../lib/grav";
 import SanderLogoHero from "./SanderLogoHero.astro";
+import { Hash } from "lucide-astro";
 
 interface Props {
   hero: HeroData;
@@ -19,8 +20,11 @@ const gapSpacing = hero.headline_subline_spacing ?? 1.5;
 // Subline: #Hashtags als separate Tags extrahieren
 const sublineRaw = hero.subline ?? '';
 const hashtagRegex = /(#[\wÄäÖöÜüß]+)/gu;
-const heroTags = [...sublineRaw.matchAll(hashtagRegex)].map(m => m[1]);
+const sublineTags = [...sublineRaw.matchAll(hashtagRegex)].map(m => m[1].slice(1));
 const sublineClean = sublineRaw.replace(hashtagRegex, '').trim();
+// Dedicated tags field (from CMS) merged with inline hashtags; deduped
+const cmsTagsRaw = (hero.tags ?? []).map(t => t.replace(/^#/, ''));
+const heroTags = [...new Set([...cmsTagsRaw, ...sublineTags])];
 
 const bgVideo = hero.background_video
   ? `${GRAV_MEDIA_BASE}/${path.basename(hero.background_video)}`
@@ -140,7 +144,10 @@ const isDesaturated =
     {heroTags.length > 0 && (
       <div class="hero__tags" role="list" aria-label="Kategorien">
         {heroTags.map(tag => (
-          <span class="hero__tag" role="listitem">{tag}</span>
+          <span class="hero__tag" role="listitem">
+            <Hash size={12} aria-hidden="true" class="hero__tag-icon" />
+            {tag}
+          </span>
         ))}
       </div>
     )}
@@ -335,6 +342,11 @@ const isDesaturated =
   }
 
   /* Hashtag-Tags unter der Subline */
+  .hero__tag-icon {
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
   .hero__tags {
     display: flex;
     flex-wrap: wrap;
