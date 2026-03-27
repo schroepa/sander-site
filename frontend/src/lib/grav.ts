@@ -45,6 +45,7 @@ export interface ContentSection {
 /** Represents the hero block from Grav frontmatter */
 export interface HeroData {
     headline: string;
+    tags?: string[];
     subline?: string;
     spotlight_text?: string;
     spotlight_line_height?: string;
