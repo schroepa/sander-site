@@ -197,6 +197,22 @@ export interface LogoSectionData {
     background_overlay?: boolean | number | string;
 }
 
+/** A single certificate / badge item */
+export interface CertificateItem {
+    name: string;
+    image?: string;
+}
+
+/** Certificates section data – marquee of certificate logos/badges */
+export interface CertificatesSectionData {
+    headline?: string;
+    logo_color?: string;
+    items?: CertificateItem[];
+    background_image?: string;
+    background_video?: string;
+    background_overlay?: boolean | number | string;
+}
+
 /** Text section – centered headline + body paragraphs, optional background image */
 export interface TextSectionData {
     headline?: string;
@@ -321,6 +337,7 @@ export interface GravPage {
     team?: TeamData;
     faq?: FaqData;
     logo_section?: LogoSectionData;
+    certificates?: CertificatesSectionData;
     text_section?: TextSectionData;
     /** Array of split sections (Left/Right Image Full). Replaces the old singular split_section. */
     split_sections?: SplitSectionData[];

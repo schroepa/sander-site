@@ -13,6 +13,7 @@ import Team from "../components/Team.astro";
 import Faq from "../components/Faq.astro";
 import TextSection from "../components/TextSection.astro";
 import LogoSection from "../components/LogoSection.astro";
+import CertificatesSection from "../components/CertificatesSection.astro";
 import SplitSection from "../components/SplitSection.astro";
 import CardsSection from "../components/CardsSection.astro";
 import Awards from "../components/Awards.astro";
@@ -74,6 +75,8 @@ const sectionOrder =
             Component = <TextSection data={page.text_section} />;
           else if (key === "logo_section" && page.logo_section?.items?.length)
             Component = <LogoSection data={page.logo_section} />;
+          else if (key === "certificates" && page.certificates?.items?.length)
+            Component = <CertificatesSection data={page.certificates} />;
           else if (key === "cards_section" && page.cards_section?.items?.length)
             Component = <CardsSection data={page.cards_section} />;
           else if (key === "split_sections" && page.split_sections?.length)

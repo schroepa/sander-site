@@ -49,6 +49,7 @@ form:
                     team: "Team"
                     text_section: "📝 Text Section"
                     logo_section: "🏢 Logo Section"
+                    certificates: "🏅 Zertifikate"
                     awards: "Auszeichnungen"
                     faq: "FAQ"
                     split_sections: "Split Sections"
@@ -1171,6 +1172,107 @@ form:
                       help: "Video hat Vorrang · stumm · Loop · Autoplay"
 
             header.logo_section.background_overlay:
+              type: toggle
+              label: Dunkles Overlay
+              highlight: 1
+              default: 1
+              options:
+                1: An
+                0: Aus
+              validate:
+                type: bool
+
+        # ═══════════════════════════════════════════
+        # TAB: Certificates Section
+        # ═══════════════════════════════════════════
+        tab_certificates:
+          type: tab
+          title: "Zertifikate"
+
+          fields:
+            certificates_content_divider:
+              type: section
+              title: "Inhalt"
+              underline: true
+
+            certificates_header_columns:
+              type: columns
+              fields:
+                col_headline:
+                  type: column
+                  fields:
+                    header.certificates.headline:
+                      type: text
+                      label: Überschrift (optional)
+                      placeholder: "z.B. Unsere Zertifikate"
+                col_color:
+                  type: column
+                  fields:
+                    header.certificates.logo_color:
+                      type: colorpicker
+                      label: Icon-Farbe
+                      default: "#f1eef0"
+                      help: "Alle Icons werden in dieser Farbe eingefärbt"
+
+            certs_media:
+              type: pagemedia
+              label: "Zertifikat-Dateien hochladen (SVG oder Bild)"
+
+            header.certificates.items:
+              type: list
+              label: Zertifikate / Badges
+              style: vertical
+              fields:
+                .name:
+                  type: text
+                  label: Name / Alt-Text
+                  placeholder: "z.B. ISO 9001"
+                  validate:
+                    required: true
+
+                .image:
+                  type: filepicker
+                  label: Datei
+                  folder: "user://pages/01.home"
+                  accept:
+                    - image/*
+                    - .svg
+                  help: "SVG oder Bild auswählen (zuerst hochladen)"
+
+            certs_bg_divider:
+              type: section
+              title: "Hintergrund"
+              underline: true
+
+            certs_bg_media:
+              type: pagemedia
+              label: "Hintergrundbild oder -video hochladen"
+
+            certs_bg_columns:
+              type: columns
+              fields:
+                col_bg_image:
+                  type: column
+                  fields:
+                    header.certificates.background_image:
+                      type: mediapicker
+                      label: Hintergrundbild
+                      help: "Fallback, wenn kein Video gesetzt ist"
+                col_bg_video:
+                  type: column
+                  fields:
+                    header.certificates.background_video:
+                      type: filepicker
+                      label: Hintergrundvideo
+                      folder: "user://pages/01.home"
+                      accept:
+                        - video/mp4
+                        - video/webm
+                        - .mp4
+                        - .webm
+                      help: "Video hat Vorrang · stumm · Loop · Autoplay"
+
+            header.certificates.background_overlay:
               type: toggle
               label: Dunkles Overlay
               highlight: 1
