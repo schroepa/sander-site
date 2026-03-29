@@ -8,8 +8,6 @@ interface Props {
 
 const { data } = Astro.props;
 
-// If a background image is specified from Grav, we build the path.
-// The blueprint saves the filename. We assume it's located in the user/pages/01.home folder.
 const bgVideo = data.background_video
     ? `${GRAV_MEDIA_BASE}/${data.background_video.split('/').pop()}`
     : null;
@@ -22,7 +20,7 @@ const isGrayscale =
     data.background_grayscale === true ||
     data.background_grayscale === 1 ||
     data.background_grayscale === "1";
-// Default to true if not explicitly disabled
+
 const hasOverlay =
     data.background_overlay !== false &&
     data.background_overlay !== 0 &&
@@ -30,10 +28,11 @@ const hasOverlay =
 ---
 
 <section
-    class="relative w-full py-[var(--space-800)] md:py-[var(--space-1000)] px-[var(--space-200)] md:px-[var(--space-800)]"
+    id="cards-parallax-section"
+    class="relative w-full py-[var(--space-800)] md:py-[var(--space-1000)] px-[var(--space-200)] md:px-[var(--space-800)] overflow-hidden"
     style="background-color: var(--color-bg-app);"
 >
-    {/* Background Image / Video / Overlay */}
+    {/* Background Image / Video with Parallax */}
     {
         (bgVideo || bgImage) && (
             <div
@@ -48,14 +47,18 @@ const hasOverlay =
                         loop
                         playsinline
                         preload="none"
-                        class={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isGrayscale ? "grayscale" : ""}`}
+                        id="cards-parallax-bg"
+                        class={`absolute left-0 w-full object-cover transition-[filter] duration-300 ${isGrayscale ? "grayscale" : ""}`}
+                        style="top: -10%; height: 120%; will-change: transform;"
                     />
                 )}
                 {bgImage && (
                     <img
                         src={bgImage}
                         alt=""
-                        class={`absolute inset-0 w-full h-full object-cover transition-all duration-300 ${isGrayscale ? "grayscale" : ""}`}
+                        id="cards-parallax-bg"
+                        class={`absolute left-0 w-full object-cover transition-[filter] duration-300 ${isGrayscale ? "grayscale" : ""}`}
+                        style="top: -10%; height: 120%; will-change: transform;"
                     />
                 )}
                 {hasOverlay && (
@@ -100,17 +103,18 @@ const hasOverlay =
             )
         }
 
-        {/* Cards Grid */}
+        {/* Cards Grid – 4 col desktop / 2 col tablet / 1 col mobile */}
         {
             data.items && data.items.length > 0 && (
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-[var(--space-400)] w-full">
                     {data.items.map((card) => (
                         <div
-                            class="flex items-stretch rounded-[var(--radius-200)] overflow-hidden relative shrink-0"
+                            class="flex flex-col rounded-[var(--radius-200)] overflow-hidden"
                             style="background-color: var(--color-bg-secondary);"
                         >
+                            {/* Card image – top, fixed height */}
                             {card.image && (
-                                <div class="relative shrink-0 w-[120px] overflow-hidden">
+                                <div class="relative w-full h-40 overflow-hidden shrink-0">
                                     <img
                                         src={`${GRAV_MEDIA_BASE}/${card.image.split('/').pop()}`}
                                         alt={card.title}
@@ -119,6 +123,7 @@ const hasOverlay =
                                 </div>
                             )}
 
+                            {/* Card text – below image */}
                             <div class="flex flex-col gap-2 flex-1 p-[var(--space-200)] justify-start">
                                 <h3 class="font-[family-name:var(--font-heading)] text-[color:var(--color-text-primary)] text-[length:var(--text-h4)] leading-[var(--leading-h4)] font-[800] tracking-[0.15px]">
                                     {card.title}
@@ -134,3 +139,26 @@ const hasOverlay =
         }
     </div>
 </section>
+
+<script>
+  // Parallax: background scrolls at ~12% of scroll speed → gentle depth effect
+  const section = document.getElementById("cards-parallax-section");
+  const bg = document.getElementById("cards-parallax-bg") as HTMLElement | null;
+
+  if (section && bg) {
+    const PARALLAX_FACTOR = 0.12;
+
+    function update() {
+      const rect = section.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // Distance between section center and viewport center
+      const centerDist = rect.top + rect.height / 2 - vh / 2;
+      const offset = centerDist * PARALLAX_FACTOR;
+      bg.style.transform = `translateY(${offset}px)`;
+    }
+
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update, { passive: true });
+    update();
+  }
+</script>
