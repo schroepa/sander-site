@@ -1,17 +1,14 @@
 ---
-import type { LogoSectionData } from "../lib/grav";
+import type { CertificatesSectionData } from "../lib/grav";
 import { GRAV_MEDIA_BASE } from "../lib/grav";
 
 interface Props {
-    data: LogoSectionData;
+    data: CertificatesSectionData;
 }
 
 const { data } = Astro.props;
-const logos = data.items ?? [];
-const logoColor = data.logo_color || "#f1eef0";
-
-// JS on the client will duplicate as needed — render one copy here
-const allLogos = logos;
+const items = data.items ?? [];
+const itemColor = data.logo_color || "#f1eef0";
 
 const bgVideo = data.background_video
     ? `${GRAV_MEDIA_BASE}/${data.background_video.split('/').pop()}`
@@ -27,7 +24,7 @@ const hasOverlay =
     data.background_overlay !== "0";
 ---
 
-<section class="logos" id="logos">
+<section class="certs" id="certificates">
     {(bgVideo || bgImage) && (
         <div class="absolute inset-0 pointer-events-none" aria-hidden="true">
             {bgVideo && (
@@ -41,26 +38,26 @@ const hasOverlay =
             )}
         </div>
     )}
-    {data.headline && <h2 class="logos__headline">{data.headline}</h2>}
+    {data.headline && <h2 class="certs__headline">{data.headline}</h2>}
 
-    <div class="logos__track-wrapper">
-        <div class="logos__track" id="logos-track">
+    <div class="certs__track-wrapper">
+        <div class="certs__track" id="certs-track">
             {
-                allLogos.map((logo) => {
-                    const src = logo.image
-                        ? `${GRAV_MEDIA_BASE}/${logo.image}`
+                items.map((item) => {
+                    const src = item.image
+                        ? `${GRAV_MEDIA_BASE}/${item.image}`
                         : null;
                     return src ? (
-                        <div class="logos__item" title={logo.name}>
+                        <div class="certs__item" title={item.name}>
                             <div
-                                class="logos__icon"
+                                class="certs__icon"
                                 style={`
                 -webkit-mask-image: url('${src}');
                 mask-image: url('${src}');
-                background-color: ${logoColor};
+                background-color: ${itemColor};
               `}
                                 role="img"
-                                aria-label={logo.name}
+                                aria-label={item.name}
                             />
                         </div>
                     ) : null;
@@ -71,23 +68,23 @@ const hasOverlay =
 </section>
 
 <script>
-    const track = document.getElementById("logos-track");
+    const track = document.getElementById("certs-track");
     if (track && track.children.length > 0) {
         const originalItems = Array.from(track.children);
 
-        // Step 1: clone original set until track is at least 2× viewport wide
+        // Clone until track is at least 2× viewport wide
         while (track.scrollWidth < window.innerWidth * 2) {
             originalItems.forEach((item) =>
                 track.appendChild(item.cloneNode(true)),
             );
         }
 
-        // Step 2: duplicate the full track → two identical halves, -50% loops perfectly
+        // Duplicate full track → two identical halves, -50% loops perfectly
         Array.from(track.children).forEach((item) =>
             track.appendChild(item.cloneNode(true)),
         );
 
-        // Step 3: set duration based on pixel speed (80px/s) so it's always consistent
+        // Set duration based on pixel speed (50px/s)
         const halfWidth = track.scrollWidth / 2;
         const pxPerSecond = 50;
         const duration = halfWidth / pxPerSecond;
@@ -97,7 +94,7 @@ const hasOverlay =
 
 <style>
     /* ─── Section ─── */
-    .logos {
+    .certs {
         position: relative;
         overflow: hidden;
         background-color: var(--color-background-elevation2);
@@ -106,7 +103,7 @@ const hasOverlay =
         border-bottom: 1px solid var(--color-stroke-tertiary);
     }
 
-    .logos__headline {
+    .certs__headline {
         position: relative;
         z-index: 10;
         font-family: var(--font-heading);
@@ -119,7 +116,7 @@ const hasOverlay =
     }
 
     /* ─── Marquee wrapper ─── */
-    .logos__track-wrapper {
+    .certs__track-wrapper {
         position: relative;
         z-index: 10;
         padding: 0 var(--space-500) var(--space-1000);
@@ -143,18 +140,18 @@ const hasOverlay =
     }
 
     /* ─── Scrolling track ─── */
-    .logos__track {
+    .certs__track {
         display: flex;
         align-items: center;
         width: max-content;
-        animation: marquee var(--marquee-duration, 60s) linear infinite;
+        animation: certs-marquee var(--marquee-duration, 60s) linear infinite;
     }
 
-    .logos__track:hover {
+    .certs__track:hover {
         animation-play-state: paused;
     }
 
-    @keyframes marquee {
+    @keyframes certs-marquee {
         0% {
             transform: translateX(0);
         }
@@ -163,8 +160,8 @@ const hasOverlay =
         }
     }
 
-    /* ─── Single logo item ─── */
-    .logos__item {
+    /* ─── Single item ─── */
+    .certs__item {
         flex-shrink: 0;
         display: flex;
         align-items: center;
@@ -174,7 +171,7 @@ const hasOverlay =
     }
 
     /* ─── Icon via CSS mask (allows color override) ─── */
-    .logos__icon {
+    .certs__icon {
         width: 120px;
         height: 48px;
         -webkit-mask-size: contain;
@@ -186,32 +183,29 @@ const hasOverlay =
         transition: opacity 0.3s ease;
     }
 
-    .logos__item:hover .logos__icon {
+    .certs__item:hover .certs__icon {
         opacity: 0.7;
     }
 
     /* ─── Responsive ─── */
     @media (max-width: 768px) {
-        .logos {
+        .certs {
             padding: var(--space-600) var(--space-200);
         }
 
-        .logos__headline {
+        .certs__headline {
             font-size: var(--text-h4);
             line-height: var(--leading-h4);
             margin-bottom: var(--space-400);
         }
 
-        .logos__icon {
+        .certs__icon {
             width: 80px;
             height: 36px;
         }
 
-        .logos__item {
+        .certs__item {
             height: 36px;
-        }
-
-        .logos__item {
             padding-right: var(--space-600);
         }
     }
