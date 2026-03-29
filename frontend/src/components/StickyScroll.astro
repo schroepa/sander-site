@@ -143,6 +143,13 @@ function renderMarkdown(text: string | undefined) {
     z-index: 1;
   }
 
+  /* Dropdown muss über den Gradient-Fades liegen (z-index 10).
+     Da das dropdown-menu im Stacking-Context des Containers gefangen ist,
+     heben wir den gesamten Container über die Fades sobald das Dropdown offen ist. */
+  .sticky-scroll-container:has(.dropdown-wrapper.open) {
+    z-index: 20;
+  }
+
   .fade-top,
   .fade-bottom {
     z-index: 11;
