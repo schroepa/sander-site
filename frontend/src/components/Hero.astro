@@ -145,7 +145,7 @@ const isDesaturated =
       <div class="hero__tags" role="list" aria-label="Kategorien">
         {heroTags.map(tag => (
           <span class="hero__tag" role="listitem">
-            <Hash size={12} aria-hidden="true" class="hero__tag-icon" />
+            <Hash size={12} strokeWidth={2.5} aria-hidden="true" class="hero__tag-icon" />
             {tag}
           </span>
         ))}
@@ -358,6 +358,7 @@ const isDesaturated =
   .hero__tag {
     display: inline-flex;
     align-items: center;
+    gap: 8px;
     padding: var(--space-050) var(--space-150);
     background: hsla(320, 12%, 41%, 0.25);
     border: 1px solid var(--color-stroke-tertiary);
