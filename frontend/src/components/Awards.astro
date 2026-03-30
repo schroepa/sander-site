@@ -71,10 +71,8 @@ const hasOverlay =
                                         )}
                                     </div>
                                     <div class="awards__card-back">
-                                        {item.description ? (
-                                            <p class="awards__description">
-                                                {item.description}
-                                            </p>
+                                        {item.description_html ? (
+                                            <div class="awards__description prose" set:html={item.description_html} />
                                         ) : (
                                             item.label && (
                                                 <p class="awards__description">
@@ -247,6 +245,30 @@ const hasOverlay =
         line-height: var(--leading-body-md);
         color: var(--color-text-secondary);
         margin: 0;
+    }
+
+    /* ─── Markdown prose on back side ─── */
+    .awards__description.prose :global(p) {
+        margin: 0 0 var(--space-200);
+    }
+    .awards__description.prose :global(p:last-child) {
+        margin-bottom: 0;
+    }
+    .awards__description.prose :global(strong) {
+        font-weight: var(--weight-semibold);
+        color: var(--color-text-primary);
+    }
+    .awards__description.prose :global(em) {
+        font-style: italic;
+    }
+    .awards__description.prose :global(ul),
+    .awards__description.prose :global(ol) {
+        margin: var(--space-100) 0;
+        padding-left: var(--space-400);
+        text-align: left;
+    }
+    .awards__description.prose :global(li) {
+        margin-bottom: var(--space-100);
     }
 
     /* ─── Responsive ─── */
