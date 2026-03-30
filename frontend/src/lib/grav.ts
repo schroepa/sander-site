@@ -463,6 +463,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         team,
         faq,
         logo_section: data.logo_section ?? undefined,
+        certificates: data.certificates ?? undefined,
         text_section,
         split_sections: data.split_sections
             ? (data.split_sections as SplitSectionData[])
