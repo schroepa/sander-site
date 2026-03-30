@@ -261,6 +261,8 @@ export interface AwardsItem {
     image?: string;
     label?: string;
     description?: string;
+    /** Markdown-rendered HTML of `description` */
+    description_html?: string;
 }
 
 /** Awards section data */
@@ -471,7 +473,15 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
                 ? [data.split_section as SplitSectionData]
                 : undefined,
         split_section: data.split_section ?? undefined,
-        awards: data.awards ?? undefined,
+        awards: data.awards
+            ? {
+                ...data.awards,
+                items: (data.awards.items ?? []).map((item: AwardsItem) => ({
+                    ...item,
+                    description_html: md(item.description),
+                })),
+            }
+            : undefined,
         cards_section: data.cards_section ?? undefined,
         body: content.trim(),
         raw: data,

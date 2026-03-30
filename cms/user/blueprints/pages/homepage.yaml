@@ -922,10 +922,10 @@ form:
                   help: "Bild zuerst oben hochladen, dann hier auswählen"
 
                 .description:
-                  type: textarea
+                  type: editor
                   label: Beschreibung
-                  rows: 3
                   placeholder: "Kurze Erklärung zur Auszeichnung…"
+                  help: "Markdown-Formatierung möglich (fett, kursiv, Listen …)"
 
             awards_bg_divider:
               type: section
