@@ -197,6 +197,22 @@ export interface LogoSectionData {
     background_overlay?: boolean | number | string;
 }
 
+/** A single certificate / badge item */
+export interface CertificateItem {
+    name: string;
+    image?: string;
+}
+
+/** Certificates section data – marquee of certificate logos/badges */
+export interface CertificatesSectionData {
+    headline?: string;
+    logo_color?: string;
+    items?: CertificateItem[];
+    background_image?: string;
+    background_video?: string;
+    background_overlay?: boolean | number | string;
+}
+
 /** Text section – centered headline + body paragraphs, optional background image */
 export interface TextSectionData {
     headline?: string;
@@ -245,6 +261,8 @@ export interface AwardsItem {
     image?: string;
     label?: string;
     description?: string;
+    /** Markdown-rendered HTML of `description` */
+    description_html?: string;
 }
 
 /** Awards section data */
@@ -321,6 +339,7 @@ export interface GravPage {
     team?: TeamData;
     faq?: FaqData;
     logo_section?: LogoSectionData;
+    certificates?: CertificatesSectionData;
     text_section?: TextSectionData;
     /** Array of split sections (Left/Right Image Full). Replaces the old singular split_section. */
     split_sections?: SplitSectionData[];
@@ -446,6 +465,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         team,
         faq,
         logo_section: data.logo_section ?? undefined,
+        certificates: data.certificates ?? undefined,
         text_section,
         split_sections: data.split_sections
             ? (data.split_sections as SplitSectionData[])
@@ -453,7 +473,15 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
                 ? [data.split_section as SplitSectionData]
                 : undefined,
         split_section: data.split_section ?? undefined,
-        awards: data.awards ?? undefined,
+        awards: data.awards
+            ? {
+                ...data.awards,
+                items: (data.awards.items ?? []).map((item: AwardsItem) => ({
+                    ...item,
+                    description_html: md(item.description),
+                })),
+            }
+            : undefined,
         cards_section: data.cards_section ?? undefined,
         body: content.trim(),
         raw: data,

@@ -99,6 +99,7 @@ const isRight = data.image_position === "right";
   ══════════════════════════════════════════════ */
   .split {
     background-color: var(--color-background-primary);
+    margin-block: var(--space-1000); /* 80px desktop */
     /*
       NO overflow: hidden here — we WANT the image to bleed
       to the raw viewport edge.
@@ -308,6 +309,10 @@ const isRight = data.image_position === "right";
             bottom corners rounded, content below.
   ══════════════════════════════════════════════ */
   @media (width <= 1023px) {
+    .split {
+      margin-block: var(--space-800); /* 64px tablet */
+    }
+
     .split__inner {
       grid-template-columns: 1fr;
       min-block-size: unset;
@@ -356,6 +361,10 @@ const isRight = data.image_position === "right";
      Tighter radii, 16px edge padding.
   ══════════════════════════════════════════════ */
   @media (width <= 600px) {
+    .split {
+      margin-block: var(--space-500); /* 40px mobile */
+    }
+
     .split__image-wrap {
       aspect-ratio: 375 / 280; /* Figma mobile image ratio */
       border-end-start-radius: var(--radius-300); /* 24px */
