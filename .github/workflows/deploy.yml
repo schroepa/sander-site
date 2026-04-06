@@ -74,3 +74,4 @@ jobs:
             **/.git*
             **/.git*/**
             pages/**
+            accounts/**
