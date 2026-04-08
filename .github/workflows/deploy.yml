@@ -51,71 +51,55 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Deploy Frontend via lftp
-        env:
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_PATH: ${{ secrets.FTP_PATH }}
-        run: |
-          # Frontend-Deploy via lftp mirror --reverse (upload)
-          # WICHTIG: KEIN --delete! FTP_PATH überlappt offenbar mit der CMS-Struktur
-          # (user/accounts/admin.yaml wurde beim letzten Lauf gelöscht).
-          # --delete würde die gesamte CMS-Struktur (admin.yaml, pages, configs)
-          # wegräumen. Stattdessen: nur neue/geänderte Dateien hochladen.
-          # Astro generiert gehashte Asset-Dateinamen, d.h. keine Kollisionen.
-          # Alte Bundles bleiben liegen – bei Bedarf manuell aufräumen.
-          lftp -u "$FTP_USERNAME,$FTP_PASSWORD" \
-            -e "set ftp:ssl-allow no; \
-                set net:timeout 60; \
-                set net:max-retries 3; \
-                set net:reconnect-interval-base 5; \
-                set net:connection-limit 2; \
-                set mirror:parallel-transfer-count 1; \
-                mirror --reverse --verbose --no-perms --only-newer \
-                  --exclude-glob=.git* \
-                  --exclude=^cms/ \
-                  --exclude=^user/ \
-                  frontend/dist/ $FTP_PATH; \
-                quit" \
-            "$FTP_SERVER"
-          echo "Frontend-Deploy abgeschlossen."
+      # Rollback auf SamKirkland/FTP-Deploy-Action: Verwendet Sync-State-Datei
+      # auf dem Server (.ftp-deploy-sync-state.json) für echte inkrementelle
+      # Uploads. Vorher mit lftp wurden alle Dateien hochgeladen, weil
+      # `git checkout` alle mtimes auf "jetzt" setzt und `--only-newer` dann
+      # alles als neuer einstuft.
+      #
+      # SAFETY: dangerous-clean-slate ist standardmäßig FALSE → keine Löschungen
+      # von Server-Files, die nicht in der Sync-State stehen. Alle admin-managed
+      # Pfade sind explizit excluded.
 
-      - name: Deploy CMS via lftp
-        env:
-          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_SERVER: ${{ secrets.FTP_SERVER }}
-          FTP_CMS_PATH: ${{ secrets.FTP_CMS_PATH }}
-        run: |
-          # CMS-Deploy via lftp mirror --reverse (upload)
-          # Stale FTP-Sessions von gecancelten Runs können 10-15 min brauchen, bis
-          # SiteGround sie bereinigt. Kurzer Sleep gibt dem Server Zeit dafür.
-          echo "Warte 30s auf Bereinigung evtl. stale FTP-Sessions..."
-          sleep 30
-          # Sehr konservative Connection-Settings: 2 parallele Connections,
-          # 1 Transfer gleichzeitig → max. ~3 Connections inkl. Control.
-          # Ausgeschlossen:
-          # - pages/        (via Download gepflegt)
-          # - accounts/     (sensibel, Admin-Login)
-          # - config/plugins/admin.yaml (wird vom Grav-Admin-Plugin selbst gepflegt,
-          #   hat serverseitige Locks → blockiert den Deploy)
-          # - *.meta.yaml, *.save (Grav-interne Dateien)
-          lftp -u "$FTP_USERNAME,$FTP_PASSWORD" \
-            -e "set ftp:ssl-allow no; \
-                set net:timeout 60; \
-                set net:max-retries 3; \
-                set net:reconnect-interval-base 5; \
-                set net:connection-limit 2; \
-                set mirror:parallel-transfer-count 1; \
-                mirror --reverse --verbose --no-perms --only-newer \
-                  --exclude-glob=.git* \
-                  --exclude=^pages/ \
-                  --exclude=^accounts/ \
-                  --exclude=^config/plugins/admin\.yaml\$ \
-                  --exclude-glob=*.meta.yaml \
-                  --exclude-glob=*.save \
-                  cms/user/ $FTP_CMS_PATH; \
-                quit" \
-            "$FTP_SERVER"
-          echo "CMS-Deploy abgeschlossen."
+      - name: Deploy Frontend via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: frontend/dist/
+          server-dir: ${{ secrets.FTP_PATH }}
+          # SAFETY: cms/ und user/ explizit excluden, falls FTP_PATH überlappt
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/cms/**
+            **/user/**
+
+      - name: Deploy CMS via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: cms/user/
+          server-dir: ${{ secrets.FTP_CMS_PATH }}
+          # SAFETY: Alle admin-managed und runtime Pfade ausschließen
+          # - pages/**       → wird via Download synchronisiert (User editiert im Backend)
+          # - accounts/**    → Admin-Login, sensibel
+          # - config/plugins/admin.yaml → vom Grav-Admin-Plugin verwaltet (Server-Lock)
+          # - **/*.meta.yaml → Grav generiert diese zur Laufzeit
+          # - **/*.save      → Backup-Dateien
+          # - cache/**, logs/**, tmp/**, backup/** → Runtime-Daten
+          exclude: |
+            **/.git*
+            **/.git*/**
+            pages/**
+            accounts/**
+            config/plugins/admin.yaml
+            **/*.meta.yaml
+            **/*.save
+            cache/**
+            logs/**
+            tmp/**
+            backup/**
