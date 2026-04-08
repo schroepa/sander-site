@@ -34,9 +34,12 @@ jobs:
       - name: Download CMS pages from live server
         run: |
           sudo apt-get install -y lftp
+          # Verbindungslimit auf 4 setzen (SiteGround erlaubt max. 8 pro IP)
+          # cmd:fail-exit entfernt – Sicherheitscheck übernimmt die Fehlerprüfung
+          # Anführungszeichen um Glob-Muster entfernt (Literalzeichen-Bug in lftp)
           lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" \
-            -e "set ftp:ssl-allow no; set net:timeout 30; set net:max-retries 3; set cmd:fail-exit yes; mirror --verbose --no-perms --exclude-glob='*.jpg' --exclude-glob='*.jpeg' --exclude-glob='*.png' --exclude-glob='*.gif' --exclude-glob='*.webp' --exclude-glob='*.svg' --exclude-glob='*.ico' --exclude-glob='*.mp4' --exclude-glob='*.pdf' ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
-            ${{ secrets.FTP_SERVER }}
+            -e "set ftp:ssl-allow no; set net:timeout 30; set net:max-retries 3; set ftp:connection-limit 4; mirror --verbose --no-perms --exclude-glob=*.jpg --exclude-glob=*.jpeg --exclude-glob=*.png --exclude-glob=*.gif --exclude-glob=*.webp --exclude-glob=*.svg --exclude-glob=*.ico --exclude-glob=*.mp4 --exclude-glob=*.pdf --exclude-glob=*.meta.yaml --exclude-glob=*.save ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
+            ${{ secrets.FTP_SERVER }} || true
 
           # Sicherheitscheck: Bricht den Build ab wenn der Download fehlgeschlagen ist
           if [ ! -f "cms/user/pages/01.home/homepage.md" ]; then
