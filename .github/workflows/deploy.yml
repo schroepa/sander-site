@@ -51,17 +51,29 @@ jobs:
         working-directory: frontend
         run: npm run build
 
-      - name: Deploy Frontend via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: frontend/dist/
-          server-dir: ${{ secrets.FTP_PATH }}
-          exclude: |
-            **/.git*
-            **/.git*/**
+      - name: Deploy Frontend via lftp
+        env:
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_PATH: ${{ secrets.FTP_PATH }}
+        run: |
+          # Frontend-Deploy via lftp mirror --reverse (upload)
+          # SamKirkland/FTP-Deploy-Action führte zu Control-Socket-Timeouts.
+          # lftp mit eigenem Connection-Limit und Timeouts ist zuverlässiger.
+          lftp -u "$FTP_USERNAME,$FTP_PASSWORD" \
+            -e "set ftp:ssl-allow no; \
+                set net:timeout 60; \
+                set net:max-retries 3; \
+                set net:reconnect-interval-base 5; \
+                set ftp:connection-limit 4; \
+                set mirror:parallel-transfer-count 2; \
+                mirror --reverse --delete --verbose --no-perms --only-newer \
+                  --exclude-glob=.git* \
+                  frontend/dist/ $FTP_PATH; \
+                quit" \
+            "$FTP_SERVER"
+          echo "Frontend-Deploy abgeschlossen."
 
       - name: Deploy CMS via lftp
         env:
