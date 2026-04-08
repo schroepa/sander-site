@@ -59,8 +59,12 @@ jobs:
           FTP_PATH: ${{ secrets.FTP_PATH }}
         run: |
           # Frontend-Deploy via lftp mirror --reverse (upload)
-          # SamKirkland/FTP-Deploy-Action führte zu Control-Socket-Timeouts.
-          # lftp mit eigenem Connection-Limit und Timeouts ist zuverlässiger.
+          # WICHTIG: KEIN --delete! FTP_PATH überlappt offenbar mit der CMS-Struktur
+          # (user/accounts/admin.yaml wurde beim letzten Lauf gelöscht).
+          # --delete würde die gesamte CMS-Struktur (admin.yaml, pages, configs)
+          # wegräumen. Stattdessen: nur neue/geänderte Dateien hochladen.
+          # Astro generiert gehashte Asset-Dateinamen, d.h. keine Kollisionen.
+          # Alte Bundles bleiben liegen – bei Bedarf manuell aufräumen.
           lftp -u "$FTP_USERNAME,$FTP_PASSWORD" \
             -e "set ftp:ssl-allow no; \
                 set net:timeout 60; \
@@ -68,8 +72,10 @@ jobs:
                 set net:reconnect-interval-base 5; \
                 set ftp:connection-limit 4; \
                 set mirror:parallel-transfer-count 2; \
-                mirror --reverse --delete --verbose --no-perms --only-newer \
+                mirror --reverse --verbose --no-perms --only-newer \
                   --exclude-glob=.git* \
+                  --exclude=^cms/ \
+                  --exclude=^user/ \
                   frontend/dist/ $FTP_PATH; \
                 quit" \
             "$FTP_SERVER"
