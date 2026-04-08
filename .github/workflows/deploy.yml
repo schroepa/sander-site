@@ -70,8 +70,8 @@ jobs:
                 set net:timeout 60; \
                 set net:max-retries 3; \
                 set net:reconnect-interval-base 5; \
-                set net:connection-limit 4; \
-                set mirror:parallel-transfer-count 2; \
+                set net:connection-limit 2; \
+                set mirror:parallel-transfer-count 1; \
                 mirror --reverse --verbose --no-perms --only-newer \
                   --exclude-glob=.git* \
                   --exclude=^cms/ \
@@ -89,20 +89,30 @@ jobs:
           FTP_CMS_PATH: ${{ secrets.FTP_CMS_PATH }}
         run: |
           # CMS-Deploy via lftp mirror --reverse (upload)
-          # Volle Kontrolle über Timeouts und Connection-Limit (SiteGround max. 8)
-          # Ausgeschlossen: pages/ (via Download gepflegt), accounts/ (sensibel),
-          # *.meta.yaml und *.save (Grav-interne Dateien, die nie angefasst werden sollen)
+          # Stale FTP-Sessions von gecancelten Runs können 10-15 min brauchen, bis
+          # SiteGround sie bereinigt. Kurzer Sleep gibt dem Server Zeit dafür.
+          echo "Warte 30s auf Bereinigung evtl. stale FTP-Sessions..."
+          sleep 30
+          # Sehr konservative Connection-Settings: 2 parallele Connections,
+          # 1 Transfer gleichzeitig → max. ~3 Connections inkl. Control.
+          # Ausgeschlossen:
+          # - pages/        (via Download gepflegt)
+          # - accounts/     (sensibel, Admin-Login)
+          # - config/plugins/admin.yaml (wird vom Grav-Admin-Plugin selbst gepflegt,
+          #   hat serverseitige Locks → blockiert den Deploy)
+          # - *.meta.yaml, *.save (Grav-interne Dateien)
           lftp -u "$FTP_USERNAME,$FTP_PASSWORD" \
             -e "set ftp:ssl-allow no; \
                 set net:timeout 60; \
                 set net:max-retries 3; \
                 set net:reconnect-interval-base 5; \
-                set net:connection-limit 4; \
-                set mirror:parallel-transfer-count 2; \
+                set net:connection-limit 2; \
+                set mirror:parallel-transfer-count 1; \
                 mirror --reverse --verbose --no-perms --only-newer \
                   --exclude-glob=.git* \
                   --exclude=^pages/ \
                   --exclude=^accounts/ \
+                  --exclude=^config/plugins/admin\.yaml\$ \
                   --exclude-glob=*.meta.yaml \
                   --exclude-glob=*.save \
                   cms/user/ $FTP_CMS_PATH; \
