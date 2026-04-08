@@ -497,6 +497,23 @@ function renderMarkdown(text: string | undefined) {
     function setActiveCard(activeCard: HTMLElement) {
       cards.forEach((c) => c.classList.remove("active"));
       activeCard.classList.add("active");
+
+      // Synchronisiere Dropdown-Label und Dropdown-Item mit der aktiven Karte.
+      // Single source of truth: was visuell als active markiert ist, steht
+      // auch im Label.
+      const index = activeCard.dataset.index;
+      if (index === undefined) return;
+
+      const matchingDropdownItem = document.querySelector(
+        `.dropdown-item[data-index="${index}"]`,
+      );
+      if (matchingDropdownItem) {
+        if (activeLabel) {
+          activeLabel.textContent = matchingDropdownItem.textContent || "";
+        }
+        dropdownItems.forEach((i) => i.classList.remove("active"));
+        matchingDropdownItem.classList.add("active");
+      }
     }
 
     // Set initial scroll to the first element of the middle set
@@ -600,38 +617,11 @@ function renderMarkdown(text: string | undefined) {
       });
     });
 
-    // ScrollSpy to update dropdown label when scrolling
-    if (scrollContainer) {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting && entry.intersectionRatio >= 0.6) {
-              const card = entry.target as HTMLElement;
-              const index = card.dataset.index;
-
-              // Only update dropdown label – active card class is managed by scroll handler
-              const matchingDropdownItem = document.querySelector(
-                `.dropdown-item[data-index="${index}"]`,
-              );
-
-              if (activeLabel && matchingDropdownItem) {
-                activeLabel.textContent =
-                  matchingDropdownItem.textContent || "";
-
-                dropdownItems.forEach((i) => i.classList.remove("active"));
-                matchingDropdownItem.classList.add("active");
-              }
-            }
-          });
-        },
-        {
-          root: scrollContainer,
-          threshold: 0.6,
-        },
-      );
-
-      cards.forEach((card) => observer.observe(card));
-    }
+    // Hinweis: Der frühere IntersectionObserver wurde entfernt, weil er
+    // konkurrierend zum scroll-Handler agierte und auf Mobile (kleinere
+    // Karten, mehrere gleichzeitig sichtbar) ein anderes Card als "active"
+    // gemeldet hat als updateActiveCardByCenter(). Jetzt ist setActiveCard()
+    // die einzige Quelle der Wahrheit für active-Klasse UND Dropdown-Label.
   }
 
   // Initialize on full page load and Astro view transitions
