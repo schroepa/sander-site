@@ -13,15 +13,13 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.3.0
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'npm'
@@ -65,18 +63,31 @@ jobs:
             **/.git*
             **/.git*/**
 
-      - name: Deploy CMS via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: cms/user/
-          server-dir: ${{ secrets.FTP_CMS_PATH }}
-          exclude: |
-            **/.git*
-            **/.git*/**
-            pages/**
-            accounts/**
-            **/*.meta.yaml
-            **/*.save
+      - name: Deploy CMS via lftp
+        env:
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_CMS_PATH: ${{ secrets.FTP_CMS_PATH }}
+        run: |
+          # CMS-Deploy via lftp mirror --reverse (upload)
+          # Volle Kontrolle über Timeouts und Connection-Limit (SiteGround max. 8)
+          # Ausgeschlossen: pages/ (via Download gepflegt), accounts/ (sensibel),
+          # *.meta.yaml und *.save (Grav-interne Dateien, die nie angefasst werden sollen)
+          lftp -u "$FTP_USERNAME,$FTP_PASSWORD" \
+            -e "set ftp:ssl-allow no; \
+                set net:timeout 60; \
+                set net:max-retries 3; \
+                set net:reconnect-interval-base 5; \
+                set ftp:connection-limit 4; \
+                set mirror:parallel-transfer-count 2; \
+                mirror --reverse --verbose --no-perms --only-newer \
+                  --exclude-glob=.git* \
+                  --exclude=^pages/ \
+                  --exclude=^accounts/ \
+                  --exclude-glob=*.meta.yaml \
+                  --exclude-glob=*.save \
+                  cms/user/ $FTP_CMS_PATH; \
+                quit" \
+            "$FTP_SERVER"
+          echo "CMS-Deploy abgeschlossen."
