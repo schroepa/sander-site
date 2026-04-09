@@ -1,0 +1,11 @@
+state: enabled
+email: schroepa1981@icloud.com
+fullname: 'Patrick Schrödter'
+title: Admin
+access:
+  admin:
+    login: true
+    super: true
+  site:
+    login: true
+hashed_password: $2y$12$X77c4FBKnvm8STxfwNN9zevQw8PaqZkqCKNyxX2dWECePmuBdbYsm

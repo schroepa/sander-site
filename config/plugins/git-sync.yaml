@@ -1,0 +1,33 @@
+enabled: false
+folders:
+  - pages
+  - config
+sync:
+  direction: both
+  on_save: true
+  on_delete: true
+  on_media: true
+  cron_enable: false
+  cron_at: '0 12,23 * * *'
+SyncNotice: null
+local_repository: null
+repository: 'https://github.com/schroepa/sander-site.git'
+no_user: '0'
+user: schroepa
+password: gitsync-def502008fae381bb63c38fb20e239fc842d7bdf50fbb635bccb1bd3c474fd20db8494fcf9fceec62776ebe2a5c3ab0219f349846655690e0b40ba1f443332f6c3b0514178130779a626f7427b04c0ccf3cfd5a2c4a25f4c292894b8a4203608f0f12fe2bbcf66f2df3924f81bb821fb31185d6674f56b440dd8870d
+webhook: 'https://patricks309.sg-host.com/cms/_git-sync-a53225244053'
+webhook_enabled: '0'
+webhook_secret: 233bd35b9af2968fb37dd95976e66123f9f204b688505bd4
+branch: main
+remote:
+  name: origin
+  branch: main
+git:
+  author: gituser
+  message: '(Grav GitSync) Automatic Commit'
+  name: GitSync
+  email: git-sync@trilby.media
+  bin: git
+  ignore: null
+  private_key: null
+logging: false
