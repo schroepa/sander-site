@@ -165,3 +165,16 @@ const sectionOrder =
     )
   }
 </Layout>
+
+<style is:global>
+  /* TextSection direkt vor StickyScroll: weniger Abstand, damit die Überschrift wirkt */
+  #text_section + #sticky_scroll .sticky-scroll-section {
+    padding-top: var(--space-500);
+  }
+  #text_section + #sticky_scroll {
+    /* kein Extra-Gap zwischen den Wrapper-Divs */
+  }
+  #text_section:has(+ #sticky_scroll) .text-section {
+    padding-bottom: var(--space-300);
+  }
+</style>
