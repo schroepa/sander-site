@@ -528,21 +528,29 @@ function renderMarkdown(text: string | undefined) {
       }, 50);
     }
 
-    // Helper: find card closest to center and mark it active
-    function updateActiveCardByCenter() {
-      const center = scrollContainer!.scrollTop + scrollContainer!.clientHeight / 2;
-      let closest: HTMLElement | null = null;
-      let minDist = Infinity;
-      cards.forEach((c) => {
-        const el = c as HTMLElement;
-        const dist = Math.abs(el.offsetTop + el.clientHeight / 2 - center);
-        if (dist < minDist) { minDist = dist; closest = el; }
-      });
-      if (closest) setActiveCard(closest);
-    }
-
-    // Debounced fallback for mobile where scrollend is unreliable
-    let scrollDebounceTimer: ReturnType<typeof setTimeout> | null = null;
+    // ── Active-Card-Erkennung via IntersectionObserver ──────────
+    // rootMargin: '-45% 0px -45% 0px' kollapiert den Container auf die
+    // mittleren 10%. Nur die Karte, die diesen schmalen Streifen kreuzt,
+    // wird als "active" markiert. Das ist zuverlässiger als
+    // scrollTop-Berechnungen + Debounce, weil:
+    // 1. Kein Timing-Problem (80ms-Debounce vs. Snap-Animation-Dauer)
+    // 2. Browser-nativ (kein manuelles offsetTop/clientHeight-Rechnen)
+    // 3. Feuert genau dann, wenn die Karte tatsächlich sichtbar ist
+    const centerObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveCard(entry.target as HTMLElement);
+          }
+        });
+      },
+      {
+        root: scrollContainer,
+        rootMargin: "-45% 0px -45% 0px",
+        threshold: 0,
+      },
+    );
+    cards.forEach((card) => centerObserver.observe(card));
 
     // Teleport logic on scroll to create the illusion of infinite scrolling
     scrollContainer.addEventListener("scroll", () => {
@@ -567,7 +575,6 @@ function renderMarkdown(text: string | undefined) {
       function teleport(delta: number) {
         scrollContainer!.style.scrollSnapType = "none";
         scrollContainer!.scrollTop += delta;
-        updateActiveCardByCenter();
         setTimeout(() => {
           scrollContainer!.style.scrollSnapType = "y mandatory";
         }, 0);
@@ -578,18 +585,6 @@ function renderMarkdown(text: string | undefined) {
       } else if (scrollContainer.scrollTop >= maxScroll) {
         teleport(-setHeight);
       }
-
-      // Debounced fallback: update active card ~80ms after scrolling stops
-      if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
-      scrollDebounceTimer = setTimeout(() => {
-        updateActiveCardByCenter();
-      }, 80);
-    });
-
-    // Update active card after scroll snap has fully settled (desktop)
-    scrollContainer.addEventListener("scrollend", () => {
-      if (scrollDebounceTimer) clearTimeout(scrollDebounceTimer);
-      updateActiveCardByCenter();
     });
 
     // Handle Dropdown Item Click
@@ -617,11 +612,6 @@ function renderMarkdown(text: string | undefined) {
       });
     });
 
-    // Hinweis: Der frühere IntersectionObserver wurde entfernt, weil er
-    // konkurrierend zum scroll-Handler agierte und auf Mobile (kleinere
-    // Karten, mehrere gleichzeitig sichtbar) ein anderes Card als "active"
-    // gemeldet hat als updateActiveCardByCenter(). Jetzt ist setActiveCard()
-    // die einzige Quelle der Wahrheit für active-Klasse UND Dropdown-Label.
   }
 
   // Initialize on full page load and Astro view transitions
