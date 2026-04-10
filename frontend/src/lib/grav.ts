@@ -434,7 +434,16 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
     return {
         title: data.title ?? 'Untitled',
         section_order: data.section_order ?? undefined,
-        hero: data.hero ?? undefined,
+        hero: data.hero
+            ? {
+                ...data.hero,
+                // Normalize tags: Grav stores list fields as [{item: "..."}, ...]
+                // but plain strings are also accepted for backward compat
+                tags: ((data.hero.tags ?? []) as Array<string | { item?: string }>)
+                    .map((t) => (typeof t === 'string' ? t : (t.item ?? '')))
+                    .filter(Boolean),
+              }
+            : undefined,
         sections,
         solutions,
         stats: data.stats ?? undefined,
