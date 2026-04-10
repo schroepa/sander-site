@@ -20,26 +20,27 @@ cms/user/data/*
 !cms/user/data/admin/*
 cms/user/pages/
 cms/cookies.txt
-# Plugin-Token nie in git (wird direkt auf dem Server gesetzt)
-cms/user/config/plugins/github-deploy.yaml
+
+# Sensible Konfigurationsdateien – niemals in git
+config/plugins/github-deploy.yaml
+config/plugins/git-sync.yaml
+config/security.yaml
+cms/user/config/security.yaml
+cms/user/accounts/admin.yaml
 
 # OS Files
 .DS_Store
 Thumbs.db
 
-  # SERVER-ONLY: Mediendateien nie via git synchronisieren
-  pages/**/*.jpg
-  pages/**/*.jpeg
-  pages/**/*.png
-  pages/**/*.gif
-  pages/**/*.svg
-  pages/**/*.mp4
-  pages/**/*.webm
-  pages/**/*.webp
-  pages/**/*.pdf
-  pages/**/*.meta.yaml
-  pages/**/*.save
-  accounts/
-  data/
-  .ftp-deploy-sync-state.json
-  EOF
+# SERVER-ONLY: Mediendateien nie via git synchronisieren
+pages/**/*.jpg
+pages/**/*.jpeg
+pages/**/*.png
+pages/**/*.gif
+pages/**/*.svg
+pages/**/*.mp4
+pages/**/*.webm
+pages/**/*.webp
+pages/**/*.pdf
+pages/**/*.meta.yaml
+pages/**/*.save

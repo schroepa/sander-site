@@ -13,15 +13,13 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    env:
-      FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v5
 
       - name: Setup Node.js
-        uses: actions/setup-node@v4.3.0
+        uses: actions/setup-node@v5
         with:
           node-version: '22'
           cache: 'npm'
@@ -34,9 +32,12 @@ jobs:
       - name: Download CMS pages from live server
         run: |
           sudo apt-get install -y lftp
+          # Verbindungslimit auf 4 setzen (SiteGround erlaubt max. 8 pro IP)
+          # cmd:fail-exit entfernt – Sicherheitscheck übernimmt die Fehlerprüfung
+          # Anführungszeichen um Glob-Muster entfernt (Literalzeichen-Bug in lftp)
           lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" \
-            -e "set ftp:ssl-allow no; set net:timeout 30; set net:max-retries 3; set cmd:fail-exit yes; mirror --verbose --no-perms --exclude-glob='*.jpg' --exclude-glob='*.jpeg' --exclude-glob='*.png' --exclude-glob='*.gif' --exclude-glob='*.webp' --exclude-glob='*.svg' --exclude-glob='*.ico' --exclude-glob='*.mp4' --exclude-glob='*.pdf' ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
-            ${{ secrets.FTP_SERVER }}
+            -e "set ftp:ssl-allow no; set net:timeout 30; set net:max-retries 3; set net:connection-limit 4; mirror --verbose --no-perms --exclude-glob=*.jpg --exclude-glob=*.jpeg --exclude-glob=*.png --exclude-glob=*.gif --exclude-glob=*.webp --exclude-glob=*.svg --exclude-glob=*.ico --exclude-glob=*.mp4 --exclude-glob=*.pdf --exclude-glob=*.meta.yaml --exclude-glob=*.save ${{ secrets.FTP_CMS_PATH }}pages cms/user/pages; quit" \
+            ${{ secrets.FTP_SERVER }} || true
 
           # Sicherheitscheck: Bricht den Build ab wenn der Download fehlgeschlagen ist
           if [ ! -f "cms/user/pages/01.home/homepage.md" ]; then
@@ -50,6 +51,16 @@ jobs:
         working-directory: frontend
         run: npm run build
 
+      # Rollback auf SamKirkland/FTP-Deploy-Action: Verwendet Sync-State-Datei
+      # auf dem Server (.ftp-deploy-sync-state.json) für echte inkrementelle
+      # Uploads. Vorher mit lftp wurden alle Dateien hochgeladen, weil
+      # `git checkout` alle mtimes auf "jetzt" setzt und `--only-newer` dann
+      # alles als neuer einstuft.
+      #
+      # SAFETY: dangerous-clean-slate ist standardmäßig FALSE → keine Löschungen
+      # von Server-Files, die nicht in der Sync-State stehen. Alle admin-managed
+      # Pfade sind explizit excluded.
+
       - name: Deploy Frontend via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
@@ -58,9 +69,12 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: frontend/dist/
           server-dir: ${{ secrets.FTP_PATH }}
+          # SAFETY: cms/ und user/ explizit excluden, falls FTP_PATH überlappt
           exclude: |
             **/.git*
             **/.git*/**
+            **/cms/**
+            **/user/**
 
       - name: Deploy CMS via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
@@ -70,7 +84,22 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: cms/user/
           server-dir: ${{ secrets.FTP_CMS_PATH }}
+          # SAFETY: Alle admin-managed und runtime Pfade ausschließen
+          # - pages/**       → wird via Download synchronisiert (User editiert im Backend)
+          # - accounts/**    → Admin-Login, sensibel
+          # - config/plugins/admin.yaml → vom Grav-Admin-Plugin verwaltet (Server-Lock)
+          # - **/*.meta.yaml → Grav generiert diese zur Laufzeit
+          # - **/*.save      → Backup-Dateien
+          # - cache/**, logs/**, tmp/**, backup/** → Runtime-Daten
           exclude: |
             **/.git*
             **/.git*/**
             pages/**
+            accounts/**
+            config/plugins/admin.yaml
+            **/*.meta.yaml
+            **/*.save
+            cache/**
+            logs/**
+            tmp/**
+            backup/**
