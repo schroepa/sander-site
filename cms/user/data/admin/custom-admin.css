@@ -892,16 +892,37 @@ body.sidebar-closed #admin-main {
 .tabs-nav,
 .content-tabs .tabs-nav {
   display: flex !important;
-  flex-wrap: wrap !important;
+  flex-wrap: nowrap !important;       /* keine Umbrüche – Tabs bleiben in einer Zeile */
+  overflow-x: auto !important;        /* horizontales Scrollen bei zu vielen Tabs */
+  scroll-behavior: smooth !important;
+  scrollbar-width: thin !important;   /* Firefox: dünne Scrollbar */
+  scrollbar-color: var(--c-border) transparent !important;
   gap: 1.5rem !important;
   border-bottom: 1px solid var(--c-border) !important;
   margin-bottom: 1.5rem !important;
-  padding: 0 !important;
+  padding: 0 0 2px !important;        /* Platz für Scrollbar ohne Border-Clash */
   background: transparent !important;
+  -webkit-overflow-scrolling: touch !important;  /* iOS momentum scrolling */
+}
+
+/* Webkit: Scrollbar dezent stylen */
+.tabs-nav::-webkit-scrollbar,
+.content-tabs .tabs-nav::-webkit-scrollbar {
+  height: 3px !important;
+}
+.tabs-nav::-webkit-scrollbar-track,
+.content-tabs .tabs-nav::-webkit-scrollbar-track {
+  background: transparent !important;
+}
+.tabs-nav::-webkit-scrollbar-thumb,
+.content-tabs .tabs-nav::-webkit-scrollbar-thumb {
+  background: var(--c-border) !important;
+  border-radius: 2px !important;
 }
 
 .tabs-nav li,
 .content-tabs .tabs-nav li {
+  flex-shrink: 0 !important;          /* Tabs dürfen nicht gestaucht werden */
   margin-bottom: -1px !important;
 }
 
