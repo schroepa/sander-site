@@ -936,6 +936,11 @@ body.sidebar-closed #admin-main {
    17. BUTTONS
    ================================================================ */
 
+/* `.hidden` muss immer gewinnen – auch gegen `.button { display: inline-flex !important }` */
+.hidden {
+  display: none !important;
+}
+
 .button, .btn {
   padding: 0 1rem !important;
   font-size: 0.875rem !important;
