@@ -1,10 +1,9 @@
 ---
 import { getSiteConfig } from "../lib/grav";
-import imgVector from "../assets/footer/2063c9c4f8827d6f757c89b6eb502ed5ac3df06b.svg?url";
-import imgVector1 from "../assets/footer/2dac724f42816a9dad1cd4cbb69446a88edfb89f.svg?url";
-import imgVector2 from "../assets/footer/53fbd75ef7e76b79032bf1f6373ba4519d73858b.svg?url";
-import imgVector3 from "../assets/footer/c05db558dab882d047f4f68c6a75efee85a16edf.svg?url";
-import imgVector4 from "../assets/footer/d884b431a528cafb757a45c166afe14479577c0e.svg?url";
+import iconLinkedIn from "../assets/footer/LinkedinLogo-filled.svg?url";
+import iconFacebook from "../assets/footer/FacebookLogo-filled.svg?url";
+import iconInstagram from "../assets/footer/InstagramLogo-filled.svg?url";
+import iconYouTube from "../assets/footer/YoutubeLogo-filled.svg?url";
 
 const siteConfig = getSiteConfig();
 const footerData = siteConfig?.footer || {
@@ -14,11 +13,10 @@ const footerData = siteConfig?.footer || {
 };
 
 const defaultIcons: Record<string, string> = {
-  LinkedIn: imgVector,
-  Twitter: imgVector1,
-  Facebook: imgVector2,
-  Instagram: imgVector3,
-  YouTube: imgVector4,
+  LinkedIn: iconLinkedIn,
+  Facebook: iconFacebook,
+  Instagram: iconInstagram,
+  YouTube: iconYouTube,
 };
 
 function getSocialIcon(social: any, index: number) {
