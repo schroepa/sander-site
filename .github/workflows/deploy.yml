@@ -47,6 +47,21 @@ jobs:
           fi
           echo "CMS-Download erfolgreich: $(find cms/user/pages -name '*.md' | wc -l) Markdown-Dateien geladen."
 
+      - name: Download CMS site config from live server
+        run: |
+          lftp -u "${{ secrets.FTP_USERNAME }},${{ secrets.FTP_PASSWORD }}" \
+            -e "set ftp:ssl-allow no; set net:timeout 30; set net:max-retries 3; \
+                mirror --no-recursion --no-perms --include-glob=site.yaml \
+                ${{ secrets.FTP_CMS_PATH }}config/ cms/user/config/; \
+                quit" \
+            ${{ secrets.FTP_SERVER }} || true
+
+          if grep -q 'menus:' cms/user/config/site.yaml; then
+            echo "site.yaml download erfolgreich – Navigation-Struktur gefunden."
+          else
+            echo "WARNUNG: site.yaml heruntergeladen, aber keine 'menus:'-Sektion. Prüfen!"
+          fi
+
       - name: Build
         working-directory: frontend
         run: npm run build
@@ -96,7 +111,9 @@ jobs:
             **/.git*/**
             pages/**
             accounts/**
+            config/site.yaml
             config/plugins/admin.yaml
+            config/plugins/nav-webhook.yaml
             **/*.meta.yaml
             **/*.save
             cache/**
