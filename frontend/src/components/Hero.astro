@@ -17,14 +17,10 @@ const headlineScale = hero.headline_scale ?? 1;
 const sublineScale = hero.subline_scale ?? 1;
 const gapSpacing = hero.headline_subline_spacing ?? 1.5;
 
-// Subline: #Hashtags als separate Tags extrahieren
+// Tags kommen ausschließlich aus dem CMS-Tags-Feld (hero.tags)
 const sublineRaw = hero.subline ?? '';
-const hashtagRegex = /(#[\wÄäÖöÜüß]+)/gu;
-const sublineTags = [...sublineRaw.matchAll(hashtagRegex)].map(m => m[1].slice(1));
-const sublineClean = sublineRaw.replace(hashtagRegex, '').trim();
-// Dedicated tags field (from CMS) merged with inline hashtags; deduped
-const cmsTagsRaw = (hero.tags ?? []).map(t => t.replace(/^#/, ''));
-const heroTags = [...new Set([...cmsTagsRaw, ...sublineTags])];
+const sublineClean = sublineRaw;
+const heroTags = (hero.tags ?? []).map(t => t.replace(/^#/, ''));
 
 const bgVideo = hero.background_video
   ? `${GRAV_MEDIA_BASE}/${path.basename(hero.background_video)}`
