@@ -7,6 +7,13 @@ import 'vanilla-cookieconsent/dist/cookieconsent.css';
 <script>
   import * as CookieConsent from 'vanilla-cookieconsent';
 
+  declare global {
+    interface Window {
+      CookieConsent: typeof CookieConsent;
+    }
+  }
+  window.CookieConsent = CookieConsent;
+
   CookieConsent.run({
     autoShow: true,
     hideFromBots: false,
