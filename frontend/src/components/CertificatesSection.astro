@@ -23,7 +23,7 @@ const hasOverlay =
     data.background_overlay !== 0 &&
     data.background_overlay !== "0";
 
-const isSvg = (path: string) => /\.svg(\?.*)?$/i.test(path);
+const isSvg = (path: string) => /\.svg([?#].*)?$/i.test(path);
 ---
 
 <section class="certs" id="certificates">
