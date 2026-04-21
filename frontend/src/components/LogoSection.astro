@@ -125,19 +125,19 @@ const hasOverlay =
         padding: 0 var(--space-500) var(--space-1000);
         width: 100%;
         overflow: hidden;
-        /* Fade edges */
+        /* Desktop: 200px Fade */
         -webkit-mask-image: linear-gradient(
             to right,
-            transparent 0%,
-            black 10%,
-            black 90%,
+            transparent 0,
+            black 200px,
+            black calc(100% - 200px),
             transparent 100%
         );
         mask-image: linear-gradient(
             to right,
-            transparent 0%,
-            black 10%,
-            black 90%,
+            transparent 0,
+            black 200px,
+            black calc(100% - 200px),
             transparent 100%
         );
     }
@@ -191,7 +191,43 @@ const hasOverlay =
     }
 
     /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+        .logos__track-wrapper {
+            -webkit-mask-image: linear-gradient(
+                to right,
+                transparent 0,
+                black 120px,
+                black calc(100% - 120px),
+                transparent 100%
+            );
+            mask-image: linear-gradient(
+                to right,
+                transparent 0,
+                black 120px,
+                black calc(100% - 120px),
+                transparent 100%
+            );
+        }
+    }
+
     @media (max-width: 768px) {
+        .logos__track-wrapper {
+            -webkit-mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 10%,
+                black 90%,
+                transparent 100%
+            );
+            mask-image: linear-gradient(
+                to right,
+                transparent 0%,
+                black 10%,
+                black 90%,
+                transparent 100%
+            );
+        }
+
         .logos {
             padding: var(--space-600) var(--space-200);
         }
