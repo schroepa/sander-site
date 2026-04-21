@@ -22,6 +22,8 @@ const hasOverlay =
     data.background_overlay !== false &&
     data.background_overlay !== 0 &&
     data.background_overlay !== "0";
+
+const isSvg = (path: string) => /\.svg(\?.*)?$/i.test(path);
 ---
 
 <section class="certs" id="certificates">
@@ -47,20 +49,30 @@ const hasOverlay =
                     const src = item.image
                         ? `${GRAV_MEDIA_BASE}/${item.image}`
                         : null;
-                    return src ? (
+                    if (!src) return null;
+                    return (
                         <div class="certs__item" title={item.name}>
-                            <div
-                                class="certs__icon"
-                                style={`
+                            {isSvg(src) ? (
+                                <div
+                                    class="certs__icon"
+                                    style={`
                 -webkit-mask-image: url('${src}');
                 mask-image: url('${src}');
                 background-color: ${itemColor};
               `}
-                                role="img"
-                                aria-label={item.name}
-                            />
+                                    role="img"
+                                    aria-label={item.name}
+                                />
+                            ) : (
+                                <img
+                                    class="certs__image"
+                                    src={src}
+                                    alt={item.name}
+                                    loading="lazy"
+                                />
+                            )}
                         </div>
-                    ) : null;
+                    );
                 })
             }
         </div>
@@ -170,7 +182,7 @@ const hasOverlay =
         padding-right: var(--space-800);
     }
 
-    /* ─── Icon via CSS mask (allows color override) ─── */
+    /* ─── Icon via CSS mask (SVG, tönbar) ─── */
     .certs__icon {
         width: 120px;
         height: 48px;
@@ -183,7 +195,18 @@ const hasOverlay =
         transition: opacity 0.3s ease;
     }
 
-    .certs__item:hover .certs__icon {
+    /* ─── Raster-Bilder (PNG/JPG), keine Tönung ─── */
+    .certs__image {
+        width: 120px;
+        height: 48px;
+        object-fit: contain;
+        object-position: center;
+        display: block;
+        transition: opacity 0.3s ease;
+    }
+
+    .certs__item:hover .certs__icon,
+    .certs__item:hover .certs__image {
         opacity: 0.7;
     }
 
@@ -199,7 +222,8 @@ const hasOverlay =
             margin-bottom: var(--space-400);
         }
 
-        .certs__icon {
+        .certs__icon,
+        .certs__image {
             width: 80px;
             height: 36px;
         }
