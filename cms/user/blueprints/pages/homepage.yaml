@@ -1146,8 +1146,11 @@ form:
                   label: Logo-Datei
                   folder: "user://pages/01.home"
                   accept:
-                    - image/*
                     - .svg
+                    - .png
+                    - .jpg
+                    - .jpeg
+                    - .webp
                   help: "SVG oder Bild auswählen (zuerst hochladen)"
 
             logo_bg_divider:
@@ -1248,8 +1251,11 @@ form:
                   label: Datei
                   folder: "user://pages/01.home"
                   accept:
-                    - image/*
                     - .svg
+                    - .png
+                    - .jpg
+                    - .jpeg
+                    - .webp
                   help: "SVG oder Bild auswählen (zuerst hochladen)"
 
             certs_bg_divider:
