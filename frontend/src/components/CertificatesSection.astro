@@ -178,7 +178,7 @@ const isSvg = (path: string) => /\.svg([?#].*)?$/i.test(path);
         display: flex;
         align-items: center;
         justify-content: center;
-        height: 48px;
+        height: 72px;
         padding-right: var(--space-800);
     }
 
@@ -195,10 +195,10 @@ const isSvg = (path: string) => /\.svg([?#].*)?$/i.test(path);
         transition: opacity 0.3s ease;
     }
 
-    /* ─── Raster-Bilder (PNG/JPG), keine Tönung ─── */
+    /* ─── Raster-Bilder (PNG/JPG, Zertifikate) ─── */
     .certs__image {
-        width: 120px;
-        height: 48px;
+        width: auto;
+        height: 72px;
         object-fit: contain;
         object-position: center;
         display: block;
@@ -222,14 +222,18 @@ const isSvg = (path: string) => /\.svg([?#].*)?$/i.test(path);
             margin-bottom: var(--space-400);
         }
 
-        .certs__icon,
-        .certs__image {
+        .certs__icon {
             width: 80px;
             height: 36px;
         }
 
+        .certs__image {
+            width: auto;
+            height: 54px;
+        }
+
         .certs__item {
-            height: 36px;
+            height: 54px;
             padding-right: var(--space-600);
         }
     }
