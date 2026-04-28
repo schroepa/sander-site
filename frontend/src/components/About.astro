@@ -57,41 +57,39 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
       <div class="about__video-inner">
         <div id="about-yt-player"></div>
       </div>
-      <button
-        id="about-mute-btn"
-        class="about__mute-btn"
-        aria-label="Ton an/aus"
-      >
-        <!-- Muted Icon -->
-        <svg
-          id="icon-muted"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-        >
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <line x1="23" y1="9" x2="17" y2="15"></line>
-          <line x1="17" y1="9" x2="23" y2="15"></line>
-        </svg>
-        <!-- Unmuted Icon -->
-        <svg
-          id="icon-unmuted"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          stroke-width="2"
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          style="display: none;"
-        >
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-        </svg>
+
+      <!-- Play overlay: visible before user starts the video -->
+      <button id="about-play-overlay" class="about__play-overlay" aria-label="Video abspielen">
+        <div class="about__play-icon">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </div>
       </button>
+
+      <!-- Controls: hidden until video starts -->
+      <div class="about__controls" id="about-controls" style="display: none;">
+        <button id="about-mute-btn" class="about__ctrl-btn" aria-label="Ton an/aus">
+          <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+          <svg id="icon-unmuted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+            <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
+          </svg>
+        </button>
+        <button id="about-fs-btn" class="about__ctrl-btn" aria-label="Vollbild">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <polyline points="9 21 3 21 3 15"></polyline>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
+            <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+        </button>
+      </div>
     </div>
   </div>
 
@@ -119,20 +117,17 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
         playsinline: 1,
         controls: 1,
         disablekb: 1,
-        fs: 0,
+        fs: 1,
         rel: 0,
         mute: 1,
-        autoplay: 1,
-        start: 405, // 6:45
-        end: 593, // 9:52
+        autoplay: 0,
+        start: 401, // 6:41
+        end: 593,   // 9:53
       },
       events: {
-        onReady: function (event) {
-          event.target.playVideo();
-        },
         onStateChange: function (event) {
           if (event.data === YT.PlayerState.ENDED) {
-            event.target.seekTo(405);
+            event.target.seekTo(401);
             event.target.playVideo();
           }
         },
@@ -154,16 +149,30 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
       window.onYouTubeIframeAPIReady();
     }
 
+    // Play overlay
+    var overlay = document.getElementById("about-play-overlay");
+    var controls = document.getElementById("about-controls");
+
+    if (overlay) {
+      overlay.addEventListener("click", function () {
+        overlay.style.opacity = "0";
+        overlay.style.pointerEvents = "none";
+        setTimeout(function () { overlay.style.display = "none"; }, 300);
+        if (controls) controls.style.display = "flex";
+        if (window.aboutVideoPlayer && typeof window.aboutVideoPlayer.playVideo === "function") {
+          window.aboutVideoPlayer.playVideo();
+        }
+      });
+    }
+
+    // Mute toggle
     var muteBtn = document.getElementById("about-mute-btn");
     var iconMuted = document.getElementById("icon-muted");
     var iconUnmuted = document.getElementById("icon-unmuted");
 
     if (muteBtn) {
       muteBtn.addEventListener("click", function () {
-        if (
-          window.aboutVideoPlayer &&
-          typeof window.aboutVideoPlayer.isMuted === "function"
-        ) {
+        if (window.aboutVideoPlayer && typeof window.aboutVideoPlayer.isMuted === "function") {
           if (window.aboutVideoPlayer.isMuted()) {
             window.aboutVideoPlayer.unMute();
             iconMuted.style.display = "none";
@@ -174,6 +183,19 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
             iconUnmuted.style.display = "none";
           }
         }
+      });
+    }
+
+    // Fullscreen
+    var fsBtn = document.getElementById("about-fs-btn");
+
+    if (fsBtn) {
+      fsBtn.addEventListener("click", function () {
+        var iframe = window.aboutVideoPlayer && window.aboutVideoPlayer.getIframe();
+        if (!iframe) return;
+        if (iframe.requestFullscreen) iframe.requestFullscreen();
+        else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+        else if (iframe.mozRequestFullScreen) iframe.mozRequestFullScreen();
       });
     }
   })();
@@ -291,11 +313,58 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
     display: block;
   }
 
-  .about__mute-btn {
+  /* ─── Play overlay ─── */
+  .about__play-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    background: rgba(0, 0, 0, 0.35);
+    border: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .about__play-overlay:hover .about__play-icon {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .about__play-icon {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.15);
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    transition: all 0.2s ease;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+
+  .about__play-icon svg {
+    width: 28px;
+    height: 28px;
+    margin-left: 4px; /* optical center for play triangle */
+  }
+
+  /* ─── Controls (mute + fullscreen) ─── */
+  .about__controls {
     position: absolute;
     bottom: var(--space-400);
     right: var(--space-400);
     z-index: 10;
+    display: flex;
+    gap: var(--space-200);
+    align-items: center;
+  }
+
+  .about__ctrl-btn {
     background: rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 50%;
@@ -311,12 +380,12 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
     -webkit-backdrop-filter: blur(8px);
   }
 
-  .about__mute-btn:hover {
+  .about__ctrl-btn:hover {
     background: rgba(0, 0, 0, 0.6);
     transform: scale(1.05);
   }
 
-  .about__mute-btn svg {
+  .about__ctrl-btn svg {
     width: 24px;
     height: 24px;
   }
