@@ -69,6 +69,15 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
 
       <!-- Controls: hidden until video starts -->
       <div class="about__controls" id="about-controls" style="display: none;">
+        <button id="about-pause-btn" class="about__ctrl-btn" aria-label="Pause">
+          <svg id="icon-pause" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="6" y="4" width="4" height="16"></rect>
+            <rect x="14" y="4" width="4" height="16"></rect>
+          </svg>
+          <svg id="icon-play-small" viewBox="0 0 24 24" fill="currentColor" style="display: none;">
+            <polygon points="5 3 19 12 5 21 5 3"></polygon>
+          </svg>
+        </button>
         <button id="about-mute-btn" class="about__ctrl-btn" aria-label="Ton an/aus">
           <svg id="icon-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
@@ -82,11 +91,17 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
           </svg>
         </button>
         <button id="about-fs-btn" class="about__ctrl-btn" aria-label="Vollbild">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <svg id="icon-fs-enter" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="15 3 21 3 21 9"></polyline>
             <polyline points="9 21 3 21 3 15"></polyline>
             <line x1="21" y1="3" x2="14" y2="10"></line>
             <line x1="3" y1="21" x2="10" y2="14"></line>
+          </svg>
+          <svg id="icon-fs-exit" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display: none;">
+            <polyline points="4 14 10 14 10 20"></polyline>
+            <polyline points="20 10 14 10 14 4"></polyline>
+            <line x1="10" y1="14" x2="3" y2="21"></line>
+            <line x1="21" y1="3" x2="14" y2="10"></line>
           </svg>
         </button>
       </div>
@@ -129,6 +144,13 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
           if (event.data === YT.PlayerState.ENDED) {
             event.target.seekTo(401);
             event.target.playVideo();
+          }
+          var iconPause = document.getElementById("icon-pause");
+          var iconPlaySmall = document.getElementById("icon-play-small");
+          if (iconPause && iconPlaySmall) {
+            var playing = event.data === YT.PlayerState.PLAYING;
+            iconPause.style.display = playing ? "block" : "none";
+            iconPlaySmall.style.display = playing ? "none" : "block";
           }
         },
       },
@@ -186,16 +208,47 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
       });
     }
 
-    // Fullscreen
+    // Pause/play toggle
+    var pauseBtn = document.getElementById("about-pause-btn");
+
+    if (pauseBtn) {
+      pauseBtn.addEventListener("click", function () {
+        if (!window.aboutVideoPlayer) return;
+        var state = window.aboutVideoPlayer.getPlayerState();
+        if (state === YT.PlayerState.PLAYING) {
+          window.aboutVideoPlayer.pauseVideo();
+        } else {
+          window.aboutVideoPlayer.playVideo();
+        }
+      });
+    }
+
+    // Fullscreen toggle
     var fsBtn = document.getElementById("about-fs-btn");
+    var iconFsEnter = document.getElementById("icon-fs-enter");
+    var iconFsExit = document.getElementById("icon-fs-exit");
+
+    function onFsChange() {
+      var isFs = !!(document.fullscreenElement || document.webkitFullscreenElement);
+      if (iconFsEnter) iconFsEnter.style.display = isFs ? "none" : "block";
+      if (iconFsExit) iconFsExit.style.display = isFs ? "block" : "none";
+      if (fsBtn) fsBtn.setAttribute("aria-label", isFs ? "Vollbild beenden" : "Vollbild");
+    }
+
+    document.addEventListener("fullscreenchange", onFsChange);
+    document.addEventListener("webkitfullscreenchange", onFsChange);
 
     if (fsBtn) {
       fsBtn.addEventListener("click", function () {
-        var iframe = window.aboutVideoPlayer && window.aboutVideoPlayer.getIframe();
-        if (!iframe) return;
-        if (iframe.requestFullscreen) iframe.requestFullscreen();
-        else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
-        else if (iframe.mozRequestFullScreen) iframe.mozRequestFullScreen();
+        if (document.fullscreenElement || document.webkitFullscreenElement) {
+          if (document.exitFullscreen) document.exitFullscreen();
+          else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+        } else {
+          var iframe = window.aboutVideoPlayer && window.aboutVideoPlayer.getIframe();
+          if (!iframe) return;
+          if (iframe.requestFullscreen) iframe.requestFullscreen();
+          else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
+        }
       });
     }
   })();
