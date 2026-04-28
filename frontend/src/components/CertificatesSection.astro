@@ -98,7 +98,7 @@ const isSvg = (path: string) => /\.svg([?#].*)?$/i.test(path);
 
         // Set duration based on pixel speed (50px/s)
         const halfWidth = track.scrollWidth / 2;
-        const pxPerSecond = 50;
+        const pxPerSecond = 20;
         const duration = halfWidth / pxPerSecond;
         track.style.setProperty("--marquee-duration", `${duration}s`);
     }
