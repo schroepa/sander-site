@@ -24,6 +24,11 @@ const hasOverlay =
 
 // Resolve the right-column image
 const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()}` : null;
+
+// Resolve optional video thumbnail (shown on the play overlay before user clicks play)
+const videoThumbnail = data.video_thumbnail
+  ? `${GRAV_MEDIA_BASE}/${data.video_thumbnail.split('/').pop()}`
+  : null;
 ---
 
 <section class="about" id="rosin">
@@ -59,7 +64,12 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
       </div>
 
       <!-- Play overlay: visible before user starts the video -->
-      <button id="about-play-overlay" class="about__play-overlay" aria-label="Video abspielen">
+      <button
+        id="about-play-overlay"
+        class="about__play-overlay"
+        aria-label="Video abspielen"
+        style={videoThumbnail ? `background-image: url('${videoThumbnail}'); background-size: cover; background-position: center;` : undefined}
+      >
         <div class="about__play-icon">
           <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
             <polygon points="5 3 19 12 5 21 5 3"></polygon>
@@ -136,13 +146,13 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
         rel: 0,
         mute: 1,
         autoplay: 0,
-        start: 401, // 6:41
+        start: 402, // 6:42
         end: 593,   // 9:53
       },
       events: {
         onStateChange: function (event) {
           if (event.data === YT.PlayerState.ENDED) {
-            event.target.seekTo(401);
+            event.target.seekTo(402);
             event.target.playVideo();
           }
           var iconPause = document.getElementById("icon-pause");
@@ -371,7 +381,9 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
     position: absolute;
     inset: 0;
     z-index: 20;
-    background: rgba(0, 0, 0, 0.35);
+    background-color: rgba(0, 0, 0, 0.35);
+    background-size: cover;
+    background-position: center;
     border: none;
     cursor: pointer;
     display: flex;
@@ -380,12 +392,18 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
     transition: opacity 0.3s ease;
   }
 
-  .about__play-overlay:hover .about__play-icon {
-    transform: scale(1.1);
-    background: rgba(255, 255, 255, 0.2);
+  /* dark tint on top of the thumbnail so the play button stays readable */
+  .about__play-overlay::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    pointer-events: none;
   }
 
   .about__play-icon {
+    position: relative;
+    z-index: 1;
     width: 72px;
     height: 72px;
     border-radius: 50%;
@@ -398,6 +416,11 @@ const sideImage = data.image ? `${GRAV_MEDIA_BASE}/${data.image.split('/').pop()
     transition: all 0.2s ease;
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
+  }
+
+  .about__play-overlay:hover .about__play-icon {
+    transform: scale(1.1);
+    background: rgba(255, 255, 255, 0.2);
   }
 
   .about__play-icon svg {

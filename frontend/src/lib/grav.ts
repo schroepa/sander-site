@@ -144,6 +144,8 @@ export interface AboutData {
     background_overlay?: boolean | number | string;
     /** Optional image shown in the right column of the About section */
     image?: string;
+    /** Optional thumbnail shown over the YouTube video before the user clicks play */
+    video_thumbnail?: string;
     quote?: string;
     quote_author?: string;
 }
