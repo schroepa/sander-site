@@ -849,6 +849,11 @@ form:
               label: Hauptbild (rechte Spalte)
               help: "Bild zuerst hochladen, dann hier auswählen"
 
+            header.about.video_thumbnail:
+              type: mediapicker
+              label: Video-Startbild
+              help: "Wird als Vorschaubild über dem YouTube-Video angezeigt, bis der Nutzer auf Play klickt. Bild zuerst hochladen, dann hier auswählen."
+
             about_bg_columns:
               type: columns
               fields:
