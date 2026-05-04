@@ -35,6 +35,27 @@ const DEFAULT_ORDER = [
 
 const sectionOrder =
   page?.section_order?.map((s) => s.section).filter(Boolean) ?? DEFAULT_ORDER;
+
+const ANCHOR_MAP: Record<string, string> = {
+  hero: "start",
+  stats: "kennzahlen",
+  menu_slider: "menulinien",
+  solutions: "loesungen",
+  smart_catering: "smart-catering",
+  sticky_scroll: "frische-manufaktur",
+  cta_1: "kontakt",
+  cta_2: "kontakt-2",
+  cta_3: "kontakt-3",
+  about: "ueber-uns",
+  team: "team",
+  faq: "haeufige-fragen",
+  text_section: "text",
+  logo_section: "partner",
+  certificates: "zertifikate",
+  awards: "auszeichnungen",
+  split_sections: "qualitaet-nachhaltigkeit",
+  cards_section: "innovation",
+};
 ---
 
 <Layout
@@ -93,7 +114,7 @@ const sectionOrder =
           if (!Component) return null;
 
           return (
-            <div id={key} class="scroll-mt-24">
+            <div id={ANCHOR_MAP[key] ?? key} class="scroll-mt-24">
               {Component}
             </div>
           );
