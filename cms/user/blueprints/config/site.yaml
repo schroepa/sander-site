@@ -51,35 +51,84 @@ form:
       underline: true
 
       fields:
-        footer.menus:
+        footer.company.address:
+          type: text
+          label: Adresse
+          placeholder: "Musterstraße 1, 12345 Berlin"
+
+        footer.company.email:
+          type: text
+          label: E-Mail-Adresse
+          placeholder: "info@sander-catering.de"
+
+        footer.company.phone:
+          type: text
+          label: Telefonnummer
+          placeholder: "+49 30 123456789"
+
+        footer.heading_internal:
+          type: text
+          label: Spaltenüberschrift – Interne Links
+          placeholder: "Seiten"
+          default: "Seiten"
+
+        footer.heading_universe:
+          type: text
+          label: Spaltenüberschrift – Sander Universum
+          placeholder: "Sander Universum"
+          default: "Sander Universum"
+
+        footer.heading_social:
+          type: text
+          label: Spaltenüberschrift – Social Media
+          placeholder: "Folge uns"
+          default: "Folge uns"
+
+        footer.internal_links:
           type: list
-          label: Menu Items
+          label: Interne Links (Seiten & DSGVO)
           style: vertical
           fields:
             .label:
               type: text
-              label: Label
+              label: Bezeichnung
+            .link:
+              type: text
+              label: Link URL (z.B. /#kontakt oder /impressum)
+
+        footer.universe_links:
+          type: list
+          label: Sander Universum Links
+          style: vertical
+          fields:
+            .label:
+              type: text
+              label: Bezeichnung
             .link:
               type: text
               label: Link URL
+            .external:
+              type: toggle
+              label: Externer Link (öffnet in neuem Tab)
+              default: true
 
         footer.socials:
           type: list
-          label: Social Links
+          label: Social Media Links
           style: vertical
           fields:
             .platform:
               type: text
-              label: Platform Name
+              label: Plattform (z.B. LinkedIn, Instagram)
             .link:
               type: text
               label: Link URL
             .icon:
               type: filepicker
-              label: Icon (SVG/Image)
+              label: Icon (SVG/Bild, optional)
               folder: "theme://assets"
 
         footer.copyright:
           type: text
-          label: Copyright Text
-          default: "© 2025 Sander Catering"
+          label: Copyright-Text
+          default: "© 2025 Sander Catering GmbH"

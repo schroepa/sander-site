@@ -644,10 +644,28 @@ export interface FooterSocialItem {
     icon?: string;
 }
 
+export interface FooterCompanyInfo {
+    address?: string;
+    email?: string;
+    phone?: string;
+}
+
+export interface FooterLinkItem {
+    label: string;
+    link: string;
+    external?: boolean;
+}
+
 export interface FooterConfig {
     menus?: FooterMenuItem[];
     socials?: FooterSocialItem[];
     copyright?: string;
+    company?: FooterCompanyInfo;
+    internal_links?: FooterLinkItem[];
+    universe_links?: FooterLinkItem[];
+    heading_internal?: string;
+    heading_universe?: string;
+    heading_social?: string;
 }
 
 export interface HeaderSubmenuItem {
