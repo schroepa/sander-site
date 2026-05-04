@@ -71,18 +71,18 @@ function renderMarkdown(text: string | undefined) {
     <div class="content-right" id="sticky-scroll-container">
       <div class="scroll-pad top-pad"></div>
 
-      {
-        [
-          ...(data.items || []),
-          ...(data.items || []),
-          ...(data.items || []),
-        ].map((item, mappedIndex) => {
-          const index = mappedIndex % (data.items?.length || 1);
+      {(() => {
+        const items = data.items || [];
+        const n = items.length;
+        return [...items, ...items, ...items].map((item, mappedIndex) => {
+          const index = mappedIndex % (n || 1);
+          const isClone = n > 0 && (mappedIndex < n || mappedIndex >= n * 2);
           return (
             <div
               class="card"
               data-index={index}
               data-mapped-index={mappedIndex}
+              aria-hidden={isClone ? "true" : undefined}
             >
               <div class="card-header">
                 {item.title && <h3 class="card-title">{item.title}</h3>}
@@ -105,8 +105,8 @@ function renderMarkdown(text: string | undefined) {
               </div>
             </div>
           );
-        })
-      }
+        });
+      })()}
 
       <div class="scroll-pad bottom-pad"></div>
     </div>

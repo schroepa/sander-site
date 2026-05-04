@@ -32,10 +32,10 @@ header:
       label: 'Smart Catering'
       link: '/#smart-catering'
       submenus:
-        - { label: 'Vielfalt & Menülinien', link: '/#smart-1-1' }
-        - { label: 'Sicher starten', link: '/#smart-1-2' }
-        - { label: Digitalisierung, link: '/#smart-1-3' }
-        - { label: 'Team & Personal', link: '/#smart-1-4' }
+        - { label: 'Vielfalt & Menülinien', link: '/#menulinien' }
+        - { label: 'Sicher starten', link: '/#smart-catering' }
+        - { label: Digitalisierung, link: '/#innovation' }
+        - { label: 'Team & Personal', link: '/#team' }
     -
       label: 'Die Frische Manufaktur'
       link: '/#frische-manufaktur'
@@ -62,7 +62,7 @@ footer:
       link: '/#frische-manufaktur'
     -
       label: Über uns
-      link: '/#about'
+      link: '/#ueber-uns'
     -
       label: Kontakt
       link: '/#kontakt'
