@@ -40,16 +40,51 @@ header:
       label: 'Die Frische Manufaktur'
       link: '/#frische-manufaktur'
 footer:
-  menus:
+  company:
+    address: "Musterstraße 1, 12345 Berlin"
+    email: "info@sander-catering.de"
+    phone: "+49 30 123456789"
+  heading_internal: "Seiten"
+  heading_universe: "Sander Universum"
+  heading_social: "Folge uns"
+  internal_links:
     -
       label: Home
       link: /
+    -
+      label: Lösungen
+      link: '/#loesungen'
+    -
+      label: Smart Catering
+      link: '/#smart-catering'
+    -
+      label: Die Frische Manufaktur
+      link: '/#frische-manufaktur'
+    -
+      label: Über uns
+      link: '/#about'
+    -
+      label: Kontakt
+      link: '/#kontakt'
     -
       label: Impressum
       link: /impressum
     -
       label: Datenschutz
       link: /datenschutz
+  universe_links:
+    -
+      label: Sander Restaurant
+      link: 'https://www.sander-restaurant.de'
+      external: true
+    -
+      label: Sander Shop
+      link: 'https://www.sander-shop.de'
+      external: true
+    -
+      label: Sander Gourmet
+      link: 'https://www.sander-gourmet.de'
+      external: true
   socials:
     -
       platform: LinkedIn
@@ -67,4 +102,4 @@ footer:
       platform: YouTube
       link: 'https://youtube.com'
       icon: null
-  copyright: '© 2025 Sander Catering'
+  copyright: '© 2025 Sander Catering GmbH'

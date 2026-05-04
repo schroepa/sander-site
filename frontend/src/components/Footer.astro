@@ -1,16 +1,24 @@
 ---
 import { getSiteConfig } from "../lib/grav";
+import { MapPin, Mail, Phone, ArrowUpRight } from "lucide-astro";
 import iconLinkedIn from "../assets/footer/LinkedinLogo-filled.svg?url";
 import iconFacebook from "../assets/footer/FacebookLogo-filled.svg?url";
 import iconInstagram from "../assets/footer/InstagramLogo-filled.svg?url";
 import iconYouTube from "../assets/footer/YoutubeLogo-filled.svg?url";
 
 const siteConfig = getSiteConfig();
-const footerData = siteConfig?.footer || {
-  menus: [],
-  socials: [],
-  copyright: "",
-};
+const footerData = siteConfig?.footer ?? {};
+const headerData = siteConfig?.header;
+
+const company = footerData.company ?? {};
+const internalLinks = footerData.internal_links ?? footerData.menus ?? [];
+const universeLinks = footerData.universe_links ?? [];
+const socials = footerData.socials ?? [];
+const headingInternal = footerData.heading_internal ?? "Seiten";
+const headingUniverse = footerData.heading_universe ?? "Sander Universum";
+const headingSocial = footerData.heading_social ?? "Folge uns";
+const currentYear = new Date().getFullYear();
+const copyright = (footerData.copyright ?? "").replace(/\d{4}/, String(currentYear));
 
 const defaultIcons: Record<string, string> = {
   LinkedIn: iconLinkedIn,
@@ -22,70 +30,133 @@ const defaultIcons: Record<string, string> = {
 function getSocialIcon(social: any, index: number) {
   if (social.icon) return `/user/themes/grav/assets/${social.icon}`;
   return (
-    defaultIcons[social.platform] ||
-    defaultIcons[Object.keys(defaultIcons)[index % 5]]
+    defaultIcons[social.platform] ??
+    defaultIcons[Object.keys(defaultIcons)[index % 4]]
   );
 }
 ---
 
-<footer
-  class="bg-(--color-background-primary) flex flex-col items-center pt-4 px-4 sm:px-8 md:px-16 relative w-full"
->
-  <div
-    class="border-(--color-stroke-secondary) border-solid border-t flex flex-col gap-10 items-center pb-20 pt-10 relative w-full max-w-7xl"
-  >
-    <div
-      class="flex flex-wrap gap-2 items-center justify-center relative w-full"
-    >
-      {
-        footerData.menus?.map((menu) => (
-          <a
-            href={menu.link}
-            class="flex gap-2 items-center justify-center px-4 py-3 relative rounded-xl hover:bg-(--color-background-secondary) transition-colors"
-          >
-            <p class="font-geist font-medium leading-6 relative text-(--color-text-secondary) text-base tracking-[0.3px]">
-              {menu.label}
-            </p>
-          </a>
-        ))
-      }
-    </div>
+<footer class="footer">
+  <div class="footer__inner">
 
-    <div class="flex gap-6 items-start relative shrink-0">
-      {
-        footerData.socials?.map((social, idx) => (
-          <a
-            href={social.link}
-            target="_blank"
-            rel="noopener noreferrer"
-            class="relative shrink-0 size-6 hover:opacity-80 transition-opacity"
-            aria-label={social.platform}
-          >
+    <!-- ── Hauptbereich: 4 Spalten ── -->
+    <div class="footer__grid">
+
+      <!-- Spalte 1: Logo + Firmendaten -->
+      <div class="footer__col footer__col--company">
+        {headerData?.logo && (
+          <a href="/" class="footer__logo-link" aria-label="Zur Startseite">
             <img
-              src={getSocialIcon(social, idx)}
-              alt={social.platform}
+              src={headerData.logo}
+              alt="Sander Catering"
+              class="footer__logo"
               loading="lazy"
-              class="absolute block w-full h-full object-contain"
             />
           </a>
-        ))
-      }
+        )}
+
+        <address class="footer__address">
+          {company.address && (
+            <p class="footer__contact-item">
+              <MapPin size={14} class="footer__contact-icon" aria-hidden="true" />
+              <span>{company.address}</span>
+            </p>
+          )}
+          {company.email && (
+            <a href={`mailto:${company.email}`} class="footer__contact-item footer__contact-link">
+              <Mail size={14} class="footer__contact-icon" aria-hidden="true" />
+              <span>{company.email}</span>
+            </a>
+          )}
+          {company.phone && (
+            <a href={`tel:${company.phone.replace(/\s/g, '')}`} class="footer__contact-item footer__contact-link">
+              <Phone size={14} class="footer__contact-icon" aria-hidden="true" />
+              <span>{company.phone}</span>
+            </a>
+          )}
+        </address>
+      </div>
+
+      <!-- Spalte 2: Interne Links -->
+      <div class="footer__col">
+        <p class="footer__col-heading">{headingInternal}</p>
+        <nav aria-label="Footer Navigation">
+          <ul class="footer__link-list">
+            {internalLinks.map((item) => (
+              <li>
+                <a href={item.link} class="footer__link">
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Spalte 3: Sander Universum -->
+      <div class="footer__col">
+        <p class="footer__col-heading">{headingUniverse}</p>
+        <nav aria-label="Sander Universum Links">
+          <ul class="footer__link-list">
+            {universeLinks.map((item) => (
+              <li>
+                <a
+                  href={item.link}
+                  class="footer__link footer__link--external"
+                  target={item.external !== false ? "_blank" : undefined}
+                  rel={item.external !== false ? "noopener noreferrer" : undefined}
+                >
+                  {item.label}
+                  {item.external !== false && (
+                    <ArrowUpRight size={12} class="footer__external-icon" aria-hidden="true" />
+                  )}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+      </div>
+
+      <!-- Spalte 4: Social Media -->
+      <div class="footer__col">
+        <p class="footer__col-heading">{headingSocial}</p>
+        <div class="footer__socials">
+          {socials.map((social, idx) => (
+            <a
+              href={social.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="footer__social-link"
+              aria-label={social.platform}
+            >
+              <img
+                src={getSocialIcon(social, idx)}
+                alt={social.platform}
+                loading="lazy"
+                class="footer__social-icon"
+              />
+            </a>
+          ))}
+        </div>
+      </div>
+
     </div>
 
-    <div class="flex items-center gap-4">
-      <p
-        class="font-geist font-medium leading-[14.5px] relative text-(--color-text-tertiary) text-xs tracking-[0.4px]"
-      >
-        {footerData.copyright}
-      </p>
-      <span class="text-(--color-text-tertiary) text-xs">·</span>
+    <!-- ── Trennlinie ── -->
+    <div class="footer__divider" aria-hidden="true"></div>
+
+    <!-- ── Bottom Bar: Copyright + Cookie ── -->
+    <div class="footer__bottom">
+      <p class="footer__copyright">{copyright}</p>
       <button
         id="cookie-settings-btn"
-        class="font-geist font-medium leading-[14.5px] text-(--color-text-tertiary) text-xs tracking-[0.4px] hover:text-(--color-text-secondary) transition-colors cursor-pointer bg-transparent border-none p-0"
+        class="footer__cookie-btn"
+        type="button"
       >
         Cookie-Einstellungen
       </button>
     </div>
+
   </div>
 </footer>
 
@@ -94,3 +165,228 @@ function getSocialIcon(social: any, index: number) {
     window.CookieConsent?.showPreferences();
   });
 </script>
+
+<style>
+  .footer {
+    background-color: var(--color-background-elevation2);
+    width: 100%;
+    padding: 0 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer { padding: 0 2rem; }
+  }
+  @media (min-width: 768px) {
+    .footer { padding: 0 4rem; }
+  }
+
+  .footer__inner {
+    max-width: 80rem;
+    margin: 0 auto;
+    padding: 3.5rem 0 2rem;
+  }
+
+  /* ── Grid ── */
+  .footer__grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  @media (min-width: 640px) {
+    .footer__grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .footer__grid {
+      grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
+      gap: 3rem;
+    }
+  }
+
+  /* ── Spalte 1: Firma ── */
+  .footer__col--company {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .footer__logo-link {
+    display: inline-block;
+    flex-shrink: 0;
+  }
+
+  .footer__logo {
+    display: block;
+    height: auto;
+    max-height: 48px;
+    width: auto;
+    max-width: 100%;
+    opacity: 0.9;
+  }
+
+  .footer__address {
+    font-style: normal;
+    display: flex;
+    flex-direction: column;
+    gap: 0.625rem;
+  }
+
+  .footer__contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    color: var(--color-text-tertiary);
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    line-height: 1.5;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .footer__contact-link:hover {
+    color: var(--color-text-secondary);
+  }
+
+  .footer__contact-icon {
+    color: var(--color-text-tertiary);
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  /* ── Spalten 2-4 ── */
+  .footer__col {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .footer__col-heading {
+    font-family: var(--font-body);
+    font-weight: var(--weight-medium);
+    font-size: 0.6875rem;
+    line-height: 1;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .footer__link-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .footer__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.25rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    line-height: 1.5;
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .footer__link:hover {
+    color: var(--color-text-primary);
+  }
+
+  .footer__external-icon {
+    opacity: 0.5;
+    flex-shrink: 0;
+    transition: opacity 0.15s ease;
+  }
+
+  .footer__link--external:hover .footer__external-icon {
+    opacity: 0.8;
+  }
+
+  /* ── Social Media ── */
+  .footer__socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.875rem;
+    align-items: center;
+  }
+
+  .footer__social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: var(--radius-100);
+    background-color: var(--color-background-tertiary);
+    transition: background-color 0.15s ease;
+    flex-shrink: 0;
+  }
+
+  .footer__social-link:hover {
+    background-color: var(--color-stroke-brand-medium);
+  }
+
+  .footer__social-icon {
+    width: 1.125rem;
+    height: 1.125rem;
+    object-fit: contain;
+    display: block;
+    filter: brightness(0) invert(1);
+    opacity: 0.9;
+  }
+
+  .footer__social-link:hover .footer__social-icon {
+    opacity: 1;
+  }
+
+  /* ── Divider ── */
+  .footer__divider {
+    height: 1px;
+    background-color: var(--color-stroke-secondary);
+    margin: 2.5rem 0 1.5rem;
+  }
+
+  /* ── Bottom Bar ── */
+  .footer__bottom {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+
+  .footer__copyright {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: var(--weight-medium);
+    line-height: 1;
+    letter-spacing: 0.025em;
+    color: var(--color-text-tertiary);
+    margin: 0;
+  }
+
+  .footer__cookie-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: var(--weight-medium);
+    line-height: 1;
+    letter-spacing: 0.025em;
+    color: var(--color-text-tertiary);
+    transition: color 0.15s ease;
+  }
+
+  .footer__cookie-btn:hover {
+    color: var(--color-text-secondary);
+  }
+</style>
