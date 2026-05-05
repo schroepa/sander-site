@@ -24,16 +24,18 @@ export interface SeoData {
  * Returns empty object if the file doesn't exist or can't be parsed.
  */
 function readImageMeta(pageDir: string, filename: string): { alt?: string; title?: string; caption?: string } {
-    if (!filename) return {};
+    if (!filename?.trim()) return {};
     const metaPath = path.join(pageDir, `${filename}.meta.yaml`);
     if (!fs.existsSync(metaPath)) return {};
     try {
         const raw = fs.readFileSync(metaPath, 'utf-8');
-        const data = yaml.load(raw) as Record<string, unknown>;
+        const data = yaml.load(raw);
+        if (data === null || data === undefined || typeof data !== 'object') return {};
+        const record = data as Record<string, unknown>;
         return {
-            alt: data.alt as string | undefined,
-            title: data.title as string | undefined,
-            caption: data.caption as string | undefined,
+            alt: record.alt as string | undefined,
+            title: record.title as string | undefined,
+            caption: record.caption as string | undefined,
         };
     } catch {
         return {};
@@ -514,15 +516,14 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         split_sections: data.split_sections
             ? (data.split_sections as SplitSectionData[]).map((s) => ({
                 ...s,
-                image_alt: s.image_alt ?? (s.image ? readImageMeta(pageDir, s.image).alt : undefined),
+                image_alt: (s.image ? readImageMeta(pageDir, s.image).alt : undefined) ?? s.image_alt,
             }))
             : data.split_section
                 ? [{
                     ...data.split_section as SplitSectionData,
-                    image_alt: (data.split_section as SplitSectionData).image_alt
-                        ?? ((data.split_section as SplitSectionData).image
-                            ? readImageMeta(pageDir, (data.split_section as SplitSectionData).image!).alt
-                            : undefined),
+                    image_alt: ((data.split_section as SplitSectionData).image
+                        ? readImageMeta(pageDir, (data.split_section as SplitSectionData).image!).alt
+                        : undefined) ?? (data.split_section as SplitSectionData).image_alt,
                 }]
                 : undefined,
         split_section: data.split_section ?? undefined,
@@ -541,6 +542,8 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
                 title: data.seo.title as string | undefined,
                 description: data.seo.description as string | undefined,
                 og_image: data.seo.og_image as string | undefined,
+                // TODO: GRAV_MEDIA_BASE is scoped to the homepage (01.home). For multi-page SEO images,
+                // derive a per-slug base instead of this shared constant.
                 og_image_url: data.seo.og_image
                     ? `${GRAV_MEDIA_BASE}/${data.seo.og_image}`
                     : undefined,
