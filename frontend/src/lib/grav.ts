@@ -191,6 +191,7 @@ export interface TeamMember {
     role?: string;
     bio?: string;
     image?: string;
+    image_alt?: string;
 }
 
 /** Team section data */
@@ -238,6 +239,7 @@ export interface LogoSectionData {
 export interface CertificateItem {
     name: string;
     image?: string;
+    image_alt?: string;
 }
 
 /** Certificates section data – marquee of certificate logos/badges */
@@ -278,6 +280,7 @@ export interface CardsItem {
     title: string;
     text: string;
     image?: string;
+    image_alt?: string;
 }
 
 /** Cards section data */
@@ -296,6 +299,7 @@ export interface CardsSectionData {
 /** A single award / badge item */
 export interface AwardsItem {
     image?: string;
+    image_alt?: string;
     label?: string;
     description?: string;
     /** Markdown-rendered HTML of `description` */
@@ -345,6 +349,7 @@ export interface MenuSliderItem {
     title: string;
     subtitle?: string;
     image?: string | object;
+    image_alt?: string;
     video?: string | object;
 }
 
@@ -467,6 +472,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
             items: (data.team.items ?? []).map((m: TeamMember) => ({
                 ...m,
                 bio: md(m.bio),
+                image_alt: m.image ? readImageMeta(pageDir, m.image).alt : undefined,
             })),
         }
         : undefined;
@@ -505,7 +511,15 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         sections,
         solutions,
         stats: data.stats ?? undefined,
-        menu_slider: data.menu_slider ?? undefined,
+        menu_slider: data.menu_slider ? {
+            ...data.menu_slider,
+            items: (data.menu_slider.items ?? []).map((item: MenuSliderItem) => ({
+                ...item,
+                image_alt: typeof item.image === 'string' && item.image
+                    ? readImageMeta(pageDir, item.image).alt
+                    : undefined,
+            })),
+        } : undefined,
         smart_catering,
         sticky_scroll,
         ctas,
@@ -513,7 +527,13 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         team,
         faq,
         logo_section: data.logo_section ?? undefined,
-        certificates: data.certificates ?? undefined,
+        certificates: data.certificates ? {
+            ...data.certificates,
+            items: (data.certificates.items ?? []).map((item: CertificateItem) => ({
+                ...item,
+                image_alt: item.image ? readImageMeta(pageDir, item.image).alt : undefined,
+            })),
+        } : undefined,
         text_section,
         split_sections: data.split_sections
             ? (data.split_sections as SplitSectionData[]).map((s) => ({
@@ -535,10 +555,17 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
                 items: (data.awards.items ?? []).map((item: AwardsItem) => ({
                     ...item,
                     description_html: md(item.description),
+                    image_alt: item.image ? readImageMeta(pageDir, item.image).alt : undefined,
                 })),
             }
             : undefined,
-        cards_section: data.cards_section ?? undefined,
+        cards_section: data.cards_section ? {
+            ...data.cards_section,
+            items: (data.cards_section.items ?? []).map((item: CardsItem) => ({
+                ...item,
+                image_alt: item.image ? readImageMeta(pageDir, item.image).alt : undefined,
+            })),
+        } : undefined,
         seo: data.seo
             ? {
                 title: data.seo.title as string | undefined,

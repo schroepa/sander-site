@@ -40,7 +40,7 @@ function resolveMedia(raw: string | object | undefined): string {
               ) : imageUrl ? (
                 <img
                   src={imageUrl}
-                  alt={item.title}
+                  alt={item.image_alt ?? item.title}
                   class="fsslider__bg"
                   loading="lazy"
                   decoding="async"

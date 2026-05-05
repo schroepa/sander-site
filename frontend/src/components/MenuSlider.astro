@@ -58,7 +58,7 @@ const { headline, items = [] } = data;
                       ) : imageUrl ? (
                         <img
                           src={imageUrl}
-                          alt={item.title}
+                          alt={item.image_alt ?? item.title}
                           class="menu-slide__image"
                           loading="lazy"
                           decoding={index === 0 ? "sync" : "async"}
