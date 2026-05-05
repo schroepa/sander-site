@@ -1684,7 +1684,11 @@ form:
               title: "Social Media Vorschau (Open Graph)"
               underline: true
 
+            seo_media_upload:
+              type: pagemedia
+              label: "OG-Bild hochladen"
+
             header.seo.og_image:
               type: mediapicker
               label: Vorschaubild (OG Image)
-              help: "Bild das bei geteilten Links angezeigt wird (LinkedIn, WhatsApp, Twitter/X). Bild erst oben im Media-Bereich hochladen. Empfohlene Größe: 1200×630 px."
+              help: "Bild das bei geteilten Links angezeigt wird (LinkedIn, WhatsApp, Twitter/X). Empfohlene Größe: 1200×630 px."
