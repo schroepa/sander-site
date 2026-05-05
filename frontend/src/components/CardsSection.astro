@@ -117,7 +117,7 @@ const hasOverlay =
                                 <div class="relative w-full h-40 overflow-hidden shrink-0">
                                     <img
                                         src={`${GRAV_MEDIA_BASE}/${card.image.split('/').pop()}`}
-                                        alt={card.title}
+                                        alt={card.image_alt ?? card.title}
                                         class="absolute inset-0 w-full h-full object-cover"
                                     />
                                 </div>

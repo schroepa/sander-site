@@ -67,7 +67,7 @@ const isSvg = (path: string) => /\.svg([?#].*)?$/i.test(path);
                                 <img
                                     class="certs__image"
                                     src={src}
-                                    alt={item.name}
+                                    alt={item.image_alt ?? item.name}
                                     loading="lazy"
                                 />
                             )}
