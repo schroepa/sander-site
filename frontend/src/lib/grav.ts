@@ -25,7 +25,9 @@ export interface SeoData {
  */
 function readImageMeta(pageDir: string, filename: string): { alt?: string; title?: string; caption?: string } {
     if (!filename?.trim()) return {};
-    const metaPath = path.join(pageDir, `${filename}.meta.yaml`);
+    // Grav mediapicker may store a path with slashes — use only the basename
+    const basename = filename.split('/').pop() ?? filename;
+    const metaPath = path.join(pageDir, `${basename}.meta.yaml`);
     if (!fs.existsSync(metaPath)) return {};
     try {
         const raw = fs.readFileSync(metaPath, 'utf-8');
