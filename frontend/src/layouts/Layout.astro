@@ -7,7 +7,7 @@ import CookieConsent from "../components/CookieConsent.astro";
 interface Props {
   title?: string;
   description?: string;
-  /** Relative URL path to OG image, e.g. /cms/user/pages/01.home/og.jpg */
+  /** Relative URL path to OG image, e.g. /cms/user/pages/01.home/og.jpg — must be 1200×630 px (width/height are hardcoded in the OG tags). */
   ogImage?: string;
 }
 
@@ -17,9 +17,10 @@ const {
   ogImage,
 } = Astro.props;
 
-const siteUrl = (Astro.site?.toString() ?? "").replace(/\/$/, "");
 const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://smart-catering.de").toString();
-const ogImageAbsoluteUrl = ogImage ? `${siteUrl}${ogImage}` : undefined;
+const ogImageAbsoluteUrl = ogImage
+  ? new URL(ogImage, Astro.site ?? "https://smart-catering.de").toString()
+  : undefined;
 ---
 
 <!doctype html>
@@ -38,9 +39,13 @@ const ogImageAbsoluteUrl = ogImage ? `${siteUrl}${ogImage}` : undefined;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonicalUrl} />
-    {ogImageAbsoluteUrl && <meta property="og:image" content={ogImageAbsoluteUrl} />}
-    {ogImageAbsoluteUrl && <meta property="og:image:width" content="1200" />}
-    {ogImageAbsoluteUrl && <meta property="og:image:height" content="630" />}
+    {ogImageAbsoluteUrl && (
+      <>
+        <meta property="og:image" content={ogImageAbsoluteUrl} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+      </>
+    )}
 
     <!-- Twitter / X Card -->
     <meta name="twitter:card" content={ogImageAbsoluteUrl ? "summary_large_image" : "summary"} />
