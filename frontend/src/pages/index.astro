@@ -18,7 +18,7 @@ import SplitSection from "../components/SplitSection.astro";
 import CardsSection from "../components/CardsSection.astro";
 import Awards from "../components/Awards.astro";
 import Tag from "../components/Tag.astro";
-import { getHomepage } from "../lib/grav";
+import { getHomepage, GRAV_MEDIA_BASE } from "../lib/grav";
 
 const page = getHomepage();
 
@@ -59,8 +59,9 @@ const ANCHOR_MAP: Record<string, string> = {
 ---
 
 <Layout
-  title={page?.title ?? "Sander Catering"}
-  description={page?.hero?.subline}
+  title={page?.seo?.title ?? page?.title ?? "Sander Catering"}
+  description={page?.seo?.description ?? page?.hero?.subline ?? "Premium Catering Service"}
+  ogImage={page?.seo?.og_image ? `${GRAV_MEDIA_BASE}/${page.seo.og_image}` : undefined}
 >
   {
     page ? (
