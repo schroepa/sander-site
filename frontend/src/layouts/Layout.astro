@@ -7,10 +7,19 @@ import CookieConsent from "../components/CookieConsent.astro";
 interface Props {
   title?: string;
   description?: string;
+  /** Relative URL path to OG image, e.g. /cms/user/pages/01.home/og.jpg */
+  ogImage?: string;
 }
 
-const { title = "Sander Catering", description = "Premium Catering Service" } =
-  Astro.props;
+const {
+  title = "Sander Catering",
+  description = "Premium Catering Service",
+  ogImage,
+} = Astro.props;
+
+const siteUrl = (Astro.site?.toString() ?? "").replace(/\/$/, "");
+const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://smart-catering.de").toString();
+const ogImageAbsoluteUrl = ogImage ? `${siteUrl}${ogImage}` : undefined;
 ---
 
 <!doctype html>
@@ -19,17 +28,32 @@ const { title = "Sander Catering", description = "Premium Catering Service" } =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content={description} />
+    <link rel="canonical" href={canonicalUrl} />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <title>{title}</title>
 
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Sander Catering" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalUrl} />
+    {ogImageAbsoluteUrl && <meta property="og:image" content={ogImageAbsoluteUrl} />}
+    {ogImageAbsoluteUrl && <meta property="og:image:width" content="1200" />}
+    {ogImageAbsoluteUrl && <meta property="og:image:height" content="630" />}
+
+    <!-- Twitter / X Card -->
+    <meta name="twitter:card" content={ogImageAbsoluteUrl ? "summary_large_image" : "summary"} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {ogImageAbsoluteUrl && <meta name="twitter:image" content={ogImageAbsoluteUrl} />}
+
     <!-- Geist wird lokal geladen (kein CDN, DSGVO-konform) -->
-    <!-- Kritische Schriftschnitte vorladen: Browser lädt parallel zu HTML, nicht erst nach CSS -->
     <link rel="preload" href="/fonts/Geist-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Geist-Medium.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Geist-Bold.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Geist-Black.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Geist-ExtraBold.woff2" as="font" type="font/woff2" crossorigin />
-
   </head>
   <body>
     <Header />
