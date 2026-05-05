@@ -1669,3 +1669,49 @@ form:
                   type: text
                   label: Bildbeschreibung (Alt-Text)
                   placeholder: "z.B. Frische Produkte aus der Sander Manufaktur"
+
+        # ═══════════════════════════════════════════
+        # TAB: SEO
+        # ═══════════════════════════════════════════
+        tab_seo:
+          type: tab
+          title: "SEO & Social"
+
+          fields:
+            seo_intro:
+              type: display
+              label: ""
+              content: "Hier kannst du steuern, wie die Seite in Suchmaschinen und bei geteilten Links (LinkedIn, WhatsApp usw.) erscheint."
+              markdown: true
+
+            seo_section_search:
+              type: section
+              title: "Suchmaschinen (Google & Co.)"
+              underline: true
+
+            header.seo.title:
+              type: text
+              label: SEO-Titel (HTML-Title)
+              placeholder: "z.B. Sander Catering – Premium-Catering für Unternehmen"
+              help: "Erscheint im Browser-Tab und in Google-Suchergebnissen. Empfehlung: 50–60 Zeichen. Wenn leer, wird der Seiten-Titel verwendet."
+
+            header.seo.description:
+              type: textarea
+              label: Meta Description
+              placeholder: "z.B. Frisches, nachhaltiges Catering für Ihr Unternehmen. Wir verbinden Qualität, Genuss und Effizienz."
+              help: "Kurzbeschreibung in Suchergebnissen. Empfehlung: 120–160 Zeichen."
+              rows: 3
+
+            seo_section_social:
+              type: section
+              title: "Social Media Vorschau (Open Graph)"
+              underline: true
+
+            seo_media_upload:
+              type: pagemedia
+              label: "OG-Bild hochladen"
+
+            header.seo.og_image:
+              type: mediapicker
+              label: Vorschaubild (OG Image)
+              help: "Bild das bei geteilten Links angezeigt wird (LinkedIn, WhatsApp, Twitter/X). Empfohlene Größe: 1200×630 px."

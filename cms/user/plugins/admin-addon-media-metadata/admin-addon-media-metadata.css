@@ -1,0 +1,8 @@
+span[data-dz-name] {
+    cursor: text;
+}
+
+[data-remodal-id="modal-admin-addon-media-metadata"] div.form-label { padding-right: 1rem; }
+[data-remodal-id=modal-admin-addon-media-metadata] h1 { line-height: 1; }
+[data-remodal-id=modal-admin-addon-media-metadata] h1 span.header { }
+[data-remodal-id=modal-admin-addon-media-metadata] h1 span.filename { font-size: 1rem; }

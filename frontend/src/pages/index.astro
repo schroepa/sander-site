@@ -59,8 +59,9 @@ const ANCHOR_MAP: Record<string, string> = {
 ---
 
 <Layout
-  title={page?.title ?? "Sander Catering"}
-  description={page?.hero?.subline}
+  title={page?.seo?.title ?? page?.title ?? "Sander Catering"}
+  description={page?.seo?.description ?? page?.hero?.subline ?? "Premium Catering Service"}
+  ogImage={page?.seo?.og_image_url}
 >
   {
     page ? (

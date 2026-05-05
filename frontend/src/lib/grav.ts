@@ -9,6 +9,39 @@ function md(value: string | undefined | null): string {
     if (!value) return '';
     return marked(value, { async: false }) as string;
 }
+
+/** SEO / Open Graph fields for a page */
+export interface SeoData {
+    title?: string;
+    description?: string;
+    og_image?: string;
+    /** Relative URL path to OG image, e.g. /cms/user/pages/01.home/og.jpg */
+    og_image_url?: string;
+}
+
+/**
+ * Read alt/title/caption from a Grav media .meta.yaml file.
+ * Returns empty object if the file doesn't exist or can't be parsed.
+ */
+function readImageMeta(pageDir: string, filename: string): { alt?: string; title?: string; caption?: string } {
+    if (!filename?.trim()) return {};
+    const metaPath = path.join(pageDir, `${filename}.meta.yaml`);
+    if (!fs.existsSync(metaPath)) return {};
+    try {
+        const raw = fs.readFileSync(metaPath, 'utf-8');
+        const data = yaml.load(raw);
+        if (data === null || data === undefined || typeof data !== 'object') return {};
+        const record = data as Record<string, unknown>;
+        return {
+            alt: record.alt as string | undefined,
+            title: record.title as string | undefined,
+            caption: record.caption as string | undefined,
+        };
+    } catch {
+        return {};
+    }
+}
+
 /**
  * Base path to Grav's content pages directory.
  * Can be overridden via GRAV_PAGES_DIR environment variable (for server deployment).
@@ -349,6 +382,8 @@ export interface GravPage {
     split_section?: SplitSectionData;
     awards?: AwardsData;
     cards_section?: CardsSectionData;
+    /** SEO & Open Graph data */
+    seo?: SeoData;
     /** Raw markdown body content (below the frontmatter) */
     body: string;
     /** All frontmatter data as-is */
@@ -364,6 +399,7 @@ export interface GravPage {
  */
 export function getPage(slug: string, template = 'default'): GravPage | null {
     const filePath = path.join(GRAV_PAGES_DIR, slug, `${template}.md`);
+    const pageDir = path.join(GRAV_PAGES_DIR, slug);
 
     if (!fs.existsSync(filePath)) {
         console.warn(`[grav] Page not found: ${filePath}`);
@@ -478,9 +514,17 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
         certificates: data.certificates ?? undefined,
         text_section,
         split_sections: data.split_sections
-            ? (data.split_sections as SplitSectionData[])
+            ? (data.split_sections as SplitSectionData[]).map((s) => ({
+                ...s,
+                image_alt: (s.image ? readImageMeta(pageDir, s.image).alt : undefined) ?? s.image_alt,
+            }))
             : data.split_section
-                ? [data.split_section as SplitSectionData]
+                ? [{
+                    ...data.split_section as SplitSectionData,
+                    image_alt: ((data.split_section as SplitSectionData).image
+                        ? readImageMeta(pageDir, (data.split_section as SplitSectionData).image!).alt
+                        : undefined) ?? (data.split_section as SplitSectionData).image_alt,
+                }]
                 : undefined,
         split_section: data.split_section ?? undefined,
         awards: data.awards
@@ -493,6 +537,18 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
             }
             : undefined,
         cards_section: data.cards_section ?? undefined,
+        seo: data.seo
+            ? {
+                title: data.seo.title as string | undefined,
+                description: data.seo.description as string | undefined,
+                og_image: data.seo.og_image as string | undefined,
+                // TODO: GRAV_MEDIA_BASE is scoped to the homepage (01.home). For multi-page SEO images,
+                // derive a per-slug base instead of this shared constant.
+                og_image_url: data.seo.og_image
+                    ? `${GRAV_MEDIA_BASE}/${data.seo.og_image}`
+                    : undefined,
+            }
+            : undefined,
         body: content.trim(),
         raw: data,
     };
