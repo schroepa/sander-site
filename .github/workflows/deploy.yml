@@ -62,12 +62,12 @@ jobs:
             echo "WARNUNG: site.yaml heruntergeladen, aber keine 'menus:'-Sektion. Prüfen!"
           fi
 
-      - name: Debug – meta.yaml Dateien prüfen
+      - name: Debug – meta.yaml Inhalt und Frontmatter prüfen
         run: |
-          echo "=== .meta.yaml Dateien gefunden ==="
-          find cms/user/pages -name '*.meta.yaml' | sort || echo "Keine .meta.yaml gefunden"
-          echo "=== Verzeichnisstruktur 01.home ==="
-          find cms/user/pages/01.home -maxdepth 2 | sort
+          echo "=== Inhalt einer Beispiel-meta.yaml ==="
+          cat "cms/user/pages/01.home/frischfleisch.jpg.meta.yaml" || echo "Datei nicht gefunden"
+          echo "=== Alle image-Felder aus homepage.md ==="
+          grep -i "image:" cms/user/pages/01.home/homepage.md | head -20
 
       - name: Build
         working-directory: frontend
