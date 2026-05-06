@@ -574,7 +574,7 @@ export function getPage(slug: string, template = 'default'): GravPage | null {
                 // TODO: GRAV_MEDIA_BASE is scoped to the homepage (01.home). For multi-page SEO images,
                 // derive a per-slug base instead of this shared constant.
                 og_image_url: data.seo.og_image
-                    ? `${GRAV_MEDIA_BASE}/${data.seo.og_image}`
+                    ? `${GRAV_MEDIA_BASE}/${path.basename(data.seo.og_image as string)}`
                     : undefined,
             }
             : undefined,
