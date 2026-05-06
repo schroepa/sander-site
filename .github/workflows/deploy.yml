@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - main
-  schedule:
-    - cron: '*/15 * * * *'
   repository_dispatch:
     types: [cms_content_updated]
   workflow_dispatch:
@@ -122,3 +120,20 @@ jobs:
             logs/**
             tmp/**
             backup/**
+
+      - name: Clear Grav Cache via FTP
+        env:
+          FTP_SERVER: ${{ secrets.FTP_SERVER }}
+          FTP_USERNAME: ${{ secrets.FTP_USERNAME }}
+          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
+          FTP_CMS_PATH: ${{ secrets.FTP_CMS_PATH }}
+        run: |
+          # Grav-Cache löschen: liegt eine Ebene über FTP_CMS_PATH (user/ → ../cache/)
+          # glob rm -rf löscht alle Unterverzeichnisse; || true verhindert Build-Fehler
+          # wenn cache/ leer oder nicht vorhanden ist
+          lftp -u "$FTP_USERNAME,$FTP_PASSWORD" \
+            -e "set ftp:ssl-allow no; set net:timeout 30; set net:max-retries 2; \
+                glob -a rm -rf ${FTP_CMS_PATH}../cache/*; \
+                quit" \
+            "$FTP_SERVER" || true
+          echo "Grav Cache gelöscht."

@@ -17,6 +17,7 @@ form:
         tab_order:
           type: tab
           title: "Reihenfolge"
+          icon: fa-list
 
           fields:
             order_info:
@@ -61,6 +62,7 @@ form:
         tab_hero:
           type: tab
           title: "Hero"
+          icon: fa-home
 
           fields:
             hero_content_divider:
@@ -259,6 +261,7 @@ form:
         tab_stats:
           type: tab
           title: "Kennzahlen"
+          icon: fa-bar-chart
 
           fields:
             stats_content_divider:
@@ -349,6 +352,7 @@ form:
         tab_menu_slider:
           type: tab
           title: "Menu Slider"
+          icon: fa-th-large
 
           fields:
             menu_slider_content_divider:
@@ -404,6 +408,7 @@ form:
         tab_solutions:
           type: tab
           title: "Lösungen"
+          icon: fa-check-circle
 
           fields:
             solutions_content_divider:
@@ -494,6 +499,7 @@ form:
         tab_smart_catering:
           type: tab
           title: "Smart Catering"
+          icon: fa-cogs
 
           fields:
             smart_catering_content_divider:
@@ -667,6 +673,7 @@ form:
         tab_sticky_scroll:
           type: tab
           title: "Sticky Scroll"
+          icon: fa-file-text
 
           fields:
             sticky_scroll_header_divider:
@@ -729,6 +736,7 @@ form:
         tab_ctas:
           type: tab
           title: "CTAs"
+          icon: fa-bullhorn
 
           fields:
             cta_info:
@@ -800,6 +808,7 @@ form:
         tab_about:
           type: tab
           title: "Rosin"
+          icon: fa-user
 
           fields:
             about_content_divider:
@@ -895,6 +904,7 @@ form:
         tab_awards:
           type: tab
           title: "Auszeichnungen"
+          icon: fa-trophy
 
           fields:
             awards_content_divider:
@@ -982,6 +992,7 @@ form:
         tab_team:
           type: tab
           title: "Team"
+          icon: fa-users
 
           fields:
             team_content_divider:
@@ -1092,6 +1103,7 @@ form:
         tab_logo_section:
           type: tab
           title: "Logos"
+          icon: fa-building
 
           fields:
             logo_section_content_divider:
@@ -1139,8 +1151,11 @@ form:
                   label: Logo-Datei
                   folder: "user://pages/01.home"
                   accept:
-                    - image/*
                     - .svg
+                    - .png
+                    - .jpg
+                    - .jpeg
+                    - .webp
                   help: "SVG oder Bild auswählen (zuerst hochladen)"
 
             logo_bg_divider:
@@ -1193,6 +1208,7 @@ form:
         tab_certificates:
           type: tab
           title: "Zertifikate"
+          icon: fa-certificate
 
           fields:
             certificates_content_divider:
@@ -1240,8 +1256,11 @@ form:
                   label: Datei
                   folder: "user://pages/01.home"
                   accept:
-                    - image/*
                     - .svg
+                    - .png
+                    - .jpg
+                    - .jpeg
+                    - .webp
                   help: "SVG oder Bild auswählen (zuerst hochladen)"
 
             certs_bg_divider:
@@ -1294,6 +1313,7 @@ form:
         tab_text_section:
           type: tab
           title: "Text"
+          icon: fa-align-left
 
           fields:
             text_section_content_divider:
@@ -1366,6 +1386,7 @@ form:
         tab_cards_section:
           type: tab
           title: "Karten"
+          icon: fa-th
 
           fields:
             cards_section_content_divider:
@@ -1491,6 +1512,7 @@ form:
         tab_faq:
           type: tab
           title: "FAQ"
+          icon: fa-question-circle
 
           fields:
             faq_content_divider:
@@ -1569,6 +1591,7 @@ form:
         tab_split_sections:
           type: tab
           title: "Split Sections"
+          icon: fa-columns
 
           fields:
             split_info:

@@ -10,7 +10,7 @@
                 {% set thumbnail = the_file.display(the_file.extension == 'svg' ? 'source' : 'thumbnail') %}
                 {% if thumbnail %}
                 <img src="{{thumbnail.cropZoom(250, 250).url}}" />
-                <h4 class="admin-media-title">{{ file.title }}</h4>
+                <h4 class="admin-media-title" title="{{ file.title }}">{{ file.title }}</h4>
                 {% endif %}
             </a>
         </div>
