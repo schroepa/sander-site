@@ -10,7 +10,7 @@ git pull origin main
 echo "Building Frontend..."
 cd frontend
 npm install
-npm run build
+SITE_URL="${SITE_URL:-https://patricks309.sg-host.com}" npm run build
 
 echo "Syncing to Webroot..."
 rsync -avz --delete dist/ $WEB_ROOT/public/

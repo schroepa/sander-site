@@ -17,7 +17,7 @@ const {
   ogImage,
 } = Astro.props;
 
-const base = Astro.url.origin;
+const base = Astro.site?.origin ?? Astro.url.origin;
 const canonicalUrl = new URL(Astro.url.pathname, base).toString();
 const ogImageAbsoluteUrl = ogImage ? new URL(ogImage, base).toString() : undefined;
 ---
