@@ -62,16 +62,6 @@ jobs:
             echo "WARNUNG: site.yaml heruntergeladen, aber keine 'menus:'-Sektion. Prüfen!"
           fi
 
-      - name: Debug – meta.yaml mit gesetzten Alt-Texten
-        run: |
-          echo "=== meta.yaml Dateien mit nicht-leerem alt-Tag ==="
-          grep -rl "alt:" cms/user/pages/01.home/*.meta.yaml 2>/dev/null | while read f; do
-            alt=$(grep "^alt:" "$f" | head -1)
-            if echo "$alt" | grep -qv "alt: ''$\|alt: $"; then
-              echo "$f → $alt"
-            fi
-          done || echo "Keine meta.yaml mit gesetztem alt gefunden"
-
       - name: Build
         working-directory: frontend
         env:
