@@ -10,7 +10,7 @@ const gravPagesDir = path.resolve(import.meta.dirname, '../cms/user/pages');
 
 // https://astro.build/config
 export default defineConfig({
-  site: "https://smart-catering.de",
+  site: process.env.SITE_URL,
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
