@@ -17,10 +17,9 @@ const {
   ogImage,
 } = Astro.props;
 
-const canonicalUrl = new URL(Astro.url.pathname, Astro.site ?? "https://smart-catering.de").toString();
-const ogImageAbsoluteUrl = ogImage
-  ? new URL(ogImage, Astro.site ?? "https://smart-catering.de").toString()
-  : undefined;
+const base = Astro.url.origin;
+const canonicalUrl = new URL(Astro.url.pathname, base).toString();
+const ogImageAbsoluteUrl = ogImage ? new URL(ogImage, base).toString() : undefined;
 ---
 
 <!doctype html>
