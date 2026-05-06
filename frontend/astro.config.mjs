@@ -10,7 +10,7 @@ const gravPagesDir = path.resolve(import.meta.dirname, '../cms/user/pages');
 
 // https://astro.build/config
 export default defineConfig({
-  site: process.env.SITE_URL,
+  site: process.env.SITE_URL ?? "https://patricks309.sg-host.com",
   integrations: [sitemap()],
   vite: {
     plugins: [tailwindcss()],
