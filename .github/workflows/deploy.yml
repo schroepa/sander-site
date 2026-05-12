@@ -76,20 +76,16 @@ jobs:
       # von Server-Files, die nicht in der Sync-State stehen. Alle admin-managed
       # Pfade sind explizit excluded.
 
-      - name: Deploy Frontend via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      - name: Deploy Frontend via SFTP
+        uses: burnett01/rsync-deployments@7.0.1
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: frontend/dist/
-          server-dir: ${{ secrets.FTP_PATH }}
-          # SAFETY: cms/ und user/ explizit excluden, falls FTP_PATH überlappt
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/cms/**
-            **/user/**
+          switches: -avzr --delete
+          path: frontend/dist/
+          remote_path: ${{ secrets.SFTP_PATH }}
+          remote_host: ${{ secrets.SFTP_HOST }}
+          remote_user: ${{ secrets.SFTP_USERNAME }}
+          remote_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+          remote_port: 22
 
       - name: Deploy CMS via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
